@@ -1,0 +1,269 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Archivo — Alejandro Vázquez</title>
+<meta name="description" content="Ensayos largos sobre filosofía, economía política y las cosas que se cruzan entre ambas. Sin suscripción, sin lista de correo, sin métricas: esto exis">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,600&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,600;1,6..72,300;1,6..72,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --ground:#EBEDF1; --surface:#F5F6F8; --ink:#141A22; --ink-soft:#58616F;
+  --rule:#D2D8E0; --lamp:#8A5E0F; --lamp-glow:rgba(216,162,74,.16); --shade:rgba(20,26,34,.06);
+  --measure:35rem;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --ground:#0E1218; --surface:#151B23; --ink:#E6E4DF; --ink-soft:#98A0AC;
+    --rule:#242C37; --lamp:#D8A24A; --lamp-glow:rgba(216,162,74,.10); --shade:rgba(230,228,223,.05);
+  }
+}
+:root[data-theme="dark"]{
+  --ground:#0E1218; --surface:#151B23; --ink:#E6E4DF; --ink-soft:#98A0AC;
+  --rule:#242C37; --lamp:#D8A24A; --lamp-glow:rgba(216,162,74,.10); --shade:rgba(230,228,223,.05);
+}
+*{box-sizing:border-box;}
+/* el resplandor del farol es más ancho que la pantalla a propósito;
+   sin esto, en móvil la página se desliza de lado. */
+html{overflow-x:clip;}
+body{
+  background:var(--ground); color:var(--ink);
+  font-family:"Newsreader",Georgia,"Times New Roman",serif;
+  font-size:1.135rem; line-height:1.72; font-weight:300;
+  margin:0; padding:0; overflow-x:hidden;
+  -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
+}
+#bar{position:fixed;top:0;left:0;height:2px;width:0;background:var(--lamp);z-index:60;transition:width .12s linear;}
+.wrap{max-width:var(--measure);margin:0 auto;padding:0 1.5rem 8rem;}
+
+.cover{position:relative;padding:7.5rem 0 4.5rem;}
+.lamp{position:absolute;top:-14rem;left:50%;transform:translateX(-50%);
+  width:min(60rem,150vw);height:34rem;pointer-events:none;
+  background:radial-gradient(ellipse 50% 50% at 50% 50%,var(--lamp-glow),transparent 70%);}
+.eyebrow{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:.68rem;letter-spacing:.19em;
+  text-transform:uppercase;color:var(--ink-soft);margin:0 0 2.1rem;}
+.cover h1{font-family:"Fraunces","Newsreader",Georgia,serif;font-weight:400;
+  font-size:clamp(2.6rem,8.5vw,4.1rem);line-height:1.03;letter-spacing:-.022em;
+  margin:0 0 1.3rem;text-wrap:balance;}
+.subtitle{font-family:"Fraunces",Georgia,serif;font-weight:300;font-style:italic;
+  font-size:clamp(1.15rem,3.4vw,1.42rem);line-height:1.4;color:var(--ink-soft);
+  margin:0 0 2.6rem;text-wrap:balance;}
+.byline{font-family:"IBM Plex Mono",monospace;font-size:.76rem;letter-spacing:.05em;
+  color:var(--ink-soft);margin:0;padding-top:1.5rem;border-top:1px solid var(--rule);}
+.stats{display:flex;gap:2.2rem;flex-wrap:wrap;font-family:"IBM Plex Mono",monospace;
+  font-size:.72rem;letter-spacing:.05em;color:var(--ink-soft);margin:.9rem 0 0;
+  font-variant-numeric:tabular-nums;}
+
+.cartucho{margin:3.5rem 0 1rem;padding:1.9rem 0;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);}
+.cartucho p.lead{font-family:"IBM Plex Mono",monospace;font-size:.68rem;letter-spacing:.17em;
+  text-transform:uppercase;color:var(--ink-soft);margin:0 0 1.5rem;}
+.st-grid{display:grid;gap:1.15rem;}
+.st{display:grid;grid-template-columns:2.6rem 1fr;gap:.9rem;align-items:baseline;
+  text-decoration:none;color:inherit;padding:.45rem .55rem;margin:-.45rem -.55rem;border-radius:2px;}
+a.st:hover,a.st:focus-visible{background:var(--shade);outline:none;}
+a.st:focus-visible{box-shadow:0 0 0 2px var(--lamp);}
+.st .rn{font-family:"IBM Plex Mono",monospace;font-size:.72rem;color:var(--lamp);letter-spacing:.08em;}
+.st .nm{font-family:"Fraunces",Georgia,serif;font-size:1.06rem;font-weight:400;}
+.st .ds{display:block;font-size:.92rem;color:var(--ink-soft);font-style:italic;margin-top:.12rem;}
+
+.abstract{background:var(--surface);border:1px solid var(--rule);border-left:2px solid var(--lamp);
+  padding:1.9rem 1.8rem 1.2rem;margin:0 0 3.2rem;border-radius:2px;}
+.abstract h3{margin:0 0 1.2rem;font-family:"IBM Plex Mono",monospace;font-weight:500;
+  font-size:.72rem;letter-spacing:.17em;text-transform:uppercase;color:var(--lamp);}
+.abstract p{font-size:.985rem;line-height:1.68;color:var(--ink-soft);margin:0 0 1.05rem;}
+.abstract p strong{color:var(--ink);font-weight:600;}
+
+.part{padding-top:1rem;}
+.part-title{font-family:"Fraunces",Georgia,serif;font-weight:400;
+  font-size:clamp(1.75rem,5vw,2.35rem);line-height:1.14;letter-spacing:-.015em;
+  margin:5.5rem 0 2.6rem;padding-top:3rem;border-top:1px solid var(--rule);text-wrap:balance;}
+#introduccion .part-title{display:none;}
+h3{font-family:"Fraunces",Georgia,serif;font-weight:600;font-size:1.24rem;line-height:1.3;
+  letter-spacing:-.005em;margin:3.2rem 0 1.1rem;text-wrap:balance;}
+h4{font-family:"IBM Plex Mono",monospace;font-weight:500;font-size:.74rem;letter-spacing:.15em;
+  text-transform:uppercase;color:var(--ink-soft);margin:2.4rem 0 1rem;}
+p{margin:0 0 1.35rem;}
+strong{font-weight:600;color:var(--ink);}
+em{font-style:italic;}
+blockquote{margin:2.5rem 0;padding:0 0 0 1.6rem;border-left:2px solid var(--lamp);
+  font-family:"Fraunces",Georgia,serif;font-size:1.24rem;line-height:1.45;font-weight:300;
+  color:var(--ink);text-wrap:pretty;}
+blockquote strong{font-weight:600;}
+.nota-final{color:var(--ink-soft);font-size:.86rem;line-height:1.62;}
+
+#rail{position:fixed;top:50%;transform:translateY(-50%);left:2.2rem;z-index:40;display:none;}
+#rail ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:.15rem;}
+#rail a{display:grid;grid-template-columns:1.6rem 1fr;gap:.55rem;align-items:baseline;
+  text-decoration:none;color:var(--ink-soft);padding:.42rem .5rem;border-radius:2px;
+  border-left:2px solid transparent;transition:color .2s,border-color .2s;}
+#rail a:hover{color:var(--ink);}
+#rail a:focus-visible{outline:none;box-shadow:0 0 0 2px var(--lamp);}
+#rail a.on{color:var(--ink);border-left-color:var(--lamp);}
+#rail .num{font-family:"IBM Plex Mono",monospace;font-size:.62rem;letter-spacing:.1em;text-align:right;opacity:.8;}
+#rail .lbl{font-family:"IBM Plex Mono",monospace;font-size:.66rem;letter-spacing:.11em;text-transform:uppercase;}
+@media (min-width:1180px){#rail{display:block;}}
+
+.topbar{position:fixed;top:1.15rem;right:1.15rem;z-index:50;display:flex;gap:.5rem;}
+.topbar a,.topbar button{background:var(--surface);color:var(--ink-soft);border:1px solid var(--rule);
+  font-family:"IBM Plex Mono",monospace;font-size:.62rem;letter-spacing:.13em;text-transform:uppercase;
+  padding:.5rem .75rem;border-radius:2px;cursor:pointer;text-decoration:none;
+  transition:color .2s,border-color .2s;display:inline-block;}
+.topbar a:hover,.topbar button:hover{color:var(--ink);border-color:var(--ink-soft);}
+.topbar a:focus-visible,.topbar button:focus-visible{outline:none;box-shadow:0 0 0 2px var(--lamp);}
+
+.end{margin-top:5rem;padding-top:2.5rem;border-top:1px solid var(--rule);
+  font-family:"IBM Plex Mono",monospace;font-size:.68rem;letter-spacing:.13em;
+  text-transform:uppercase;color:var(--ink-soft);display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;}
+.end a{color:var(--ink-soft);text-decoration:none;border-bottom:1px solid var(--rule);}
+.end a:hover{color:var(--lamp);border-color:var(--lamp);}
+html{scroll-behavior:smooth;}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto;} *{transition:none!important;}}
+@media (max-width:640px){body{font-size:1.08rem;} .cover{padding-top:5rem;}}
+
+/* ── figuras, tablas y listas ─────────────────────────────────────────
+   Rompen el ancho de lectura: una gráfica de datos a 35rem es ilegible.
+   El pie se queda en tipografía mono, como el resto del aparato.        */
+figure.fig{margin:3.6rem 0;width:min(50rem,92vw);margin-left:50%;transform:translateX(-50%);}
+figure.fig img{width:100%;height:auto;display:block;border:1px solid var(--rule);border-radius:2px;}
+figcaption{font-family:"IBM Plex Mono",monospace;font-size:.715rem;line-height:1.6;
+  color:var(--ink-soft);margin:.95rem 0 0;padding-left:.1rem;}
+figcaption .n{color:var(--lamp);letter-spacing:.06em;}
+
+.tabla{margin:3.2rem 0;width:min(50rem,92vw);margin-left:50%;transform:translateX(-50%);}
+.tabla-scroll{overflow-x:auto;border:1px solid var(--rule);border-radius:2px;
+  -webkit-overflow-scrolling:touch;}
+.tabla table{border-collapse:collapse;width:100%;font-family:"IBM Plex Mono",monospace;
+  font-size:.755rem;line-height:1.52;font-variant-numeric:tabular-nums;}
+.tabla th,.tabla td{padding:.6rem .8rem;text-align:left;vertical-align:top;
+  border-bottom:1px solid var(--rule);}
+.tabla th{color:var(--lamp);font-weight:500;font-size:.665rem;letter-spacing:.1em;
+  text-transform:uppercase;background:var(--surface);white-space:nowrap;}
+.tabla tbody tr:last-child td{border-bottom:none;}
+.tabla td strong{color:var(--ink);}
+.tabla caption{caption-side:bottom;}
+
+/* recuadro: la celda única con que Word marcaba los apartes del ensayo
+   (◆ veredictos, diseños de demostración, epígrafes) */
+aside.recuadro{background:var(--surface);border:1px solid var(--rule);
+  border-left:2px solid var(--lamp);padding:1.5rem 1.6rem 1.1rem;margin:2.8rem 0;border-radius:2px;}
+aside.recuadro p{font-size:.985rem;line-height:1.66;color:var(--ink-soft);margin:0 0 1rem;}
+aside.recuadro p:last-child{margin-bottom:0;}
+aside.recuadro p strong{color:var(--ink);}
+aside.recuadro .marca{font-family:"IBM Plex Mono",monospace;font-size:.68rem;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--lamp);display:block;margin:0 0 .9rem;}
+
+ul{margin:0 0 1.5rem;padding-left:1.15rem;}
+li{margin:0 0 .62rem;padding-left:.2rem;}
+li::marker{color:var(--lamp);}
+
+@media (max-width:900px){
+  figure.fig,.tabla{width:92vw;}
+}
+
+/* ── escala de escritorio ─────────────────────────────────────────────
+   El móvil ya estaba bien y no se toca. De 1024px para arriba la página
+   crece: la letra sube ~25%, la columna crece con ella para conservar el
+   largo de línea (~62 caracteres, que es donde la lectura larga cansa
+   menos), y el aire lateral y vertical se duplica.                     */
+@media (min-width:1024px){
+  :root{--measure:44rem;}
+  body{font-size:1.42rem;line-height:1.74;}
+  .wrap{padding:0 3rem 11rem;}
+  .cover{padding:9rem 0 5.5rem;}
+  .cover h1{font-size:clamp(3.4rem,6vw,4.8rem);}
+  .subtitle{font-size:1.62rem;}
+  p{margin:0 0 1.6rem;}
+  h3{font-size:1.46rem;margin:4rem 0 1.3rem;}
+  .part-title{margin:7rem 0 3.2rem;padding-top:3.6rem;}
+  blockquote{font-size:1.44rem;margin:3rem 0;padding-left:2rem;}
+  figure.fig,.tabla{width:min(60rem,90vw);}
+  figcaption{font-size:.8rem;}
+  .tabla table{font-size:.85rem;}
+  .tabla th{font-size:.72rem;}
+  .tabla th,.tabla td{padding:.72rem .95rem;}
+  aside.recuadro{padding:2rem 2.1rem 1.5rem;margin:3.4rem 0;}
+  aside.recuadro p{font-size:1.16rem;line-height:1.7;}
+  .abstract{padding:2.3rem 2.2rem 1.5rem;}
+  .abstract p{font-size:1.16rem;line-height:1.72;}
+  li{margin:0 0 .75rem;}
+  ul{padding-left:1.4rem;}
+}
+@media (min-width:1500px){
+  :root{--measure:47rem;}
+  body{font-size:1.5rem;}
+  figure.fig,.tabla{width:min(64rem,86vw);}
+}
+
+.piezas{margin:4rem 0 0;display:flex;flex-direction:column;gap:0;}
+.pieza{display:block;text-decoration:none;color:inherit;padding:2.6rem 1.2rem 2.6rem;
+  margin:0 -1.2rem;border-top:1px solid var(--rule);transition:background .16s ease;}
+.pieza:last-child{border-bottom:1px solid var(--rule);}
+.pieza:hover,.pieza:focus-visible{background:var(--shade);outline:none;}
+.pieza:focus-visible{box-shadow:0 0 0 2px var(--lamp);}
+.pieza .p-num{font-family:"IBM Plex Mono",monospace;font-size:.7rem;color:var(--lamp);
+  letter-spacing:.14em;display:block;margin-bottom:.9rem;}
+.pieza h2{font-family:"Fraunces",Georgia,serif;font-weight:400;font-size:1.85rem;
+  line-height:1.16;margin:0 0 .35rem;letter-spacing:-.01em;}
+.pieza .p-sub{font-family:"Fraunces",Georgia,serif;font-style:italic;font-weight:300;
+  font-size:1.06rem;color:var(--ink-soft);margin:0 0 1.1rem;}
+.pieza .p-res{font-size:.97rem;line-height:1.66;color:var(--ink-soft);margin:0 0 1.2rem;}
+.pieza .p-meta{display:flex;gap:1.6rem;flex-wrap:wrap;font-family:"IBM Plex Mono",monospace;
+  font-size:.68rem;letter-spacing:.09em;color:var(--ink-soft);text-transform:uppercase;}
+.pieza .p-leer{color:var(--lamp);}
+.nota-portada{font-size:1rem;line-height:1.7;color:var(--ink-soft);
+  margin:2.6rem 0 0;max-width:32rem;}
+@media (min-width:1024px){
+  .pieza h2{font-size:2.3rem;}
+  .pieza .p-res{font-size:1.06rem;}
+}
+</style>
+
+<div class="topbar"><button id="toggle" type="button" aria-label="Cambiar tema">Tema</button></div>
+
+<main class="wrap">
+<header class="cover" id="portada">
+  <div class="lamp" aria-hidden="true"></div>
+  <p class="eyebrow">Alejandro Vázquez</p>
+  <h1>Archivo</h1>
+  <p class="subtitle">Lo que voy escribiendo</p>
+  <p class="nota-portada">Ensayos largos sobre filosofía, economía política y las cosas que se cruzan entre ambas. Sin suscripción, sin lista de correo, sin métricas: esto existe para tener orden y para poder enseñar el trabajo a quien vaya conociendo.</p>
+</header>
+
+<section class="piezas">
+<a class="pieza" href="el-capitalismo/">
+  <span class="p-num">02</span>
+  <h2>El capitalismo a juicio</h2>
+  <p class="p-sub">Prosperidad, desigualdad y los límites de la acumulación</p>
+  <p class="p-res">Un expediente en cuatro tiempos: la defensa del sistema con las cifras que nadie niega, la acusación por concentración y captura de las reglas, la tesis del capitalismo limitado, y la prueba empírica —México 1982–2025, dos regímenes y datos oficiales—.</p>
+  <p class="p-meta"><span>Economía política · agosto 2026</span>
+    <span>25,800 palabras · 11 figuras · 17 tablas</span>
+    <span class="p-leer">Leer &rarr;</span></p>
+</a>
+<a class="pieza" href="sisifo-despierto/">
+  <span class="p-num">01</span>
+  <h2>Imaginar a Sísifo despierto</h2>
+  <p class="p-sub">El sinsentido, el absurdo y la angustia</p>
+  <p class="p-res">Tres palabras que usamos como sinónimos nombran cosas distintas, y confundirlas arruina la discusión. Puerta, paisaje y postura: de Kierkegaard a Camus, en el orden en que le ocurren a una persona y no en el orden histórico.</p>
+  <p class="p-meta"><span>Filosofía · agosto 2026</span>
+    <span>15,326 palabras · tres movimientos y una coda</span>
+    <span class="p-leer">Leer &rarr;</span></p>
+</a>
+</section>
+
+  <footer class="end">
+    <span>Alejandro Vázquez · 2026</span>
+    <a href="#portada">Volver al inicio &uarr;</a>
+  </footer>
+</main>
+
+<script>
+(function(){
+  var t=document.getElementById('toggle');
+  t.addEventListener('click',function(){
+    var r=document.documentElement,cur=r.getAttribute('data-theme');
+    if(!cur){cur=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';}
+    var nx=cur==='dark'?'light':'dark';r.setAttribute('data-theme',nx);
+    try{localStorage.setItem('av-tema',nx);}catch(e){}
+  });
+  try{var sv=localStorage.getItem('av-tema');if(sv)document.documentElement.setAttribute('data-theme',sv);}catch(e){}
+})();
+</script>
