@@ -1,5 +1,7 @@
+<!doctype html>
+<html lang="es">
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Archivo — Alejandro Vázquez</title>
 <meta name="description" content="Ensayos largos sobre filosofía, economía política y las cosas que se cruzan entre ambas. Sin suscripción, sin lista de correo, sin métricas: esto exis">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -29,7 +31,7 @@ body{
   background:var(--ground); color:var(--ink);
   font-family:"Newsreader",Georgia,"Times New Roman",serif;
   font-size:1.135rem; line-height:1.72; font-weight:300;
-  margin:0; padding:0; overflow-x:hidden;
+  margin:0; padding:0; overflow-x:hidden; overflow-wrap:break-word;
   -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
 }
 #bar{position:fixed;top:0;left:0;height:2px;width:0;background:var(--lamp);z-index:60;transition:width .12s linear;}
@@ -102,11 +104,16 @@ blockquote strong{font-weight:600;}
 #rail .lbl{font-family:"IBM Plex Mono",monospace;font-size:.66rem;letter-spacing:.11em;text-transform:uppercase;}
 @media (min-width:1180px){#rail{display:block;}}
 
-.topbar{position:fixed;top:1.15rem;right:1.15rem;z-index:50;display:flex;gap:.5rem;}
+.topbar{position:fixed;top:1.15rem;right:1.15rem;z-index:50;display:flex;gap:.5rem;
+  transition:transform .28s ease,opacity .28s ease;}
+/* en móvil la columna ocupa todo el ancho y la barra fija caía encima del
+   texto. Se esconde al bajar y vuelve en cuanto se hace el gesto de subir. */
+.topbar.oculta{transform:translateY(-160%);opacity:0;pointer-events:none;}
 .topbar a,.topbar button{background:var(--surface);color:var(--ink-soft);border:1px solid var(--rule);
   font-family:"IBM Plex Mono",monospace;font-size:.62rem;letter-spacing:.13em;text-transform:uppercase;
-  padding:.5rem .75rem;border-radius:2px;cursor:pointer;text-decoration:none;
-  transition:color .2s,border-color .2s;display:inline-block;}
+  padding:.5rem .8rem;border-radius:2px;cursor:pointer;text-decoration:none;
+  transition:color .2s,border-color .2s;display:inline-flex;align-items:center;
+  min-height:2.6rem;}
 .topbar a:hover,.topbar button:hover{color:var(--ink);border-color:var(--ink-soft);}
 .topbar a:focus-visible,.topbar button:focus-visible{outline:none;box-shadow:0 0 0 2px var(--lamp);}
 
@@ -117,7 +124,42 @@ blockquote strong{font-weight:600;}
 .end a:hover{color:var(--lamp);border-color:var(--lamp);}
 html{scroll-behavior:smooth;}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto;} *{transition:none!important;}}
-@media (max-width:640px){body{font-size:1.08rem;} .cover{padding-top:5rem;}}
+/* ── lectura en móvil ─────────────────────────────────────────────────
+   Hasta el 2026-08-25 estas reglas eran letra muerta: la página no
+   declaraba <meta viewport>, así que el teléfono la componía a 980px y la
+   encogía entera. El resultado era un escritorio en miniatura —letra de
+   7px efectivos y media pantalla de margen desperdiciado— y al hacer zoom
+   el texto se salía de lado, porque el documento seguía midiendo 980px.
+   Con el viewport puesto, el móvil deja de ser un escritorio encogido y
+   pasa a merecer su propia medida. Aquí está.                          */
+@media (max-width:640px){
+  body{font-size:1.16rem;line-height:1.70;}
+  /* el español encadena palabras largas; en una columna de ~330px sin
+     guionado la línea queda con agujeros. */
+  p,li,.abstract p,aside.recuadro p,.st .ds{hyphens:auto;-webkit-hyphens:auto;}
+  .wrap{padding:0 1.3rem 5rem;}
+  .cover{padding:4.6rem 0 3rem;}
+  .cover h1{font-size:clamp(2.3rem,9.5vw,3.1rem);letter-spacing:-.02em;}
+  .subtitle{font-size:1.18rem;margin-bottom:2rem;}
+  .eyebrow{margin-bottom:1.6rem;}
+  .stats{gap:.4rem 1.4rem;font-size:.7rem;}
+  .cartucho{margin:2.6rem 0 .5rem;padding:1.5rem 0;}
+  .st .nm{font-size:1.1rem;}
+  .st .ds{font-size:.95rem;}
+  .abstract{padding:1.4rem 1.25rem .9rem;margin-bottom:2.6rem;}
+  .abstract p{font-size:1.04rem;line-height:1.66;}
+  .part-title{font-size:1.9rem;margin:4rem 0 2rem;padding-top:2.4rem;}
+  h3{font-size:1.28rem;margin:2.7rem 0 .9rem;}
+  blockquote{font-size:1.2rem;margin:2rem 0;padding-left:1.2rem;}
+  figure.fig,.tabla{width:94vw;}
+  figcaption{font-size:.735rem;}
+  .tabla table{font-size:.8rem;}
+  .tabla th{font-size:.7rem;}
+  .tabla th,.tabla td{padding:.55rem .7rem;}
+  aside.recuadro{padding:1.25rem 1.2rem .9rem;margin:2.2rem 0;}
+  aside.recuadro p{font-size:1.04rem;}
+  .end{margin-top:3.5rem;}
+}
 
 /* ── figuras, tablas y listas ─────────────────────────────────────────
    Rompen el ancho de lectura: una gráfica de datos a 35rem es ilegible.
@@ -215,6 +257,15 @@ li::marker{color:var(--lamp);}
   .pieza h2{font-size:2.3rem;}
   .pieza .p-res{font-size:1.06rem;}
 }
+@media (max-width:640px){
+  .pieza{padding:2rem .9rem;margin:0 -.9rem;}
+  .pieza h2{font-size:1.62rem;}
+  .pieza .p-sub{font-size:1rem;}
+  .pieza .p-res{font-size:1.04rem;line-height:1.64;hyphens:auto;-webkit-hyphens:auto;}
+  .pieza .p-meta{gap:.4rem 1.2rem;font-size:.66rem;}
+  .nota-portada{font-size:1.04rem;margin-top:2rem;}
+  .piezas{margin-top:2.8rem;}
+}
 </style>
 
 <div class="topbar"><button id="toggle" type="button" aria-label="Cambiar tema">Tema</button></div>
@@ -267,3 +318,4 @@ li::marker{color:var(--lamp);}
   try{var sv=localStorage.getItem('av-tema');if(sv)document.documentElement.setAttribute('data-theme',sv);}catch(e){}
 })();
 </script>
+</html>
