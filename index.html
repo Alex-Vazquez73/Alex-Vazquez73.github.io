@@ -3,306 +3,177 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Archivo — Alejandro Vázquez</title>
-<meta name="description" content="Ensayos largos sobre filosofía, economía política y las cosas que se cruzan entre ambas. Sin suscripción, sin lista de correo, sin métricas: esto exis">
+<meta name="description" content="Ensayos de filosofía, economía y ciencia. Se escriben para entender algo, no para convencer a nadie; si de paso incomodan un poco, mejor.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,600&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,600;1,6..72,300;1,6..72,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
 <style>
 :root{
   --ground:#EBEDF1; --surface:#F5F6F8; --ink:#141A22; --ink-soft:#58616F;
-  --rule:#D2D8E0; --lamp:#8A5E0F; --lamp-glow:rgba(216,162,74,.16); --shade:rgba(20,26,34,.06);
-  --measure:35rem;
+  --rule:#D2D8E0; --lamp:#8A5E0F; --lamp-glow:rgba(216,162,74,.16); --shade:rgba(20,26,34,.05);
 }
 @media (prefers-color-scheme:dark){
   :root:not([data-theme="light"]){
     --ground:#0E1218; --surface:#151B23; --ink:#E6E4DF; --ink-soft:#98A0AC;
-    --rule:#242C37; --lamp:#D8A24A; --lamp-glow:rgba(216,162,74,.10); --shade:rgba(230,228,223,.05);
+    --rule:#242C37; --lamp:#D8A24A; --lamp-glow:rgba(216,162,74,.10); --shade:rgba(230,228,223,.04);
   }
 }
 :root[data-theme="dark"]{
   --ground:#0E1218; --surface:#151B23; --ink:#E6E4DF; --ink-soft:#98A0AC;
-  --rule:#242C37; --lamp:#D8A24A; --lamp-glow:rgba(216,162,74,.10); --shade:rgba(230,228,223,.05);
+  --rule:#242C37; --lamp:#D8A24A; --lamp-glow:rgba(216,162,74,.10); --shade:rgba(230,228,223,.04);
 }
 *{box-sizing:border-box;}
-/* el resplandor del farol es más ancho que la pantalla a propósito;
-   sin esto, en móvil la página se desliza de lado. */
 html{overflow-x:clip;}
-body{
-  background:var(--ground); color:var(--ink);
+body{background:var(--ground);color:var(--ink);
   font-family:"Newsreader",Georgia,"Times New Roman",serif;
-  font-size:1.135rem; line-height:1.72; font-weight:300;
-  margin:0; padding:0; overflow-x:hidden; overflow-wrap:break-word;
-  -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
-}
-#bar{position:fixed;top:0;left:0;height:2px;width:0;background:var(--lamp);z-index:60;transition:width .12s linear;}
-.wrap{max-width:var(--measure);margin:0 auto;padding:0 1.5rem 8rem;}
+  font-size:1.09rem;line-height:1.68;font-weight:300;margin:0;padding:0;overflow-x:hidden;
+  overflow-wrap:break-word;
+  -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;}
+.wrap{max-width:46rem;margin:0 auto;padding:0 1.5rem 7rem;}
 
-.cover{position:relative;padding:7.5rem 0 4.5rem;}
-.lamp{position:absolute;top:-14rem;left:50%;transform:translateX(-50%);
-  width:min(60rem,150vw);height:34rem;pointer-events:none;
+.hero{position:relative;padding:7rem 0 3.5rem;}
+.lamp{position:absolute;top:-15rem;left:50%;transform:translateX(-50%);
+  width:min(64rem,155vw);height:36rem;pointer-events:none;
   background:radial-gradient(ellipse 50% 50% at 50% 50%,var(--lamp-glow),transparent 70%);}
 .eyebrow{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:.68rem;letter-spacing:.19em;
-  text-transform:uppercase;color:var(--ink-soft);margin:0 0 2.1rem;}
-.cover h1{font-family:"Fraunces","Newsreader",Georgia,serif;font-weight:400;
-  font-size:clamp(2.6rem,8.5vw,4.1rem);line-height:1.03;letter-spacing:-.022em;
-  margin:0 0 1.3rem;text-wrap:balance;}
-.subtitle{font-family:"Fraunces",Georgia,serif;font-weight:300;font-style:italic;
-  font-size:clamp(1.15rem,3.4vw,1.42rem);line-height:1.4;color:var(--ink-soft);
-  margin:0 0 2.6rem;text-wrap:balance;}
-.byline{font-family:"IBM Plex Mono",monospace;font-size:.76rem;letter-spacing:.05em;
-  color:var(--ink-soft);margin:0;padding-top:1.5rem;border-top:1px solid var(--rule);}
-.stats{display:flex;gap:2.2rem;flex-wrap:wrap;font-family:"IBM Plex Mono",monospace;
-  font-size:.72rem;letter-spacing:.05em;color:var(--ink-soft);margin:.9rem 0 0;
-  font-variant-numeric:tabular-nums;}
+  text-transform:uppercase;color:var(--ink-soft);margin:0 0 2rem;}
+h1{font-family:"Fraunces","Newsreader",Georgia,serif;font-weight:400;
+  font-size:clamp(2.7rem,9vw,4.3rem);line-height:1.02;letter-spacing:-.025em;margin:0 0 1.5rem;}
+.lede{font-family:"Fraunces",Georgia,serif;font-weight:300;font-style:italic;
+  font-size:clamp(1.1rem,3.2vw,1.34rem);line-height:1.45;color:var(--ink-soft);
+  margin:0;max-width:32rem;text-wrap:pretty;}
 
-.cartucho{margin:3.5rem 0 1rem;padding:1.9rem 0;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);}
-.cartucho p.lead{font-family:"IBM Plex Mono",monospace;font-size:.68rem;letter-spacing:.17em;
-  text-transform:uppercase;color:var(--ink-soft);margin:0 0 1.5rem;}
-.st-grid{display:grid;gap:1.15rem;}
-.st{display:grid;grid-template-columns:2.6rem 1fr;gap:.9rem;align-items:baseline;
-  text-decoration:none;color:inherit;padding:.45rem .55rem;margin:-.45rem -.55rem;border-radius:2px;}
-a.st:hover,a.st:focus-visible{background:var(--shade);outline:none;}
-a.st:focus-visible{box-shadow:0 0 0 2px var(--lamp);}
-.st .rn{font-family:"IBM Plex Mono",monospace;font-size:.72rem;color:var(--lamp);letter-spacing:.08em;}
-.st .nm{font-family:"Fraunces",Georgia,serif;font-size:1.06rem;font-weight:400;}
-.st .ds{display:block;font-size:.92rem;color:var(--ink-soft);font-style:italic;margin-top:.12rem;}
+/* AÑADIDO — el aviso del espejo, con los tokens de siempre */
+.aviso{background:var(--surface);border:1px solid var(--rule);
+  border-left:2px solid var(--lamp);border-radius:2px;
+  padding:1.05rem 1.2rem;margin:4.5rem 0 0;
+  font-family:"IBM Plex Mono",monospace;font-size:.75rem;line-height:1.7;
+  color:var(--ink-soft);}
+.aviso strong{color:var(--ink);font-weight:500;}
+.aviso a{color:var(--lamp);text-decoration:none;border-bottom:1px solid var(--lamp);
+  word-break:break-word;}
+.aviso a:hover{color:var(--ink);border-color:var(--ink);}
+.con-aviso .hero{padding-top:3rem;}
 
-.abstract{background:var(--surface);border:1px solid var(--rule);border-left:2px solid var(--lamp);
-  padding:1.9rem 1.8rem 1.2rem;margin:0 0 3.2rem;border-radius:2px;}
-.abstract h3{margin:0 0 1.2rem;font-family:"IBM Plex Mono",monospace;font-weight:500;
-  font-size:.72rem;letter-spacing:.17em;text-transform:uppercase;color:var(--lamp);}
-.abstract p{font-size:.985rem;line-height:1.68;color:var(--ink-soft);margin:0 0 1.05rem;}
-.abstract p strong{color:var(--ink);font-weight:600;}
+.section-label{font-family:"IBM Plex Mono",monospace;font-size:.68rem;letter-spacing:.17em;
+  text-transform:uppercase;color:var(--ink-soft);margin:0 0 1.8rem;
+  padding-top:2.2rem;border-top:1px solid var(--rule);
+  display:flex;justify-content:space-between;gap:1rem;}
+.section-label .count{font-variant-numeric:tabular-nums;}
 
-.part{padding-top:1rem;}
-.part-title{font-family:"Fraunces",Georgia,serif;font-weight:400;
-  font-size:clamp(1.75rem,5vw,2.35rem);line-height:1.14;letter-spacing:-.015em;
-  margin:5.5rem 0 2.6rem;padding-top:3rem;border-top:1px solid var(--rule);text-wrap:balance;}
-#introduccion .part-title{display:none;}
-h3{font-family:"Fraunces",Georgia,serif;font-weight:600;font-size:1.24rem;line-height:1.3;
-  letter-spacing:-.005em;margin:3.2rem 0 1.1rem;text-wrap:balance;}
-h4{font-family:"IBM Plex Mono",monospace;font-weight:500;font-size:.74rem;letter-spacing:.15em;
-  text-transform:uppercase;color:var(--ink-soft);margin:2.4rem 0 1rem;}
-p{margin:0 0 1.35rem;}
-strong{font-weight:600;color:var(--ink);}
-em{font-style:italic;}
-blockquote{margin:2.5rem 0;padding:0 0 0 1.6rem;border-left:2px solid var(--lamp);
-  font-family:"Fraunces",Georgia,serif;font-size:1.24rem;line-height:1.45;font-weight:300;
-  color:var(--ink);text-wrap:pretty;}
-blockquote strong{font-weight:600;}
-.nota-final{color:var(--ink-soft);font-size:.86rem;line-height:1.62;}
+.piezas{display:flex;flex-direction:column;gap:0;margin:0 0 4.5rem;list-style:none;padding:0;}
+.pieza a{display:block;text-decoration:none;color:inherit;
+  padding:2rem 1.1rem;margin:0 -1.1rem;border-radius:3px;
+  border-bottom:1px solid var(--rule);transition:background .18s;}
+.pieza:last-child a{border-bottom:none;}
+.pieza a:hover,.pieza a:focus-visible{background:var(--shade);outline:none;}
+.pieza a:focus-visible{box-shadow:inset 0 0 0 2px var(--lamp);}
+.meta{font-family:"IBM Plex Mono",monospace;font-size:.65rem;letter-spacing:.13em;
+  text-transform:uppercase;color:var(--ink-soft);margin:0 0 .75rem;
+  display:flex;gap:1.4rem;flex-wrap:wrap;font-variant-numeric:tabular-nums;}
+.meta .kind{color:var(--lamp);}
+.pieza h2{font-family:"Fraunces",Georgia,serif;font-weight:400;font-size:1.72rem;
+  line-height:1.15;letter-spacing:-.012em;margin:0 0 .5rem;text-wrap:balance;}
+.pieza .sub{font-family:"Fraunces",Georgia,serif;font-style:italic;font-weight:300;
+  font-size:1.02rem;color:var(--ink-soft);margin:0 0 1rem;line-height:1.38;text-wrap:pretty;}
+.pieza p.blurb{margin:0 0 1rem;font-size:1.01rem;line-height:1.62;}
+.leer{font-family:"IBM Plex Mono",monospace;font-size:.66rem;letter-spacing:.15em;
+  text-transform:uppercase;color:var(--lamp);display:inline-flex;gap:.4rem;align-items:center;}
+.pieza a:hover .leer{gap:.75rem;}
+.leer span{transition:none;}
 
-#rail{position:fixed;top:50%;transform:translateY(-50%);left:2.2rem;z-index:40;display:none;}
-#rail ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:.15rem;}
-#rail a{display:grid;grid-template-columns:1.6rem 1fr;gap:.55rem;align-items:baseline;
-  text-decoration:none;color:var(--ink-soft);padding:.42rem .5rem;border-radius:2px;
-  border-left:2px solid transparent;transition:color .2s,border-color .2s;}
-#rail a:hover{color:var(--ink);}
-#rail a:focus-visible{outline:none;box-shadow:0 0 0 2px var(--lamp);}
-#rail a.on{color:var(--ink);border-left-color:var(--lamp);}
-#rail .num{font-family:"IBM Plex Mono",monospace;font-size:.62rem;letter-spacing:.1em;text-align:right;opacity:.8;}
-#rail .lbl{font-family:"IBM Plex Mono",monospace;font-size:.66rem;letter-spacing:.11em;text-transform:uppercase;}
-@media (min-width:1180px){#rail{display:block;}}
+.nota{background:var(--surface);border:1px solid var(--rule);border-left:2px solid var(--lamp);
+  padding:1.7rem 1.7rem 1.1rem;border-radius:2px;margin:0 0 3rem;}
+.nota p{margin:0 0 .9rem;font-size:.97rem;line-height:1.65;color:var(--ink-soft);}
+.nota p:last-child{margin-bottom:0;}
+.nota strong{color:var(--ink);font-weight:600;}
 
-.topbar{position:fixed;top:1.15rem;right:1.15rem;z-index:50;display:flex;gap:.5rem;
-  transition:transform .28s ease,opacity .28s ease;}
-/* en móvil la columna ocupa todo el ancho y la barra fija caía encima del
-   texto. Se esconde al bajar y vuelve en cuanto se hace el gesto de subir. */
-.topbar.oculta{transform:translateY(-160%);opacity:0;pointer-events:none;}
-.topbar a,.topbar button{background:var(--surface);color:var(--ink-soft);border:1px solid var(--rule);
+.end{padding-top:2.4rem;border-top:1px solid var(--rule);
+  font-family:"IBM Plex Mono",monospace;font-size:.66rem;letter-spacing:.13em;
+  text-transform:uppercase;color:var(--ink-soft);
+  display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;}
+
+#toggle{position:fixed;top:1.15rem;right:1.15rem;z-index:50;
+  background:var(--surface);color:var(--ink-soft);border:1px solid var(--rule);
   font-family:"IBM Plex Mono",monospace;font-size:.62rem;letter-spacing:.13em;text-transform:uppercase;
-  padding:.5rem .8rem;border-radius:2px;cursor:pointer;text-decoration:none;
-  transition:color .2s,border-color .2s;display:inline-flex;align-items:center;
-  min-height:2.6rem;}
-.topbar a:hover,.topbar button:hover{color:var(--ink);border-color:var(--ink-soft);}
-.topbar a:focus-visible,.topbar button:focus-visible{outline:none;box-shadow:0 0 0 2px var(--lamp);}
+  padding:.5rem .8rem;border-radius:2px;cursor:pointer;transition:color .2s,border-color .2s;
+  display:inline-flex;align-items:center;min-height:2.6rem;}
+#toggle:hover{color:var(--ink);border-color:var(--ink-soft);}
+#toggle:focus-visible{outline:none;box-shadow:0 0 0 2px var(--lamp);}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;}}
 
-.end{margin-top:5rem;padding-top:2.5rem;border-top:1px solid var(--rule);
-  font-family:"IBM Plex Mono",monospace;font-size:.68rem;letter-spacing:.13em;
-  text-transform:uppercase;color:var(--ink-soft);display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;}
-.end a{color:var(--ink-soft);text-decoration:none;border-bottom:1px solid var(--rule);}
-.end a:hover{color:var(--lamp);border-color:var(--lamp);}
-html{scroll-behavior:smooth;}
-@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto;} *{transition:none!important;}}
-/* ── lectura en móvil ─────────────────────────────────────────────────
-   Hasta el 2026-08-25 estas reglas eran letra muerta: la página no
-   declaraba <meta viewport>, así que el teléfono la componía a 980px y la
-   encogía entera. El resultado era un escritorio en miniatura —letra de
-   7px efectivos y media pantalla de margen desperdiciado— y al hacer zoom
-   el texto se salía de lado, porque el documento seguía midiendo 980px.
-   Con el viewport puesto, el móvil deja de ser un escritorio encogido y
-   pasa a merecer su propia medida. Aquí está.                          */
+/* AÑADIDO — lectura en móvil. La versión original bajaba la letra a 1.05rem,
+   que para leer en teléfono va en la dirección contraria. Aquí sube. */
 @media (max-width:640px){
-  body{font-size:1.16rem;line-height:1.70;}
-  /* el español encadena palabras largas; en una columna de ~330px sin
-     guionado la línea queda con agujeros. */
-  p,li,.abstract p,aside.recuadro p,.st .ds{hyphens:auto;-webkit-hyphens:auto;}
-  .wrap{padding:0 1.3rem 5rem;}
-  .cover{padding:4.6rem 0 3rem;}
-  .cover h1{font-size:clamp(2.3rem,9.5vw,3.1rem);letter-spacing:-.02em;}
-  .subtitle{font-size:1.18rem;margin-bottom:2rem;}
-  .eyebrow{margin-bottom:1.6rem;}
-  .stats{gap:.4rem 1.4rem;font-size:.7rem;}
-  .cartucho{margin:2.6rem 0 .5rem;padding:1.5rem 0;}
-  .st .nm{font-size:1.1rem;}
-  .st .ds{font-size:.95rem;}
-  .abstract{padding:1.4rem 1.25rem .9rem;margin-bottom:2.6rem;}
-  .abstract p{font-size:1.04rem;line-height:1.66;}
-  .part-title{font-size:1.9rem;margin:4rem 0 2rem;padding-top:2.4rem;}
-  h3{font-size:1.28rem;margin:2.7rem 0 .9rem;}
-  blockquote{font-size:1.2rem;margin:2rem 0;padding-left:1.2rem;}
-  figure.fig,.tabla{width:94vw;}
-  figcaption{font-size:.735rem;}
-  .tabla table{font-size:.8rem;}
-  .tabla th{font-size:.7rem;}
-  .tabla th,.tabla td{padding:.55rem .7rem;}
-  aside.recuadro{padding:1.25rem 1.2rem .9rem;margin:2.2rem 0;}
-  aside.recuadro p{font-size:1.04rem;}
-  .end{margin-top:3.5rem;}
+  body{font-size:1.14rem;}
+  .wrap{padding:0 1.3rem 4.5rem;}
+  .hero{padding:4.6rem 0 2.6rem;}
+  .con-aviso .hero{padding-top:2.2rem;}
+  .aviso{margin-top:4rem;font-size:.72rem;padding:.95rem 1rem;}
+  .lede{font-size:1.16rem;}
+  .pieza a{padding:1.8rem .9rem;margin:0 -.9rem;}
+  .pieza h2{font-size:1.55rem;}
+  .pieza .sub{font-size:1rem;}
+  .pieza p.blurb{font-size:1.05rem;line-height:1.64;hyphens:auto;-webkit-hyphens:auto;}
+  .nota{padding:1.35rem 1.3rem .9rem;}
+  .nota p{font-size:1.02rem;hyphens:auto;-webkit-hyphens:auto;}
+  .meta{gap:.35rem 1.2rem;}
+  .end{font-size:.63rem;}
 }
-
-/* ── figuras, tablas y listas ─────────────────────────────────────────
-   Rompen el ancho de lectura: una gráfica de datos a 35rem es ilegible.
-   El pie se queda en tipografía mono, como el resto del aparato.        */
-figure.fig{margin:3.6rem 0;width:min(50rem,92vw);margin-left:50%;transform:translateX(-50%);}
-figure.fig img{width:100%;height:auto;display:block;border:1px solid var(--rule);border-radius:2px;}
-figcaption{font-family:"IBM Plex Mono",monospace;font-size:.715rem;line-height:1.6;
-  color:var(--ink-soft);margin:.95rem 0 0;padding-left:.1rem;}
-figcaption .n{color:var(--lamp);letter-spacing:.06em;}
-
-.tabla{margin:3.2rem 0;width:min(50rem,92vw);margin-left:50%;transform:translateX(-50%);}
-.tabla-scroll{overflow-x:auto;border:1px solid var(--rule);border-radius:2px;
-  -webkit-overflow-scrolling:touch;}
-.tabla table{border-collapse:collapse;width:100%;font-family:"IBM Plex Mono",monospace;
-  font-size:.755rem;line-height:1.52;font-variant-numeric:tabular-nums;}
-.tabla th,.tabla td{padding:.6rem .8rem;text-align:left;vertical-align:top;
-  border-bottom:1px solid var(--rule);}
-.tabla th{color:var(--lamp);font-weight:500;font-size:.665rem;letter-spacing:.1em;
-  text-transform:uppercase;background:var(--surface);white-space:nowrap;}
-.tabla tbody tr:last-child td{border-bottom:none;}
-.tabla td strong{color:var(--ink);}
-.tabla caption{caption-side:bottom;}
-
-/* recuadro: la celda única con que Word marcaba los apartes del ensayo
-   (◆ veredictos, diseños de demostración, epígrafes) */
-aside.recuadro{background:var(--surface);border:1px solid var(--rule);
-  border-left:2px solid var(--lamp);padding:1.5rem 1.6rem 1.1rem;margin:2.8rem 0;border-radius:2px;}
-aside.recuadro p{font-size:.985rem;line-height:1.66;color:var(--ink-soft);margin:0 0 1rem;}
-aside.recuadro p:last-child{margin-bottom:0;}
-aside.recuadro p strong{color:var(--ink);}
-aside.recuadro .marca{font-family:"IBM Plex Mono",monospace;font-size:.68rem;letter-spacing:.16em;
-  text-transform:uppercase;color:var(--lamp);display:block;margin:0 0 .9rem;}
-
-ul{margin:0 0 1.5rem;padding-left:1.15rem;}
-li{margin:0 0 .62rem;padding-left:.2rem;}
-li::marker{color:var(--lamp);}
-
-@media (max-width:900px){
-  figure.fig,.tabla{width:92vw;}
-}
-
-/* ── escala de escritorio ─────────────────────────────────────────────
-   El móvil ya estaba bien y no se toca. De 1024px para arriba la página
-   crece: la letra sube ~25%, la columna crece con ella para conservar el
-   largo de línea (~62 caracteres, que es donde la lectura larga cansa
-   menos), y el aire lateral y vertical se duplica.                     */
+/* AÑADIDO — un escalón de escritorio, para que el índice no se quede
+   pequeño al lado de los ensayos, que sí lo tienen. */
 @media (min-width:1024px){
-  :root{--measure:44rem;}
-  body{font-size:1.42rem;line-height:1.74;}
-  .wrap{padding:0 3rem 11rem;}
-  .cover{padding:9rem 0 5.5rem;}
-  .cover h1{font-size:clamp(3.4rem,6vw,4.8rem);}
-  .subtitle{font-size:1.62rem;}
-  p{margin:0 0 1.6rem;}
-  h3{font-size:1.46rem;margin:4rem 0 1.3rem;}
-  .part-title{margin:7rem 0 3.2rem;padding-top:3.6rem;}
-  blockquote{font-size:1.44rem;margin:3rem 0;padding-left:2rem;}
-  figure.fig,.tabla{width:min(60rem,90vw);}
-  figcaption{font-size:.8rem;}
-  .tabla table{font-size:.85rem;}
-  .tabla th{font-size:.72rem;}
-  .tabla th,.tabla td{padding:.72rem .95rem;}
-  aside.recuadro{padding:2rem 2.1rem 1.5rem;margin:3.4rem 0;}
-  aside.recuadro p{font-size:1.16rem;line-height:1.7;}
-  .abstract{padding:2.3rem 2.2rem 1.5rem;}
-  .abstract p{font-size:1.16rem;line-height:1.72;}
-  li{margin:0 0 .75rem;}
-  ul{padding-left:1.4rem;}
-}
-@media (min-width:1500px){
-  :root{--measure:47rem;}
-  body{font-size:1.5rem;}
-  figure.fig,.tabla{width:min(64rem,86vw);}
-}
-
-.piezas{margin:4rem 0 0;display:flex;flex-direction:column;gap:0;}
-.pieza{display:block;text-decoration:none;color:inherit;padding:2.6rem 1.2rem 2.6rem;
-  margin:0 -1.2rem;border-top:1px solid var(--rule);transition:background .16s ease;}
-.pieza:last-child{border-bottom:1px solid var(--rule);}
-.pieza:hover,.pieza:focus-visible{background:var(--shade);outline:none;}
-.pieza:focus-visible{box-shadow:0 0 0 2px var(--lamp);}
-.pieza .p-num{font-family:"IBM Plex Mono",monospace;font-size:.7rem;color:var(--lamp);
-  letter-spacing:.14em;display:block;margin-bottom:.9rem;}
-.pieza h2{font-family:"Fraunces",Georgia,serif;font-weight:400;font-size:1.85rem;
-  line-height:1.16;margin:0 0 .35rem;letter-spacing:-.01em;}
-.pieza .p-sub{font-family:"Fraunces",Georgia,serif;font-style:italic;font-weight:300;
-  font-size:1.06rem;color:var(--ink-soft);margin:0 0 1.1rem;}
-.pieza .p-res{font-size:.97rem;line-height:1.66;color:var(--ink-soft);margin:0 0 1.2rem;}
-.pieza .p-meta{display:flex;gap:1.6rem;flex-wrap:wrap;font-family:"IBM Plex Mono",monospace;
-  font-size:.68rem;letter-spacing:.09em;color:var(--ink-soft);text-transform:uppercase;}
-.pieza .p-leer{color:var(--lamp);}
-.nota-portada{font-size:1rem;line-height:1.7;color:var(--ink-soft);
-  margin:2.6rem 0 0;max-width:32rem;}
-@media (min-width:1024px){
-  .pieza h2{font-size:2.3rem;}
-  .pieza .p-res{font-size:1.06rem;}
-}
-@media (max-width:640px){
-  .pieza{padding:2rem .9rem;margin:0 -.9rem;}
-  .pieza h2{font-size:1.62rem;}
-  .pieza .p-sub{font-size:1rem;}
-  .pieza .p-res{font-size:1.04rem;line-height:1.64;hyphens:auto;-webkit-hyphens:auto;}
-  .pieza .p-meta{gap:.4rem 1.2rem;font-size:.66rem;}
-  .nota-portada{font-size:1.04rem;margin-top:2rem;}
-  .piezas{margin-top:2.8rem;}
+  body{font-size:1.2rem;}
+  .wrap{padding:0 3rem 9rem;}
+  .hero{padding:8.5rem 0 4rem;}
+  .pieza h2{font-size:2.05rem;}
+  .pieza p.blurb{font-size:1.12rem;}
+  .pieza .sub{font-size:1.13rem;}
+  .nota p{font-size:1.06rem;}
 }
 </style>
 
-<div class="topbar"><button id="toggle" type="button" aria-label="Cambiar tema">Tema</button></div>
+<button id="toggle" type="button" aria-label="Cambiar tema">Tema</button>
 
 <main class="wrap">
-<header class="cover" id="portada">
-  <div class="lamp" aria-hidden="true"></div>
-  <p class="eyebrow">Alejandro Vázquez</p>
-  <h1>Archivo</h1>
-  <p class="subtitle">Lo que voy escribiendo</p>
-  <p class="nota-portada">Ensayos largos sobre filosofía, economía política y las cosas que se cruzan entre ambas. Sin suscripción, sin lista de correo, sin métricas: esto existe para tener orden y para poder enseñar el trabajo a quien vaya conociendo.</p>
-</header>
+  <header class="hero">
+    <div class="lamp" aria-hidden="true"></div>
+    <p class="eyebrow">Archivo · Alejandro Vázquez</p>
+    <h1>Lo que voy escribiendo</h1>
+    <p class="lede">Ensayos de filosofía, economía y ciencia. Se escriben para entender algo, no para convencer a nadie; si de paso incomodan un poco, mejor.</p>
+  </header>
 
-<section class="piezas">
-<a class="pieza" href="el-capitalismo/">
-  <span class="p-num">02</span>
-  <h2>El capitalismo a juicio</h2>
-  <p class="p-sub">Prosperidad, desigualdad y los límites de la acumulación</p>
-  <p class="p-res">Un expediente en cuatro tiempos: la defensa del sistema con las cifras que nadie niega, la acusación por concentración y captura de las reglas, la tesis del capitalismo limitado, y la prueba empírica —México 1982–2025, dos regímenes y datos oficiales—.</p>
-  <p class="p-meta"><span>Economía política · agosto 2026</span>
-    <span>25,800 palabras · 11 figuras · 17 tablas</span>
-    <span class="p-leer">Leer &rarr;</span></p>
-</a>
-<a class="pieza" href="sisifo-despierto/">
-  <span class="p-num">01</span>
-  <h2>Imaginar a Sísifo despierto</h2>
-  <p class="p-sub">El sinsentido, el absurdo y la angustia</p>
-  <p class="p-res">Tres palabras que usamos como sinónimos nombran cosas distintas, y confundirlas arruina la discusión. Puerta, paisaje y postura: de Kierkegaard a Camus, en el orden en que le ocurren a una persona y no en el orden histórico.</p>
-  <p class="p-meta"><span>Filosofía · agosto 2026</span>
-    <span>15,326 palabras · tres movimientos y una coda</span>
-    <span class="p-leer">Leer &rarr;</span></p>
-</a>
-</section>
+  <p class="section-label"><span>Publicado</span><span class="count">2 piezas</span></p>
+
+  <ul class="piezas">
+    <li class="pieza">
+      <a href="sisifo-despierto/">
+        <p class="meta"><span class="kind">Filosofía</span><span>Agosto 2026</span><span>~77 min</span></p>
+        <h2>Imaginar a Sísifo despierto</h2>
+        <p class="sub">El sinsentido, el absurdo y la angustia</p>
+        <p class="blurb">Tres palabras que usamos como sinónimos y no lo son: la angustia es cómo se siente, el sinsentido es qué se ve, el absurdo es qué se hace. De Kierkegaard a Camus, y una sospecha propia — que nuestra época hizo que cada uno de los tres hallazgos dejara de doler sin haberlo resuelto nunca.</p>
+        <p class="leer"><span>Leer</span><span>&rarr;</span></p>
+      </a>
+    </li>
+    <li class="pieza">
+      <a href="el-capitalismo/">
+        <p class="meta"><span class="kind">Economía política</span><span>Agosto 2026</span><span>~130 min</span></p>
+        <h2>El capitalismo a juicio</h2>
+        <p class="sub">Prosperidad, desigualdad y los límites de la acumulación</p>
+        <p class="blurb">Un juicio con reglas de tribunal: el mejor abogado para cada parte, evidencia con fuente primaria, y la obligación de reportar los datos que estorben a la propia tesis. México 1982–2025 como prueba estrella. Entré con un veredicto en la bolsa y no sobrevivió al contacto con los datos.</p>
+        <p class="leer"><span>Leer</span><span>&rarr;</span></p>
+      </a>
+    </li>
+  </ul>
+
+  <div class="nota">
+    <p><strong>Sobre este archivo.</strong> Existe para tener las cosas en un solo lugar y poder compartirlas. No hay suscripción, no hay lista de correo y no se vende nada. Si algo de aquí te sirve para pensar, ya cumplió.</p>
+    <p>Se irá llenando: hay piezas terminadas sobre Marx y <em>El Capital</em>, fractales, la sucesión de Fibonacci, las escalas del universo y el problema de las otras mentes, esperando su turno.</p>
+  </div>
 
   <footer class="end">
-    <span>Alejandro Vázquez · 2026</span>
-    <a href="#portada">Volver al inicio &uarr;</a>
+    <span>Alejandro Vázquez · Ciudad de México</span>
+    <span>Actualizado agosto 2026</span>
   </footer>
 </main>
 
