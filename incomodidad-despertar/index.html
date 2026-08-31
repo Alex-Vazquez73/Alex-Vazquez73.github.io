@@ -1,0 +1,384 @@
+<!doctype html>
+<html lang="es">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>La incomodidad, ¿precio del despertar?</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,600&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,600;1,6..72,300;1,6..72,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --ground:#EBEDF1; --surface:#F5F6F8; --ink:#141A22; --ink-soft:#58616F;
+  --rule:#D2D8E0; --lamp:#8A5E0F; --lamp-glow:rgba(216,162,74,.16); --shade:rgba(20,26,34,.06);
+  --measure:35rem;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --ground:#0E1218; --surface:#151B23; --ink:#E6E4DF; --ink-soft:#98A0AC;
+    --rule:#242C37; --lamp:#D8A24A; --lamp-glow:rgba(216,162,74,.10); --shade:rgba(230,228,223,.05);
+  }
+}
+:root[data-theme="dark"]{
+  --ground:#0E1218; --surface:#151B23; --ink:#E6E4DF; --ink-soft:#98A0AC;
+  --rule:#242C37; --lamp:#D8A24A; --lamp-glow:rgba(216,162,74,.10); --shade:rgba(230,228,223,.05);
+}
+*{box-sizing:border-box;}
+/* el resplandor del farol es más ancho que la pantalla a propósito;
+   sin esto, en móvil la página se desliza de lado. */
+html{overflow-x:clip;}
+body{
+  background:var(--ground); color:var(--ink);
+  font-family:"Newsreader",Georgia,"Times New Roman",serif;
+  font-size:1.135rem; line-height:1.72; font-weight:300;
+  margin:0; padding:0; overflow-x:hidden; overflow-wrap:break-word;
+  -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
+}
+#bar{position:fixed;top:0;left:0;height:2px;width:0;background:var(--lamp);z-index:60;transition:width .12s linear;}
+.wrap{max-width:var(--measure);margin:0 auto;padding:0 1.5rem 8rem;}
+
+.cover{position:relative;padding:7.5rem 0 4.5rem;}
+.lamp{position:absolute;top:-14rem;left:50%;transform:translateX(-50%);
+  width:min(60rem,150vw);height:34rem;pointer-events:none;
+  background:radial-gradient(ellipse 50% 50% at 50% 50%,var(--lamp-glow),transparent 70%);}
+.eyebrow{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:.68rem;letter-spacing:.19em;
+  text-transform:uppercase;color:var(--ink-soft);margin:0 0 2.1rem;}
+.cover h1{font-family:"Fraunces","Newsreader",Georgia,serif;font-weight:400;
+  font-size:clamp(2.6rem,8.5vw,4.1rem);line-height:1.03;letter-spacing:-.022em;
+  margin:0 0 1.3rem;text-wrap:balance;}
+.subtitle{font-family:"Fraunces",Georgia,serif;font-weight:300;font-style:italic;
+  font-size:clamp(1.15rem,3.4vw,1.42rem);line-height:1.4;color:var(--ink-soft);
+  margin:0 0 2.6rem;text-wrap:balance;}
+.byline{font-family:"IBM Plex Mono",monospace;font-size:.76rem;letter-spacing:.05em;
+  color:var(--ink-soft);margin:0;padding-top:1.5rem;border-top:1px solid var(--rule);}
+.stats{display:flex;gap:2.2rem;flex-wrap:wrap;font-family:"IBM Plex Mono",monospace;
+  font-size:.72rem;letter-spacing:.05em;color:var(--ink-soft);margin:.9rem 0 0;
+  font-variant-numeric:tabular-nums;}
+
+.cartucho{margin:3.5rem 0 1rem;padding:1.9rem 0;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);}
+.cartucho p.lead{font-family:"IBM Plex Mono",monospace;font-size:.68rem;letter-spacing:.17em;
+  text-transform:uppercase;color:var(--ink-soft);margin:0 0 1.5rem;}
+.st-grid{display:grid;gap:1.15rem;}
+.st{display:grid;grid-template-columns:2.6rem 1fr;gap:.9rem;align-items:baseline;
+  text-decoration:none;color:inherit;padding:.45rem .55rem;margin:-.45rem -.55rem;border-radius:2px;}
+a.st:hover,a.st:focus-visible{background:var(--shade);outline:none;}
+a.st:focus-visible{box-shadow:0 0 0 2px var(--lamp);}
+.st .rn{font-family:"IBM Plex Mono",monospace;font-size:.72rem;color:var(--lamp);letter-spacing:.08em;}
+.st .nm{font-family:"Fraunces",Georgia,serif;font-size:1.06rem;font-weight:400;}
+.st .ds{display:block;font-size:.92rem;color:var(--ink-soft);font-style:italic;margin-top:.12rem;}
+
+/* el aviso del espejo: la pieza se mudó y esta copia lo dice arriba */
+.aviso{background:var(--surface);border:1px solid var(--rule);
+  border-left:2px solid var(--lamp);border-radius:2px;
+  padding:1.05rem 1.2rem;margin:4.5rem 0 0;
+  font-family:"IBM Plex Mono",monospace;font-size:.75rem;line-height:1.7;
+  color:var(--ink-soft);}
+.aviso strong{color:var(--ink);font-weight:500;}
+.aviso a{color:var(--lamp);text-decoration:none;border-bottom:1px solid var(--lamp);
+  word-break:break-word;}
+.aviso a:hover{color:var(--ink);border-color:var(--ink);}
+.con-aviso .cover{padding-top:3rem;}
+@media (max-width:640px){.aviso{margin-top:4rem;font-size:.72rem;padding:.95rem 1rem;}
+  .con-aviso .cover{padding-top:2.2rem;}}
+
+.abstract{background:var(--surface);border:1px solid var(--rule);border-left:2px solid var(--lamp);
+  padding:1.9rem 1.8rem 1.2rem;margin:0 0 3.2rem;border-radius:2px;}
+.abstract h3{margin:0 0 1.2rem;font-family:"IBM Plex Mono",monospace;font-weight:500;
+  font-size:.72rem;letter-spacing:.17em;text-transform:uppercase;color:var(--lamp);}
+.abstract p{font-size:.985rem;line-height:1.68;color:var(--ink-soft);margin:0 0 1.05rem;}
+.abstract p strong{color:var(--ink);font-weight:600;}
+
+.part{padding-top:1rem;}
+.part-title{font-family:"Fraunces",Georgia,serif;font-weight:400;
+  font-size:clamp(1.75rem,5vw,2.35rem);line-height:1.14;letter-spacing:-.015em;
+  margin:5.5rem 0 2.6rem;padding-top:3rem;border-top:1px solid var(--rule);text-wrap:balance;}
+#introduccion .part-title{display:none;}
+h3{font-family:"Fraunces",Georgia,serif;font-weight:600;font-size:1.24rem;line-height:1.3;
+  letter-spacing:-.005em;margin:3.2rem 0 1.1rem;text-wrap:balance;}
+h4{font-family:"IBM Plex Mono",monospace;font-weight:500;font-size:.74rem;letter-spacing:.15em;
+  text-transform:uppercase;color:var(--ink-soft);margin:2.4rem 0 1rem;}
+p{margin:0 0 1.35rem;}
+strong{font-weight:600;color:var(--ink);}
+em{font-style:italic;}
+blockquote{margin:2.5rem 0;padding:0 0 0 1.6rem;border-left:2px solid var(--lamp);
+  font-family:"Fraunces",Georgia,serif;font-size:1.24rem;line-height:1.45;font-weight:300;
+  color:var(--ink);text-wrap:pretty;}
+blockquote strong{font-weight:600;}
+.nota-final{color:var(--ink-soft);font-size:.86rem;line-height:1.62;}
+
+#rail{position:fixed;top:50%;transform:translateY(-50%);left:2.2rem;z-index:40;display:none;}
+#rail ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:.15rem;}
+#rail a{display:grid;grid-template-columns:1.6rem 1fr;gap:.55rem;align-items:baseline;
+  text-decoration:none;color:var(--ink-soft);padding:.42rem .5rem;border-radius:2px;
+  border-left:2px solid transparent;transition:color .2s,border-color .2s;}
+#rail a:hover{color:var(--ink);}
+#rail a:focus-visible{outline:none;box-shadow:0 0 0 2px var(--lamp);}
+#rail a.on{color:var(--ink);border-left-color:var(--lamp);}
+#rail .num{font-family:"IBM Plex Mono",monospace;font-size:.62rem;letter-spacing:.1em;text-align:right;opacity:.8;}
+#rail .lbl{font-family:"IBM Plex Mono",monospace;font-size:.66rem;letter-spacing:.11em;text-transform:uppercase;}
+@media (min-width:1180px){#rail{display:block;}}
+
+.topbar{position:fixed;top:1.15rem;right:1.15rem;z-index:50;display:flex;gap:.5rem;
+  transition:transform .28s ease,opacity .28s ease;}
+/* en móvil la columna ocupa todo el ancho y la barra fija caía encima del
+   texto. Se esconde al bajar y vuelve en cuanto se hace el gesto de subir. */
+.topbar.oculta{transform:translateY(-160%);opacity:0;pointer-events:none;}
+.topbar a,.topbar button{background:var(--surface);color:var(--ink-soft);border:1px solid var(--rule);
+  font-family:"IBM Plex Mono",monospace;font-size:.62rem;letter-spacing:.13em;text-transform:uppercase;
+  padding:.5rem .8rem;border-radius:2px;cursor:pointer;text-decoration:none;
+  transition:color .2s,border-color .2s;display:inline-flex;align-items:center;
+  min-height:2.6rem;}
+.topbar a:hover,.topbar button:hover{color:var(--ink);border-color:var(--ink-soft);}
+.topbar a:focus-visible,.topbar button:focus-visible{outline:none;box-shadow:0 0 0 2px var(--lamp);}
+
+.end{margin-top:5rem;padding-top:2.5rem;border-top:1px solid var(--rule);
+  font-family:"IBM Plex Mono",monospace;font-size:.68rem;letter-spacing:.13em;
+  text-transform:uppercase;color:var(--ink-soft);display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;}
+.end a{color:var(--ink-soft);text-decoration:none;border-bottom:1px solid var(--rule);}
+.end a:hover{color:var(--lamp);border-color:var(--lamp);}
+html{scroll-behavior:smooth;}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto;} *{transition:none!important;}}
+/* ── lectura en móvil ─────────────────────────────────────────────────
+   Hasta el 2026-08-25 estas reglas eran letra muerta: la página no
+   declaraba <meta viewport>, así que el teléfono la componía a 980px y la
+   encogía entera. El resultado era un escritorio en miniatura —letra de
+   7px efectivos y media pantalla de margen desperdiciado— y al hacer zoom
+   el texto se salía de lado, porque el documento seguía midiendo 980px.
+   Con el viewport puesto, el móvil deja de ser un escritorio encogido y
+   pasa a merecer su propia medida. Aquí está.                          */
+@media (max-width:640px){
+  body{font-size:1.16rem;line-height:1.70;}
+  /* el español encadena palabras largas; en una columna de ~330px sin
+     guionado la línea queda con agujeros. */
+  p,li,.abstract p,aside.recuadro p,.st .ds{hyphens:auto;-webkit-hyphens:auto;}
+  .wrap{padding:0 1.3rem 5rem;}
+  .cover{padding:4.6rem 0 3rem;}
+  .cover h1{font-size:clamp(2.3rem,9.5vw,3.1rem);letter-spacing:-.02em;}
+  .subtitle{font-size:1.18rem;margin-bottom:2rem;}
+  .eyebrow{margin-bottom:1.6rem;}
+  .stats{gap:.4rem 1.4rem;font-size:.7rem;}
+  .cartucho{margin:2.6rem 0 .5rem;padding:1.5rem 0;}
+  .st .nm{font-size:1.1rem;}
+  .st .ds{font-size:.95rem;}
+  .abstract{padding:1.4rem 1.25rem .9rem;margin-bottom:2.6rem;}
+  .abstract p{font-size:1.04rem;line-height:1.66;}
+  .part-title{font-size:1.9rem;margin:4rem 0 2rem;padding-top:2.4rem;}
+  h3{font-size:1.28rem;margin:2.7rem 0 .9rem;}
+  blockquote{font-size:1.2rem;margin:2rem 0;padding-left:1.2rem;}
+  figure.fig,.tabla{width:94vw;}
+  figcaption{font-size:.735rem;}
+  .tabla table{font-size:.8rem;}
+  .tabla th{font-size:.7rem;}
+  .tabla th,.tabla td{padding:.55rem .7rem;}
+  aside.recuadro{padding:1.25rem 1.2rem .9rem;margin:2.2rem 0;}
+  aside.recuadro p{font-size:1.04rem;}
+  .end{margin-top:3.5rem;}
+}
+
+/* ── figuras, tablas y listas ─────────────────────────────────────────
+   Rompen el ancho de lectura: una gráfica de datos a 35rem es ilegible.
+   El pie se queda en tipografía mono, como el resto del aparato.        */
+figure.fig{margin:3.6rem 0;width:min(50rem,92vw);margin-left:50%;transform:translateX(-50%);}
+figure.fig img{width:100%;height:auto;display:block;border:1px solid var(--rule);border-radius:2px;}
+figcaption{font-family:"IBM Plex Mono",monospace;font-size:.715rem;line-height:1.6;
+  color:var(--ink-soft);margin:.95rem 0 0;padding-left:.1rem;}
+figcaption .n{color:var(--lamp);letter-spacing:.06em;}
+
+.tabla{margin:3.2rem 0;width:min(50rem,92vw);margin-left:50%;transform:translateX(-50%);}
+.tabla-scroll{overflow-x:auto;border:1px solid var(--rule);border-radius:2px;
+  -webkit-overflow-scrolling:touch;}
+.tabla table{border-collapse:collapse;width:100%;font-family:"IBM Plex Mono",monospace;
+  font-size:.755rem;line-height:1.52;font-variant-numeric:tabular-nums;}
+.tabla th,.tabla td{padding:.6rem .8rem;text-align:left;vertical-align:top;
+  border-bottom:1px solid var(--rule);}
+.tabla th{color:var(--lamp);font-weight:500;font-size:.665rem;letter-spacing:.1em;
+  text-transform:uppercase;background:var(--surface);white-space:nowrap;}
+.tabla tbody tr:last-child td{border-bottom:none;}
+.tabla td strong{color:var(--ink);}
+.tabla caption{caption-side:bottom;}
+
+/* recuadro: la celda única con que Word marcaba los apartes del ensayo
+   (◆ veredictos, diseños de demostración, epígrafes) */
+aside.recuadro{background:var(--surface);border:1px solid var(--rule);
+  border-left:2px solid var(--lamp);padding:1.5rem 1.6rem 1.1rem;margin:2.8rem 0;border-radius:2px;}
+aside.recuadro p{font-size:.985rem;line-height:1.66;color:var(--ink-soft);margin:0 0 1rem;}
+aside.recuadro p:last-child{margin-bottom:0;}
+aside.recuadro p strong{color:var(--ink);}
+aside.recuadro .marca{font-family:"IBM Plex Mono",monospace;font-size:.68rem;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--lamp);display:block;margin:0 0 .9rem;}
+
+ul{margin:0 0 1.5rem;padding-left:1.15rem;}
+li{margin:0 0 .62rem;padding-left:.2rem;}
+li::marker{color:var(--lamp);}
+
+@media (max-width:900px){
+  figure.fig,.tabla{width:92vw;}
+}
+
+/* ── escala de escritorio ─────────────────────────────────────────────
+   El móvil ya estaba bien y no se toca. De 1024px para arriba la página
+   crece: la letra sube ~25%, la columna crece con ella para conservar el
+   largo de línea (~62 caracteres, que es donde la lectura larga cansa
+   menos), y el aire lateral y vertical se duplica.                     */
+@media (min-width:1024px){
+  :root{--measure:44rem;}
+  body{font-size:1.42rem;line-height:1.74;}
+  .wrap{padding:0 3rem 11rem;}
+  .cover{padding:9rem 0 5.5rem;}
+  .cover h1{font-size:clamp(3.4rem,6vw,4.8rem);}
+  .subtitle{font-size:1.62rem;}
+  p{margin:0 0 1.6rem;}
+  h3{font-size:1.46rem;margin:4rem 0 1.3rem;}
+  .part-title{margin:7rem 0 3.2rem;padding-top:3.6rem;}
+  blockquote{font-size:1.44rem;margin:3rem 0;padding-left:2rem;}
+  figure.fig,.tabla{width:min(60rem,90vw);}
+  figcaption{font-size:.8rem;}
+  .tabla table{font-size:.85rem;}
+  .tabla th{font-size:.72rem;}
+  .tabla th,.tabla td{padding:.72rem .95rem;}
+  aside.recuadro{padding:2rem 2.1rem 1.5rem;margin:3.4rem 0;}
+  aside.recuadro p{font-size:1.16rem;line-height:1.7;}
+  .abstract{padding:2.3rem 2.2rem 1.5rem;}
+  .abstract p{font-size:1.16rem;line-height:1.72;}
+  li{margin:0 0 .75rem;}
+  ul{padding-left:1.4rem;}
+}
+@media (min-width:1500px){
+  :root{--measure:47rem;}
+  body{font-size:1.5rem;}
+  figure.fig,.tabla{width:min(64rem,86vw);}
+}
+</style>
+
+<div id="bar"></div>
+<div class="topbar"><a href="../">Archivo</a><button id="toggle" type="button" aria-label="Cambiar tema">Tema</button></div>
+
+
+<main class="wrap">
+<header class="cover" id="portada">
+  <div class="lamp" aria-hidden="true"></div>
+  <p class="eyebrow">Ensayo · Filosofía existencialista</p>
+  <h1>La incomodidad, ¿precio del despertar?</h1>
+  <p class="subtitle">Una noche en Wirikuta, el Buda y el sinsentido que no se mueve</p>
+  <p class="byline">Alejandro Vázquez · 31 de agosto de 2026</p>
+  <p class="stats"><span>3,200 palabras</span><span>~16 min de lectura</span><span>Siete tramos y coda</span></p>
+  <div class="cartucho">
+    <p class="lead">El recorrido</p>
+    <div class="st-grid">
+      <a class="st" href="#ii-la-pregunta"><span class="rn">I</span><span><span class="nm">La pregunta</span><span class="ds">¿Por qué pasarla mal para despertar? Una objeción de economista.</span></span></a>
+      <a class="st" href="#iv-el-camino-medio"><span class="rn">II</span><span><span class="nm">El camino medio</span><span class="ds">Ni el suplicio ni el sillón: el error está en el eje.</span></span></a>
+      <a class="st" href="#vii-sirve-para-algun-avance"><span class="rn">III</span><span><span class="nm">Lo que no se mueve</span><span class="ds">El sinsentido queda; lo único que cambia es el que camina.</span></span></a>
+    </div>
+  </div>
+</header>
+<div class="abstract"><h3 id="resumen">Resumen</h3>
+<p>Una noche en el desierto de Wirikuta, con frío, lluvia y viento, surge una objeción de economista: ¿por qué hay que pasarla mal para acercarse a algo espiritual? ¿Por qué no un techo, una silla, un buen desayuno, y entrar en paz a lo mismo?</p>
+<p>El ensayo desarma la pregunta separando tres cosas que suelen confundirse: el sufrimiento, la incomodidad y la fricción. La respuesta del Buda —que abandonó el ayuno extremo— y la de un francés llamado Adrián coinciden sin saberlo: no hace falta sufrir; hace falta dejar de resistir. La incomodidad no es el impuesto que yo creía. Es el pizarrón.</p>
+<p>De ahí la pieza dialoga con «Imaginar a Sísifo despierto»: ¿es la iluminación un salto, de esos que aquel ensayo condena? Se defiende que la ecuanimidad budista, entendida como método y no como fe, no salta: es una cuarta postura sobre la misma roca. Con dos cuidados: el hikuri y los dioses con nombre sí piden creer; y la ecuanimidad se pudre fácil en indiferencia.</p>
+<p>La conclusión no consuela. El sinsentido queda intacto: la incomodidad no es necesaria y no hay avance hacia ningún lado. Pero hay un cambio posible en el que camina —menos dolor, más despierto—, y ése es el único "avance" que existió jamás para nadie. Como Tatewari bajo la lluvia: no un fuego que vence a la tormenta, sino uno que no se apaga.</p>
+</div>
+<h3 id="i-la-noche">I. La noche</h3>
+<figure class="fig"><img src="figuras/desierto.jpg" alt="Wirikuta de dia, el desierto con izotes y la sierra al fondo" loading="lazy"><figcaption><span class="n">Figura 1.</span> Wirikuta de dia. La misma tierra que, al meterse el sol, baja de golpe al frio.</figcaption></figure>
+<p>Se prende Tatewari, el abuelo fuego. Alrededor, sentados en la tierra, comemos hikuri. El sol ya se metió —el mismo sol que nos agotó todo el día— y entonces, en cuestión de segundos, llega el frío. Me pongo una chamarra. Sin saberlo todavía, Tatewari será el eje de toda la noche: pase lo que pase, no se apagará.</p>
+<p>Uno por uno pasamos frente al fuego a decir de qué nos queremos deshacer, qué queremos soltar. La abuela señala a otros del grupo y arma, ahí mismo, una representación de la familia del que habla; la intensidad depende de lo que cada quien vino a sanar. Yo hablo de soltar el control —esa exigencia de que todo salga como lo planeo, sin desviaciones— y de soltar a mis hijos, adolescentes: aprender que ellos toman sus propias decisiones. El silencio entre uno y otro pesa más que las palabras.</p>
+<p>El frío aprieta. Me pongo un suéter. Las piernas se me duermen y cambio de posición todo el tiempo. Entonces empieza a llover, y sentados en la tierra el suelo va a ser lodo en minutos. Voy a mi coche por una lona grande para que varios nos sentemos encima y no sobre la tierra. Y entonces lo entiendo sin palabras: el fuego, la lluvia, el aire que empuja fuerte y la tierra vuelta lodo se han citado esta noche, cada uno en su punto máximo, y la ceremonia consiste, precisamente, en quedarse en medio de los cuatro. Aun bajo el agua, los encargados echan leña, y Tatewari no se apaga ni una vez.</p>
+<p>Todo parece un teatro mágico —pienso en Hesse, en <em>El lobo estepario</em>—: un grupo entero en un estado de conciencia no ordinario, haciendo constelaciones familiares en mitad del desierto.</p>
+<figure class="fig"><img src="figuras/fuego.jpg" alt="Recreacion de la ceremonia: el circulo alrededor de Tatewari bajo la lluvia" loading="lazy"><figcaption><span class="n">Figura 2.</span> La noche, recreada - el circulo alrededor de Tatewari mientras cae la lluvia.</figcaption></figure>
+<h3 id="ii-la-pregunta">II. La pregunta</h3>
+<p>Después de varias horas sentado en la tierra se me duerme una pierna y me levanto. Y de pie, junto con el cuerpo, surge también una pregunta —o más bien una objeción, y es mía: no me la sopló nadie—. Soy economista: llevo la noche entera, sin querer, midiendo entradas y salidas, y esta cuenta no me cuadra. ¿Qué añade el frío? Si lo que busco es un estado —claridad, apertura, visión—, ¿por qué tendría que pasarla mal para llegar a él? El hikuri ya abrió la puerta; la medicina hace su trabajo con o sin frío. Entonces la incomodidad no es un insumo: es un impuesto que no financia ningún servicio. Un costo que no certifica nada, salvo que lo pagué.</p>
+<p>Y la objeción tiene aliados poderosos. Una mente abrigada es una mente más clara; el dolor no expande la atención, la encoge hasta el tamaño del dolor. ¿Cómo va un cuerpo que grita "frío" a estar más disponible para lo sagrado, y no menos? Hasta el Buda comió antes de despertar —seis años de ayuno brutal, y la iluminación llegó la noche que aceptó el arroz con leche—. La idea de que hay que sufrir para merecer lo alto arrastra la superstición más antigua de todas: que a los dioses les complace vernos doler. Yo no vine a pagar una penitencia. Vine a ver.</p>
+<p>Y aquí me hago la pregunta que de verdad me incomoda, más que el frío: ¿y si todo esto es teatro? ¿Y si sufrimos porque el rito necesita que suframos, y después llamamos "profundidad" a ese sufrimiento para justificarlo? Sería un círculo perfecto: la incomodidad no prueba nada excepto que la aguantamos, y luego la aguantada se disfraza de sabiduría. Por qué no, entonces —me digo, ya de pie, listo para ir por un techo—, por qué no una silla, una cobija, un buen desayuno, y entrar en paz a lo mismo, o a algo mejor.</p>
+<h3 id="iii-el-enviado">III. El enviado</h3>
+<p>Con esa objeción entera y armada, empiezo a platicar con un francés que también estiraba las piernas. Se llama Adrián. Le suelto la queja completa, tal cual. Él escucha. Y cuando habla no me contradice: siente el frío y disfrútalo, me dice; ahorita hay frío, y toca. Si se te duerme una pierna, párate y camina. Si llueve, mójate tantito, huele la lluvia, huele la tierra. Sal de tu zona de confort para que se ensanche —y entonces vas a estar a gusto en más lugares, en más situaciones—. No me está pidiendo que sufra. Me está pidiendo otra cosa, con otro verbo: que deje de resistir.</p>
+<p>Y ahí, de pie en el lodo, entiendo que mi cuenta estaba bien hecha pero mal dirigida. Yo auditaba la noche —qué le añade el frío a la visión—, y la respuesta seguía siendo ninguna: tenía razón, el frío no le suma nada a lo que veo. Pero el asiento no iba en esa columna. El frío no trabaja sobre la experiencia; trabaja sobre mí. Lo que se gana no está en la noche: está en quién se levanta de ella. La zona de confort no es un lugar al que uno llega; es un radio que uno carga, y sólo crece en su orilla —que es, por definición, el único punto donde se está incómodo.</p>
+<p>Entonces el impuesto que yo resentía no era un impuesto. Era un gimnasio. La incomodidad no me cobraba sin darme servicio: el servicio era volverme alguien que necesita menos que las cosas estén a su gusto para estar en paz. Y —esto es lo que me desarma— es exactamente lo que Adrián describió sin ponerle nombre: lo que el budismo llama ecuanimidad. La misma noche, el mismo frío; lo único que cambia es si le agrego encima el "no quiero esto". Hay una imagen budista para esto, la de las dos flechas: el frío es la primera, la dispara la vida sola; el "que se acabe ya" es la segunda, y ésa me la clavo yo. Adrián no me quitó la primera flecha. Me enseñó a no dispararme la segunda.</p>
+<p>No me convenció de sufrir. Nunca lo intentó. Me convenció de que yo no había entendido qué se estaba midiendo.</p>
+<h3 id="iv-el-camino-medio">IV. El camino medio</h3>
+<p>Lo confirmo después, leyendo: el Buda que todos imaginan flaco de tanto ayunar, en realidad renunció a eso. Seis años se mortificó hasta poder tocarse la columna por el vientre, y estuvo a punto de morir sin haber despertado nada. Aceptó entonces un plato de arroz con leche que le ofreció una muchacha; sus cinco compañeros ascetas lo abandonaron con desprecio, por débil. Y esa misma noche, ya con el cuerpo repuesto, sentado bajo el árbol, despertó. La iluminación no llegó en el punto máximo del hambre: llegó después de comer. El hombre más despierto de la historia le habría dado la razón a mi desayuno.</p>
+<p>Pero cuidado, que aquí es fácil cantar victoria y equivocarse. El Buda no cambió el suplicio por el sillón. Lo que encontró no es un punto tibio entre el palacio y el cilicio: es salir del eje entero. El príncipe que lo tuvo todo y el asceta que se lo negó todo cometían el mismo error en direcciones opuestas —los dos hacían que su paz dependiera de ajustar las condiciones de afuera—. A eso llamó el camino medio, y no significa "ni mucho frío ni mucho calor": significa dejar de que tu bienestar sea rehén de cuál de los dos te toca.</p>
+<p>Y ahí caen, por fin juntas, las dos cosas que no me cabían la noche del desierto. No hace falta sufrir —tenía razón, y el Buda conmigo—. Pero sí hace falta algo de fricción —Adrián tenía razón, y el Buda también—: no como sufrimiento, sino como esa orilla donde el radio se ensancha. Confundir la fricción con el sufrimiento es el error de la media espiritualidad que vi esa noche. Y confundir el camino medio con la comodidad es el error contrario: más cómodo, y por eso más difícil de ver.</p>
+<p>Porque ese segundo error yo ya lo conozco, y no de una ceremonia: de mi vida de todos los días. Escribí alguna vez sobre un "anti-infierno": el mundo que montamos para que nada se pierda —cada archivo versionado, cada dato trazable, todo recuperable— y que en lugar de salvarnos nos dejó un vacío difícil de nombrar. Le habíamos quitado toda la fricción, y con ella se fue lo único que le pegaba sentido a las cosas. La meditación calientita, el buen desayuno llevado al extremo, es esa misma operación un piso más arriba: optimizas la incomodidad hasta cero y optimizas de paso lo que hacía real la experiencia. Lo que no cuesta nada no se vive como sagrado.</p>
+<p>Entonces la disyuntiva se deshace, y mi pregunta del desayuno cambia de forma. Ya no es "¿sufrir o no sufrir?" —eso quedó resuelto: no—. Es "¿cuánta fricción certifica sin destruir?". El asceta que se pasa mata el instrumento; el cómodo que se queda corto vacía el sentido. Entre los dos hay una línea, y saber dónde está no se calcula: se vive. Mi buen desayuno, desde el principio, no era una respuesta. Era esa pregunta.</p>
+<h3 id="v-un-salto">V. ¿Un salto?</h3>
+<p>Hay algo que me debo a mí mismo, y es lo más incómodo de todo —más que el frío y más que el desayuno—. En otro ensayo escribí contra el salto: el "suicidio filosófico" de Kierkegaard, la fe, la Historia; contra toda salida que resuelve el sinsentido apelando a algo de afuera que no se puede verificar. Ahí me quedé con Camus: no saltar, quedarse despierto frente a la roca. Y ahora heme aquí, en un desierto, persiguiendo algo que se llama "iluminación". ¿No estoy haciendo exactamente lo que condené? ¿No es la iluminación un salto más, el más elegante de todos?</p>
+<p>Depende de qué se venda con esa palabra. Si para despertar tengo que creer —en la reencarnación, en un yo cósmico, en un nirvana que es un más allá, en el karma como contabilidad del universo—, entonces sí, es un salto: me piden fe en algo que no puedo comprobar, y con esa fe compro el consuelo. Buena parte de lo que se ofrece como espiritualidad es justo eso. Pero hay otra cosa, y es lo que hace de la meditación de la sensación un caso raro: no hay nada que creer. Hay un diagnóstico —existe el sufrimiento— que cualquiera verifica sin fe, y hay un método —observa la sensación, no reacciones— cuyo efecto compruebas en tu propio sistema nervioso, o no lo compruebas. Sin dios, sin dogma, sin premio de ultratumba. Ven y observa, dice; no: ven y cree.</p>
+<p>Y si eso es cierto, la iluminación no es un salto por encima del absurdo: es una práctica dentro de él. No niega que la roca vuelva a caer —eso lo sabe mejor que nadie: la primera flecha es inevitable—; cambia al que empuja. Es lo contrario del salto de Kierkegaard: él brinca fuera del vértigo hacia la fe; el meditador se queda dentro del vértigo y deja de pelear con él. Eso es la lucidez de Camus, pero con una técnica que Camus nunca tuvo. De pronto el budismo deja de ser el enemigo de mi Sísifo. Es una cuarta postura sobre la misma roca —y acaso la más interesante, porque es la única que ni salta, ni aprieta los dientes, ni actúa una alegría solar que a mí siempre me olió sospechosa. Ofrece un tercer verbo: ni saltar ni aguantar, sino dejar de resistir.</p>
+<p>Pero esta desconfianza me la debo también, y con dos cuidados que el desierto me obliga a poner sobre la mesa. El primero: aquella noche no fue meditación pura. El hikuri es una puerta química; las constelaciones invocan toda una cosmovisión; alrededor del fuego hay dioses con nombre —Tatewari, el venado, el sol—. Eso sí pide creer, y ahí ya no puedo cobrarle a Camus ninguna coartada. Mi salida es la misma que uso frente al fuego: puedo calentarme en Tatewari sin creer que es mi abuelo. Tomar el método sin comprar la metafísica; el fuego calienta igual. El segundo cuidado es más grave: la ecuanimidad se pudre fácil en indiferencia. Dejar de reaccionar al frío es sabiduría; dejar de reaccionar al mundo es muerte en vida. Y todo mi Sísifo insiste en lo contrario —que el absurdo le devuelve el peso a esta vida, que hay que importarle a uno ferozmente—. La línea, otra vez: ecuanimidad ante la sensación, no ante lo que importa. No reaccionar al frío; sí reaccionar a la injusticia, y a mis hijos. El que deja de sufrir no puede dejar de amar. Cuando solté el control de ellos no dejé de quererlos: dejé de apretar. Esa es la ecuanimidad buena. La otra es una anestesia con incienso.</p>
+<h3 id="vi-que-diria-camus">VI. ¿Qué diría Camus?</h3>
+<p>Falta la pregunta que más miedo me da hacerme, porque puede tumbar todo lo anterior: ¿qué diría Camus de esta cuarta postura? ¿La sentaría en la roca junto a la suya, o la correría por parecerse demasiado a lo que él más despreciaba, la religión?</p>
+<p>Le concedo lo primero, y no es poco. La ecuanimidad pasa su prueba más dura: no salta. No promete otra vida, no restaura un sentido cósmico, no pide fe en nada que no puedas verificar en tu propio cuerpo. Se queda —como él exigía— en esta vida, en este frío, sin consuelo de ultratumba. En eso es más camusiana que muchos que se dicen camusianos.</p>
+<p>Pero aquí viene el filo, y no lo voy a esconder. Camus no quería que dejáramos de sufrir el absurdo: quería que lo mantuviéramos consciente, ardiendo. Su Sísifo no está en paz con la roca; la desprecia. "Hay que imaginar a Sísifo feliz" es un desafío lanzado a los dioses, no una serenidad. Y la ecuanimidad no desafía: deja de pelear. Ahí está la grieta que separa a las dos posturas, y es real: Camus se queda dentro del vértigo con el puño en alto; el meditador se queda dentro del mismo vértigo y afloja el puño. Los dos se niegan a saltar. Difieren en el último verbo: rebelarse o soltar. Y Camus sospecharía —con razón— que soltar es una manera fina de dejar de mirar; que la ecuanimidad, llevada un paso de más, es prima del "descenso abolido" que yo mismo denuncié: quitarle el dolor al absurdo sin haber resuelto nada.</p>
+<p>No sé quién tiene razón, y no voy a fingir que sí. Pero puedo decir dónde queda la línea, porque esa noche la marqué sin darme cuenta: soltar la sensación, no soltar lo que importa. El que deja de reaccionar al frío pero sigue reaccionando a la injusticia y a sus hijos no ha abolido ningún descenso: sigue mirando. Ésa es la ecuanimidad que Camus podría tolerar. La otra —la que deja de importarle todo— sí la condenaría, y yo con él.</p>
+<h3 id="vii-sirve-para-algun-avance">VII. ¿Sirve para algún avance?</h3>
+<p>Conviene decirlo sin rodeos, porque es fácil perderse. ¿Es necesaria la incomodidad para despertar? No. Ni el Buda ni aquella noche la exigen; sirve como fricción, no como sufrimiento, y la fricción es útil, no obligatoria. ¿Y sirve para un "avance"? Aquí hay que partir la palabra en dos, porque esconde dos cosas distintas. Si "avance" significa acercarse a un destino —a un sentido, a una respuesta, a un porqué—, entonces no: no se avanza hacia nada, porque no hay hacia dónde, y en ese registro la incomodidad no sirve para nada, igual que no sirve nada. Camus tiene toda la razón: ¿avanzar hacia dónde, si todo sigue igual de mudo?</p>
+<p>Pero hay un segundo sentido de la palabra que sí sobrevive. No avanzar hacia un lugar, sino cambiar el que camina. No un progreso vertical —hacia el sentido, que no existe—, sino un cambio horizontal, en el sujeto: menos segunda flecha, menos sufrimiento, más capacidad de estar en paz sin importar las condiciones. Eso no acerca a ninguna meta. Pero es real.</p>
+<p>Y aquí conviene ser el abogado del diablo de uno mismo, porque la objeción es fuerte: soltar el control de mis hijos, ¿no es lo mismo que no soltarlo, sólo una experiencia distinta? En un registro, sí: no cambia ninguna de las preguntas originarias. Pero es que nada las cambia —ni soltar ni no soltar, ni meditar ni el buen desayuno, ni quedarse en casa—. Medir cualquier cosa contra "¿cambió el porqué existimos?" es medirla contra una vara que todo reprueba; y una vara que le da cero a todo no mide nada. La única vara que distingue es la del dolor: ¿menos o más? Y por esa vara, soltar no es lo mismo que apretar: mis hijos sintieron menos presión, y yo cargué menos el puño. "Una experiencia distinta de la vida" suena a poco, pero es la única cosa que alguna vez estuvo en juego.</p>
+<p>De modo que sí: el budismo y la tradición huichola son, como sospechaba, sólo una manera de vivir el sinsentido. Pero eso no los rebaja: los nombra con honestidad, porque no hay otra cosa. Todo es una manera de vivir el sinsentido —Camus, el Buda, la religión, y el que nunca se hizo la pregunta—. No hay una postura que lo resuelva y otras que no; ninguna lo resuelve. Hay maneras que duelen más y maneras que duelen menos; maneras dormidas y maneras despiertas. Elegir entre ellas no es elegir la que llega a la meta, sino cómo caminar sabiendo que no hay meta.</p>
+<p>Y ahí, sólo ahí, deja de importar si esto "se parece a la religión". Se parece en la parte que sobra —los dioses con nombre, la otra vida, el karma que lleva cuentas—, y esa parte, la del "porqué", sí es un salto, y hay que dejarla fuera. Pero en la parte que se queda —observar, no reaccionar, aflojar el puño sin bajar la mirada— no hay ningún porqué escondido. Es un cómo. Y un cómo no es una religión: es un oficio. Puedo calentarme en Tatewari sin creer que es mi abuelo. El fuego calienta igual, y no me pide nada a cambio.</p>
+<h3 id="coda">Coda</h3>
+<p>Por eso lo dejo con esa imagen, a su tamaño exacto, sin inflarla. Esa noche llovió sobre el desierto, los encargados siguieron echando leña, y Tatewari no se apagó. No detuvo la tormenta —el sinsentido, como la lluvia, siguió cayendo igual—. No prometió que dejaría de caer. Sólo no se apagó. Eso es todo lo que ofrece la cuarta postura, y ya es mucho: no un fuego que vence a la lluvia, sino uno que arde dentro de ella. Como Sísifo: despierto, y no feliz. Ni siquiera salvado. Nada más, todavía ardiendo.</p>
+<p>Y desconfía también de esto, por favor. Incluido yo. Puede que esta reconciliación tan redonda sea la historia bonita que me conté para poder dormir en el frío, y que Camus tenga razón y yo haya soltado el puño por cansancio y no por sabiduría. No lo sé. Pero de una cosa sí estoy seguro, y con ella cierro: el sol se va a volver a meter, el frío va a volver de golpe, la roca va a rodar hacia abajo otra vez. Y alguien va a tener que decidir cómo se sienta en la tierra mojada a esperar. Esa decisión —no la respuesta, que no existe; la decisión— es lo único que siempre fue nuestro.</p>
+  <footer class="end">
+    <span>Alejandro Vázquez · 2026</span>
+    <a href="#portada">Volver al inicio ↑</a>
+  </footer>
+</main>
+
+<script>
+(function(){
+  var bar=document.getElementById('bar'),t=document.getElementById('toggle');
+  function prog(){var h=document.documentElement,m=h.scrollHeight-h.clientHeight;
+    bar.style.width=(m>0?(h.scrollTop/m)*100:0)+'%';}
+  addEventListener('scroll',prog,{passive:true});prog();
+  t.addEventListener('click',function(){
+    var r=document.documentElement,cur=r.getAttribute('data-theme');
+    if(!cur){cur=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';}
+    var nx=cur==='dark'?'light':'dark';r.setAttribute('data-theme',nx);
+    try{localStorage.setItem('av-tema',nx);}catch(e){}
+  });
+  try{var sv=localStorage.getItem('av-tema');if(sv)document.documentElement.setAttribute('data-theme',sv);}catch(e){}
+  var links=[].slice.call(document.querySelectorAll('#rail a'));
+  var secs=links.map(function(a){return document.getElementById(a.dataset.target);}).filter(Boolean);
+  if('IntersectionObserver' in window && secs.length){
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){
+      if(e.isIntersecting){links.forEach(function(a){
+        a.classList.toggle('on',a.dataset.target===e.target.id);});}});},
+      {rootMargin:'-20% 0px -70% 0px'});
+    secs.forEach(function(s){io.observe(s);});
+  }
+
+  // la barra flotante se esconde al bajar y reaparece al subir — solo en
+  // móvil, donde el texto ocupa todo el ancho y la barra le caía encima.
+  //
+  // SIN requestAnimationFrame a propósito. La primera versión usaba un rAF
+  // como amortiguador, con un cerrojo que solo se soltaba dentro del propio
+  // rAF; cuando el navegador lo suspende —pestaña en segundo plano, o el modo
+  // de bajo consumo del iPhone, que Safari estrangula sin piedad— el cerrojo
+  // se quedaba echado y la barra no volvía NUNCA. El trabajo real son dos
+  // comparaciones y un toggle de clase: hacerlo directo en el listener pasivo
+  // es más barato que el andamio que lo protegía.
+  // La decisión vive en una función pura —sin DOM, sin efectos— para poder
+  // probarla con una tabla de verdad. UMBRAL: no se esconde en los primeros
+  // 240px, para que la portada nunca aparezca sin barra. HISTERESIS de 6px:
+  // sin ella, el rebote elástico de iOS la haría parpadear.
+  function decidirBarra(y,ult,movil){
+    if(!movil){return 'mostrar';}
+    if(y>ult+6&&y>240){return 'ocultar';}
+    if(y<ult-6){return 'mostrar';}
+    return 'nada';
+  }
+  var tb=document.querySelector('.topbar'),ult=0,mv=matchMedia('(max-width:640px)');
+  addEventListener('scroll',function(){
+    var y=scrollY>0?scrollY:0, d=decidirBarra(y,ult,mv.matches);
+    if(d==='ocultar'){tb.classList.add('oculta');}
+    else if(d==='mostrar'){tb.classList.remove('oculta');}
+    ult=y;
+  },{passive:true});
+  // dos redes de seguridad: al volver a la pestaña y al cambiar de tamaño,
+  // la barra reaparece pase lo que pase.
+  mv.addEventListener('change',function(){tb.classList.remove('oculta');});
+  document.addEventListener('visibilitychange',function(){
+    if(!document.hidden){tb.classList.remove('oculta');ult=scrollY>0?scrollY:0;}
+  });
+})();
+</script>
+</html>
