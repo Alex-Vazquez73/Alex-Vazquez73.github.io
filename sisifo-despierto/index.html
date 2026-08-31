@@ -130,6 +130,15 @@ blockquote strong{font-weight:600;}
 .topbar a:hover,.topbar button:hover{color:var(--ink);border-color:var(--ink-soft);}
 .topbar a:focus-visible,.topbar button:focus-visible{outline:none;box-shadow:0 0 0 2px var(--lamp);}
 
+/* el colofón: enlaza esta pieza con su hermana del archivo. Va en la voz
+   del cuerpo (serif, minúsculas), no en la del pie, porque es texto que se
+   lee, no metadato. */
+.colofon{margin:4rem 0 0;font-family:"Newsreader",Georgia,serif;
+  font-style:italic;font-size:.94rem;line-height:1.6;color:var(--ink-soft);}
+.colofon a{color:var(--lamp);font-style:normal;text-decoration:none;
+  border-bottom:1px solid var(--lamp-glow);}
+.colofon a:hover{border-color:var(--lamp);}
+
 .end{margin-top:5rem;padding-top:2.5rem;border-top:1px solid var(--rule);
   font-family:"IBM Plex Mono",monospace;font-size:.68rem;letter-spacing:.13em;
   text-transform:uppercase;color:var(--ink-soft);display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;}

@@ -130,6 +130,15 @@ blockquote strong{font-weight:600;}
 .topbar a:hover,.topbar button:hover{color:var(--ink);border-color:var(--ink-soft);}
 .topbar a:focus-visible,.topbar button:focus-visible{outline:none;box-shadow:0 0 0 2px var(--lamp);}
 
+/* el colofón: enlaza esta pieza con su hermana del archivo. Va en la voz
+   del cuerpo (serif, minúsculas), no en la del pie, porque es texto que se
+   lee, no metadato. */
+.colofon{margin:4rem 0 0;font-family:"Newsreader",Georgia,serif;
+  font-style:italic;font-size:.94rem;line-height:1.6;color:var(--ink-soft);}
+.colofon a{color:var(--lamp);font-style:normal;text-decoration:none;
+  border-bottom:1px solid var(--lamp-glow);}
+.colofon a:hover{border-color:var(--lamp);}
+
 .end{margin-top:5rem;padding-top:2.5rem;border-top:1px solid var(--rule);
   font-family:"IBM Plex Mono",monospace;font-size:.68rem;letter-spacing:.13em;
   text-transform:uppercase;color:var(--ink-soft);display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;}
@@ -317,6 +326,7 @@ li::marker{color:var(--lamp);}
 <h3 id="coda">Coda</h3>
 <p>Por eso lo dejo con esa imagen, a su tamaño exacto, sin inflarla. Esa noche llovió sobre el desierto, los encargados siguieron echando leña, y Tatewari no se apagó. No detuvo la tormenta —el sinsentido, como la lluvia, siguió cayendo igual—. No prometió que dejaría de caer. Sólo no se apagó. Eso es todo lo que ofrece la cuarta postura, y ya es mucho: no un fuego que vence a la lluvia, sino uno que arde dentro de ella. Como Sísifo: despierto, y no feliz. Ni siquiera salvado. Nada más, todavía ardiendo.</p>
 <p>Y desconfía también de esto, por favor. Incluido yo. Puede que esta reconciliación tan redonda sea la historia bonita que me conté para poder dormir en el frío, y que Camus tenga razón y yo haya soltado el puño por cansancio y no por sabiduría. No lo sé. Pero de una cosa sí estoy seguro, y con ella cierro: el sol se va a volver a meter, el frío va a volver de golpe, la roca va a rodar hacia abajo otra vez. Y alguien va a tener que decidir cómo se sienta en la tierra mojada a esperar. Esa decisión —no la respuesta, que no existe; la decisión— es lo único que siempre fue nuestro.</p>
+  <p class="colofon">Pieza hermana de <a href="https://alex-vazquez73.github.io/sisifo-despierto/">Imaginar a Sísifo despierto</a>. La roca y el umbral, la misma pregunta.</p>
   <footer class="end">
     <span>Alejandro Vázquez · 2026</span>
     <a href="#portada">Volver al inicio ↑</a>
