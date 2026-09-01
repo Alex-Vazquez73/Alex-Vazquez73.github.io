@@ -1,0 +1,516 @@
+<!doctype html>
+<html lang="es">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>La inteligencia animal: la escalera era una coartada</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,600&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,600;1,6..72,300;1,6..72,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --ground:#EBEDF1; --surface:#F5F6F8; --ink:#141A22; --ink-soft:#58616F;
+  --rule:#D2D8E0; --lamp:#8A5E0F; --lamp-glow:rgba(216,162,74,.16); --shade:rgba(20,26,34,.06);
+  --measure:35rem;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --ground:#0E1218; --surface:#151B23; --ink:#E6E4DF; --ink-soft:#98A0AC;
+    --rule:#242C37; --lamp:#D8A24A; --lamp-glow:rgba(216,162,74,.10); --shade:rgba(230,228,223,.05);
+  }
+}
+:root[data-theme="dark"]{
+  --ground:#0E1218; --surface:#151B23; --ink:#E6E4DF; --ink-soft:#98A0AC;
+  --rule:#242C37; --lamp:#D8A24A; --lamp-glow:rgba(216,162,74,.10); --shade:rgba(230,228,223,.05);
+}
+*{box-sizing:border-box;}
+/* el resplandor del farol es más ancho que la pantalla a propósito;
+   sin esto, en móvil la página se desliza de lado. */
+html{overflow-x:clip;}
+body{
+  background:var(--ground); color:var(--ink);
+  font-family:"Newsreader",Georgia,"Times New Roman",serif;
+  font-size:1.135rem; line-height:1.72; font-weight:300;
+  margin:0; padding:0; overflow-x:hidden; overflow-wrap:break-word;
+  -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
+}
+#bar{position:fixed;top:0;left:0;height:2px;width:0;background:var(--lamp);z-index:60;transition:width .12s linear;}
+.wrap{max-width:var(--measure);margin:0 auto;padding:0 1.5rem 8rem;}
+
+.cover{position:relative;padding:7.5rem 0 4.5rem;}
+.lamp{position:absolute;top:-14rem;left:50%;transform:translateX(-50%);
+  width:min(60rem,150vw);height:34rem;pointer-events:none;
+  background:radial-gradient(ellipse 50% 50% at 50% 50%,var(--lamp-glow),transparent 70%);}
+.eyebrow{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:.68rem;letter-spacing:.19em;
+  text-transform:uppercase;color:var(--ink-soft);margin:0 0 2.1rem;}
+.cover h1{font-family:"Fraunces","Newsreader",Georgia,serif;font-weight:400;
+  font-size:clamp(2.6rem,8.5vw,4.1rem);line-height:1.03;letter-spacing:-.022em;
+  margin:0 0 1.3rem;text-wrap:balance;}
+.subtitle{font-family:"Fraunces",Georgia,serif;font-weight:300;font-style:italic;
+  font-size:clamp(1.15rem,3.4vw,1.42rem);line-height:1.4;color:var(--ink-soft);
+  margin:0 0 2.6rem;text-wrap:balance;}
+.byline{font-family:"IBM Plex Mono",monospace;font-size:.76rem;letter-spacing:.05em;
+  color:var(--ink-soft);margin:0;padding-top:1.5rem;border-top:1px solid var(--rule);}
+.stats{display:flex;gap:2.2rem;flex-wrap:wrap;font-family:"IBM Plex Mono",monospace;
+  font-size:.72rem;letter-spacing:.05em;color:var(--ink-soft);margin:.9rem 0 0;
+  font-variant-numeric:tabular-nums;}
+
+.cartucho{margin:3.5rem 0 1rem;padding:1.9rem 0;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);}
+.cartucho p.lead{font-family:"IBM Plex Mono",monospace;font-size:.68rem;letter-spacing:.17em;
+  text-transform:uppercase;color:var(--ink-soft);margin:0 0 1.5rem;}
+.st-grid{display:grid;gap:1.15rem;}
+.st{display:grid;grid-template-columns:2.6rem 1fr;gap:.9rem;align-items:baseline;
+  text-decoration:none;color:inherit;padding:.45rem .55rem;margin:-.45rem -.55rem;border-radius:2px;}
+a.st:hover,a.st:focus-visible{background:var(--shade);outline:none;}
+a.st:focus-visible{box-shadow:0 0 0 2px var(--lamp);}
+.st .rn{font-family:"IBM Plex Mono",monospace;font-size:.72rem;color:var(--lamp);letter-spacing:.08em;}
+.st .nm{font-family:"Fraunces",Georgia,serif;font-size:1.06rem;font-weight:400;}
+.st .ds{display:block;font-size:.92rem;color:var(--ink-soft);font-style:italic;margin-top:.12rem;}
+
+/* el aviso del espejo: la pieza se mudó y esta copia lo dice arriba */
+.aviso{background:var(--surface);border:1px solid var(--rule);
+  border-left:2px solid var(--lamp);border-radius:2px;
+  padding:1.05rem 1.2rem;margin:4.5rem 0 0;
+  font-family:"IBM Plex Mono",monospace;font-size:.75rem;line-height:1.7;
+  color:var(--ink-soft);}
+.aviso strong{color:var(--ink);font-weight:500;}
+.aviso a{color:var(--lamp);text-decoration:none;border-bottom:1px solid var(--lamp);
+  word-break:break-word;}
+.aviso a:hover{color:var(--ink);border-color:var(--ink);}
+.con-aviso .cover{padding-top:3rem;}
+@media (max-width:640px){.aviso{margin-top:4rem;font-size:.72rem;padding:.95rem 1rem;}
+  .con-aviso .cover{padding-top:2.2rem;}}
+
+.abstract{background:var(--surface);border:1px solid var(--rule);border-left:2px solid var(--lamp);
+  padding:1.9rem 1.8rem 1.2rem;margin:0 0 3.2rem;border-radius:2px;}
+.abstract h3{margin:0 0 1.2rem;font-family:"IBM Plex Mono",monospace;font-weight:500;
+  font-size:.72rem;letter-spacing:.17em;text-transform:uppercase;color:var(--lamp);}
+.abstract p{font-size:.985rem;line-height:1.68;color:var(--ink-soft);margin:0 0 1.05rem;}
+.abstract p strong{color:var(--ink);font-weight:600;}
+
+.part{padding-top:1rem;}
+.part-title{font-family:"Fraunces",Georgia,serif;font-weight:400;
+  font-size:clamp(1.75rem,5vw,2.35rem);line-height:1.14;letter-spacing:-.015em;
+  margin:5.5rem 0 2.6rem;padding-top:3rem;border-top:1px solid var(--rule);text-wrap:balance;}
+#introduccion .part-title{display:none;}
+h3{font-family:"Fraunces",Georgia,serif;font-weight:600;font-size:1.24rem;line-height:1.3;
+  letter-spacing:-.005em;margin:3.2rem 0 1.1rem;text-wrap:balance;}
+h4{font-family:"IBM Plex Mono",monospace;font-weight:500;font-size:.74rem;letter-spacing:.15em;
+  text-transform:uppercase;color:var(--ink-soft);margin:2.4rem 0 1rem;}
+p{margin:0 0 1.35rem;}
+strong{font-weight:600;color:var(--ink);}
+em{font-style:italic;}
+blockquote{margin:2.5rem 0;padding:0 0 0 1.6rem;border-left:2px solid var(--lamp);
+  font-family:"Fraunces",Georgia,serif;font-size:1.24rem;line-height:1.45;font-weight:300;
+  color:var(--ink);text-wrap:pretty;}
+blockquote strong{font-weight:600;}
+.nota-final{color:var(--ink-soft);font-size:.86rem;line-height:1.62;}
+
+#rail{position:fixed;top:50%;transform:translateY(-50%);left:2.2rem;z-index:40;display:none;}
+#rail ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:.15rem;}
+#rail a{display:grid;grid-template-columns:1.6rem 1fr;gap:.55rem;align-items:baseline;
+  text-decoration:none;color:var(--ink-soft);padding:.42rem .5rem;border-radius:2px;
+  border-left:2px solid transparent;transition:color .2s,border-color .2s;}
+#rail a:hover{color:var(--ink);}
+#rail a:focus-visible{outline:none;box-shadow:0 0 0 2px var(--lamp);}
+#rail a.on{color:var(--ink);border-left-color:var(--lamp);}
+#rail .num{font-family:"IBM Plex Mono",monospace;font-size:.62rem;letter-spacing:.1em;text-align:right;opacity:.8;}
+#rail .lbl{font-family:"IBM Plex Mono",monospace;font-size:.66rem;letter-spacing:.11em;text-transform:uppercase;}
+@media (min-width:1180px){#rail{display:block;}}
+
+.topbar{position:fixed;top:1.15rem;right:1.15rem;z-index:50;display:flex;gap:.5rem;
+  transition:transform .28s ease,opacity .28s ease;}
+/* en móvil la columna ocupa todo el ancho y la barra fija caía encima del
+   texto. Se esconde al bajar y vuelve en cuanto se hace el gesto de subir. */
+.topbar.oculta{transform:translateY(-160%);opacity:0;pointer-events:none;}
+.topbar a,.topbar button{background:var(--surface);color:var(--ink-soft);border:1px solid var(--rule);
+  font-family:"IBM Plex Mono",monospace;font-size:.62rem;letter-spacing:.13em;text-transform:uppercase;
+  padding:.5rem .8rem;border-radius:2px;cursor:pointer;text-decoration:none;
+  transition:color .2s,border-color .2s;display:inline-flex;align-items:center;
+  min-height:2.6rem;}
+.topbar a:hover,.topbar button:hover{color:var(--ink);border-color:var(--ink-soft);}
+.topbar a:focus-visible,.topbar button:focus-visible{outline:none;box-shadow:0 0 0 2px var(--lamp);}
+
+/* el colofón: enlaza esta pieza con su hermana del archivo. Va en la voz
+   del cuerpo (serif, minúsculas), no en la del pie, porque es texto que se
+   lee, no metadato. */
+.colofon{margin:4rem 0 0;font-family:"Newsreader",Georgia,serif;
+  font-style:italic;font-size:.94rem;line-height:1.6;color:var(--ink-soft);}
+.colofon a{color:var(--lamp);font-style:normal;text-decoration:none;
+  border-bottom:1px solid var(--lamp-glow);}
+.colofon a:hover{border-color:var(--lamp);}
+
+.end{margin-top:5rem;padding-top:2.5rem;border-top:1px solid var(--rule);
+  font-family:"IBM Plex Mono",monospace;font-size:.68rem;letter-spacing:.13em;
+  text-transform:uppercase;color:var(--ink-soft);display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;}
+.end a{color:var(--ink-soft);text-decoration:none;border-bottom:1px solid var(--rule);}
+.end a:hover{color:var(--lamp);border-color:var(--lamp);}
+html{scroll-behavior:smooth;}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto;} *{transition:none!important;}}
+/* ── lectura en móvil ─────────────────────────────────────────────────
+   Hasta el 2026-08-25 estas reglas eran letra muerta: la página no
+   declaraba <meta viewport>, así que el teléfono la componía a 980px y la
+   encogía entera. El resultado era un escritorio en miniatura —letra de
+   7px efectivos y media pantalla de margen desperdiciado— y al hacer zoom
+   el texto se salía de lado, porque el documento seguía midiendo 980px.
+   Con el viewport puesto, el móvil deja de ser un escritorio encogido y
+   pasa a merecer su propia medida. Aquí está.                          */
+@media (max-width:640px){
+  body{font-size:1.16rem;line-height:1.70;}
+  /* el español encadena palabras largas; en una columna de ~330px sin
+     guionado la línea queda con agujeros. */
+  p,li,.abstract p,aside.recuadro p,.st .ds{hyphens:auto;-webkit-hyphens:auto;}
+  .wrap{padding:0 1.3rem 5rem;}
+  .cover{padding:4.6rem 0 3rem;}
+  .cover h1{font-size:clamp(2.3rem,9.5vw,3.1rem);letter-spacing:-.02em;}
+  .subtitle{font-size:1.18rem;margin-bottom:2rem;}
+  .eyebrow{margin-bottom:1.6rem;}
+  .stats{gap:.4rem 1.4rem;font-size:.7rem;}
+  .cartucho{margin:2.6rem 0 .5rem;padding:1.5rem 0;}
+  .st .nm{font-size:1.1rem;}
+  .st .ds{font-size:.95rem;}
+  .abstract{padding:1.4rem 1.25rem .9rem;margin-bottom:2.6rem;}
+  .abstract p{font-size:1.04rem;line-height:1.66;}
+  .part-title{font-size:1.9rem;margin:4rem 0 2rem;padding-top:2.4rem;}
+  h3{font-size:1.28rem;margin:2.7rem 0 .9rem;}
+  blockquote{font-size:1.2rem;margin:2rem 0;padding-left:1.2rem;}
+  figure.fig,.tabla{width:94vw;}
+  figcaption{font-size:.735rem;}
+  .tabla table{font-size:.8rem;}
+  .tabla th{font-size:.7rem;}
+  .tabla th,.tabla td{padding:.55rem .7rem;}
+  aside.recuadro{padding:1.25rem 1.2rem .9rem;margin:2.2rem 0;}
+  aside.recuadro p{font-size:1.04rem;}
+  .end{margin-top:3.5rem;}
+}
+
+/* ── figuras, tablas y listas ─────────────────────────────────────────
+   Rompen el ancho de lectura: una gráfica de datos a 35rem es ilegible.
+   El pie se queda en tipografía mono, como el resto del aparato.        */
+figure.fig{margin:3.6rem 0;width:min(50rem,92vw);margin-left:50%;transform:translateX(-50%);}
+figure.fig img{width:100%;height:auto;display:block;border:1px solid var(--rule);border-radius:2px;}
+figcaption{font-family:"IBM Plex Mono",monospace;font-size:.715rem;line-height:1.6;
+  color:var(--ink-soft);margin:.95rem 0 0;padding-left:.1rem;}
+figcaption .n{color:var(--lamp);letter-spacing:.06em;}
+
+.tabla{margin:3.2rem 0;width:min(50rem,92vw);margin-left:50%;transform:translateX(-50%);}
+.tabla-scroll{overflow-x:auto;border:1px solid var(--rule);border-radius:2px;
+  -webkit-overflow-scrolling:touch;}
+.tabla table{border-collapse:collapse;width:100%;font-family:"IBM Plex Mono",monospace;
+  font-size:.755rem;line-height:1.52;font-variant-numeric:tabular-nums;}
+.tabla th,.tabla td{padding:.6rem .8rem;text-align:left;vertical-align:top;
+  border-bottom:1px solid var(--rule);}
+.tabla th{color:var(--lamp);font-weight:500;font-size:.665rem;letter-spacing:.1em;
+  text-transform:uppercase;background:var(--surface);white-space:nowrap;}
+.tabla tbody tr:last-child td{border-bottom:none;}
+.tabla td strong{color:var(--ink);}
+.tabla caption{caption-side:bottom;}
+
+/* recuadro: la celda única con que Word marcaba los apartes del ensayo
+   (◆ veredictos, diseños de demostración, epígrafes) */
+aside.recuadro{background:var(--surface);border:1px solid var(--rule);
+  border-left:2px solid var(--lamp);padding:1.5rem 1.6rem 1.1rem;margin:2.8rem 0;border-radius:2px;}
+aside.recuadro p{font-size:.985rem;line-height:1.66;color:var(--ink-soft);margin:0 0 1rem;}
+aside.recuadro p:last-child{margin-bottom:0;}
+aside.recuadro p strong{color:var(--ink);}
+aside.recuadro .marca{font-family:"IBM Plex Mono",monospace;font-size:.68rem;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--lamp);display:block;margin:0 0 .9rem;}
+
+ul{margin:0 0 1.5rem;padding-left:1.15rem;}
+li{margin:0 0 .62rem;padding-left:.2rem;}
+li::marker{color:var(--lamp);}
+
+@media (max-width:900px){
+  figure.fig,.tabla{width:92vw;}
+}
+
+/* ── escala de escritorio ─────────────────────────────────────────────
+   El móvil ya estaba bien y no se toca. De 1024px para arriba la página
+   crece: la letra sube ~25%, la columna crece con ella para conservar el
+   largo de línea (~62 caracteres, que es donde la lectura larga cansa
+   menos), y el aire lateral y vertical se duplica.                     */
+@media (min-width:1024px){
+  :root{--measure:44rem;}
+  body{font-size:1.42rem;line-height:1.74;}
+  .wrap{padding:0 3rem 11rem;}
+  .cover{padding:9rem 0 5.5rem;}
+  .cover h1{font-size:clamp(3.4rem,6vw,4.8rem);}
+  .subtitle{font-size:1.62rem;}
+  p{margin:0 0 1.6rem;}
+  h3{font-size:1.46rem;margin:4rem 0 1.3rem;}
+  .part-title{margin:7rem 0 3.2rem;padding-top:3.6rem;}
+  blockquote{font-size:1.44rem;margin:3rem 0;padding-left:2rem;}
+  figure.fig,.tabla{width:min(60rem,90vw);}
+  figcaption{font-size:.8rem;}
+  .tabla table{font-size:.85rem;}
+  .tabla th{font-size:.72rem;}
+  .tabla th,.tabla td{padding:.72rem .95rem;}
+  aside.recuadro{padding:2rem 2.1rem 1.5rem;margin:3.4rem 0;}
+  aside.recuadro p{font-size:1.16rem;line-height:1.7;}
+  .abstract{padding:2.3rem 2.2rem 1.5rem;}
+  .abstract p{font-size:1.16rem;line-height:1.72;}
+  li{margin:0 0 .75rem;}
+  ul{padding-left:1.4rem;}
+}
+@media (min-width:1500px){
+  :root{--measure:47rem;}
+  body{font-size:1.5rem;}
+  figure.fig,.tabla{width:min(64rem,86vw);}
+}
+</style>
+
+<div id="bar"></div>
+<div class="topbar"><a href="../">Archivo</a><button id="toggle" type="button" aria-label="Cambiar tema">Tema</button></div>
+
+
+<main class="wrap">
+<header class="cover" id="portada">
+  <div class="lamp" aria-hidden="true"></div>
+  <p class="eyebrow">Ensayo · Cognición animal</p>
+  <h1>La inteligencia animal: la escalera era una coartada</h1>
+  <p class="subtitle">Con un parásito de villano y una abeja de testigo</p>
+  <p class="byline">Alejandro Vázquez · 13 de agosto de 2026</p>
+  <p class="stats"><span>6,100 palabras</span><span>~30 min de lectura</span><span>Ocho tramos y referencias</span></p>
+  <div class="cartucho">
+    <p class="lead">El recorrido</p>
+    <div class="st-grid">
+      <a class="st" href="#i-el-villano-entra-primero"><span class="rn">I</span><span><span class="nm">El villano</span><span class="ds">Un parásito sin sistema nervioso gobierna a un cangrejo que sí lo tiene. ¿Quién es el tonto?</span></span></a>
+      <a class="st" href="#iv-la-escalera-que-casi-funciona"><span class="rn">IV</span><span><span class="nm">La escalera que casi funciona</span><span class="ds">Cuatro intentos de medir la inteligencia por el cerebro. Los cuatro fallan, y cómo fallan importa.</span></span></a>
+      <a class="st" href="#vii-la-gallina-y-la-paradoja-de-la-carne"><span class="rn">VII</span><span><span class="nm">La paradoja de la carne</span><span class="ds">No la comemos porque sea tonta. Es tonta porque la comemos — y el efecto es medible.</span></span></a>
+    </div>
+  </div>
+</header>
+<div class="abstract"><h3 id="resumen">Resumen</h3>
+<p>Un cangrejo macho cuida huevos que no son suyos, con la postura exacta de una hembra en desove. Dentro de él vive <em>Sacculina</em>, un percebe que renunció a los ojos, a los apéndices, a la simetría y al sistema nervioso —y que desde esa ausencia lo gobierna—. El cangrejo conserva un cerebro artrópodo funcional, ojos compuestos y aprendizaje espacial. La pregunta con la que abre el ensayo no tiene respuesta cómoda: ¿quién de los dos es el tonto de esta historia?</p>
+<p>Si incomoda es porque llevamos dentro una imagen que no viene de la biología. La escalera —abajo la lombriz, arriba nosotros— es de Aristóteles, pasó por el neoplatonismo y el cristianismo medieval como Gran Cadena del Ser, y Darwin la refutó en teoría sin conseguir matarla. La evolución no produce escaleras: produce un arbusto ramificado sin dirección privilegiada. No hay "arriba".</p>
+<p>El ensayo la demuele por dos lados. <strong>Empíricamente:</strong> cuatro maneras de medir la inteligencia por el cerebro —masa absoluta, cociente de encefalización, conteo de neuronas, arquitectura— y las cuatro fallan de un modo instructivo. El cuervo de Nueva Caledonia, con diez gramos de cerebro y sin corteza laminada, le gana al chimpancé en planeación. La medusa caja aprende sin tener cerebro. Un moho sin una sola neurona reproduce la red ferroviaria de Tokio. La ascidia se come su propio ganglio al dejar de moverse, porque pensar solo se paga si hay decisiones que tomar. Y la abeja construye el hexágono óptimo sin saber que el hexágono existe: competencia sin comprensión, razones verdaderas que no están alojadas en ninguna mente.</p>
+<p class="nota-final"><strong>Y moralmente,</strong> que es donde duele. La gallina —arquetipo cultural del autómata emplumado— hace inferencia transitiva, resuelve sumas y restas con objetos ocultos, espera por una recompensa mayor y modula sus llamadas según quién escuche. Entonces, ¿por qué creemos exactamente lo contrario? Porque la atribución de mente se desploma justo <em>antes</em> de comer, y ese efecto está medido. La clasificación no antecede al acto: lo sigue y lo justifica.</p>
+<p>Queda una asimetría que el ensayo se niega a cerrar. Darwin explicó el diseño; no explicó la experiencia. Sabemos por qué el panal es hexagonal sin necesidad de suponer que la abeja sepa nada, y seguimos sin saber si hay algo que se siente al ser esa abeja. La escalera nunca fue un mapa del mundo. Fue una coartada.</p>
+</div>
+<h3 id="i-el-villano-entra-primero">I. El villano entra primero</h3>
+<p>Un cangrejo verde camina por el fondo de un estuario del Atlántico. Se detiene sobre una masa amarillenta adherida a su abdomen, la abanica con delicadeza, la ventila con las patas, la protege de la corriente. Cuando llegue el momento, subirá a una roca expuesta, adoptará la postura exacta de una hembra en desove y liberará la nube de larvas al agua, agitando las pinzas para dispersarlas.</p>
+<p>El cangrejo es macho.</p>
+<p>Los huevos no son suyos.</p>
+<p>Dentro de su cuerpo vive <em>Sacculina carcini</em>. Es un percebe —un crustáceo, pariente lejano del propio cangrejo— que renunció a casi todo lo que un crustáceo es. La larva hembra encuentra un cangrejo, localiza una articulación blanda, se inyecta a sí misma como una masa de células indiferenciadas y abandona su exoesqueleto en el exterior como quien deja la ropa en la orilla. Adentro se ramifica. Crece como una raíz, un sistema de filamentos que recorre el hemocele, envuelve el intestino, alcanza los ganglios nerviosos. Pierde los ojos, los apéndices, la segmentación, la simetría. Pierde el sistema nervioso.</p>
+<p>Y desde esa ausencia, gobierna.</p>
+<p>El cangrejo deja de mudar: la muda pondría en riesgo al parásito, así que el parásito la cancela. El cangrejo deja de regenerar extremidades perdidas: la energía tiene otro destino. El cangrejo queda castrado químicamente. Si es macho, su morfología se feminiza —el abdomen se ensancha, la conducta se reescribe— hasta que ejecuta con precisión ritual el cuidado parental de una hembra que no es y de una descendencia que no le pertenece.</p>
+<p>Aquí está el problema con el que quiero abrir, y que este ensayo no va a resolver sino a agravar:</p>
+<p class="nota-final"><em>Sacculina</em> tiene menos sistema nervioso que casi cualquier animal que se te ocurra. El cangrejo tiene un cerebro artrópodo perfectamente funcional, ojos compuestos, aprendizaje espacial, reconocimiento de coespecíficos.</p>
+<p>¿Quién de los dos es el tonto de esta historia?</p>
+<p>Si tu respuesta fue "el cangrejo, obviamente", acabas de descubrir que tu concepto de inteligencia no medía lo que creías que medía. Y si fue "la pregunta está mal planteada", bienvenido: eso es exactamente lo que vengo a defender, pero por razones que probablemente todavía no sospechas.</p>
+<h3 id="ii-la-escalera-que-heredamos-sin-darnos-cuenta">II. La escalera que heredamos sin darnos cuenta</h3>
+<p>Todos llevamos una imagen en la cabeza cuando pensamos en inteligencia animal. Es una escalera. Abajo la lombriz, la almeja, el insecto. Más arriba el pez, luego el reptil. Después el ave. Luego el mamífero genérico, el perro, el delfín, el chimpancé. Y en el último peldaño, mirando hacia abajo, nosotros.</p>
+<p>Esa imagen no viene de la biología. Viene de Aristóteles.</p>
+<p>En la <em>Historia de los animales</em> y en <em>Sobre el alma</em>, Aristóteles organiza lo viviente según el tipo de alma que posee: vegetativa (nutrición y crecimiento), sensitiva (percepción y movimiento), racional (deliberación). El orden es jerárquico y acumulativo: cada nivel superior contiene a los inferiores y añade algo. Plantas, animales, humanos. La escala está completa y tiene una cima.</p>
+<p>El neoplatonismo la extendió hacia arriba —ángeles, coros celestiales, Dios— y el cristianismo medieval la fijó como cosmología oficial. Arthur Lovejoy escribió en 1936 la historia de esta idea en <em>The Great Chain of Being</em>, y su tesis es difícil de exagerar: la Gran Cadena del Ser fue el supuesto de fondo más persistente del pensamiento occidental, más que cualquier doctrina explícita, precisamente porque casi nunca se enunciaba. Se daba por descontada.</p>
+<p>Darwin la mató en teoría. La evolución no produce una escalera; produce un arbusto ramificado sin dirección privilegiada. No hay "arriba". Un ser humano y un pulpo son igualmente contemporáneos, igualmente descendientes de un linaje ininterrumpido de 3,800 millones de años, igualmente en la punta de su propia rama. La antigüedad de la rama no confiere rango. La lombriz de tierra no es "un paso previo" a nada: es una lombriz de tierra actual, optimizada para ser lombriz de tierra actual.</p>
+<p>Y sin embargo.</p>
+<p>El propio Darwin escribió en un cuaderno la advertencia que él mismo desobedecería: nunca digas superior o inferior. Perdió esa batalla contra sí mismo, y la perdimos todos. La escalera sobrevivió a la teoría que la refutaba. Sigue estructurando los documentales de naturaleza, los libros de texto de secundaria, las metáforas que usamos para hablar de otros pueblos, y —lo que más me interesa— el modo en que decidimos a quién le debemos consideración moral.</p>
+<p>La pregunta que quiero mantener en el aire durante todo el texto no es por qué la escalera es falsa. Eso lo resolveremos rápido. La pregunta es <strong>por qué la necesitamos tanto</strong>.</p>
+<h3 id="iii-la-abeja-que-resolvio-un-teorema-sin-saber-que-existia">III. La abeja que resolvió un teorema sin saber que existía</h3>
+<p>Un panal de abeja melífera es una retícula de celdas hexagonales de precisión notable. El hexágono regular es la figura que minimiza el perímetro total al teselar un plano en celdas de área igual: menos cera, menos trabajo, misma capacidad.</p>
+<p>Darwin lo sabía y lo elogió sin reservas en <em>El origen de las especies</em>: absolutamente perfecto en economía de trabajo y de cera. Papo de Alejandría lo había conjeturado en el siglo IV, y —con un antropomorfismo que ya entonces era tentador— atribuyó a las abejas cierta previsión geométrica.</p>
+<p>Lo llamativo es cuándo se demostró. La Conjetura del Panal —que el mosaico hexagonal es efectivamente el óptimo— resistió a las matemáticas humanas hasta <strong>1999</strong>, cuando Thomas Hales publicó la prueba. Dos mil seiscientos años entre la conjetura y el teorema.</p>
+<p>La abeja lo resolvió en el Cretácico.</p>
+<p>Esto suena a inteligencia sobrenatural. La reacción natural es concluir que el hexágono está escrito en el ADN de la abeja: un plano heredado, un instinto puro, un algoritmo geométrico grabado en el genoma. Es la explicación que casi todo el mundo da, y es errónea en un sentido que vale la pena desmontar despacio, porque el error es instructivo.</p>
+<h4>La cera hace parte del trabajo</h4>
+<p>Existe una línea de investigación —Pirk y colaboradores en 2004, y sobre todo Karihaloo, Zhang y Wang en <em>Journal of the Royal Society Interface</em> en 2013— que reporta algo desconcertante: las abejas no construirían hexágonos. Construirían círculos.</p>
+<p>La cera de abeja se ablanda alrededor de los 40 °C, y las obreras mantienen deliberadamente el frente de construcción cerca de esa temperatura con su propio calor metabólico. La cera se comporta entonces como un fluido viscoso. Cuando se empaquetan celdas circulares y las paredes fluyen, la tensión superficial estabiliza las uniones triples en ángulos de 120°. El círculo se relaja hacia el hexágono redondeado por sí solo. Es el mismo principio que gobierna la espuma de jabón, descrito por Plateau en 1873.</p>
+<p>Conviene marcar que esto <strong>sigue en disputa</strong>. Bauer y Bienefeld publicaron el mismo año evidencia de que las abejas construyen paredes hexagonales desde el inicio, midiendo ángulos activamente durante la deposición. La versión honesta del estado del arte es: la física hace una fracción sustancial del trabajo, la abeja hace otra, y la proporción exacta no está cerrada.</p>
+<p>Pero incluso en la versión más conservadora, el punto se sostiene: <strong>el hexágono no está en el genoma</strong>. Lo que el genoma codifica son glándulas cereras, conducta de termorregulación y reglas locales de espaciamiento. La geometría óptima emerge del encuentro entre esas reglas y la termodinámica de un material a temperatura controlada.</p>
+<h4>Pero la abeja tampoco es una impresora</h4>
+<p>Y aquí viene el hallazgo que impide la lectura contraria —la de que la abeja es un autómata y todo lo hace la física.</p>
+<p>Michael Smith, Nils Napp y Kirstin Petersen publicaron en <em>PNAS</em> en 2021 un estudio sobre los panales <strong>imperfectos</strong>. Las abejas construyen celdas de dos tamaños: pequeñas para obreras, grandes para zánganos. Cuando una región de celdas pequeñas debe empalmar con una de celdas grandes, aparece un problema geométrico genuino: dos retículas hexagonales de distinto paso no encajan.</p>
+<p>La solución de las abejas es construir celdas de <strong>cinco y siete lados</strong>, en pares complementarios, distribuidas como cuñas de transición que absorben el desajuste. Y —esto es lo decisivo— comienzan a modificar gradualmente el tamaño de las celdas <strong>antes</strong> de llegar al punto de conflicto. Detectan la discontinuidad que se avecina y la disuelven por anticipado.</p>
+<p>Eso no es una plantilla ejecutándose. Es resolución de un problema geométrico con planeación anticipatoria, en un cerebro que pesa un miligramo.</p>
+<p>Y no está sola en el expediente. Giurfa y colaboradores demostraron en <em>Nature</em> (2001) que las abejas aprenden el concepto abstracto de "igual/diferente" y lo transfieren a modalidades sensoriales distintas de aquella en que lo aprendieron. Howard y colaboradores mostraron en <em>Science</em> (2018) que tratan el conjunto vacío como una cantidad menor que uno —comprensión funcional del cero, algo que a los niños humanos les cuesta años— y al año siguiente, aritmética simbólica simple. En abejorros: aprendizaje social de tareas novedosas (<em>Science</em>, 2017), cajas-rompecabezas de dos pasos que ningún individuo descubre por su cuenta y que solo se propagan por transmisión social (<em>Nature</em>, 2024), y manipulación de objetos sin recompensa alguna que los autores describen, sin eufemismos, como juego.</p>
+<h4>Competencia sin comprensión</h4>
+<p>La abeja es exquisitamente competente en un dominio y no comprende absolutamente nada de él.</p>
+<p>No sabe que el hexágono es óptimo. No sabe que hay un hexágono. Sabe cera, temperatura, vecina, distancia. La razón por la cual el panal es hexagonal es real, es matemática, es demostrable —y <strong>no está alojada en ninguna mente</strong>.</p>
+<p>Daniel Dennett llamó a esto competencia sin comprensión, y a esas razones sin dueño, razones flotantes. Su observación más incómoda es que nosotros somos el caso raro, no la abeja. La comprensión —el modelo explícito del porqué, la capacidad de responder "porque minimiza el perímetro"— es un accesorio evolutivamente tardío y ecológicamente localizado. La biosfera entera, durante casi toda su historia, corrió sobre competencia sin comprensión. Sigue corriendo así. Nosotros somos una anomalía reciente que confunde su propia anomalía con la vara de medir.</p>
+<p>Kant se estrelló contra este mismo muro en la <em>Crítica del Juicio</em>. Los organismos exhiben lo que él llamó finalidad sin fin: parecen diseñados, no puedes describirlos sin lenguaje teleológico, y sin embargo postular un diseñador es ilegítimo para la razón teórica. Su conclusión fue una profecía: jamás habrá un Newton de la brizna de hierba, jamás alguien explicará la aparente finalidad de lo vivo mediante leyes mecánicas.</p>
+<p>Darwin llegó setenta años después y fue exactamente eso.</p>
+<p>Guarda esa derrota de Kant. Vamos a necesitarla al final, porque no fue tan completa como parece.</p>
+<h3 id="iv-la-escalera-que-casi-funciona">IV. La escalera que casi funciona</h3>
+<p>Hasta aquí he estado demoliendo. Es momento de construir lo que sí se puede construir, porque la posición de que "todo es incomparable" es tan perezosa como la escalera que critico.</p>
+<p>La pregunta operativa es directa: <strong>¿el tamaño del cerebro predice la inteligencia?</strong></p>
+<p>La respuesta es no, pero la manera en que falla —cuatro veces, cada arreglo generando un problema nuevo— es más informativa que la negación.</p>
+<h4>Capa 1: masa absoluta</h4>
+<div class="tabla"><div class="tabla-scroll"><table><thead><tr><th>Especie</th><th>Masa cerebral</th></tr></thead><tbody><tr><td>Cachalote</td><td>~7,800 g</td></tr><tr><td>Elefante africano</td><td>~4,800 g</td></tr><tr><td>Delfín nariz de botella</td><td>~1,600 g</td></tr><tr><td><strong>Humano</strong></td><td><strong>~1,350 g</strong></td></tr><tr><td>Vaca</td><td>~440 g</td></tr></tbody></table></div></div>
+<p>Si mandara la masa, el cachalote estaría escribiendo esto. Y dentro de nuestra propia especie el criterio se hunde de inmediato: el cerebro de Einstein pesaba unos 1,230 gramos, por debajo del promedio. Los neandertales tenían capacidad endocraneal mayor que la nuestra. Y hay evidencia —discutida, pero publicada— de que el cerebro humano se redujo alrededor de un 10 % desde el Pleistoceno tardío.</p>
+<p>Queda un residuo verdadero: la masa cerebral correlaciona fuertemente con la masa corporal. Cuerpos grandes necesitan cerebros grandes para operar cuerpos grandes. Eso no es cognición; es logística.</p>
+<h4>Capa 2: corregir por cuerpo, y el capuchino que arruina todo</h4>
+<p>El cerebro escala con la masa corporal elevada a una potencia de entre 0.66 y 0.75 aproximadamente. El <strong>cociente de encefalización</strong> (EQ) de Jerison es la razón entre el cerebro observado y el esperado para ese cuerpo.</p>
+<div class="tabla"><div class="tabla-scroll"><table><thead><tr><th>Especie</th><th>EQ aproximado</th></tr></thead><tbody><tr><td>Humano</td><td>7.4 – 7.8</td></tr><tr><td>Delfín nariz de botella</td><td>4.1 – 4.5</td></tr><tr><td><strong>Capuchino</strong></td><td><strong>2.4 – 4.8</strong></td></tr><tr><td>Chimpancé</td><td>2.2 – 2.5</td></tr><tr><td>Elefante</td><td>1.1 – 2.4</td></tr><tr><td>Perro</td><td>~1.2</td></tr><tr><td>Gato</td><td>~1.0</td></tr><tr><td>Rata</td><td>~0.4</td></tr><tr><td>Hipopótamo</td><td>~0.3</td></tr></tbody></table></div></div>
+<p>Mira la fila en negritas. El capuchino le gana al chimpancé.</p>
+<p>No es cierto. El capuchino es un primate notable —usa yunques de piedra para abrir nueces, con tradiciones que varían por región— pero no se acerca al chimpancé en teoría de la mente, cultura material acumulada ni política de coaliciones.</p>
+<p>La falla es estructural. El EQ es una fracción y el cuerpo está en el denominador. Cualquier cosa que engorde a un animal le baja el EQ sin quitarle una sola neurona. Los pinnípedos cargan grasa aislante. Los gorilas cargan masa muscular por selección sexual. Estás midiendo dieta, termorregulación y dimorfismo, y llamándole cognición.</p>
+<h4>Capa 3: contar neuronas</h4>
+<p>Suzana Herculano-Houzel inventó un método brutal en su simplicidad: disolver el cerebro en una suspensión homogénea de núcleos celulares y contarlos. El "fraccionador isotrópico" derrumbó medio siglo de supuestos.</p>
+<p>Su hallazgo central es que <strong>las reglas de escalamiento difieren por linaje</strong>. En roedores, cuando el cerebro crece, las neuronas se agrandan y la densidad cae. En primates, la densidad permanece casi constante. Un cerebro de primate de 100 gramos contiene muchas más neuronas que un cerebro de roedor de 100 gramos. No son comparables por volumen.</p>
+<p>Y el corolario que le costó enemigos: <strong>el cerebro humano no es excepcional en su composición</strong>. Somos exactamente el cerebro de primate que corresponde a nuestro tamaño corporal, construido con las reglas de escalamiento estándar del orden. Lo extraordinario no es la proporción sino la factura: el cerebro humano consume cerca del 20 % del metabolismo basal con el 2 % de la masa corporal. Su hipótesis, con Fonseca-Azevedo (2012): la cocción. Cocinar externaliza parte de la digestión, multiplica la energía extraíble por hora de alimentación y libera el presupuesto calórico que un cerebro así exige. Un primate crudívoro de nuestro tamaño tendría que masticar más horas de las que tiene el día.</p>
+<div class="tabla"><div class="tabla-scroll"><table><thead><tr><th>Especie</th><th>Neuronas totales</th><th>Neuronas corticales / paliales</th></tr></thead><tbody><tr><td><strong>Ballena piloto</strong></td><td>—</td><td><strong>~37 mil millones</strong></td></tr><tr><td><strong>Humano</strong></td><td>~86 mil millones</td><td><strong>~16 mil millones</strong></td></tr><tr><td>Elefante africano</td><td><strong>~257 mil millones</strong></td><td>~5.6 mil millones</td></tr><tr><td>Gorila</td><td>~33 mil millones</td><td>~9 mil millones</td></tr><tr><td>Chimpancé</td><td>~28 mil millones</td><td>~6–7 mil millones</td></tr><tr><td>Guacamaya</td><td>~3 mil millones</td><td>~1.9 mil millones</td></tr><tr><td>Cuervo grande</td><td>~2 mil millones</td><td>~1.2 mil millones</td></tr><tr><td>Macaco</td><td>—</td><td>~1.7 mil millones</td></tr></tbody></table></div></div>
+<p>Tres anomalías que hay que mirar de frente en lugar de esconder:</p>
+<p class="nota-final"><strong>El elefante</strong> tiene tres veces más neuronas que nosotros. El 98 % están en el cerebelo. En corteza tiene un tercio de las nuestras. Ese cerebelo colosal probablemente sirve a la trompa: unos cuarenta mil haces musculares sin un solo hueso, un problema de control motor de dimensionalidad monstruosa. Las neuronas están ahí porque la trompa las exige.</p>
+<p class="nota-final"><strong>La ballena piloto</strong>: Mortensen y colaboradores reportaron en 2014 alrededor de 37 mil millones de neuronas neocorticales, más del doble que el humano. Este es un problema abierto y honesto. Las hipótesis van desde una corteza muy delgada extendida sobre una superficie enorme, hasta arquitecturas de conectividad radicalmente distintas, hasta la posibilidad —incómoda— de que seamos incapaces de evaluar la cognición de un animal al que no podemos someter a ninguna batería significativa.</p>
+<p><strong>El gorila</strong> tiene más neuronas corticales que el chimpancé y rinde peor en casi toda prueba estandarizada. El conteo, por sí solo, tampoco cierra.</p>
+<h4>Capa 4: lo que sí predice, y la contradicción que nadie ha resuelto</h4>
+<p>Los dos estudios comparativos más ambiciosos del campo se contradicen, y esa contradicción es el estado real de la cuestión.</p>
+<p class="nota-final"><strong>MacLean y colaboradores</strong> (<em>PNAS</em>, 2014) aplicaron dos tareas de autocontrol —el cilindro transparente y A-no-B— a 36 especies con protocolo idéntico. El mejor predictor resultó ser el <strong>volumen cerebral absoluto</strong>. No el EQ. No el tamaño relativo. La masa cruda, sin corregir por nada.</p>
+<p class="nota-final"><strong>Benson-Amram y colaboradores</strong> (<em>PNAS</em>, 2016) probaron 39 especies de carnívoros con una caja-rompecabezas con carne dentro. Ahí ganó el <strong>tamaño relativo al cuerpo</strong>. Los osos arriba; suricatas y mangostas abajo. Y un resultado que incomodó a mucha gente: la complejidad social <strong>no predijo nada</strong>. La hipótesis del cerebro social —que la inteligencia surge como respuesta a la vida en grupo, la línea de Humphrey y Dunbar— no sobrevivió a esa prueba particular.</p>
+<p>Lo que se acumula por encima del mero conteo:</p>
+<ul><li><strong>Neuronas asociativas absolutas</strong>, no totales: corteza prefrontal en mamíferos, nidopalio caudolateral en aves.</li><li><strong>Conectividad</strong>: sustancia blanca, integración de largo alcance. El cerebro es una red, no un contenedor.</li><li><strong>Neuromodulación</strong>: la densidad de receptores dopaminérgicos en las regiones asociativas es desproporcionada tanto en humanos como en córvidos.</li><li><strong>Duración del desarrollo</strong>: cerebros de maduración lenta aprenden más. Córvidos y loros tienen infancias largas, como los primates.</li><li><strong>Longevidad y transmisión social</strong>: la cultura acumula lo que ningún cerebro individual alcanza.</li></ul>
+<p>Y el dato que zanja la versión ingenua de la pregunta: <strong>dentro de la especie humana</strong>, la correlación entre volumen cerebral e IQ es de aproximadamente r = 0.24–0.29 (meta-análisis de Pietschnig et al., 2015). Es real y está replicada, y explica entre 6 % y 8 % de la varianza. Los hombres tienen cerebros alrededor de 10 % mayores que las mujeres sin diferencia en <em>g</em>. Si el tamaño mandara, ese hecho sería imposible.</p>
+<h4>Las escaleras, con todas sus advertencias</h4>
+<p>Con eso sobre la mesa, aquí van los ordenamientos. Léelos como lo que son: <strong>órdenes parciales disfrazados de listas</strong>, dependientes de qué tarea elijas como criterio, y sesgados por qué especies han tenido la fortuna de que alguien las estudie.</p>
+<p><strong>Mamíferos</strong></p>
+<p>1. <strong>Humanos.</strong> Único caso conocido de representación simbólica recursiva con sintaxis, y de cultura acumulativa con efecto trinquete. 2. <strong>Grandes simios.</strong> Chimpancé y bonobo: fabricación de herramientas con variación cultural regional, política de coaliciones, atribución de estados de conocimiento a otros. Orangután notable en razonamiento causal. Gorila sistemáticamente subestimado por sesgo de temperamento experimental. 3. <strong>Cetáceos odontocetos y elefantes.</strong> Delfín: autorreconocimiento en espejo, silbato-firma individual, comprensión de sintaxis artificial. Orca: dialectos por matrilínea, tradiciones de caza transmitidas a lo largo de generaciones. Elefante: autorreconocimiento, conducta ritualizada ante restos de coespecíficos, memoria social de décadas, cooperación con comprensión del rol del compañero. 4. <strong>Otros primates.</strong> Babuinos (inferencia transitiva en jerarquías), macacos, capuchinos. 5. <strong>El cinturón sorprendente.</strong> Cerdos (respuesta a marcas en espejo, control de joystick, discriminación de humanos individuales), perros (lectura de señalamiento humano que ni los chimpancés igualan; vocabularios receptivos excepcionales en casos documentados), mapaches, osos, pinnípedos. 6. <strong>Roedores.</strong> No los descartes: las ratas exhiben algo funcionalmente equivalente al arrepentimiento —Steiner y Redish registraron en 2014 actividad en corteza orbitofrontal que representa la opción <em>no</em> tomada tras una mala decisión— y hay evidencia contestada de metacognición.</p>
+<p>Y sobre el fondo de la lista hay que ser honesto: los candidatos habituales —perezosos, ciertos insectívoros y marsupiales— están abajo en buena medida <strong>porque nadie los ha estudiado bien</strong>. El perezoso tiene un metabolismo bajísimo y no coopera con protocolos que dependen de motivación por comida. Eso no es estupidez; es incompatibilidad metodológica. El extremo inferior de cualquier ranking cognitivo es tanto un mapa de nuestra ignorancia como del mundo.</p>
+<p><strong>Aves</strong></p>
+<p>1. <strong>Córvidos.</strong> El cuervo de Nueva Caledonia fabrica herramientas con gancho, las modifica según la tarea, y usa metaherramientas —herramientas para obtener herramientas—, algo que los chimpancés apenas alcanzan. Resuelve la tarea de la fábula de Esopo (desplazamiento de agua) al nivel de un niño de cinco a siete años. Los cuervos grandes <strong>planean para el futuro</strong>: Kabadayi y Osvath mostraron en <em>Science</em> (2017) que guardan una herramienta para usarla al día siguiente y rechazan comida inmediata a cambio de una ficha canjeable después, superando a los grandes simios en la misma prueba. Y Nieder y colaboradores registraron en <em>Science</em> (2020) neuronas del palio del cuervo cuya actividad correlaciona con el <strong>reporte subjetivo</strong> del ave y no con el estímulo físico presentado: un marcador neural de conciencia sensorial en un linaje sin corteza laminada. 2. <strong>Loros.</strong> El kea resuelve cadenas causales y muestra inferencia estadística. La cacatúa de Goffin fabrica herramientas espontáneamente sin modelo previo y transporta juegos completos de herramientas cuando anticipa necesitarlas. Y el loro gris africano: el caso de Alex, con Irene Pepperberg, sigue siendo el expediente más extenso —etiquetas para un centenar de objetos, categorías de color, forma y material, el concepto igual/diferente, una noción funcional de la ausencia como cantidad. 3. <strong>Palomas y galliformes.</strong> La paloma memoriza cientos de imágenes arbitrarias sin saturar, distingue a Monet de Picasso y generaliza a cuadros nuevos del mismo autor, y procesa cadenas ortográficas separando palabras de no-palabras. 4. <strong>Passeriformes almacenadores.</strong> Los arrendajos de matorral recuerdan <strong>qué</strong>, <strong>dónde</strong> y <strong>cuándo</strong> escondieron cada alimento, ajustan por perecibilidad, y vuelven a esconder si fueron observados —pero solo si ellos mismos han robado antes. Un ladrón proyecta al ladrón.</p>
+<h4>El cruce que rompe la escalera</h4>
+<p>Ahora junta los dos rankings y observa lo que ocurre.</p>
+<p class="nota-final"><strong>El cuervo de Nueva Caledonia, con unos 1,200 millones de neuronas paliales en un cerebro de diez gramos, iguala o supera a un macaco con 1,700 millones en un cerebro de noventa gramos. Y en planeación prospectiva le gana a chimpancés que tienen cinco veces sus neuronas.</strong></p>
+<p>Dos linajes separados por 320 millones de años. Uno de ellos sin corteza laminada, sin las seis capas que la neurociencia dio por requisito de la cognición superior durante un siglo. Stacho y colaboradores publicaron en <em>Science</em> (2020) la razón anatómica de que sea posible: el palio aviar posee un circuito canónico funcionalmente análogo a la columna cortical de los mamíferos, implementado sin laminación.</p>
+<p>La convergencia evolutiva no copia el diseño. Copia la función.</p>
+<p>Y de ahí el veredicto sobre las escaleras: <strong>dentro de un linaje se pueden construir</strong>, porque los miembros comparten arquitectura y las métricas significan lo mismo en todos. <strong>Entre linajes no se pueden empalmar.</strong> Son escaleras paralelas apoyadas contra paredes distintas, y preguntar cuál llega más alto exige un suelo común que no existe.</p>
+<p>Colapsar un fenómeno multidimensional en un solo escalar no es medir. Es elegir, y ocultar que se eligió.</p>
+<h3 id="v-donde-vive-la-mente-cuando-no-esta-en-la-cabeza">V. Dónde vive la mente cuando no está en la cabeza</h3>
+<p>Volvamos al panal, porque quedó una pregunta pendiente: si el hexágono no está en el genoma ni enteramente en la física ni enteramente en la abeja, ¿dónde está?</p>
+<p>Está repartido. Y el reparto es el hallazgo.</p>
+<div class="tabla"><div class="tabla-scroll"><table><thead><tr><th>Dónde vive la información</th><th>Qué aporta</th></tr></thead><tbody><tr><td>Genoma</td><td>Glándulas cereras, reglas de espaciamiento, conducta de termorregulación</td></tr><tr><td>Física del material</td><td>La cera fluida a 40 °C encuentra el hexágono sola</td></tr><tr><td>Estructura ya construida</td><td>Cada celda terminada indica a la siguiente obrera dónde depositar cera</td></tr><tr><td>Cognición individual</td><td>La celda de cinco lados que resuelve el empalme</td></tr><tr><td>Transmisión social</td><td>Lo que la colonia aprende y propaga entre generaciones</td></tr></tbody></table></div></div>
+<p>La tercera fila tiene nombre técnico: <strong>estigmergia</strong>, acuñado por Pierre-Paul Grassé en 1959 estudiando termitas. La coordinación no ocurre por comunicación entre individuos sino a través de las modificaciones que cada uno deja en el ambiente. El obrero no habla con el obrero; el obrero habla con la obra. La estructura parcialmente construida es el mensaje, la memoria y el plan a la vez.</p>
+<p>Clark y Chalmers llamarían a esto <strong>mente extendida</strong>; Odling-Smee y Laland lo integrarían a la teoría de <strong>construcción de nicho</strong>. El organismo modifica su entorno, y el entorno modificado ejecuta parte del cómputo. El panal no es únicamente el producto de la cognición de las abejas. Es <strong>parte de</strong> su cognición. La estructura piensa por ellas.</p>
+<p>Y una vez que aceptas eso, el mundo se llena de casos que la escalera no puede alojar en ningún peldaño:</p>
+<p class="nota-final"><strong>La medusa caja</strong> (<em>Tripedalia cystophora</em>) tiene veinticuatro ojos, cuatro de ellos con lente y retina, repartidos en cuatro ropalios de unas mil neuronas cada uno. No tiene cerebro: no hay órgano central de integración. Navega orientándose por el dosel de manglar visto desde abajo. Y en 2023, Bielecki y colaboradores demostraron <strong>aprendizaje asociativo</strong> en ella: la medusa modificó su conducta de esquive tras experiencia con contraste visual. Aprendizaje asociativo sin cerebro, en un animal cuyo linaje se separó del nuestro antes de que existiera la bilateralidad.</p>
+<p class="nota-final"><strong>El moho mucilaginoso</strong> <em>Physarum polycephalum</em> no tiene una sola neurona. Es un plasmodio, una célula gigante multinucleada. Resuelve laberintos encontrando la ruta más corta entre dos fuentes de alimento. Anticipa eventos periódicos: sometido a pulsos de frío a intervalos regulares, ralentiza su avance <strong>antes</strong> del pulso siguiente, y sigue haciéndolo una vez cuando el pulso ya no llega. Y en el experimento más citado —Tero y colaboradores, <em>Science</em>, 2010— reprodujo la topología de la red ferroviaria de Tokio, con avena marcando las estaciones, alcanzando eficiencia y tolerancia a fallos comparables a las de la red diseñada por ingenieros humanos.</p>
+<p class="nota-final"><strong>El estentor</strong>, un protozoo unicelular, exhibe habituación: una jerarquía de respuestas de evitación que se modifica con la experiencia. Jennings lo describió en 1906, el campo lo desacreditó durante casi un siglo, y Dexter y colaboradores lo replicaron con métodos modernos en 2019. Una sola célula. Sin neuronas. Con algo que cumple la definición operativa de aprendizaje.</p>
+<p>Esto último merece que nos detengamos, porque destruye la premisa que sostiene toda la conversación popular sobre inteligencia animal.</p>
+<p>La habituación —dejar de responder a un estímulo repetido e inconsecuente— es la forma más elemental de aprendizaje, y aparece en <em>todas</em> partes: en el gusano <em>C. elegans</em> con sus 302 neuronas y su conectoma completamente mapeado, en la babosa marina <em>Aplysia</em> que le dio a Kandel el Nobel por las bases moleculares de la memoria, en organismos unicelulares sin sistema nervioso alguno.</p>
+<p>Si la habituación es universal, entonces "puro instinto" —conducta cien por ciento preespecificada, absolutamente inmodificable por la experiencia— es una categoría con población cercana a cero.</p>
+<p>No existen animales que reaccionen solo por instinto. Existe un continuo: qué proporción del programa conductual viene escrita de fábrica y qué proporción se actualiza en línea. Los insectos sociales están cargados hacia lo preespecificado; córvidos, primates y cefalópodos hacia lo actualizable. Es un gradiente, no un interruptor. Y la propia etología clásica —Lorenz, Tinbergen— abandonó hace décadas la dicotomía tajante que el lenguaje popular sigue usando con total naturalidad.</p>
+<h3 id="vi-la-ascidia-que-se-comio-su-propio-cerebro">VI. La ascidia que se comió su propio cerebro</h3>
+<p>Hay un animal que hace explícito lo que todo lo anterior insinúa.</p>
+<p>Las ascidias son tunicados, y los tunicados son nuestros parientes invertebrados más cercanos. La larva de una ascidia es un renacuajo diminuto con notocorda, cordón nervioso dorsal y un ganglio cerebral. Nada libremente, detecta luz y gravedad, busca sustrato.</p>
+<p>Cuando encuentra la roca adecuada, se fija por la cabeza. Y entonces se desmonta: reabsorbe la cola, reabsorbe la notocorda, reabsorbe la mayor parte de su sistema nervioso, incluido el ganglio cerebral. Lo que queda es un saco filtrador adherido a la piedra, sin nada que se parezca a un cerebro.</p>
+<p>Dennett hizo el chiste evidente: es como conseguir la plaza fija en la universidad.</p>
+<p>La lección real es más afilada. <strong>El sistema nervioso existe para moverse.</strong> Es el órgano del animal que debe decidir a dónde ir. Es carísimo —en el humano, el 20 % del metabolismo basal— y esa factura solo se justifica si hay decisiones que tomar. Si dejas de moverte, pensar deja de ser una ventaja y pasa a ser un lujo insostenible. La selección natural lo desmantela.</p>
+<p>Y una vez que ves ese principio, aparece por todas partes. <em>Sacculina</em>, nuestro villano inicial, es exactamente el mismo fenómeno llevado al extremo: un crustáceo que abandonó ojos, apéndices, segmentación y sistema nervioso porque, hundido dentro de un cangrejo, no tiene ninguna decisión que tomar. Los mixozoos, parásitos descendientes de cnidarios, se han reducido a puñados de células. Ciertas salamandras pletodóntidas tienen cerebros secundariamente simplificados por una restricción distinta y fascinante: genomas gigantescos que obligan a células enormes, y por tanto a menos células por unidad de volumen. La evolución del cerebro también está sujeta a la física del material con que se construye.</p>
+<p>Nada de esto encaja en una escalera. Son animales que estuvieron "arriba" y bajaron, porque abajo se vivía mejor. La dirección que la escalera presupone no existe: la complejidad no es un destino, es una estrategia, y como toda estrategia se abandona cuando deja de rendir.</p>
+<h3 id="vii-la-gallina-y-la-paradoja-de-la-carne">VII. La gallina y la paradoja de la carne</h3>
+<p>Ahora quiero cobrar la deuda que abrí en la segunda sección: por qué necesitamos tanto la escalera.</p>
+<p>Pregúntale a cualquiera qué animal es tonto. Con altísima probabilidad la respuesta incluirá a la gallina. "Cerebro de pájaro" es un insulto en prácticamente todos los idiomas europeos. La gallina es el arquetipo cultural del autómata emplumado.</p>
+<p>Veamos el expediente. La síntesis de referencia es la de Lori Marino, <em>Thinking chickens</em>, publicada en <em>Animal Cognition</em> en 2017, que compila décadas de trabajo experimental.</p>
+<p class="nota-final"><strong>Numerosidad.</strong> Pollitos de pocos días de nacidos discriminan cantidades, ordenan por magnitud y —en los experimentos de Rugani y Vallortigara— resuelven tareas equivalentes a sumas y restas con conjuntos pequeños de objetos ocultos tras pantallas. En 2015, el mismo grupo publicó en <em>Science</em> evidencia de que mapean números sobre una línea mental orientada espacialmente, menor a la izquierda y mayor a la derecha: el mismo sesgo que tenemos nosotros.</p>
+<p><strong>Permanencia del objeto.</strong> Los pollitos la exhiben en un punto más temprano de su desarrollo relativo que los infantes humanos. Lo que desaparece detrás de una pantalla sigue existiendo para ellos.</p>
+<p class="nota-final"><strong>Autocontrol y descuento temporal.</strong> Abeyesinghe y colaboradores demostraron en 2005 que las gallinas esperan más tiempo por una recompensa mayor. No es un reflejo: es cálculo de valor futuro, la misma arquitectura que mide el célebre test del malvavisco.</p>
+<p class="nota-final"><strong>Inferencia transitiva.</strong> El "orden de picoteo" que da nombre a las jerarquías sociales no se sostiene por memoria de encuentros individuales. Requiere deducir que si A domina a B y B domina a C, conviene evitar a A sin haber peleado nunca contra A. Eso es lógica relacional aplicada a un modelo social.</p>
+<p class="nota-final"><strong>Comunicación referencial y engaño táctico.</strong> Los gallos poseen llamadas distintas para depredadores aéreos y terrestres. Y modulan la frecuencia de sus llamadas de comida según quién esté escuchando: más si hay una hembra presente, menos si hay un rival. Eso implica un modelo, por rudimentario que sea, de la audiencia.</p>
+<p class="nota-final"><strong>Contagio emocional.</strong> Edgar y colaboradores mostraron en 2011 que las gallinas expuestas a sus pollitos en estrés desarrollan respuesta fisiológica propia: cambios en el ritmo cardiaco, caída de temperatura ocular, vocalizaciones dirigidas. No es empatía en sentido pleno, pero es el sustrato del que la empatía se construye.</p>
+<p>Y en el nivel del hardware, Olkowicz y colaboradores publicaron en <em>PNAS</em> en 2016 el dato que cierra el caso: los cerebros de aves empaquetan neuronas a densidades que <strong>ningún mamífero alcanza</strong>. Unos pocos gramos de cerebro aviar alojan cientos de millones de neuronas, buena parte concentradas en el palio. Sumado al hallazgo de Stacho sobre el circuito canónico, "cerebro de pájaro" resulta ser un error factual de cabo a rabo.</p>
+<p>La gallina está en la mitad superior del reino animal en prácticamente cualquier métrica cognitiva razonable, y por encima de varios mamíferos en tareas de numerosidad y autocontrol.</p>
+<h4>Entonces, ¿por qué creemos exactamente lo contrario?</h4>
+<p>Aquí es donde la literatura deja de ser zoológica y se vuelve incómoda.</p>
+<p>Steve Loughnan, Brock Bastian y Nick Haslam documentaron un fenómeno que llamaron la <strong>paradoja de la carne</strong>. La formulación es simple: atribuimos menos capacidad mental a los animales que comemos. Pero el dato duro es más específico y más difícil de esquivar.</p>
+<p>El efecto es <strong>temporal</strong>. La atribución de mente se desploma justo antes de comer. En diseños experimentales, sujetos a quienes se les dice que van a probar carne de res —o a quienes simplemente se les recuerda el vínculo entre el animal y el plato— reducen su estimación de la capacidad de sufrir de ese animal, en comparación con sujetos control. Bastian y colaboradores replicaron variantes del efecto en múltiples paradigmas: la negación de mente aumenta cuando el conflicto moral se vuelve inminente.</p>
+<p>Es decir: la clasificación no antecede al acto. <strong>La clasificación sigue al acto y lo justifica.</strong></p>
+<p>No decidimos que la gallina es tonta y en consecuencia la comemos. La comemos, y en consecuencia decidimos que es tonta. La escalera de la inteligencia no es una hipótesis empírica que resultó estar equivocada. Es un dispositivo de reducción de disonancia que adquirió vocabulario científico.</p>
+<p>Y funciona con una elegancia notable. Fíjate en la estructura del argumento clásico: la consideración moral se debe a los seres con capacidades mentales suficientes; determinamos las capacidades mentales por observación; la observación coloca a estos animales abajo; por lo tanto podemos hacer con ellos lo que queramos. Cada paso parece impecable. El truco está en que el tercero no es independiente del cuarto. Medimos con una regla que ya sabe qué resultado necesitamos.</p>
+<p>No voy a decirte qué hacer con esto. No es mi trabajo y además sería más cómodo para ti que lo hiciera: convertir el argumento en un sermón te da permiso de rechazar el sermón y quedarte con la conciencia intacta.</p>
+<p>Prefiero dejarte el dato solo, que es peor.</p>
+<h3 id="viii-dos-veces-se-invento-la-mente-y-no-se-parecen">VIII. Dos veces se inventó la mente, y no se parecen</h3>
+<p>Un pulpo tiene alrededor de 500 millones de neuronas. Dos tercios de ellas no están en el cerebro central sino en los brazos. Cada brazo procesa información táctil y química, resuelve problemas locales y ejecuta movimientos con considerable autonomía respecto del centro. Un brazo seccionado sigue explorando, alcanzando, retirándose ante estímulos nocivos.</p>
+<p>Lo que hace esto vertiginoso no es la cifra. Es que la pregunta "¿qué está pensando el pulpo?" no tiene un sujeto claramente definido. No sabemos si hay uno, ocho, o nueve.</p>
+<p>Peter Godfrey-Smith construyó sobre esto los argumentos de <em>Other Minds</em> y <em>Metazoa</em>, y el punto central es cronológico. Nuestro último ancestro común con el pulpo vivió hace unos 600 millones de años y era, con toda probabilidad, algo parecido a un gusano plano con un sistema nervioso rudimentario. Todo lo que un pulpo tiene de mente y todo lo que nosotros tenemos de mente se construyó <strong>por separado</strong>, desde ese punto, sin comunicación.</p>
+<p>La conciencia —o lo que sea que haya ahí— se inventó al menos dos veces de forma independiente. Y no se parecen.</p>
+<p>Thomas Nagel preguntó en 1974 qué se siente ser un murciélago para mostrar que la experiencia subjetiva es irreductible a cualquier descripción funcional completa: puedo saberlo todo sobre la ecolocación y no saber nada sobre cómo es tenerla. Godfrey-Smith extendió el argumento al agua: en el pulpo tenemos el experimento más cercano a encontrar una mente alienígena sin salir del planeta, y lo hemos estado comiendo con aceite de oliva.</p>
+<p>Y ahora recojo la derrota de Kant, que dejé apartada.</p>
+<p>Kant profetizó que jamás habría un Newton de la brizna de hierba, que nadie explicaría la finalidad aparente de lo vivo mediante leyes mecánicas. Darwin lo refutó. La razón por la cual el panal es hexagonal está completamente explicada sin invocar propósito ni diseñador: reglas locales, termodinámica de la cera, selección acumulada durante decenas de millones de años. Competencia sin comprensión. Razones flotantes que no pertenecen a nadie.</p>
+<p>Pero fíjate exactamente en qué fue lo refutado. Darwin explicó <strong>el diseño</strong>. No explicó <strong>la experiencia</strong>.</p>
+<p>Sabemos por qué la abeja construye hexágonos y no necesitamos suponer que la abeja sabe algo. Lo que no sabemos —lo que ni Darwin ni nadie ha tocado— es si hay algo que se siente al ser esa abeja mientras deposita cera a cuarenta grados. Nagel llamó a eso el problema difícil antes de que Chalmers le pusiera el nombre. Sigue abierto. La derrota de Kant fue real y fue parcial: perdió el terreno del diseño y conservó, sin quererlo, el de la experiencia.</p>
+<p>Así que la escalera se cae por dos lados a la vez.</p>
+<p>Se cae empíricamente: el cuervo con diez gramos de cerebro le gana al chimpancé en planeación, la medusa aprende sin cerebro, el moho traza el metro de Tokio sin neuronas, la ascidia se come su propio ganglio porque dejó de necesitarlo, y el capuchino arruina cualquier índice que intentes construir.</p>
+<p>Y se cae moralmente: porque nunca fue un instrumento de medición. La construimos para saber a quién le debemos algo, y la calibramos —sin darnos cuenta, o dándonos cuenta apenas lo suficiente— para que la respuesta fuera la que nos convenía.</p>
+<p>La escalera nunca fue un mapa del mundo.</p>
+<p>Fue una coartada.</p>
+<h3 id="referencias">Referencias</h3>
+<p><strong>Sobre la escalera y su historia</strong></p>
+<ul><li>Lovejoy, A. (1936). <em>The Great Chain of Being</em>. Harvard University Press.</li><li>Aristóteles, <em>Historia de los animales</em>; <em>De anima</em>.</li></ul>
+<p><strong>Abejas y geometría</strong></p>
+<ul><li>Hales, T. (2001). The Honeycomb Conjecture. <em>Discrete &amp; Computational Geometry</em> 25.</li><li>Karihaloo, B., Zhang, K., Wang, J. (2013). Honeybee combs: how the circular cells transform into rounded hexagons. <em>J. R. Soc. Interface</em> 10(86).</li><li>Bauer, D., Bienefeld, K. (2013). Hexagonal comb cells of honeybees are not produced via a liquid equilibrium process. <em>Naturwissenschaften</em> 100.</li><li>Smith, M., Napp, N., Petersen, K. (2021). Imperfect comb construction reveals the architectural abilities of honeybees. <em>PNAS</em> 118(31).</li><li>Giurfa, M. et al. (2001). The concepts of 'sameness' and 'difference' in an insect. <em>Nature</em> 410.</li><li>Howard, S. et al. (2018). Numerical ordering of zero in honey bees. <em>Science</em> 360.</li><li>Bridges, A. et al. (2024). Bumblebees socially learn behaviour too complex to innovate alone. <em>Nature</em> 627.</li></ul>
+<p><strong>Tamaño cerebral, neuronas y cognición comparada</strong></p>
+<ul><li>Jerison, H. (1973). <em>Evolution of the Brain and Intelligence</em>. Academic Press.</li><li>Herculano-Houzel, S. (2016). <em>The Human Advantage</em>. MIT Press.</li><li>Fonseca-Azevedo, K., Herculano-Houzel, S. (2012). Metabolic constraint imposes tradeoff between body size and number of brain neurons. <em>PNAS</em> 109(45).</li><li>Mortensen, H. et al. (2014). Quantitative relationships in delphinid neocortex. <em>Frontiers in Neuroanatomy</em> 8.</li><li>MacLean, E. et al. (2014). The evolution of self-control. <em>PNAS</em> 111(20).</li><li>Benson-Amram, S. et al. (2016). Brain size predicts problem-solving ability in mammalian carnivores. <em>PNAS</em> 113(9).</li><li>Pietschnig, J. et al. (2015). Meta-analysis of associations between human brain volume and intelligence differences. <em>Neuroscience &amp; Biobehavioral Reviews</em> 57.</li><li>Chittka, L., Niven, J. (2009). Are bigger brains better? <em>Current Biology</em> 19(21).</li></ul>
+<p><strong>Aves</strong></p>
+<ul><li>Olkowicz, S. et al. (2016). Birds have primate-like numbers of neurons in the forebrain. <em>PNAS</em> 113(26).</li><li>Stacho, M. et al. (2020). A cortex-like canonical circuit in the avian forebrain. <em>Science</em> 369.</li><li>Nieder, A. et al. (2020). A neural correlate of sensory consciousness in a corvid bird. <em>Science</em> 369.</li><li>Kabadayi, C., Osvath, M. (2017). Ravens parallel great apes in flexible planning for tool-use and bartering. <em>Science</em> 357.</li><li>Taylor, A. et al. (2007). Spontaneous metatool use by New Caledonian crows. <em>Current Biology</em> 17.</li><li>Marino, L. (2017). Thinking chickens: a review of cognition, emotion, and behavior in the domestic chicken. <em>Animal Cognition</em> 20.</li><li>Rugani, R. et al. (2015). Number-space mapping in the newborn chick resembles humans' mental number line. <em>Science</em> 347.</li><li>Abeyesinghe, S. et al. (2005). Can domestic fowl show self-control? <em>Animal Behaviour</em> 70.</li><li>Edgar, J. et al. (2011). Avian maternal response to chick distress. <em>Proc. R. Soc. B</em> 278.</li></ul>
+<p><strong>Cognición sin cerebro</strong></p>
+<ul><li>Bielecki, J. et al. (2023). Associative learning in the box jellyfish. <em>Current Biology</em> 33.</li><li>Tero, A. et al. (2010). Rules for biologically inspired adaptive network design. <em>Science</em> 327.</li><li>Saigusa, T. et al. (2008). Amoebae anticipate periodic events. <em>Physical Review Letters</em> 100.</li><li>Dexter, J., Prabakaran, S., Gunawardena, J. (2019). A complex hierarchy of avoidance behaviors in a single-cell eukaryote. <em>Current Biology</em> 29.</li><li>Grassé, P.-P. (1959). La reconstruction du nid et les coordinations interindividuelles. <em>Insectes Sociaux</em> 6.</li></ul>
+<p><strong>Filosofía</strong></p>
+<ul><li>Dennett, D. (2017). <em>From Bacteria to Bach and Back</em>. Norton.</li><li>Godfrey-Smith, P. (2016). <em>Other Minds</em>; (2020) <em>Metazoa</em>. Farrar, Straus and Giroux.</li><li>Nagel, T. (1974). What is it like to be a bat? <em>The Philosophical Review</em> 83(4).</li><li>Kant, I. (1790). <em>Kritik der Urteilskraft</em>.</li><li>Clark, A., Chalmers, D. (1998). The Extended Mind. <em>Analysis</em> 58(1).</li><li>Odling-Smee, J., Laland, K., Feldman, M. (2003). <em>Niche Construction</em>. Princeton University Press.</li></ul>
+<p><strong>Psicología moral</strong></p>
+<ul><li>Loughnan, S., Haslam, N., Bastian, B. (2010). The role of meat consumption in the denial of moral status and mind to meat animals. <em>Appetite</em> 55(1).</li><li>Bastian, B. et al. (2012). Don't mind meat? The denial of mind to animals used for human consumption. <em>Personality and Social Psychology Bulletin</em> 38(2).</li></ul>
+<p><strong>Parásitos y simplificación secundaria</strong></p>
+<ul><li>Høeg, J. (1995). The biology and life cycle of the Rhizocephala. <em>Journal of the Marine Biological Association</em> 75.</li><li>Roth, G., Blanke, J., Wake, D. (1994). Cell size predicts morphological complexity in the brains of frogs and salamanders. <em>PNAS</em> 91.</li></ul>
+  <footer class="end">
+    <span>Alejandro Vázquez · 2026</span>
+    <a href="#portada">Volver al inicio ↑</a>
+  </footer>
+</main>
+
+<script>
+(function(){
+  var bar=document.getElementById('bar'),t=document.getElementById('toggle');
+  function prog(){var h=document.documentElement,m=h.scrollHeight-h.clientHeight;
+    bar.style.width=(m>0?(h.scrollTop/m)*100:0)+'%';}
+  addEventListener('scroll',prog,{passive:true});prog();
+  t.addEventListener('click',function(){
+    var r=document.documentElement,cur=r.getAttribute('data-theme');
+    if(!cur){cur=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';}
+    var nx=cur==='dark'?'light':'dark';r.setAttribute('data-theme',nx);
+    try{localStorage.setItem('av-tema',nx);}catch(e){}
+  });
+  try{var sv=localStorage.getItem('av-tema');if(sv)document.documentElement.setAttribute('data-theme',sv);}catch(e){}
+  var links=[].slice.call(document.querySelectorAll('#rail a'));
+  var secs=links.map(function(a){return document.getElementById(a.dataset.target);}).filter(Boolean);
+  if('IntersectionObserver' in window && secs.length){
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){
+      if(e.isIntersecting){links.forEach(function(a){
+        a.classList.toggle('on',a.dataset.target===e.target.id);});}});},
+      {rootMargin:'-20% 0px -70% 0px'});
+    secs.forEach(function(s){io.observe(s);});
+  }
+
+  // la barra flotante se esconde al bajar y reaparece al subir — solo en
+  // móvil, donde el texto ocupa todo el ancho y la barra le caía encima.
+  //
+  // SIN requestAnimationFrame a propósito. La primera versión usaba un rAF
+  // como amortiguador, con un cerrojo que solo se soltaba dentro del propio
+  // rAF; cuando el navegador lo suspende —pestaña en segundo plano, o el modo
+  // de bajo consumo del iPhone, que Safari estrangula sin piedad— el cerrojo
+  // se quedaba echado y la barra no volvía NUNCA. El trabajo real son dos
+  // comparaciones y un toggle de clase: hacerlo directo en el listener pasivo
+  // es más barato que el andamio que lo protegía.
+  // La decisión vive en una función pura —sin DOM, sin efectos— para poder
+  // probarla con una tabla de verdad. UMBRAL: no se esconde en los primeros
+  // 240px, para que la portada nunca aparezca sin barra. HISTERESIS de 6px:
+  // sin ella, el rebote elástico de iOS la haría parpadear.
+  function decidirBarra(y,ult,movil){
+    if(!movil){return 'mostrar';}
+    if(y>ult+6&&y>240){return 'ocultar';}
+    if(y<ult-6){return 'mostrar';}
+    return 'nada';
+  }
+  var tb=document.querySelector('.topbar'),ult=0,mv=matchMedia('(max-width:640px)');
+  addEventListener('scroll',function(){
+    var y=scrollY>0?scrollY:0, d=decidirBarra(y,ult,mv.matches);
+    if(d==='ocultar'){tb.classList.add('oculta');}
+    else if(d==='mostrar'){tb.classList.remove('oculta');}
+    ult=y;
+  },{passive:true});
+  // dos redes de seguridad: al volver a la pestaña y al cambiar de tamaño,
+  // la barra reaparece pase lo que pase.
+  mv.addEventListener('change',function(){tb.classList.remove('oculta');});
+  document.addEventListener('visibilitychange',function(){
+    if(!document.hidden){tb.classList.remove('oculta');ult=scrollY>0?scrollY:0;}
+  });
+})();
+</script>
+</html>
