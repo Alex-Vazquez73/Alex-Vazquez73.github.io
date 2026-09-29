@@ -1,0 +1,663 @@
+<!doctype html>
+<html lang="es">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Lo que nadie ve y lo que todos creen ver</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,600&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,600;1,6..72,300;1,6..72,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --ground:#EBEDF1; --surface:#F5F6F8; --ink:#141A22; --ink-soft:#58616F;
+  --rule:#D2D8E0; --lamp:#8A5E0F; --lamp-glow:rgba(216,162,74,.16); --shade:rgba(20,26,34,.06);
+  --measure:35rem;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --ground:#0E1218; --surface:#151B23; --ink:#E6E4DF; --ink-soft:#98A0AC;
+    --rule:#242C37; --lamp:#D8A24A; --lamp-glow:rgba(216,162,74,.10); --shade:rgba(230,228,223,.05);
+  }
+}
+:root[data-theme="dark"]{
+  --ground:#0E1218; --surface:#151B23; --ink:#E6E4DF; --ink-soft:#98A0AC;
+  --rule:#242C37; --lamp:#D8A24A; --lamp-glow:rgba(216,162,74,.10); --shade:rgba(230,228,223,.05);
+}
+*{box-sizing:border-box;}
+/* el resplandor del farol es más ancho que la pantalla a propósito;
+   sin esto, en móvil la página se desliza de lado. */
+html{overflow-x:clip;}
+body{
+  background:var(--ground); color:var(--ink);
+  font-family:"Newsreader",Georgia,"Times New Roman",serif;
+  font-size:1.135rem; line-height:1.72; font-weight:300;
+  margin:0; padding:0; overflow-x:hidden; overflow-wrap:break-word;
+  -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
+}
+#bar{position:fixed;top:0;left:0;height:2px;width:0;background:var(--lamp);z-index:60;transition:width .12s linear;}
+.wrap{max-width:var(--measure);margin:0 auto;padding:0 1.5rem 8rem;}
+
+.cover{position:relative;padding:7.5rem 0 4.5rem;}
+.lamp{position:absolute;top:-14rem;left:50%;transform:translateX(-50%);
+  width:min(60rem,150vw);height:34rem;pointer-events:none;
+  background:radial-gradient(ellipse 50% 50% at 50% 50%,var(--lamp-glow),transparent 70%);}
+.eyebrow{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:.68rem;letter-spacing:.19em;
+  text-transform:uppercase;color:var(--ink-soft);margin:0 0 2.1rem;}
+.cover h1{font-family:"Fraunces","Newsreader",Georgia,serif;font-weight:400;
+  font-size:clamp(2.6rem,8.5vw,4.1rem);line-height:1.03;letter-spacing:-.022em;
+  margin:0 0 1.3rem;text-wrap:balance;}
+.subtitle{font-family:"Fraunces",Georgia,serif;font-weight:300;font-style:italic;
+  font-size:clamp(1.15rem,3.4vw,1.42rem);line-height:1.4;color:var(--ink-soft);
+  margin:0 0 2.6rem;text-wrap:balance;}
+.byline{font-family:"IBM Plex Mono",monospace;font-size:.76rem;letter-spacing:.05em;
+  color:var(--ink-soft);margin:0;padding-top:1.5rem;border-top:1px solid var(--rule);}
+.stats{display:flex;gap:2.2rem;flex-wrap:wrap;font-family:"IBM Plex Mono",monospace;
+  font-size:.72rem;letter-spacing:.05em;color:var(--ink-soft);margin:.9rem 0 0;
+  font-variant-numeric:tabular-nums;}
+
+.cartucho{margin:3.5rem 0 1rem;padding:1.9rem 0;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);}
+.cartucho p.lead{font-family:"IBM Plex Mono",monospace;font-size:.68rem;letter-spacing:.17em;
+  text-transform:uppercase;color:var(--ink-soft);margin:0 0 1.5rem;}
+.st-grid{display:grid;gap:1.15rem;}
+.st{display:grid;grid-template-columns:2.6rem 1fr;gap:.9rem;align-items:baseline;
+  text-decoration:none;color:inherit;padding:.45rem .55rem;margin:-.45rem -.55rem;border-radius:2px;}
+a.st:hover,a.st:focus-visible{background:var(--shade);outline:none;}
+a.st:focus-visible{box-shadow:0 0 0 2px var(--lamp);}
+.st .rn{font-family:"IBM Plex Mono",monospace;font-size:.72rem;color:var(--lamp);letter-spacing:.08em;}
+.st .nm{font-family:"Fraunces",Georgia,serif;font-size:1.06rem;font-weight:400;}
+.st .ds{display:block;font-size:.92rem;color:var(--ink-soft);font-style:italic;margin-top:.12rem;}
+
+/* el aviso del espejo: la pieza se mudó y esta copia lo dice arriba */
+.aviso{background:var(--surface);border:1px solid var(--rule);
+  border-left:2px solid var(--lamp);border-radius:2px;
+  padding:1.05rem 1.2rem;margin:4.5rem 0 0;
+  font-family:"IBM Plex Mono",monospace;font-size:.75rem;line-height:1.7;
+  color:var(--ink-soft);}
+.aviso strong{color:var(--ink);font-weight:500;}
+.aviso a{color:var(--lamp);text-decoration:none;border-bottom:1px solid var(--lamp);
+  word-break:break-word;}
+.aviso a:hover{color:var(--ink);border-color:var(--ink);}
+.con-aviso .cover{padding-top:3rem;}
+@media (max-width:640px){.aviso{margin-top:4rem;font-size:.72rem;padding:.95rem 1rem;}
+  .con-aviso .cover{padding-top:2.2rem;}}
+
+.abstract{background:var(--surface);border:1px solid var(--rule);border-left:2px solid var(--lamp);
+  padding:1.9rem 1.8rem 1.2rem;margin:0 0 3.2rem;border-radius:2px;}
+.abstract h3{margin:0 0 1.2rem;font-family:"IBM Plex Mono",monospace;font-weight:500;
+  font-size:.72rem;letter-spacing:.17em;text-transform:uppercase;color:var(--lamp);}
+.abstract p{font-size:.985rem;line-height:1.68;color:var(--ink-soft);margin:0 0 1.05rem;}
+.abstract p strong{color:var(--ink);font-weight:600;}
+
+.part{padding-top:1rem;}
+.part-title{font-family:"Fraunces",Georgia,serif;font-weight:400;
+  font-size:clamp(1.75rem,5vw,2.35rem);line-height:1.14;letter-spacing:-.015em;
+  margin:5.5rem 0 2.6rem;padding-top:3rem;border-top:1px solid var(--rule);text-wrap:balance;}
+#introduccion .part-title{display:none;}
+h3{font-family:"Fraunces",Georgia,serif;font-weight:600;font-size:1.24rem;line-height:1.3;
+  letter-spacing:-.005em;margin:3.2rem 0 1.1rem;text-wrap:balance;}
+h4{font-family:"IBM Plex Mono",monospace;font-weight:500;font-size:.74rem;letter-spacing:.15em;
+  text-transform:uppercase;color:var(--ink-soft);margin:2.4rem 0 1rem;}
+p{margin:0 0 1.35rem;}
+strong{font-weight:600;color:var(--ink);}
+em{font-style:italic;}
+blockquote{margin:2.5rem 0;padding:0 0 0 1.6rem;border-left:2px solid var(--lamp);
+  font-family:"Fraunces",Georgia,serif;font-size:1.24rem;line-height:1.45;font-weight:300;
+  color:var(--ink);text-wrap:pretty;}
+blockquote strong{font-weight:600;}
+.nota-final{color:var(--ink-soft);font-size:.86rem;line-height:1.62;}
+
+#rail{position:fixed;top:50%;transform:translateY(-50%);left:2.2rem;z-index:40;display:none;}
+#rail ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:.15rem;}
+#rail a{display:grid;grid-template-columns:1.6rem 1fr;gap:.55rem;align-items:baseline;
+  text-decoration:none;color:var(--ink-soft);padding:.42rem .5rem;border-radius:2px;
+  border-left:2px solid transparent;transition:color .2s,border-color .2s;}
+#rail a:hover{color:var(--ink);}
+#rail a:focus-visible{outline:none;box-shadow:0 0 0 2px var(--lamp);}
+#rail a.on{color:var(--ink);border-left-color:var(--lamp);}
+#rail .num{font-family:"IBM Plex Mono",monospace;font-size:.62rem;letter-spacing:.1em;text-align:right;opacity:.8;}
+#rail .lbl{font-family:"IBM Plex Mono",monospace;font-size:.66rem;letter-spacing:.11em;text-transform:uppercase;}
+@media (min-width:1180px){#rail{display:block;}}
+
+.topbar{position:fixed;top:1.15rem;right:1.15rem;z-index:50;display:flex;gap:.5rem;
+  transition:transform .28s ease,opacity .28s ease;}
+/* en móvil la columna ocupa todo el ancho y la barra fija caía encima del
+   texto. Se esconde al bajar y vuelve en cuanto se hace el gesto de subir. */
+.topbar.oculta{transform:translateY(-160%);opacity:0;pointer-events:none;}
+.topbar a,.topbar button{background:var(--surface);color:var(--ink-soft);border:1px solid var(--rule);
+  font-family:"IBM Plex Mono",monospace;font-size:.62rem;letter-spacing:.13em;text-transform:uppercase;
+  padding:.5rem .8rem;border-radius:2px;cursor:pointer;text-decoration:none;
+  transition:color .2s,border-color .2s;display:inline-flex;align-items:center;
+  min-height:2.6rem;}
+.topbar a:hover,.topbar button:hover{color:var(--ink);border-color:var(--ink-soft);}
+.topbar a:focus-visible,.topbar button:focus-visible{outline:none;box-shadow:0 0 0 2px var(--lamp);}
+
+/* el colofón: enlaza esta pieza con su hermana del archivo. Va en la voz
+   del cuerpo (serif, minúsculas), no en la del pie, porque es texto que se
+   lee, no metadato. */
+.colofon{margin:4rem 0 0;font-family:"Newsreader",Georgia,serif;
+  font-style:italic;font-size:.94rem;line-height:1.6;color:var(--ink-soft);}
+.colofon a{color:var(--lamp);font-style:normal;text-decoration:none;
+  border-bottom:1px solid var(--lamp-glow);}
+.colofon a:hover{border-color:var(--lamp);}
+
+.end{margin-top:5rem;padding-top:2.5rem;border-top:1px solid var(--rule);
+  font-family:"IBM Plex Mono",monospace;font-size:.68rem;letter-spacing:.13em;
+  text-transform:uppercase;color:var(--ink-soft);display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;}
+.end a{color:var(--ink-soft);text-decoration:none;border-bottom:1px solid var(--rule);}
+.end a:hover{color:var(--lamp);border-color:var(--lamp);}
+html{scroll-behavior:smooth;}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto;} *{transition:none!important;}}
+/* ── lectura en móvil ─────────────────────────────────────────────────
+   Hasta el 2026-08-25 estas reglas eran letra muerta: la página no
+   declaraba <meta viewport>, así que el teléfono la componía a 980px y la
+   encogía entera. El resultado era un escritorio en miniatura —letra de
+   7px efectivos y media pantalla de margen desperdiciado— y al hacer zoom
+   el texto se salía de lado, porque el documento seguía midiendo 980px.
+   Con el viewport puesto, el móvil deja de ser un escritorio encogido y
+   pasa a merecer su propia medida. Aquí está.                          */
+@media (max-width:640px){
+  body{font-size:1.16rem;line-height:1.70;}
+  /* el español encadena palabras largas; en una columna de ~330px sin
+     guionado la línea queda con agujeros. */
+  p,li,.abstract p,aside.recuadro p,.st .ds{hyphens:auto;-webkit-hyphens:auto;}
+  .wrap{padding:0 1.3rem 5rem;}
+  .cover{padding:4.6rem 0 3rem;}
+  .cover h1{font-size:clamp(2.3rem,9.5vw,3.1rem);letter-spacing:-.02em;}
+  .subtitle{font-size:1.18rem;margin-bottom:2rem;}
+  .eyebrow{margin-bottom:1.6rem;}
+  .stats{gap:.4rem 1.4rem;font-size:.7rem;}
+  .cartucho{margin:2.6rem 0 .5rem;padding:1.5rem 0;}
+  .st .nm{font-size:1.1rem;}
+  .st .ds{font-size:.95rem;}
+  .abstract{padding:1.4rem 1.25rem .9rem;margin-bottom:2.6rem;}
+  .abstract p{font-size:1.04rem;line-height:1.66;}
+  .part-title{font-size:1.9rem;margin:4rem 0 2rem;padding-top:2.4rem;}
+  h3{font-size:1.28rem;margin:2.7rem 0 .9rem;}
+  blockquote{font-size:1.2rem;margin:2rem 0;padding-left:1.2rem;}
+  figure.fig,.tabla{width:94vw;}
+  figcaption{font-size:.735rem;}
+  .tabla table{font-size:.8rem;}
+  .tabla th{font-size:.7rem;}
+  .tabla th,.tabla td{padding:.55rem .7rem;}
+  aside.recuadro{padding:1.25rem 1.2rem .9rem;margin:2.2rem 0;}
+  aside.recuadro p{font-size:1.04rem;}
+  .end{margin-top:3.5rem;}
+}
+
+/* ── figuras, tablas y listas ─────────────────────────────────────────
+   Rompen el ancho de lectura: una gráfica de datos a 35rem es ilegible.
+   El pie se queda en tipografía mono, como el resto del aparato.        */
+figure.fig{margin:3.6rem 0;width:min(50rem,92vw);margin-left:50%;transform:translateX(-50%);}
+figure.fig img{width:100%;height:auto;display:block;border:1px solid var(--rule);border-radius:2px;}
+figcaption{font-family:"IBM Plex Mono",monospace;font-size:.715rem;line-height:1.6;
+  color:var(--ink-soft);margin:.95rem 0 0;padding-left:.1rem;}
+figcaption .n{color:var(--lamp);letter-spacing:.06em;}
+
+.tabla{margin:3.2rem 0;width:min(50rem,92vw);margin-left:50%;transform:translateX(-50%);}
+.tabla-scroll{overflow-x:auto;border:1px solid var(--rule);border-radius:2px;
+  -webkit-overflow-scrolling:touch;}
+.tabla table{border-collapse:collapse;width:100%;font-family:"IBM Plex Mono",monospace;
+  font-size:.755rem;line-height:1.52;font-variant-numeric:tabular-nums;}
+.tabla th,.tabla td{padding:.6rem .8rem;text-align:left;vertical-align:top;
+  border-bottom:1px solid var(--rule);}
+.tabla th{color:var(--lamp);font-weight:500;font-size:.665rem;letter-spacing:.1em;
+  text-transform:uppercase;background:var(--surface);white-space:nowrap;}
+.tabla tbody tr:last-child td{border-bottom:none;}
+.tabla td strong{color:var(--ink);}
+.tabla caption{caption-side:bottom;}
+
+/* recuadro: la celda única con que Word marcaba los apartes del ensayo
+   (◆ veredictos, diseños de demostración, epígrafes) */
+aside.recuadro{background:var(--surface);border:1px solid var(--rule);
+  border-left:2px solid var(--lamp);padding:1.5rem 1.6rem 1.1rem;margin:2.8rem 0;border-radius:2px;}
+aside.recuadro p{font-size:.985rem;line-height:1.66;color:var(--ink-soft);margin:0 0 1rem;}
+aside.recuadro p:last-child{margin-bottom:0;}
+aside.recuadro p strong{color:var(--ink);}
+aside.recuadro .marca{font-family:"IBM Plex Mono",monospace;font-size:.68rem;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--lamp);display:block;margin:0 0 .9rem;}
+
+ul{margin:0 0 1.5rem;padding-left:1.15rem;}
+li{margin:0 0 .62rem;padding-left:.2rem;}
+li::marker{color:var(--lamp);}
+
+@media (max-width:900px){
+  figure.fig,.tabla{width:92vw;}
+}
+
+/* ── escala de escritorio ─────────────────────────────────────────────
+   El móvil ya estaba bien y no se toca. De 1024px para arriba la página
+   crece: la letra sube ~25%, la columna crece con ella para conservar el
+   largo de línea (~62 caracteres, que es donde la lectura larga cansa
+   menos), y el aire lateral y vertical se duplica.                     */
+@media (min-width:1024px){
+  :root{--measure:44rem;}
+  body{font-size:1.42rem;line-height:1.74;}
+  .wrap{padding:0 3rem 11rem;}
+  .cover{padding:9rem 0 5.5rem;}
+  .cover h1{font-size:clamp(3.4rem,6vw,4.8rem);}
+  .subtitle{font-size:1.62rem;}
+  p{margin:0 0 1.6rem;}
+  h3{font-size:1.46rem;margin:4rem 0 1.3rem;}
+  .part-title{margin:7rem 0 3.2rem;padding-top:3.6rem;}
+  blockquote{font-size:1.44rem;margin:3rem 0;padding-left:2rem;}
+  figure.fig,.tabla{width:min(60rem,90vw);}
+  figcaption{font-size:.8rem;}
+  .tabla table{font-size:.85rem;}
+  .tabla th{font-size:.72rem;}
+  .tabla th,.tabla td{padding:.72rem .95rem;}
+  aside.recuadro{padding:2rem 2.1rem 1.5rem;margin:3.4rem 0;}
+  aside.recuadro p{font-size:1.16rem;line-height:1.7;}
+  .abstract{padding:2.3rem 2.2rem 1.5rem;}
+  .abstract p{font-size:1.16rem;line-height:1.72;}
+  li{margin:0 0 .75rem;}
+  ul{padding-left:1.4rem;}
+}
+@media (min-width:1500px){
+  :root{--measure:47rem;}
+  body{font-size:1.5rem;}
+  figure.fig,.tabla{width:min(64rem,86vw);}
+}
+.wrap figure.fig{width:min(26rem,86vw);}</style>
+
+<div id="bar"></div>
+<div class="topbar"><a href="../">Archivo</a><button id="toggle" type="button" aria-label="Cambiar tema">Tema</button></div>
+<nav id="rail" aria-label="Partes">
+  <ul>
+      <li><a href="#introduccion" data-target="introduccion"><span class="num">—</span><span class="lbl">Vida y contexto</span></a></li>
+      <li><a href="#tomo-i-el-proceso-de-produccion-del-capital" data-target="tomo-i-el-proceso-de-produccion-del-capital"><span class="num">I</span><span class="lbl">Tomo I</span></a></li>
+      <li><a href="#tomo-ii-el-proceso-de-circulacion-del-capital" data-target="tomo-ii-el-proceso-de-circulacion-del-capital"><span class="num">II</span><span class="lbl">Tomo II</span></a></li>
+      <li><a href="#tomo-iii-el-proceso-global-de-la-produccion-capitalista" data-target="tomo-iii-el-proceso-global-de-la-produccion-capitalista"><span class="num">III</span><span class="lbl">Tomo III</span></a></li>
+      <li><a href="#legado-una-critica-inacabada" data-target="legado-una-critica-inacabada"><span class="num">◇</span><span class="lbl">Legado</span></a></li>
+  </ul>
+</nav>
+
+<main class="wrap">
+<header class="cover" id="portada">
+  <div class="lamp" aria-hidden="true"></div>
+  <p class="eyebrow">Economía política · Guía de lectura</p>
+  <h1>Lo que nadie ve y lo que todos creen ver</h1>
+  <p class="subtitle">Una lectura de El Capital, de la fábrica a la superficie</p>
+  <p class="byline">Alejandro Vázquez · junio de 2026</p>
+  <p class="stats"><span>14,100 palabras</span><span>~70 min de lectura</span><span>Vida · tres tomos · legado</span></p>
+  <div class="cartucho">
+  <p class="lead">Un solo argumento</p>
+  <div class="st-grid">
+    <a class="st" href="#tomo-i-el-proceso-de-produccion-del-capital"><span class="rn">I</span><span><span class="nm">La producción</span><span class="ds">La mercancía, el fetichismo, la plusvalía, la jornada de trabajo y la acumulación originaria.</span></span></a>
+    <a class="st" href="#tomo-ii-el-proceso-de-circulacion-del-capital"><span class="rn">II</span><span><span class="nm">La circulación</span><span class="ds">La rotación del capital, los esquemas de reproducción y la anarquía de la producción.</span></span></a>
+    <a class="st" href="#tomo-iii-el-proceso-global-de-la-produccion-capitalista"><span class="rn">III</span><span><span class="nm">El proceso global</span><span class="ds">Precios de producción, tasa decreciente de ganancia, capital ficticio, renta y la fórmula trinitaria.</span></span></a>
+    <a class="st" href="#legado-una-critica-inacabada"><span class="rn">◇</span><span><span class="nm">El legado</span><span class="ds">Ocho tesis contra el capitalismo, las objeciones a Marx y lo que sigue vigente en el siglo XXI.</span></span></a>
+  </div>
+</div>
+</header>
+<section class="part" id="introduccion">
+<div class="abstract"><h3 id="resumen">Resumen</h3>
+<p class="nota-final"><em>El Capital</em> es la obra que casi nadie leyó completa y que, aun así, reorganizó el siglo XX. Esta guía la recorre entera —la vida que la hizo posible, los tres tomos y lo que queda de ella— con una tesis de lectura: los tres tomos no son tres libros sino <strong>un solo argumento</strong>, que empieza donde nadie mira —el trabajo no pagado dentro de la fábrica— y termina donde todos creen ver —la ganancia, el interés y la renta como frutos naturales del capital, el dinero y la tierra—. El hilo que los cose no es la plusvalía sino el <strong>fetichismo</strong>: la manera en que una relación entre personas se presenta, necesariamente, como una propiedad de las cosas.</p>
+<p>La <strong>vida</strong> hace de introducción: el hijo de un abogado que tuvo que bautizarse para conservar su oficio, el joven hegeliano al que un debate sobre el robo de leña empujó hacia la economía, el encuentro con Engels en París y la miseria del Soho, donde murieron tres de sus hijos mientras él leía a los economistas en el Museo Británico. El <strong>Tomo I</strong> entra en la fábrica: parte de la mercancía, separa el trabajo de la fuerza de trabajo y encuentra la plusvalía en un intercambio sin fraude —el capitalista paga exactamente lo que compra—; cierra con la acumulación originaria, el capital que llega al mundo «chorreando sangre y lodo». El <strong>Tomo II</strong> sale a la calle y pregunta si el capital social puede reproducirse sin que nadie lo planifique; la respuesta —proporciones entre sectores que ningún mercado garantiza de antemano— convierte la crisis en el único mecanismo de coordinación disponible. El <strong>Tomo III</strong> sigue a la plusvalía mientras se reparte entre industriales, comerciantes, banqueros y terratenientes, y llega a la tasa decreciente de ganancia, al capital ficticio y a la fórmula trinitaria, el fetichismo en su forma más acabada. El manuscrito se interrumpe a mitad de frase, en el capítulo sobre las clases.</p>
+<p>El <strong>legado</strong> levanta dos inventarios con la misma exigencia: ocho tesis contra el capitalismo que no han perdido filo, y ocho objeciones a Marx que sus adversarios tienen razón en señalar —el problema de la transformación sigue abierto, la teoría del valor-trabajo es disputable, el empobrecimiento absoluto fue falsado, el cálculo económico sin precios nunca se resolvió—. Cada tomo trae además a sus intérpretes, de Lukács y Sohn-Rethel a Luxemburg, Grossman, Sraffa, Brenner y Harvey.</p>
+<p>La conclusión no pide adhesión. Marx no deja un programa ni una receta para el socialismo; deja un método y un puñado de preguntas —quién produce la riqueza y quién se la apropia, qué relaciones se esconden detrás de las categorías del mercado, si el capitalismo tiene contradicciones o solo «desafíos»— que la economía dominante sigue esquivando. Se puede rechazar cada una de sus respuestas. Lo que no se puede, sin pagar un precio intelectual, es pensar el capitalismo del siglo XXI sin haberlo pasado por ese tamiz.</p>
+</div>
+<h3 id="semblanza">Semblanza</h3>
+<p class="nota-final"><strong>Karl Marx</strong> (Tréveris, 5 de mayo de 1818 – Londres, 14 de marzo de 1883) nació en una familia acomodada de la clase media renana. Su padre, Heinrich Marx, descendía de generaciones de rabinos y se convirtió al luteranismo hacia 1817 para no perder su profesión bajo la legislación antisemita prusiana. Esa experiencia familiar de "des-emancipación" marcó toda su sensibilidad política.</p>
+<p>Su pensamiento se formó en el cruce de las <strong>"tres fuentes"</strong> que Lenin sistematizaría después: la filosofía clásica alemana (Hegel, Feuerbach), la economía política inglesa (Smith, Ricardo) y el socialismo francés (Saint-Simon, Fourier, Proudhon) — a las que sumó el cartismo británico y la observación directa de la miseria proletaria gracias a Friedrich Engels.</p>
+<p class="nota-final"><strong>El Capital, Tomo I</strong> (Hamburgo, 14 de septiembre de 1867) es el fruto de un cuarto de siglo de estudios en el Museo Británico, escrito en la pobreza extrema del exilio londinense, donde Marx perdió a tres de sus hijos — la crítica más demoledora del siglo XIX al sistema que, según él, convertía a los seres humanos en mercancías.</p>
+<h3 id="una-familia-entre-el-rabinato-y-la-ilustracion">Una familia entre el rabinato y la Ilustración</h3>
+<p>Marx nació el 5 de mayo de 1818 en la Brückengasse 664 de Tréveris (Trier), en la provincia del Bajo Rin del Reino de Prusia. Era el tercero de nueve hijos.</p>
+<p>Su padre, <strong>Heinrich Marx (1777–1838)</strong>, nacido Herschel Mordechai, descendía de una larga línea de rabinos: su linaje paterno daba rabinos a Tréveris desde 1723 —su propio padre lo fue—, y su hermano mayor, Samuel, heredaría después el cargo. Heinrich fue el primero de la familia en recibir educación secular; abogado desde 1815, hombre ilustrado, lector de Kant, Voltaire y Rousseau, deísta y partidario moderado de un constitucionalismo prusiano.</p>
+<p>Su madre, <strong>Henriette Pressburg (1788–1863)</strong>, era una judía neerlandesa de Nimega, de linaje rabínico que se remontaba al menos un siglo. Su hermana Sophie se casó con Lion Philips, próspero comerciante neerlandés de tabaco; dos nietos de ese matrimonio fundarían en 1891 la actual Philips Electronics.</p>
+<h4>La conversión de Heinrich y la huella del antisemitismo</h4>
+<p>Tréveris perteneció a la Francia revolucionaria y napoleónica desde 1794, lo que emancipó plenamente a los judíos. Tras 1815 y el Congreso de Viena, la Renania pasó a la Prusia conservadora, donde un edicto de 1812 prohibía a los judíos ejercer profesiones liberales. El ministro de Justicia prusiano rechazó la excepción solicitada por Heinrich.</p>
+<p>Hacia <strong>agosto de 1817</strong> Heinrich se bautizó en la Iglesia Evangélica luterana para conservar su carrera. Karl y sus hermanos fueron bautizados el 28 de agosto de 1824; su madre, en noviembre de 1825.</p>
+<p>El historiador <strong>Shlomo Avineri</strong> (<em>Karl Marx: Philosophy and Revolution</em>, Yale, 2019) ha subrayado que esta "des-emancipación" —vivir como ciudadano de pleno derecho y luego ser despojado de ese estatus— dejó una marca profunda en la conciencia del joven Karl, cuyo tío era el rabino de la ciudad.</p>
+<h4>El barón Ludwig von Westphalen: el "amigo paternal"</h4>
+<p class="nota-final"><strong>Johann Ludwig von Westphalen (1770–1842)</strong>, vecino y amigo de Heinrich Marx, tomó al joven Karl bajo su tutela intelectual desde los 12-13 años. Marx lo llamaría toda la vida su "querido amigo paternal" y le dedicaría su tesis doctoral. Westphalen le leía a Homero, Shakespeare, Dante y Goethe durante paseos por los viñedos del Mosela, y le presentó las ideas del socialista francés Henri de Saint-Simon.</p>
+<p>Su hija, <strong>Jenny von Westphalen (1814–1881)</strong>, cuatro años mayor que Karl, sería su esposa: se casaron el 19 de junio de 1843 y compartirían casi cuatro décadas de exilios y miseria.</p>
+<h3 id="formacion-filosofica-de-bonn-a-berlin">Formación filosófica: de Bonn a Berlín</h3>
+<p>En octubre de 1835 Marx ingresó en la Universidad de Bonn para estudiar derecho. En 1836 su padre lo trasladó a la rigurosa Universidad de Berlín, donde abandonó progresivamente el derecho por la filosofía. La célebre carta del 10 de noviembre de 1837 a su padre describe su conversión a la filosofía de Hegel: "una cortina había caído, mi santo de los santos se había desgarrado".</p>
+<p>En Berlín se incorporó al <strong>Doktorklub</strong>, el círculo de Jóvenes Hegelianos liderado por Bruno Bauer, que transformaba la dialéctica de Hegel en arma crítica contra la religión y el Estado prusiano. El movimiento incluía a David Friedrich Strauss, Arnold Ruge, Max Stirner y, más tarde, Ludwig Feuerbach.</p>
+<p>Marx se doctoró en abril de 1841 en la Universidad de Jena con una tesis sobre Demócrito y Epicuro, dedicada a Westphalen. La expulsión de Bauer de la universidad en 1842 le cerró la carrera académica.</p>
+<h4>Periodista en Colonia: el descubrimiento de la economía</h4>
+<p>En enero de 1842 los liberales renanos lanzaron en Colonia la <em>Rheinische Zeitung</em>. Marx fue nombrado redactor jefe el 15 de octubre de 1842. Allí publicó los célebres <strong>"Debates sobre la ley contra los robos de leña"</strong> y los artículos sobre la miseria de los viticultores del Mosela.</p>
+<p>En su prefacio de 1859 a la <em>Contribución a la crítica de la economía política</em>, Marx confesaría que precisamente estos debates "me dieron por primera vez la ocasión de ocuparme de cuestiones económicas". Bajo censura prusiana, el periódico fue prohibido el 1 de abril de 1843.</p>
+<h3 id="paris-engels-y-el-nacimiento-del-comunismo">París, Engels y el nacimiento del comunismo</h3>
+<figure class="fig"><img src="figuras/engels.jpg" alt="Friedrich Engels, retrato de hacia 1868" loading="lazy"><figcaption><span class="n">Figura 1.</span> Friedrich Engels hacia 1868, veinticuatro años después de conocer a Marx en el Café de la Régence.</figcaption></figure>
+<p>En octubre de 1843 Marx y Jenny emigraron a París, donde Marx estudió con voracidad a los economistas clásicos (Smith, Ricardo, Say) y a los socialistas franceses. Publicó <em>Sobre la cuestión judía</em> y la <em>Introducción a la Crítica de la filosofía del derecho de Hegel</em>, con la frase célebre: "la religión es el opio del pueblo".</p>
+<p>El 28 de agosto de 1844, conoció a <strong>Friedrich Engels (1820–1895)</strong>, hijo de un próspero industrial textil de Barmen, socio de la firma anglo-alemana Ermen &amp; Engels en Mánchester. Engels acababa de documentar la miseria obrera en lo que sería <em>La situación de la clase obrera en Inglaterra</em> (1845). Diez días de conversaciones bastaron para sellar una colaboración de cuarenta años.</p>
+<p>Expulsado de Francia en 1845, Marx se instaló en Bruselas, donde con Engels redactó <em>La ideología alemana</em>, formulando por primera vez la concepción materialista de la historia: "no es la conciencia la que determina la vida, sino la vida la que determina la conciencia".</p>
+<p>En 1847 la Liga de los Comunistas encargó a Marx y Engels un manifiesto programático. El <strong>21 de febrero de 1848</strong> se imprimió en Londres el <em>Manifiesto del Partido Comunista</em>: "la historia de toda sociedad hasta nuestros días es la historia de la lucha de clases".</p>
+<h3 id="londres-pobreza-extrema-y-la-redaccion-de-el-capital">Londres: pobreza extrema y la redacción de El Capital</h3>
+<figure class="fig"><img src="figuras/das-kapital-1867.jpg" alt="Portada de la primera edición de Das Kapital, Hamburgo 1867" loading="lazy"><figcaption><span class="n">Figura 2.</span> Portada de la primera edición de <em>Das Kapital</em> (Hamburgo, Otto Meissner, 1867). Tirada inicial: mil ejemplares.</figcaption></figure>
+<p>Tras la derrota de las revoluciones de 1848, Marx se trasladó a <strong>Londres en agosto de 1849</strong>, donde residiría hasta su muerte. Entre 1850 y 1856 los Marx vivieron en dos diminutos pisos del Soho, en condiciones que un espía prusiano describió como "una de las viviendas más pobres de Londres".</p>
+<p class="nota-final"><strong>Tres de sus hijos murieron allí</strong> por desnutrición y enfermedad: Heinrich Guido (1850), Franziska (1852) y Edgar (1855), este último en brazos de su padre. De siete hijos, solo tres llegarían a la edad adulta.</p>
+<p>Pese a todo, Marx pasaba sus días en la Sala de Lectura del Museo Británico, elaborando los manuscritos que se convertirían en los <em>Grundrisse</em> (1857-58) y, finalmente, el primer tomo de <strong>Das Kapital</strong>, publicado el 14 de septiembre de 1867. Los tomos II (1885) y III (1894) los editaría Engels póstumamente.</p>
+<p>En 1864 fue cofundador de la Asociación Internacional de Trabajadores. En 1871 defendió la Comuna de París en <em>La guerra civil en Francia</em>, y al cumplirse un año la saludó como "el alba de la gran revolución social".</p>
+<h3 id="las-tres-fuentes-del-marxismo-lenin-1913">Las "tres fuentes" del marxismo (Lenin, 1913)</h3>
+<p>En 1913, Lenin sintetizó en <em>Las tres fuentes y las tres partes integrantes del marxismo</em> la genealogía intelectual del pensamiento marxista — un esquema simplificador pero pedagógicamente útil:</p>
+<ul><li><strong>Filosofía clásica alemana.</strong> De Hegel, Marx tomó la dialéctica pero rechazó el idealismo: "mi método dialéctico no sólo difiere del método hegeliano, sino que es su antítesis directa". De Feuerbach tomó la inversión materialista de la religión, pero la superó con la undécima tesis: "los filósofos no han hecho más que interpretar de diversos modos el mundo, pero de lo que se trata es de transformarlo".</li><li><strong>Economía política inglesa.</strong> De Smith y Ricardo adoptó —y radicalizó— la teoría del valor-trabajo, introduciendo el concepto de <em>plusvalía</em> para explicar de dónde provienen los beneficios: del trabajo no pagado al obrero.</li><li><strong>Socialismo francés.</strong> De Saint-Simon y Fourier tomó la crítica moral del capitalismo industrial; con Proudhon mantuvo una relación tensa, demolida en <em>Miseria de la filosofía</em> (1847).</li></ul>
+<p>A estas tres fuentes, historiadores como Hobsbawm, Stedman Jones y Liedman han añadido la Revolución Francesa de 1789, el cartismo británico y la antropología de pueblos no occidentales.</p>
+<h3 id="el-siglo-xix-europeo-como-contexto-de-su-critica">El siglo XIX europeo como contexto de su crítica</h3>
+<figure class="fig"><img src="figuras/mcconnel-manchester-1820.jpg" alt="Fábricas de McConnel and Company en Mánchester, hacia 1820" loading="lazy"><figcaption><span class="n">Figura 3.</span> Las fábricas de McConnel &amp; Company en Mánchester, hacia 1820 — el mismo paisaje industrial que Engels documentaría dos décadas después.</figcaption></figure>
+<p>La Revolución Industrial transformó Inglaterra entre 1760 y 1850: mecanización del textil, máquina de vapor, ferrocarril, urbanización masiva. En 1819, el 4,5% de los obreros del algodón británico tenían menos de 10 años. Las jornadas de 14 a 16 horas en condiciones insalubres eran la norma. <em>El Capital</em> dedica capítulos enteros a documentar estos hechos a partir de informes oficiales británicos.</p>
+<p>Las Revoluciones de 1848 sacudieron Francia, los Estados alemanes, Italia y el Imperio austriaco. Su derrota convenció a Marx de que la burguesía liberal había abandonado la causa de la libertad por miedo al proletariado.</p>
+<p>La <strong>"Cuestión Social"</strong> —concepto acuñado en Francia y Alemania entre 1830 y 1840— designaba el conjunto de problemas derivados de la industrialización: pauperismo masivo, hacinamiento urbano, trabajo infantil, conflicto de clase. Marx pretendió no sólo describirla, sino explicar su lógica estructural.</p>
+<h3 id="citas-y-anecdotas-reveladoras">Citas y anécdotas reveladoras</h3>
+<blockquote>«La historia de toda sociedad hasta nuestros días no es sino la historia de la lucha de clases.» — <em>Manifiesto del Partido Comunista, 1848</em></blockquote>
+<blockquote>«La religión es el suspiro de la criatura oprimida, el corazón de un mundo sin corazón. Es el opio del pueblo.» — <em>Crítica de la filosofía del derecho de Hegel, 1843-44</em></blockquote>
+<blockquote>«Los filósofos no han hecho más que interpretar de diversos modos el mundo, pero de lo que se trata es de transformarlo.» — <em>Tesis sobre Feuerbach, XI, 1845</em></blockquote>
+<blockquote>«No es la conciencia de los hombres la que determina su ser, sino, por el contrario, su ser social el que determina su conciencia.» — <em>Contribución a la crítica de la economía política, Prefacio, 1859</em></blockquote>
+<blockquote>«El capital es trabajo muerto que, como un vampiro, sólo se vivifica chupando trabajo vivo.» — <em>El Capital, Tomo I, cap. VIII</em></blockquote>
+<h4>Anécdotas</h4>
+<ul><li>La hermana de Henriette casó con Lion Philips; sus descendientes fundarían en 1891 la Philips Electronics Company. Las cartas pidiéndole anticipos sobre la herencia salpican la correspondencia londinense de Marx.</li><li>El espía prusiano que vigilaba a Marx en 1852 informó que "lavarse, peinarse y cambiarse de ropa son cosas que rara vez hace", pero también que "trabaja día y noche con una incansable resistencia cuando tiene mucho que hacer".</li><li>El primer tomo de <em>El Capital</em> tuvo una recepción inicial muy fría en Alemania: Engels llegó a publicar reseñas hostiles seudónimas para provocar polémica y darle visibilidad.</li></ul>
+<h4>Biografías de referencia</h4>
+<ul><li>Franz Mehring — <em>Karl Marx: The Story of His Life</em> (1918), la biografía clásica.</li><li>Isaiah Berlin — <em>Karl Marx: His Life and Environment</em> (1939; ed. 2013).</li><li>David McLellan — <em>Karl Marx: A Biography</em> (1973, 4.ª ed. 2006), la biografía estándar.</li><li>Francis Wheen — <em>Karl Marx: A Life</em> (1999), vívida y narrativa.</li><li>Jonathan Sperber — <em>Karl Marx: A Nineteenth-Century Life</em> (2013).</li><li>Gareth Stedman Jones — <em>Karl Marx: Greatness and Illusion</em> (2016).</li><li>Sven-Eric Liedman — <em>A World to Win</em> (2018).</li><li>Shlomo Avineri — <em>Karl Marx: Philosophy and Revolution</em> (Yale, 2019).</li></ul>
+<h3 id="notas-de-precision">Notas de precisión</h3>
+<ul><li><strong>1.</strong> La fecha exacta de la conversión de Heinrich Marx al luteranismo no es totalmente segura; el consenso académico actual la fija en agosto de 1817.</li><li><strong>2.</strong> Cuidado con presentar a Marx como "judío" sin matices: fue bautizado a los 6 años y nunca tuvo formación religiosa judía. Su trasfondo es judío por linaje y experiencia social, pero su formación fue luterana y luego abiertamente atea.</li><li><strong>3.</strong> Las "tres fuentes" de Lenin son una simplificación pedagógica, no un esquema histórico exhaustivo.</li><li><strong>4.</strong> La pobreza extrema de Marx en Londres fue real, pero no continua: tras 1856 y gracias a Engels, el último Marx vivió con holgura modesta.</li><li><strong>5.</strong> No confundir "marxismo" con lo que Marx escribió: él mismo declaró "yo no soy marxista".</li><li><strong>6.</strong> Algunas cifras históricas (muertos en la Comuna, jornadas laborales) circulan en versiones distintas; son fiables como órdenes de magnitud.</li></ul>
+<h3 id="marx-frente-a-adam-smith-la-critica-radical-al-capitalismo">Marx frente a Adam Smith: la crítica radical al capitalismo</h3>
+<figure class="fig"><img src="figuras/adam-smith-muir.jpg" alt="Adam Smith, el llamado Muir portrait" loading="lazy"><figcaption><span class="n">Figura 4.</span> Adam Smith (1723–1790), retrato atribuido conocido como "Muir portrait" — el adversario y maestro intelectual de Marx.</figcaption></figure>
+<h4>Lo que Marx tomó de Smith</h4>
+<p>Marx nunca trató a Adam Smith como un simple enemigo ideológico. En el epílogo a la segunda edición alemana de <em>El Capital</em> (1873), distingue entre la <strong>"economía política clásica"</strong> —Smith, Ricardo— que investigaba honestamente las relaciones reales de producción, y la <strong>"economía vulgar"</strong> posterior, que se limitaba a racionalizar las apariencias del mercado. Smith era, para Marx, el científico burgués más avanzado posible antes de la propia crítica marxista.</p>
+<p>De Smith adoptó dos pilares: la <strong>teoría del valor-trabajo</strong> (el valor de una mercancía se determina por la cantidad de trabajo socialmente necesario para producirla) y el análisis de la <strong>división del trabajo</strong> como motor de la productividad. Curiosamente, fue el propio Smith quien, en el libro V de <em>La riqueza de las naciones</em>, advirtió que la división extrema del trabajo podía embrutecer al obrero, reduciéndolo a la repetición de unas pocas operaciones simples. Marx retoma esa advertencia y la convierte en el núcleo de su concepto de <strong>alienación</strong> (<em>Entfremdung</em>): el trabajador que "no se afirma, sino que se niega" en su propio trabajo.</p>
+<h4>La ruptura decisiva: trabajo versus fuerza de trabajo</h4>
+<p>Smith y Ricardo nunca resolvieron una contradicción central: si las mercancías se intercambian según el trabajo que contienen, ¿de dónde sale el beneficio del capitalista? Marx encontró la salida distinguiendo entre <strong>trabajo</strong> (la actividad concreta) y <strong>fuerza de trabajo</strong> (la capacidad de trabajar, que el obrero vende como mercancía). El capitalista paga por la fuerza de trabajo su valor de cambio —lo necesario para reproducir al obrero—, pero se apropia de su valor de uso, que es capaz de generar más valor del que cuesta. Esa diferencia es la <strong>plusvalía</strong>: el origen, oculto a los ojos de Smith, de todo beneficio capitalista.</p>
+<h4>El fetichismo de la mercancía: leyes "naturales" frente a relaciones históricas</h4>
+<p>Marx acusó a Smith de tratar las categorías económicas —dinero, capital, salario, ganancia— como cosas naturales y eternas, en lugar de verlas como expresiones históricamente específicas de relaciones sociales entre personas. A esta ilusión la llamó <strong>fetichismo de la mercancía</strong>. Smith y Ricardo, al proyectar el individuo egoísta del mercado moderno sobre toda la historia humana —lo que Marx llamó irónicamente sus "robinsonadas"—, convertían un orden social transitorio en una ley de la naturaleza humana.</p>
+<h4>La "leyenda idílica" de la acumulación originaria</h4>
+<p>En el célebre capítulo XXIV de <em>El Capital</em>, Marx ridiculiza el relato que Smith y otros economistas clásicos ofrecían sobre el origen del capital: una historia de ahorro, laboriosidad y frugalidad de algunos individuos virtuosos. Frente a esa "leyenda idílica", Marx sostiene que la acumulación originaria del capital fue en realidad un proceso de expropiación violenta —cercamientos de tierras comunales, colonialismo, esclavitud, expulsión campesina— escrito, en sus propias palabras, "con letras de sangre y fuego".</p>
+<h4>La mano invisible frente a la anarquía de la producción</h4>
+<p>Donde Smith veía una <strong>mano invisible</strong> que armonizaba el interés egoísta de cada individuo con el bienestar general, Marx veía la <strong>anarquía de la producción</strong>: un sistema sin planificación consciente que genera ciclos recurrentes de sobreproducción y crisis, concentración creciente del capital, y una tendencia estructural a la pauperización relativa de la clase obrera. Para Marx, lo que Smith celebraba como armonía espontánea era, en realidad, la forma que toma la explotación de clase cuando se oculta detrás del intercambio "libre e igual" en el mercado.</p>
+<div class="tabla"><div class="tabla-scroll"><table><thead><tr><th>Dimensión</th><th>Adam Smith</th><th>Karl Marx</th></tr></thead><tbody><tr><td>Origen del valor</td><td>Trabajo incorporado en la mercancía (teoría del valor-trabajo)</td><td>Adopta la misma teoría, pero distingue trabajo de fuerza de trabajo para explicar la plusvalía</td></tr><tr><td>Naturaleza del capitalismo</td><td>Orden "natural" derivado de la propensión humana al intercambio</td><td>Sistema históricamente específico y transitorio, no una ley eterna de la naturaleza humana</td></tr><tr><td>División del trabajo</td><td>Motor de la riqueza; advierte sus efectos embrutecedores pero los acepta como costo necesario</td><td>Mismo diagnóstico, llevado al concepto de alienación del trabajador</td></tr><tr><td>Origen del capital</td><td>Ahorro, frugalidad e industriosidad individual</td><td>Expropiación violenta y acumulación originaria ("letras de sangre y fuego")</td></tr><tr><td>Coordinación del mercado</td><td>Mano invisible: el interés propio promueve el bien común</td><td>Anarquía de la producción: crisis cíclicas, concentración del capital, antagonismo de clase</td></tr><tr><td>Rol del Estado</td><td>Limitado pero necesario: justicia, infraestructura, defensa, cierta regulación</td><td>Instrumento de la clase dominante bajo el capitalismo; debe ser transformado por la lucha de clases</td></tr></tbody></table></div></div>
+<aside class="recuadro"><p>Conviene subrayar que Marx no "refuta" a Smith desde fuera de la economía política, sino que se presenta como su continuador crítico —toma sus herramientas analíticas y las vuelve contra las conclusiones políticas que de ellas extraía la economía clásica y, sobre todo, sus epígonos "vulgares".</p></aside>
+
+</section>
+<section class="part" id="tomo-i-el-proceso-de-produccion-del-capital"><h2 class="part-title">Tomo I — El proceso de producción del capital</h2>
+<p><em>La anatomía de la mercancía y el secreto de la ganancia</em></p>
+<h3 id="resumen-del-tomo-i">Resumen del Tomo I</h3>
+<p>El Tomo I parte de la célula más pequeña del capitalismo —una mercancía cualquiera— para demostrar algo enorme: que el sistema entero descansa sobre una explotación sistemática que el propio mercado vuelve invisible, sin que medie ningún fraude en el intercambio.</p>
+<p>El mecanismo se sostiene en tres piezas: la <strong>teoría del valor-trabajo</strong> (el trabajo abstracto como sustancia común de toda mercancía), el <strong>fetichismo</strong> (por qué esa relación social aparece disfrazada de propiedad de las cosas) y la <strong>plusvalía</strong> (el trabajo no pagado que el capitalista se apropia legalmente).</p>
+<p>25 capítulos en 7 secciones, desde la mercancía hasta la "llamada acumulación originaria". Esta parte recorre el argumento completo y cierra con el mapa de lo que vendrá en los Tomos II y III.</p>
+<h3 id="la-mercancia-el-atomo-del-mundo-capitalista">La mercancía: el átomo del mundo capitalista</h3>
+<p>Marx empieza, deliberadamente, por lo más pequeño y aparentemente más inocente: la mercancía individual. Su método es casi fisiológico — así como un biólogo estudia la célula para entender el organismo completo, Marx disecciona la mercancía para entender el capitalismo entero.</p>
+<p>Toda mercancía tiene una doble naturaleza. El <strong>valor de uso</strong> es su utilidad concreta y cualitativa —el pan alimenta, el abrigo abriga— y no tiene nada de específicamente capitalista; existe en cualquier sociedad humana. El <strong>valor de cambio</strong>, en cambio, es la proporción en que se intercambia por otras mercancías, y ahí empieza el problema filosófico real: ¿qué hace posible que cosas cualitativamente tan distintas —una mesa de madera, veinte metros de lienzo— sean conmensurables, comparables en una proporción exacta?</p>
+<h4>El trabajo abstracto como sustancia del valor</h4>
+<p>Si dos cosas cualitativamente distintas pueden equipararse cuantitativamente, tiene que existir un "tercer término" común a ambas. Ese término no puede ser ninguna propiedad física o de uso —el lienzo y la mesa no comparten ninguna cualidad sensible—, así que tiene que ser algo que comparten <em>como productos</em>: ambos son producto de trabajo humano.</p>
+<p>Pero no de trabajo concreto —el oficio específico del tejedor o del carpintero, irreducibles entre sí—, sino de <strong>trabajo abstracto</strong>: gasto de fuerza humana de trabajo en general, medido por su duración. Marx llama a esto el <strong>tiempo de trabajo socialmente necesario</strong>: no el tiempo que tardó este productor en particular, sino el que se requiere bajo las condiciones técnicas normales de una sociedad dada. Esta es la <strong>teoría del valor-trabajo</strong>, la piedra angular de todo lo que sigue.</p>
+<h3 id="el-fetichismo-de-la-mercancia-cuando-las-cosas-cobran-vida">El fetichismo de la mercancía: cuando las cosas cobran vida</h3>
+<p>Este es, probablemente, el pasaje más denso de todo el Tomo I — no por el vocabulario, sino porque Marx hace un movimiento filosófico de tres pisos a la vez. Vale la pena separarlos uno por uno.</p>
+<ul><li><strong>1.</strong> <strong>La abstracción real.</strong> Cuando dos productores intercambian "20 varas de lienzo por 1 levita", tratan dos trabajos concretos completamente distintos —tejer, coser— como cantidades de la misma sustancia: trabajo humano abstracto. Esa sustancia no existe como cosa física; es una abstracción que <strong>se realiza en el acto mismo del intercambio</strong>, no en la cabeza de nadie. Por eso el filósofo Alfred Sohn-Rethel la llamó "abstracción real": algo que la práctica social produce, exista o no alguien pensándolo.</li><li><strong>2.</strong> <strong>La inversión.</strong> Una vez que esa abstracción existe socialmente, el lenguaje del mercado dice "mi lienzo <em>vale</em> una levita" — como si el valor fuera una propiedad que el lienzo tiene, igual que un peso o un color. La relación social entre trabajadores se proyecta hacia afuera y aterriza en las cosas. Es la misma estructura lógica de un fetiche religioso: el poder que reside en la comunidad que lo venera se percibe como si residiera en el objeto.</li><li><strong>3.</strong> <strong>Por qué no es simplemente "un error".</strong> Marx no dice que la gente se equivoque y haya que corregirla con más información. Dice que esta apariencia es <strong>objetivamente necesaria</strong> dado cómo está organizada la producción: productores privados e independientes que solo descubren si su trabajo fue socialmente útil <em>después</em> de llevarlo al mercado. El carácter social del trabajo no puede manifestarse de otra forma. No es ignorancia: es la forma de aparición necesaria de una estructura social real.</li></ul>
+<h4>Una metáfora para fijarlo</h4>
+<p>Imagina un grupo de actores en un escenario tan oscuro que solo se ven las máscaras, nunca los rostros. Las máscaras empiezan a "hablarse", a "pelearse", a "subir y bajar de estatus" — y el público, e incluso a veces los propios actores, terminan creyendo que son las máscaras las que actúan. Eso es el fetichismo: no es que las máscaras mientan, es que la oscuridad del escenario —el mercado— hace estructuralmente invisibles a las personas detrás de ellas.</p>
+<blockquote>«El carácter místico de la mercancía no brota de su valor de uso.» — <em>El Capital, Tomo I, cap. I, § 4 — El fetichismo de la mercancía</em></blockquote>
+<blockquote>«…la mesa rompiese a bailar por su propio impulso.» — <em>El Capital, Tomo I, cap. I, § 4 — sobre la mesa convertida en mercancía</em></blockquote>
+<aside class="recuadro"><p>Si quieres ver cómo distintos filósofos han interpretado este pasaje exacto —y por qué corregirlo "intelectualmente" no basta para disolverlo—, la última sección de este tomo, <strong>"Lecturas que iluminan el fetichismo"</strong>, reúne a cinco intérpretes clave.</p></aside>
+<h3 id="la-transformacion-del-dinero-en-capital-el-enigma-de-dmd">La transformación del dinero en capital: el enigma de D–M–D′</h3>
+<p>Hasta aquí, circulación simple: <strong>M–D–M</strong> (vendo una mercancía para obtener dinero, y con ese dinero compro otra mercancía que necesito). Es un circuito con un fin en sí mismo: satisfacer una necesidad.</p>
+<p>Pero el capital se mueve de otra forma: <strong>D–M–D′</strong>, donde D′ es mayor que D. Se invierte dinero para obtener más dinero. Marx plantea esto como un acertijo explícito: si en el mercado todo se intercambia por su valor equivalente, ¿de dónde sale ese incremento, esa plusvalía? No puede salir de la circulación misma —el intercambio justo no crea valor nuevo, solo lo transfiere—. Pero tampoco puede salir de fuera de la circulación, porque el capitalista necesita comprar y vender en el mercado para obtenerla. La plusvalía tiene que originarse en la circulación y, a la vez, no en la circulación. La resolución de este acertijo es uno de los momentos de mayor elegancia arquitectónica del libro.</p>
+<h3 id="la-fuerza-de-trabajo-y-el-secreto-de-la-plusvalia">La fuerza de trabajo y el secreto de la plusvalía</h3>
+<p>La solución de Marx: existe una mercancía muy particular en el mercado, cuyo <strong>valor de uso</strong> consiste, precisamente, en crear valor. Esa mercancía es la <strong>fuerza de trabajo</strong> — la capacidad de trabajar del obrero. El capitalista no compra "trabajo" (eso sería pagar ya por el resultado); compra la capacidad de trabajar durante una jornada determinada. Su valor se determina, como el de cualquier otra mercancía, por el tiempo de trabajo socialmente necesario para producirla y reproducirla: el costo de los medios de subsistencia del obrero.</p>
+<h4>El secreto, en una frase</h4>
+<p>El <strong>valor</strong> de la fuerza de trabajo (lo que cuesta reproducirla, lo que paga el salario) y el <strong>valor que esa fuerza de trabajo es capaz de crear</strong> trabajando son dos magnitudes distintas. Si reproducirla cuesta el equivalente a 6 horas, pero el capitalista contrata al obrero por una jornada de 10 o 12 horas, esas horas adicionales —el trabajo excedente— producen valor que el obrero no recupera en su salario. Ese valor no pagado es la <strong>plusvalía</strong>. No hay fraude en el intercambio: el capitalista paga exactamente el valor de la fuerza de trabajo. La explotación ocurre después, en el proceso de producción.</p>
+<h4>La jornada de trabajo: la lucha de clases hecha número</h4>
+<p>El capítulo VIII documenta, con detalle casi forense —informes de inspectores fabriles, testimonios médicos, casos de agotamiento extremo—, cómo la duración de la jornada no es un dato técnico neutral, sino el campo de batalla entre dos intereses opuestos: el capitalista, que quiere maximizar las horas de trabajo excedente, y el obrero, que defiende el tiempo necesario para su vida y su salud.</p>
+<blockquote>«¡Después de mí, el diluvio! es la divisa de todo capitalista y de toda nación capitalista.» — <em>El Capital, Tomo I, cap. VIII</em></blockquote>
+<h3 id="plusvalia-absoluta-y-plusvalia-relativa">Plusvalía absoluta y plusvalía relativa</h3>
+<p>Dos estrategias, no mutuamente excluyentes, para aumentar la plusvalía. La <strong>absoluta</strong> alarga la jornada de trabajo: si el trabajo necesario son 6 horas y la jornada pasa de 10 a 12, la plusvalía crece directamente — con un límite físico evidente, el cuerpo humano y las 24 horas del día. La <strong>relativa</strong> no toca la jornada, sino que acorta el tiempo necesario para reproducir al obrero, aumentando la productividad: si las mejoras técnicas permiten producir sus medios de subsistencia en 4 horas en vez de 6, el trabajo excedente crece sin alargar la jornada.</p>
+<div class="tabla"><div class="tabla-scroll"><table><thead><tr><th>Dimensión</th><th>Plusvalía absoluta</th><th>Plusvalía relativa</th></tr></thead><tbody><tr><td>Mecanismo</td><td>Alargar la jornada total de trabajo</td><td>Acortar el tiempo necesario vía productividad</td></tr><tr><td>Límite</td><td>Físico: 24 horas, resistencia del cuerpo</td><td>Técnico: en principio, sin techo evidente</td></tr><tr><td>Correlato histórico</td><td>Manufactura temprana, fábricas sin regulación</td><td>Maquinaria, gran industria, innovación constante</td></tr><tr><td>Forma de resistencia obrera</td><td>Lucha por la jornada legal máxima</td><td>Lucha por el control del ritmo y la técnica</td></tr></tbody></table></div></div>
+<p>Los capítulos sobre cooperación, división del trabajo y manufactura, y maquinaria y gran industria narran una creciente <strong>subsunción real</strong> del trabajador bajo el capital: del obrero que controla su oficio (cooperación simple) al obrero fragmentado en una operación parcial (manufactura), hasta el obrero convertido en apéndice de la máquina (gran industria).</p>
+<h3 id="el-salario-como-mascara-y-la-ley-general-de-la-acumulacion">El salario como máscara y la ley general de la acumulación</h3>
+<h4>El salario oculta la división del trabajo</h4>
+<p>El salario no aparece como el pago de una parte de la jornada (trabajo necesario), dejando la otra (trabajo excedente) sin pagar. Aparece como el pago de <em>toda</em> la jornada — como si cada hora trabajada estuviera remunerada. Esta es, para Marx, la mistificación más potente del sistema: hace invisible la división misma entre trabajo pagado y no pagado, y con ella, invisibiliza la explotación. Es el fetichismo aplicado específicamente a la fuerza de trabajo.</p>
+<h4>El ejército industrial de reserva</h4>
+<p>Al acumularse el capital, crece la proporción de capital constante (máquinas) frente al capital variable (fuerza de trabajo). Como solo el capital variable genera demanda de empleo, este proceso produce una <strong>superpoblación relativa</strong> —el "ejército industrial de reserva"—: una masa de trabajadores desempleados o subempleados que no es un fallo del sistema, sino una pieza funcional de él, porque disciplina los salarios a la baja.</p>
+<h3 id="la-acumulacion-originaria-el-origen-violento-del-capital">La acumulación originaria: el origen violento del capital</h3>
+<p>¿Cómo surgió, originalmente, una clase que solo tiene su fuerza de trabajo para vender, y otra que posee los medios de producción para comprarla? La economía clásica lo cuenta como una fábula de ahorro virtuoso. Marx la llama, con sarcasmo deliberado, <strong>"la llamada acumulación originaria"</strong>, y la reescribe como lo que históricamente fue: cercamientos violentos de tierras comunales en Inglaterra, expulsión forzada de campesinos, esclavitud colonial, saqueo — una separación violenta entre los productores y sus medios de producción, condición histórica previa de la acumulación capitalista, no su resultado.</p>
+<blockquote>«El capital viene al mundo chorreando sangre y lodo por todos los poros, desde los pies a la cabeza.» — <em>El Capital, Tomo I, cap. XXIV — sobre el origen histórico del capital</em></blockquote>
+<h3 id="el-metodo-de-marx-las-jugadas-que-sostienen-el-edificio">El método de Marx: las jugadas que sostienen el edificio</h3>
+<ul><li><strong>Crítica inmanente, no externa:</strong> Marx no rechaza las categorías de Smith y Ricardo —valor, trabajo, mercancía—; las acepta como punto de partida y muestra que, llevadas a su lógica final, producen una conclusión que sus autores no quisieron extraer.</li><li><strong>Método dialéctico:</strong> las categorías se despliegan y se transforman en contradicciones que exigen una categoría superior para resolverse —de la mercancía al dinero, del dinero al capital, del capital a la plusvalía.</li><li><strong>Apariencia versus esencia:</strong> en el fetichismo, en el salario, en el "libre" contrato de trabajo, Marx separa cómo se presenta fenoménicamente una relación social de cómo funciona realmente.</li><li><strong>Historización de las categorías:</strong> el valor, el dinero, el capital no son leyes naturales eternas, sino formas históricamente específicas del modo de producción capitalista.</li></ul>
+<h3 id="hacia-los-tomos-ii-y-iii">Hacia los Tomos II y III</h3>
+<h4>Tomo II — El proceso de circulación del capital</h4>
+<p>Las metamorfosis del capital (D–M…P…M′–D′) y sus tres formas: capital-dinero, capital-mercantil, capital-productivo. La rotación del capital —fijo y circulante— y su efecto sobre la plusvalía anual. Los célebres esquemas de reproducción simple y ampliada entre el Sector I (medios de producción) y el Sector II (medios de consumo), base de los modelos input-output posteriores.</p>
+<h4>Tomo III — El proceso global de la producción capitalista</h4>
+<p>La transformación de la plusvalía en ganancia y del valor en precio de producción —el célebre "problema de la transformación". La tendencia decreciente de la tasa de ganancia y sus contratendencias. Capital comercial, capital que devenga interés, renta de la tierra: cómo la plusvalía producida en la esfera productiva se redistribuye entre fracciones del capital que no la generan pero la reclaman.</p>
+<div class="tabla"><div class="tabla-scroll"><table><thead><tr><th>Dimensión</th><th>Tomo II</th><th>Tomo III</th></tr></thead><tbody><tr><td>Tema central</td><td>Circulación y reproducción del capital</td><td>Distribución de la plusvalía entre fracciones del capital</td></tr><tr><td>Conceptos clave</td><td>Rotación, capital fijo/circulante, esquemas de reproducción</td><td>Precio de producción, tasa de ganancia, renta, interés</td></tr><tr><td>Pregunta filosófica</td><td>¿Cómo se reproduce el capital social en su conjunto?</td><td>¿Cómo se vuelve invisible el origen social de la ganancia?</td></tr></tbody></table></div></div>
+<h3 id="lecturas-que-iluminan-el-fetichismo-cinco-interpretes">Lecturas que iluminan el fetichismo: cinco intérpretes</h3>
+<figure class="fig"><img src="figuras/marx-1875.jpg" alt="Karl Marx, retrato fotográfico de 1875" loading="lazy"><figcaption><span class="n">Figura 5.</span> Karl Marx (1875) — el capítulo sobre el fetichismo es, de toda su obra, el que más interpretaciones filosóficas ha generado.</figcaption></figure>
+<h4>Alfred Sohn-Rethel — la abstracción real</h4>
+<p>En <em>Trabajo intelectual y trabajo manual</em>, explica mejor que nadie por qué la abstracción del intercambio es real y no mental, y traza un paralelo provocador con las categorías <em>a priori</em> de Kant: el pensamiento abstracto-conceptual de la filosofía moderna tendría su origen social en la abstracción real del intercambio mercantil.</p>
+<h4>Georg Lukács — la reificación</h4>
+<p>En <em>Historia y conciencia de clase</em> (1923), extiende el fetichismo a lo que llama <strong>reificación</strong> (<em>Verdinglichung</em>): no solo las mercancías parecen tener vida propia, sino que toda relación social bajo el capitalismo —incluida la conciencia misma de los individuos— empieza a tomar la forma de relaciones entre cosas calculables.</p>
+<h4>Slavoj Žižek — la fantasía ideológica</h4>
+<p>En <em>El sublime objeto de la ideología</em> (1989), da la lectura más útil para entender por qué seguimos reproduciendo el fetichismo aunque ya "sepamos" intelectualmente que las mercancías no tienen vida propia. Su fórmula: hoy el problema no es que la gente no sepa lo que hace, sino que sabe perfectamente lo que hace y, aun así, sigue haciéndolo. El fetichismo no vive en lo que sabemos, vive en lo que hacemos.</p>
+<h4>David Harvey — la puerta de entrada pedagógica</h4>
+<p>En <em>A Companion to Marx's Capital</em> (2010), la guía más recomendada para entrar a los tres primeros capítulos. Advierte a sus lectores que conviene "aguantar" esos capítulos iniciales, porque Marx empieza la obra sin justificar todavía por qué arranca con la mercancía — y eso desorienta a cualquier primer lector.</p>
+<h4>Michael Heinrich — el rigor filológico</h4>
+<p>En su <em>Crítica de la economía política: una introducción a "El Capital" de Marx</em>, corrige malentendidos comunes — por ejemplo, la idea de que el fetichismo sea simplemente "falsa conciencia" que la ciencia económica marxista ya superó. Es la referencia para quien busca precisión conceptual antes que metáforas.</p>
+<aside class="recuadro"><p>Una manera de fijar la diferencia entre los cinco: Sohn-Rethel explica <em>por qué</em> la abstracción es real; Lukács, <em>hasta dónde</em> se extiende; Žižek, <em>por qué persiste</em> aunque la entendamos; Harvey, <em>cómo entrar</em> al texto por primera vez; Heinrich, <em>qué no</em> hay que confundir con el concepto original de Marx.</p></aside>
+</section>
+<section class="part" id="tomo-ii-el-proceso-de-circulacion-del-capital"><h2 class="part-title">Tomo II — El proceso de circulación del capital</h2>
+<p><em>La circulación del capital: por qué la reproducción social nunca está garantizada</em></p>
+<figure class="fig"><img src="figuras/das-kapital-tomo2-1885.jpg" alt="Cubierta de la primera edición del Tomo II de Das Kapital, Hamburgo 1885" loading="lazy"><figcaption><span class="n">Figura 6.</span> Cubierta de la primera edición del Tomo II de <em>Das Kapital</em> (Hamburgo, 1885).</figcaption></figure>
+<h3 id="resumen-del-tomo-ii">Resumen del Tomo II</h3>
+<p>El Tomo I mostró de dónde sale la plusvalía: del trabajo no pagado en el proceso de producción. El Tomo II hace una pregunta distinta, y en cierto sentido más inquietante: una vez producida esa plusvalía, ¿puede el capital social en su conjunto <strong>reproducirse sin interrupción</strong>, año tras año, sin que nadie lo planifique?</p>
+<p>La respuesta de Marx es incómoda precisamente para el capitalismo: la reproducción solo es posible bajo proporciones matemáticas muy específicas entre los dos grandes sectores de la producción social. Y el mercado capitalista no tiene ningún mecanismo que garantice esas proporciones <em>de antemano</em> — solo las impone, brutalmente, después de los hechos.</p>
+<p>Aquí está la semilla de la <strong>teoría de las crisis</strong>: no como accidente externo —mala cosecha, pánico bancario, error de un banco central— sino como posibilidad estructural inscrita en la propia anatomía del capital. Esta parte recorre el argumento completo y cierra con el mapa hacia el Tomo III.</p>
+<h3 id="las-metamorfosis-del-capital-y-su-ciclo">Las metamorfosis del capital y su ciclo</h3>
+<p>Si el Tomo I se quedaba dentro de la fábrica —en el proceso de producción donde se genera la plusvalía—, el Tomo II sale a la calle: sigue al capital en su recorrido completo por el mercado. Marx describe ese recorrido como un ciclo de tres metamorfosis: <strong>D–M…P…M′–D′</strong>. El capitalista empieza con dinero (D), lo convierte en mercancías —medios de producción y fuerza de trabajo— (M); esas mercancías entran al proceso productivo (P), donde se transforman en un nuevo producto que vale más que los insumos; ese producto se vende (M′), recuperando dinero acrecentado (D′).</p>
+<p>Lo crucial es que el capital individual tiene que adoptar, sucesivamente, <strong>tres formas distintas</strong>: capital-dinero, capital-productivo y capital-mercancías. Y en cualquier momento dado, una parte del capital total de la sociedad está necesariamente "atrapada" en cada una de esas tres formas simultáneamente —algo está siendo comprado, algo se está produciendo, algo espera ser vendido—. Es, dice Marx, como una serpiente que muda de piel sin dejar nunca de ser la misma serpiente: cambia de forma constantemente, pero su identidad como capital que se autovaloriza permanece.</p>
+<h4>Por qué esto ya es una crítica, y no solo contabilidad</h4>
+<p>El ciclo D–M…P…M′–D′ se presenta, en la superficie, como un movimiento automático y autosuficiente —el dinero "se convierte en más dinero" casi por su propia naturaleza—. Pero ese automatismo es apariencia: el ciclo solo se completa si, en cada fase, hay alguien dispuesto a comprar exactamente lo que se necesita comprar y a vender exactamente lo que se necesita vender, en el momento oportuno. Si la mercancía producida no encuentra comprador, el ciclo se detiene: el valor creado en la fábrica queda congelado, sin "realizarse". El capital no es una sustancia que fluye por sí sola — exige, en cada instante, una coordinación social que nadie en particular garantiza.</p>
+<h3 id="la-rotacion-del-capital-el-tiempo-convertido-en-plusvalia">La rotación del capital: el tiempo, convertido en plusvalía</h3>
+<p>Marx distingue el <strong>capital fijo</strong> (maquinaria, edificios: transfiere su valor al producto poco a poco, a lo largo de muchos ciclos) del <strong>capital circulante</strong> (materias primas, salarios: su valor se incorpora completo en cada ciclo). Y distingue también el <strong>tiempo de producción</strong> del <strong>tiempo de circulación</strong> —el tiempo que el capital pasa, improductivo, esperando ser comprado o transportado—.</p>
+<h4>Por qué le obsesiona al capital cada día de rotación</h4>
+<p>Aquí aparece un resultado que explica buena parte de la historia económica posterior: la <strong>cuota anual de plusvalía</strong> no depende solo de cuánta plusvalía se extrae en un ciclo productivo, sino de <em>cuántas veces ese capital puede rotar en un año</em>. Un capital que rota dos veces al año duplica, en términos anuales, la plusvalía de un capital idéntico que solo rota una vez. Esto significa que el capital no solo busca exprimir más trabajo por hora —como vimos en el Tomo I—; busca, con la misma urgencia estructural, <strong>acortar el tiempo de circulación</strong>: vender más rápido, cobrar más rápido, transportar más rápido.</p>
+<p>Esa urgencia, no el simple "progreso" desinteresado, es para Marx la fuerza que explica la obsesión histórica del capitalismo por los ferrocarriles, el telégrafo, el crédito comercial y, hoy, la logística en tiempo real y los pagos instantáneos: no son regalos neutrales de la tecnología al bienestar humano, son respuestas estructurales a la presión de rotar el capital más rápido.</p>
+<h3 id="reproduccion-simple-la-pregunta-que-la-economia-clasica-nunc">Reproducción simple: la pregunta que la economía clásica nunca se hizo en serio</h3>
+<p>Los economistas clásicos —incluido Adam Smith, a quien Marx dedica un capítulo entero de crítica— daban por hecho que la producción social, año tras año, simplemente "continuaba". Marx se pregunta algo más exigente: ¿en qué <em>proporciones exactas</em> tiene que dividirse la producción social para que todo lo producido encuentre comprador y el proceso pueda repetirse sin interrupción?</p>
+<p>Para responder, divide la producción social total en dos grandes sectores: el <strong>Sector I</strong>, que produce medios de producción (máquinas, materias primas), y el <strong>Sector II</strong>, que produce medios de consumo (alimentos, ropa, vivienda). En el célebre ejemplo numérico que desarrolla en el capítulo XX, ilustra la condición de equilibrio que ambos sectores deben satisfacer para que la reproducción simple —sin crecimiento, solo repitiéndose a sí misma— se cierre sin sobras ni faltantes.</p>
+<aside class="recuadro"><p><strong>Sector I</strong> (medios de producción): capital constante + capital variable + plusvalía</p><p><strong>Sector II</strong> (medios de consumo): capital constante + capital variable + plusvalía</p><p><strong>Condición de equilibrio:</strong> lo que el Sector I paga en salarios y consume de plusvalía —es decir, lo que sus obreros y capitalistas gastan en bienes de consumo— debe ser exactamente igual al capital constante que el Sector II necesita reponer ese año.</p></aside>
+<p>Esa igualdad —que el (v+p) de un sector calce, peso por peso, con el c del otro— no es un detalle técnico menor: es la condición sin la cual la reproducción social, sencillamente, no cierra. Y nada en el mercado capitalista la garantiza de antemano.</p>
+<h3 id="acumulacion-y-reproduccion-en-escala-ampliada">Acumulación y reproducción en escala ampliada</h3>
+<p>La reproducción simple es, en realidad, una ficción analítica útil: ningún capitalista invierte solo para mantenerse igual; invierte para <strong>acumular</strong>. La reproducción ampliada complica el problema anterior: ahora una parte de la plusvalía no se consume, sino que se reinvierte como capital adicional —nuevo capital constante, nueva fuerza de trabajo contratada—. Las condiciones de equilibrio entre los dos sectores se vuelven todavía más exigentes, porque ahora ambos sectores deben crecer en proporciones que sigan siendo compatibles entre sí, año tras año, en una economía que ya no se repite sino que se expande.</p>
+<h3 id="la-anarquia-de-la-produccion-la-pieza-central-de-la-critica">La anarquía de la producción: la pieza central de la crítica</h3>
+<p>Aquí está, para mí, el argumento más filosóficamente cargado de todo el Tomo II. Marx señala algo que parece casi una nota técnica al margen, pero que tiene consecuencias enormes: la proporcionalidad exacta entre sectores que la reproducción exige podría, en principio, calcularse y planificarse de antemano. De hecho, dice Marx explícitamente, ese cálculo equivaldría, en otro tipo de sociedad, al <strong>control consciente de la comunidad sobre los medios objetivos de su propia reproducción</strong>.</p>
+<p>Pero el capitalismo no funciona así. No hay ningún organismo que decida, antes de que ocurra la producción, cuánto debe producir cada rama para que las cuentas cierren. Millones de capitalistas independientes deciden, cada uno por su cuenta, guiados únicamente por la expectativa de ganancia, sin conocer ni poder conocer de antemano cuánto están decidiendo producir, al mismo tiempo, todos los demás. La misma proporcionalidad que en una economía planificada sería ejercicio de control social, en la sociedad capitalista solo puede imponerse <em>a posteriori</em>, de forma violenta: mediante la crisis.</p>
+<blockquote>«Este tipo de superproducción equivale al control de la sociedad sobre los medios objetivos de su propia reproducción. Pero dentro de la sociedad capitalista sería un elemento de anarquía.» — <em>El Capital, Tomo II, sección tercera — sobre la reproducción del capital fijo</em></blockquote>
+<p>La desproporción entre la producción de capital fijo y capital circulante, señala Marx, es <strong>una de las explicaciones favoritas de los economistas para las crisis</strong> — pero lo que a ellos les sorprende como anomalía, para Marx es una consecuencia necesaria de cómo está organizada la producción capitalista, incluso en el caso ideal de una reproducción simple sin perturbaciones externas.</p>
+<aside class="recuadro"><p>Dicho de otro modo: <strong>las crisis no son una interrupción accidental de un capitalismo que, sin ellas, funcionaría en armonía perfecta — son el único mecanismo que el capitalismo tiene para imponer, después de los hechos y mediante quiebras y desempleo, una proporcionalidad que no tiene ninguna forma de garantizar de antemano.</strong></p></aside>
+<p>Vale la pena —en honor a la precisión, no a la concesión— anotar que esta no es una conclusión que toda la economía comparta. Los economistas neoclásicos sostendrían que el sistema de precios cumple exactamente la función coordinadora que Marx declara estructuralmente ausente: una sobreproducción en el Sector I encarece sus insumos y abarata sus precios de venta, lo cual envía la señal —sin necesidad de planificador alguno— para que el capital se redirija hacia donde hace falta. Para esa tradición, las crisis recurrentes se explican mejor por shocks externos, ciclos de crédito o errores de política monetaria, no por una contradicción inherente al capitalismo. La disputa entre estas dos lecturas —desproporción estructural versus mecanismo de precios autorregulado— sigue, de hecho, sin resolverse del todo en la teoría económica contemporánea.</p>
+<h3 id="balance-que-cambia-respecto-al-tomo-i">Balance: qué cambia respecto al Tomo I</h3>
+<p>El Tomo I demostró que producir plusvalía es posible y necesario para el capital. El Tomo II demuestra algo igualmente importante: producir plusvalía <strong>no basta</strong>. Esa plusvalía tiene que "realizarse" —encontrar comprador, convertirse efectivamente en dinero— para que el ciclo se cierre. Entre la producción de valor y su realización en el mercado se abre una grieta que el Tomo I, centrado en la fábrica, no podía ver. Esa grieta es exactamente el espacio donde anidan las crisis de sobreproducción: se puede producir "correctamente", explotando "correctamente" la fuerza de trabajo, y aun así no encontrar comprador para lo producido.</p>
+<h3 id="hacia-el-tomo-iii">Hacia el Tomo III</h3>
+<p>El Tomo II resolvió —parcialmente, y bajo supuestos muy abstractos— cómo se reproduce el capital social si todo se vende a su valor exacto. El Tomo III abandona ese supuesto simplificador y pregunta qué ocurre cuando la plusvalía producida tiene que repartirse entre distintas fracciones del capital —industrial, comercial, bancario, terrateniente— que compiten entre sí por una porción de una masa de plusvalía que ninguna de ellas, por separado, controla del todo.</p>
+<div class="tabla"><div class="tabla-scroll"><table><thead><tr><th>Dimensión</th><th>Tomo II</th><th>Tomo III</th></tr></thead><tbody><tr><td>Pregunta central</td><td>¿Puede el capital social reproducirse sin interrupción?</td><td>¿Cómo se distribuye la plusvalía entre las fracciones del capital?</td></tr><tr><td>Supuesto que se abandona</td><td>—</td><td>Que las mercancías se venden exactamente a su valor</td></tr><tr><td>Concepto nuevo central</td><td>Condición de equilibrio entre Sector I y Sector II</td><td>Precio de producción, tasa media de ganancia</td></tr><tr><td>Ley más controvertida</td><td>La anarquía como fuente estructural de crisis</td><td>La tendencia decreciente de la tasa de ganancia</td></tr></tbody></table></div></div>
+<h3 id="lecturas-que-iluminan-la-teoria-de-las-crisis">Lecturas que iluminan la teoría de las crisis</h3>
+<figure class="fig"><img src="figuras/rosa-luxemburg-1912.jpg" alt="Rosa Luxemburg, retrato de 1912" loading="lazy"><figcaption><span class="n">Figura 7.</span> Rosa Luxemburg (1912) — su crítica a los esquemas de reproducción del Tomo II abrió uno de los debates más fértiles de toda la teoría marxista.</figcaption></figure>
+<h4>Rosa Luxemburg — ¿puede el capitalismo expandirse sin un "afuera"?</h4>
+<p>En <em>La acumulación del capital</em> (1913), Luxemburg sostiene que los esquemas de reproducción ampliada de Marx, llevados a sus últimas consecuencias, no logran explicar de dónde sale la demanda adicional necesaria para absorber una producción que crece indefinidamente dentro de un capitalismo puro, cerrado sobre sí mismo. Su tesis: el capitalismo necesita estructuralmente mercados no capitalistas —colonias, economías campesinas— para resolver ese problema de realización, lo cual convierte al imperialismo en una necesidad económica, no solo política.</p>
+<h4>Henryk Grossman — la respuesta crítica desde el rigor matemático</h4>
+<p>Grossman acusó a Luxemburg de un error metodológico: confundir un modelo abstracto —diseñado solo para mostrar que la acumulación es lógicamente posible sin contradicción aritmética— con una descripción literal de la realidad histórica. Para Grossman, el límite real del capitalismo no está en la falta de mercados externos, sino en una insuficiencia de ganancia para seguir valorizando un capital cada vez mayor — un argumento que conecta directamente con la tasa decreciente de ganancia que veremos en el Tomo III.</p>
+<h4>V. I. Lenin — la disputa entre dos teorías de la crisis</h4>
+<p>Lenin dedicó a exactamente este problema varios textos de juventud (1893–1899), en su polémica con los populistas rusos. Lenin distingue con precisión dos familias de teorías de la crisis: las que la explican como <strong>déficit de consumo</strong> (la demanda de los trabajadores no alcanza para comprar todo lo producido) y las que la explican como <strong>anarquía de la producción</strong> (la contradicción entre el carácter social del proceso productivo y el carácter privado con que cada capitalista decide cuánto producir). Lenin defiende que la segunda es la explicación más profunda, y que el déficit de consumo es, en el mejor de los casos, un síntoma secundario.</p>
+<h4>Paul Sweezy — la síntesis para el lector de habla inglesa</h4>
+<p>En <em>The Theory of Capitalist Development</em> (1942), Sweezy ofrece la reconstrucción más clara y didáctica del debate Luxemburg–Grossman para audiencias no especializadas, y es, todavía hoy, el punto de entrada estándar a la teoría marxista de las crisis en el mundo angloparlante.</p>
+<h4>David Harvey — los límites del capital</h4>
+<p>En <em>The Limits to Capital</em> (1982), Harvey retoma los esquemas de reproducción del Tomo II para construir una teoría de las crisis en múltiples niveles —desproporción sectorial, subconsumo, sobreacumulación— y para mostrar cómo el capitalismo "resuelve" temporalmente sus contradicciones desplazándolas en el espacio: nuevas geografías, nueva infraestructura, nuevos mercados. Es la puerta de entrada más completa para conectar el Tomo II con la geografía económica contemporánea.</p>
+<aside class="recuadro"><p>El hilo que conecta a los cinco: todos parten de la misma pregunta que abrió esta parte —¿qué garantiza que la producción capitalista, sin coordinación consciente, no se desborde o se quede corta?— y cada uno ofrece una respuesta distinta sobre dónde, exactamente, se rompe esa garantía.</p></aside>
+</section>
+<section class="part" id="tomo-iii-el-proceso-global-de-la-produccion-capitalista"><h2 class="part-title">Tomo III — El proceso global de la producción capitalista</h2>
+<p><em>El proceso global: distribución de la plusvalía, tasa de ganancia y la forma más profunda del fetichismo</em></p>
+<figure class="fig"><img src="figuras/monumento-marx-engels-berlin.jpg" alt="Karl Marx y Friedrich Engels" loading="lazy"><figcaption><span class="n">Figura 8.</span> Monumento a Marx y Engels en Berlín (Ludwig Engelhardt, 1986). <em>Foto: Mdelt, Wikimedia Commons, CC BY-SA 4.0.</em></figcaption></figure>
+<h3 id="resumen-del-tomo-iii">Resumen del Tomo III</h3>
+<p>El Tomo I mostró dónde se produce la plusvalía: en la fábrica, en el trabajo no pagado. El Tomo II preguntó si puede reproducirse indefinidamente. El Tomo III hace la pregunta final y más compleja: una vez producida esa plusvalía, <strong>¿cómo se reparte entre el capital industrial, el comercial, el bancario y los terratenientes</strong> — fracciones que la reclaman sin haberla generado?</p>
+<p>La respuesta exige un giro conceptual mayor: las mercancías no se venden a su valor, sino a su <strong>precio de producción</strong> (costo + ganancia media). Esto parece contradecir la teoría del valor-trabajo, pero Marx argumenta que es su despliegue necesario a nivel del capital social en su conjunto.</p>
+<p>Y en el camino, Marx descubre —o deduce— lo que para muchos intérpretes es su hallazgo más oscuro y más poderoso: la <strong>tendencia decreciente de la tasa de ganancia</strong>, que lleva inscrita, en la propia lógica del desarrollo capitalista, una contradicción que el sistema no puede resolver desde dentro. Esta parte cierra la trilogía.</p>
+<h3 id="el-problema-de-la-transformacion-del-valor-al-precio">El problema de la transformación: del valor al precio</h3>
+<p>La teoría del valor-trabajo establece que el valor de una mercancía depende del tiempo de trabajo socialmente necesario para producirla. Pero cualquier persona que observe el mercado real nota algo desconcertante: los capitalistas de distintas ramas, aunque emplean proporciones muy distintas de trabajo vivo respecto al capital en maquinaria, no obtienen tasas de ganancia tan dispares. Un sector intensivo en capital no gana casi nada porque usa poca fuerza de trabajo; uno intensivo en trabajo no gana astronómicamente. Las tasas de ganancia tienden a nivelarse. ¿Por qué?</p>
+<p>La respuesta de Marx: la competencia entre capitales produce una <strong>tasa media de ganancia</strong> que se distribuye entre todas las ramas en proporción al capital invertido, independientemente de cuánto trabajo vivo emplee cada una. Las mercancías no se venden a su valor sino al <strong>precio de producción</strong>: su precio de costo más la ganancia media que corresponde a ese capital según la tasa general.</p>
+<blockquote>«El precio de producción de la mercancía equivale a su precio de costo más la ganancia que porcentualmente le corresponde con arreglo a la cuota de ganancia general, o lo que es lo mismo, equivale a su precio de costo más la ganancia media.» — <em>El Capital, Tomo III, cap. IX — La transformación de los valores en precios de producción</em></blockquote>
+<h4>El debate más largo de la historia del marxismo económico</h4>
+<p>El "problema de la transformación" —¿es el paso del valor al precio de producción matemáticamente consistente?— ha ocupado a economistas desde finales del siglo XIX hasta hoy. Ladislaus von Bortkiewicz demostró en 1907 que la solución de Marx era algebraicamente incompleta (no transformó simultáneamente los insumos). El debate técnico que siguió enfrentó a Sweezy, Sraffa, Morishima, Steedman y decenas más. Lo que importa filosóficamente, más allá de la técnica: Marx sostiene que la superficie de los precios y las ganancias no contradice la lógica del valor — la <em>oculta</em>. El precio de producción es el fetichismo llevado a su nivel más abstracto: las categorías del mercado (ganancia, interés, renta) aparecen como si fueran propiedades naturales del dinero, el trabajo y la tierra, borrando completamente su origen en la extracción de plusvalía.</p>
+<h3 id="la-ley-de-la-tendencia-decreciente-de-la-tasa-de-ganancia">La ley de la tendencia decreciente de la tasa de ganancia</h3>
+<p>Este es, para muchos lectores, el argumento más audaz —y más debatido— de los tres tomos. El mecanismo es sencillo de enunciar pero de consecuencias enormes.</p>
+<p>A medida que el capitalismo se desarrolla, los capitalistas compiten entre sí incorporando más maquinaria y tecnología para reducir costos (plusvalía relativa, como vimos en el Tomo I). Esto eleva lo que Marx llama la <strong>composición orgánica del capital</strong>: la proporción de capital invertido en maquinaria y materias primas (capital constante) crece respecto al invertido en fuerza de trabajo (capital variable). Pero —y aquí está la trampa— <em>solo el capital variable genera plusvalía</em>. Las máquinas transfieren su valor al producto, pero no crean valor nuevo. Por tanto, a medida que la composición orgánica sube en toda la economía, la masa total de plusvalía crece, pero en relación al capital total invertido —que crece mucho más rápido— la <strong>tasa de ganancia tiende a declinar</strong>.</p>
+<aside class="recuadro"><p>La paradoja devastadora: el capitalista individual que incorpora más tecnología para ganar ventaja competitiva actúa racionalmente; pero al hacerlo, y al ser imitado por sus competidores, contribuye a erosionar la tasa de ganancia de toda la clase capitalista. Lo que es racional para cada uno es ruinoso para todos. Es la tragedia del bien común, pero en reversa: no los recursos naturales, sino la propia dinámica de acumulación, produce el resultado colectivamente destructivo.</p></aside>
+<h4>Las contratendencias: por qué el sistema no colapsa inmediatamente</h4>
+<p>Marx es explícito: la llama "tendencia", no ley mecánica inevitable, precisamente porque identifica fuerzas que la contrarrestan. Las principales son: el aumento en la tasa de explotación (extraer más plusvalía de cada obrero por hora), el abaratamiento de los elementos del capital constante (la tecnología misma baja el costo de las máquinas), el comercio exterior (importar materias primas y medios de subsistencia más baratos), y la creación de un ejército de reserva de trabajadores (que deprime los salarios). La historia del capitalismo del siglo XX —precarización, globalización productiva, financiarización— puede leerse, en parte, como la búsqueda desesperada de esas contratendencias cuando las anteriores se agotan.</p>
+<blockquote>«El verdadero límite de la producción capitalista es el mismo capital: el hecho de que aquí la producción sólo es producción para el capital y no, a la inversa, los medios de producción simples medios para ampliar la estructura del proceso de vida de la sociedad de los productores.» — <em>El Capital, Tomo III, cap. XV — Desarrollo de las contradicciones internas de la ley</em></blockquote>
+<h4>La contradicción que no tiene solución interna</h4>
+<p>El capítulo XV es, en mi lectura, el más filosóficamente explosivo de los tres tomos. Marx llega aquí a una conclusión que ningún economista clásico podía aceptar: el capitalismo no tiene ningún mecanismo interno capaz de resolver de forma permanente la contradicción entre su <em>misión histórica</em> —desarrollar las fuerzas productivas sin límite— y sus <em>condiciones sociales</em> —que esa producción sirva a la valorización del capital, no a la satisfacción de necesidades humanas—. El medio (la expansión productiva) choca constantemente con el fin (la ganancia del capital existente). Las crisis no son correcciones del sistema: son el sistema funcionando exactamente como tiene que funcionar.</p>
+<h3 id="credito-y-capital-ficticio-el-dinero-que-se-desconecta-del-v">Crédito y capital ficticio: el dinero que se desconecta del valor</h3>
+<p>La Sección Quinta —crédito, capital bancario, capital ficticio— es la más fragmentaria del Tomo III (Engels mismo advirtió que trabajó con notas muy incompletas), pero también la más perturbadoramente actual. Marx observa que el sistema de crédito, en su desarrollo, produce una forma de capital radicalmente nueva: el <strong>capital ficticio</strong>.</p>
+<p>Un bono del Estado, una acción de empresa, un título hipotecario: son papeles cuyo precio representa el derecho a recibir un flujo futuro de ingresos capitalizado a la tasa de interés del momento. Su valor de mercado sube y baja según expectativas, tasas de descuento y especulación — sin ninguna conexión directa, inmediata, con la plusvalía que se esté produciendo en las fábricas en ese instante. Es valor que <em>aparece</em> sin que haya trabajo que lo respalde en el presente.</p>
+<aside class="recuadro"><p>Para quien siga los mercados financieros: cuando el S&amp;P 500 sube un 30% en un año en que la productividad real crece un 2%, lo que está sucediendo es exactamente lo que Marx describe — la esfera del capital ficticio cobra vida propia, se infla, crea la ilusión de riqueza, y eventualmente choca con los límites de la plusvalía realmente producida. Lo que el mundo financiero llama "corrección" es, en la gramática de Marx, el momento en que el capital ficticio colapsa hacia el capital real.</p></aside>
+<p>El crédito también tiene, para Marx, una función ambivalente: por un lado acelera la acumulación y la concentración del capital (los grandes capitales acaparan crédito más barato); por otro, al socializar el riesgo y desconectar temporalmente la inversión de la plusvalía disponible, hace posibles las grandes crisis financieras que el capitalismo del siglo XIX ya conocía y el del XX perfeccionaría.</p>
+<h3 id="la-renta-del-suelo-plusvalia-que-no-produce-el-capital">La renta del suelo: plusvalía que no produce el capital</h3>
+<p>La Sección Sexta analiza la renta del suelo. La pregunta es: ¿por qué los propietarios de tierras reciben una parte de la plusvalía social si ellos no producen nada? La respuesta de Marx distingue dos tipos: la <strong>renta diferencial</strong> surge de la diferencia de fertilidad o ubicación entre distintas tierras — los capitalistas que trabajan tierras más productivas obtienen una ganancia extra, que en competencia termina transferiéndose al propietario como renta. La <strong>renta absoluta</strong> surge del monopolio de la propiedad territorial en sí: como ningún capitalista puede producir sin acceder a algún pedazo de tierra, los terratenientes como clase tienen la posibilidad de exigir una renta mínima incluso por la tierra más pobre.</p>
+<p>Lo que importa críticamente: la renta del suelo revela que la plusvalía producida por los obreros industriales se redistribuye hacia una clase —los terratenientes— que no participa en absoluto en la producción. Es el ejemplo más transparente de cómo el capitalismo separa la apropiación del valor de su producción.</p>
+<h3 id="la-formula-trinitaria-el-fetichismo-en-su-forma-mas-perfecta">La fórmula trinitaria: el fetichismo en su forma más perfecta</h3>
+<p>El capítulo XLVIII —"La fórmula trinitaria"— es el clímax filosófico de los tres tomos, el lugar donde Marx muestra que el sistema de distribución capitalista produce, en su superficie, la forma de fetichismo más completa y más difícil de penetrar que existe.</p>
+<p>La economía política vulgar —y el sentido común capitalista— presenta la generación de riqueza mediante tres fuentes "naturales": el <strong>capital</strong> genera ganancia, la <strong>tierra</strong> genera renta, el <strong>trabajo</strong> genera salario. Capital → ganancia; tierra → renta; trabajo → salario. Esta trinidad tiene la apariencia de una ley natural tan obvia como que el fuego calienta. Y sin embargo, para Marx, es la forma de mistificación más acabada de todo el sistema.</p>
+<blockquote>«¡Capital, tierra y trabajo, muy bien! Pero el capital no es una cosa material, sino una determinada relación social de producción, correspondiente a una determinada formación histórica de la sociedad, que toma cuerpo en una cosa material y le infunde un carácter social específico.» — <em>El Capital, Tomo III, cap. XLVIII — La fórmula trinitaria</em></blockquote>
+<p>La crítica de Marx es doble. Primero, el capital no es una cosa —es una relación social histórica. Decir que "el capital produce ganancia" es como decir que "el cuchillo asesina" — en ambos casos se borra el agente humano detrás del objeto. Segundo, la trinidad naturaliza la división de la riqueza entre estas tres categorías como si fuera el orden eterno de las cosas, ocultando que las tres —ganancia, renta e interés— son, en última instancia, fracciones distintas de la <em>misma</em> fuente: el trabajo no pagado del obrero.</p>
+<p>Es el fetichismo completado: en el Tomo I, las relaciones entre personas aparecían como relaciones entre cosas (mercancías); aquí, en el Tomo III, las relaciones entre personas aparecen como propiedades naturales de tres tipos de cosas (capital, tierra, trabajo). La ilusión se ha vuelto sistémica, constitutiva, invisible desde dentro.</p>
+<h3 id="las-clases-el-ultimo-capitulo-interrumpido">Las clases: el último capítulo, interrumpido</h3>
+<p>El Tomo III termina de manera que resulta casi simbólica: el capítulo LII, "Las clases", se interrumpe a mitad de frase. Engels lo anota con sencillez: "Al llegar aquí se interrumpe el manuscrito." Marx no llegó a terminar lo que sería la conclusión política de toda la obra.</p>
+<p>Lo que alcanzó a escribir es, sin embargo, preciso. Define las tres grandes clases de la sociedad capitalista —obreros asalariados, capitalistas, terratenientes— no por su rango o estilo de vida, sino por su <strong>relación con las fuentes de ingreso</strong>: salario, ganancia, renta. Y señala que estas categorías, en apariencia descriptivas, son en realidad la forma fenoménica de la relación de explotación que los tres tomos han venido describiendo desde su primera página.</p>
+<blockquote>«Los propietarios de simple fuerza de trabajo, los propietarios de capital y los propietarios de tierras, cuyas respectivas fuentes de ingreso son el salario, la ganancia y la renta del suelo, forman las tres grandes clases de la sociedad moderna, basada en el régimen capitalista de producción.» — <em>El Capital, Tomo III, cap. LII — Las clases (último capítulo)</em></blockquote>
+<p>La obra queda abierta donde más prometía cerrarse. No es un accidente biográfico menor: es la señal de que el proyecto de Marx —una crítica total de la economía política capitalista— era, en el sentido más literal, inagotable.</p>
+<h3 id="balance-lo-que-los-tres-tomos-construyen-juntos">Balance: lo que los tres tomos construyen juntos</h3>
+<div class="tabla"><div class="tabla-scroll"><table><thead><tr><th>Tomo</th><th>Pregunta</th><th>Concepto central</th><th>Forma del fetichismo</th></tr></thead><tbody><tr><td>I</td><td>¿De dónde sale la plusvalía?</td><td>Fuerza de trabajo / Trabajo no pagado</td><td>La mercancía con "vida propia"</td></tr><tr><td>II</td><td>¿Puede el capital reproducirse sin fin?</td><td>Condiciones de la reproducción social</td><td>El ciclo del capital como automatismo</td></tr><tr><td>III</td><td>¿Cómo se distribuye y qué límites tiene?</td><td>Tasa de ganancia / Precio de producción</td><td>La trinidad: capital-tierra-trabajo como fuentes "naturales"</td></tr></tbody></table></div></div>
+<aside class="recuadro"><p>Los tres tomos juntos forman una crítica que va de la profundidad a la superficie: del trabajo no pagado dentro de la fábrica (Tomo I) al ciclo del capital social (Tomo II) y, por fin, a las categorías con que el capitalismo se narra a sí mismo —ganancia, interés, renta—, que ocultan la relación de explotación en su forma más acabada (Tomo III).</p></aside>
+<h3 id="lecturas-clave-para-el-tomo-iii">Lecturas clave para el Tomo III</h3>
+<h4>Ladislaus von Bortkiewicz y Ian Steedman — la crítica técnica al problema de la transformación</h4>
+<p>Bortkiewicz (1907) demostró algebraicamente que Marx no transformó simultáneamente los insumos al pasar de valores a precios de producción. Ian Steedman en <em>Marx después de Sraffa</em> (1977) llevó esta crítica al límite: los precios relativos y la tasa de ganancia pueden determinarse directamente desde las condiciones técnicas de producción, sin necesidad de pasar por el valor. La Nueva Interpretación (Foley, Duménil) y la Teoría del Valor Monetario (Moseley) son las principales respuestas marxistas contemporáneas a este desafío.</p>
+<h4>Piero Sraffa — la alternativa desde dentro de la economía clásica</h4>
+<p>En <em>Producción de mercancías por medio de mercancías</em> (1960), Sraffa reconstruyó la teoría del valor y la distribución sin recurrir a categorías subjetivas neoclásicas —pero tampoco al trabajo abstracto de Marx. Su marco permite establecer precios y tasa de ganancia a partir de los coeficientes técnicos de producción y el salario real, en lo que muchos consideran la alternativa más robusta tanto al marxismo como al neoclasicismo.</p>
+<h4>Robert Brenner — la tasa de ganancia y el largo declive</h4>
+<p>En <em>The Economics of Global Turbulence</em> (1998), Brenner aplica la tendencia decreciente de la tasa de ganancia al análisis empírico del capitalismo de posguerra, argumentando que el estancamiento y las crisis desde 1973 pueden explicarse, en gran medida, por una caída secular de la rentabilidad en el sector manufacturero de los países avanzados. Es el intento más serio de conectar la teoría abstracta de Marx con datos históricos medibles.</p>
+<h4>Michel Husson y Özlem Onaran — la financiarización como contratendencia</h4>
+<p>Economistas contemporáneos que muestran cómo la explosión financiera de las últimas décadas —el capital ficticio hipertrofiado del que habla el capítulo XXV— funciona como contratendencia temporal a la caída de la tasa de ganancia en la economía real: el capital que no encuentra rentabilidad en la producción migra a la esfera financiera, infla activos, y eventualmente produce la clase de colapso que vimos en 2008.</p>
+<aside class="recuadro"><p>Para conectar el Tomo III con el mundo financiero de todos los días: la tasa de interés que fija Banxico, el precio de los CETES, la relación entre la Bolsa y la economía real, el debate sobre si las valuaciones de las grandes tecnológicas tienen sustento en valor real — todos estos son problemas del Tomo III, no metáforas.</p></aside>
+</section>
+<section class="part" id="legado-una-critica-inacabada"><h2 class="part-title">Legado — Una crítica inacabada</h2>
+<p><em>Las ideas que transformaron el mundo, el impacto de una obra que nadie terminó de leer completa, y las preguntas que el capitalismo del siglo XXI sigue sin responder</em></p>
+<h3 id="las-ideas-que-sostienen-el-edificio-sintesis-de-los-tres-tom">Las ideas que sostienen el edificio: síntesis de los tres tomos</h3>
+<p class="nota-final"><strong>El valor es trabajo.</strong> Toda riqueza en el capitalismo —cada mercancía, cada acción, cada propiedad— representa, en última instancia, tiempo de trabajo humano cristalizado. No es un precio, no es una preferencia subjetiva: es trabajo abstracto socialmente necesario. Esta afirmación es la raíz de todo lo que sigue.</p>
+<p class="nota-final"><strong>La explotación es estructural, no moral.</strong> El capitalista no "roba" al obrero en el sentido de engañarlo. Le paga exactamente el valor de su fuerza de trabajo. Pero lo que compra es la capacidad de trabajar, y esa capacidad produce más valor del que cuesta reproducirla. La explotación no es una distorsión del capitalismo: es su condición de posibilidad.</p>
+<p class="nota-final"><strong>El capitalismo produce su propia apariencia de justicia.</strong> El fetichismo no es propaganda ni mentira consciente: es la forma objetiva en que las relaciones sociales se presentan necesariamente en una sociedad de productores privados. Por eso no se disuelve con educación: requiere transformar las relaciones de producción mismas.</p>
+<div class="tabla"><div class="tabla-scroll"><table><thead><tr><th>Idea</th><th>Formulación en El Capital</th><th>Reverso crítico</th></tr></thead><tbody><tr><td>Teoría del valor-trabajo</td><td>El valor es trabajo abstracto socialmente necesario</td><td>El precio de mercado oculta y revela el valor simultáneamente</td></tr><tr><td>Plusvalía</td><td>El trabajo excedente no pagado es la fuente de toda ganancia capitalista</td><td>Sin explotación del trabajo vivo no hay acumulación posible</td></tr><tr><td>Fetichismo</td><td>Las relaciones entre personas se presentan como relaciones entre cosas</td><td>La ilusión no es subjetiva: la produce la estructura misma del intercambio</td></tr><tr><td>Reproducción ampliada</td><td>La acumulación exige proporciones precisas entre sectores que el mercado no garantiza</td><td>La crisis no es fallo externo: es el único mecanismo de coordinación disponible</td></tr><tr><td>Tasa decreciente de ganancia</td><td>El desarrollo capitalista erosiona, estructuralmente, la tasa de ganancia media</td><td>Lo que es racional para cada capital es destructivo para el capital como totalidad</td></tr><tr><td>Capital ficticio</td><td>El crédito produce valor que aparece sin trabajo que lo respalde en el presente</td><td>La esfera financiera se autonomiza hasta chocar, en las crisis, con el valor real</td></tr><tr><td>Acumulación originaria</td><td>El capitalismo no nació del ahorro virtuoso sino de la violencia histórica</td><td>El "libre contrato" descansa sobre una expropiación que el mercado vuelve invisible</td></tr></tbody></table></div></div>
+<h3 id="las-criticas-de-marx-al-capitalismo-ocho-tesis-que-no-han-pe">Las críticas de Marx al capitalismo: ocho tesis que no han perdido filo</h3>
+<p>La obra de Marx no es solo descripción ni solo predicción: es una <strong>crítica</strong> en el sentido filosófico preciso — un análisis que muestra las contradicciones internas de su objeto, las que el propio objeto no puede reconocer sin ponerse en cuestión a sí mismo. Estas son las ocho tesis críticas que atraviesan los tres tomos:</p>
+<h4>① La producción no está organizada para satisfacer necesidades humanas</h4>
+<p>El capitalismo produce lo que es rentable, no lo que es necesario. La salud, la educación, la vivienda, la nutrición — todas sucumben a la lógica de la ganancia. Si hay mercado solvente para un producto superfluo y no lo hay para uno vital, el capitalismo produce el superfluo. Esta no es una disfunción corregible desde dentro: es la estructura misma del sistema, en el que el valor de uso queda subordinado al valor de cambio desde el primer capítulo del Tomo I.</p>
+<h4>② La libertad en el mercado coexiste con la coerción en la producción</h4>
+<p>El trabajador "elige libremente" a quién vender su fuerza de trabajo. Pero esa libertad presupone que ya no tiene acceso independiente a los medios de producción — condición producida históricamente por la violencia de la acumulación originaria. Es libertad formal sobre la base de una dependencia estructural. Marx llama a esto, con elegancia, "el edén de los derechos humanos innatos": justo antes de que el comprador y vendedor "crucen el umbral" hacia el proceso de producción, donde la igualdad desaparece.</p>
+<h4>③ La innovación técnica empobrece a quienes trabajan con ella</h4>
+<p>La maquinaria que aumenta la productividad podría reducir la jornada de trabajo para todos. En el capitalismo, reduce el precio de la fuerza de trabajo (porque reduce el costo de los bienes de subsistencia), intensifica el ritmo de producción, y desplaza a los trabajadores creando el ejército industrial de reserva. La tecnología no es neutra: su impacto sobre los trabajadores depende de quién la posee y con qué fin la emplea.</p>
+<h4>④ La concentración del capital es una ley, no una anomalía</h4>
+<p>La competencia entre capitales no produce equilibrio entre unidades pequeñas y eficientes: produce concentración. El capital grande puede invertir en tecnología que el pequeño no puede permitirse, ganar cuota de mercado, eliminar competidores, y absorberlos. La tendencia a la monopolización no es una distorsión corregible con política antimonopolio: es la dirección natural del movimiento del capital, inscrita en sus propias leyes de funcionamiento.</p>
+<h4>⑤ Las crisis son endémicas, no accidentales</h4>
+<p>Las crisis de sobreproducción, de sobreacumulación, de desvalorización masiva del capital — no son shocks externos al sistema. Son el mecanismo mediante el cual el capitalismo "resuelve" temporalmente sus contradicciones internas: destruye capital excedente, baja salarios vía desempleo, y restablece condiciones para una nueva fase de acumulación. Cada crisis lleva los gérmenes de la siguiente.</p>
+<h4>⑥ El trabajo asalariado aliena al trabajador de su propio acto de producción</h4>
+<p>Este argumento —más explícito en los Manuscritos de 1844 que en El Capital, aunque presente en él— sostiene que el trabajo humano, lejos de ser solo un medio para un fin exterior (el salario), es la actividad en la que el ser humano se objetiva, se reconoce, desarrolla sus capacidades. El trabajo asalariado —controlado por otro, fragmentado, ejecutado contra el propio deseo— convierte esa actividad esencialmente humana en su opuesto: en algo que el trabajador rehúye en lugar de buscar.</p>
+<h4>⑦ El Estado no es árbitro neutral: es instrumento de clase</h4>
+<p>La legislación, los tribunales, la fuerza pública: en el análisis de Marx, el Estado capitalista no flota sobre las clases sino que emerge de las relaciones de producción y, en última instancia, garantiza las condiciones de su reproducción. Esto no significa que el Estado no pueda ser campo de lucha — la jornada legal de trabajo, el derecho sindical, el salario mínimo son conquistas reales — pero sí que esas conquistas se dan dentro de un marco que no cuestiona la relación capital-trabajo en sí.</p>
+<h4>⑧ El capitalismo es históricamente específico, no eterno</h4>
+<p>Quizás la tesis más subversiva de todas: el capitalismo no es la forma natural y permanente de organizar la economía humana. Es un modo de producción históricamente determinado, con un origen específico (la acumulación originaria) y, por tanto, con una posibilidad de fin. Marx evita describir en detalle qué vendría después —es cuidadoso al respecto—, pero la historización completa de las categorías económicas abre ese horizonte de posibilidad que el capitalismo, por definición, quiere mantener cerrado.</p>
+<blockquote>«Si el régimen capitalista de producción constituye un medio histórico para desarrollar la capacidad productiva material, envuelve al propio tiempo una contradicción constante entre esta misión histórica y las condiciones sociales de producción propias de este régimen.» — <em>El Capital, Tomo III, cap. XV</em></blockquote>
+<h3 id="el-impacto-historico-una-obra-que-nadie-leyo-completa-pero-q">El impacto histórico: una obra que nadie leyó completa pero que transformó el siglo XX</h3>
+<ul><li><strong>1867 — Publicación del Tomo I.</strong> El Tomo I se publica en Hamburgo con una tirada modesta. Los economistas burgueses lo ignoran en su mayoría. Engels orquesta reseñas en la prensa obrera para darle visibilidad. En 1872 la censura rusa autoriza la traducción —la primera a otra lengua— porque el censor juzga que pocos la leerán y menos aún la entenderán.</li><li><strong>1871 — La Comuna de París.</strong> La primera experiencia de gobierno obrero en la historia dura 72 días. Marx la analiza en <em>La guerra civil en Francia</em> y la ve como prueba de que el Estado burgués no puede simplemente "tomarse" sino que debe destruirse y reemplazarse. Engels describirá después a la Comuna como "la dictadura del proletariado".</li><li><strong>1885–1894 — Tomos II y III.</strong> Engels publica póstumamente los tomos II y III. Son fragmentarios, incompletos, pero completan el argumento teórico central. Su lectura seguirá siendo minoritaria incluso entre marxistas: la mayoría opera sobre el Tomo I y el Manifiesto.</li><li><strong>1917 — Revolución rusa.</strong> Lenin y los bolcheviques toman el poder en un país agrario y semifeudal — el opuesto al proletariado industrial desarrollado que Marx suponía sería el sujeto revolucionario. El marxismo-leninismo se convierte en ideología de Estado de la primera potencia socialista. En 50 años, más de un tercio de la humanidad vivirá bajo gobiernos que se reclaman de Marx.</li><li><strong>1930s — La Gran Depresión y el keynesianismo.</strong> La crisis de 1929 parece dar la razón a las tesis marxistas sobre la inevitabilidad de las crisis. Pero la respuesta dominante no es socialista: es keynesiana. Keynes demuestra que es posible estabilizar el capitalismo mediante la intervención estatal en la demanda sin cuestionar la propiedad privada. El Estado de Bienestar se construye, en parte, como alternativa al marxismo.</li><li><strong>1949–1976 — Descolonización y marxismos del Tercer Mundo.</strong> Marx es adoptado, adaptado y radicalmente transformado por movimientos de liberación nacional en Asia, África y América Latina. Mao, Ho Chi Minh, Fanon, Guevara, Allende — cada uno lee a Marx desde condiciones de colonialismo y subdesarrollo que el propio Marx apenas alcanzó a vislumbrar. El marxismo se fragmenta en tradiciones irreducibles entre sí.</li><li><strong>1989–1991 — La caída del Muro y el "fin de la historia".</strong> El colapso del bloque soviético es proclamado como la refutación definitiva de Marx. Francis Fukuyama declara el "fin de la historia". La hegemonía neoliberal asume que el debate está zanjado. El marxismo académico continúa, pero pierde su referente político masivo.</li><li><strong>2008 — La Gran Recesión.</strong> La crisis financiera global más grave desde 1929 produce un renacimiento masivo del interés en Marx. <em>El Capital</em> vuelve a las listas de best-sellers en Alemania. Thomas Piketty publica <em>El capital en el siglo XXI</em> (2013) — sin ser marxista, demuestra empíricamente la tendencia histórica a la concentración del capital que Marx teorizó. La revista <em>Time</em> lo lleva a su portada europea a comienzos de 2009 con una pregunta: "¿Qué pensaría Marx?"</li><li><strong>2020s — Inteligencia Artificial y el trabajo del futuro.</strong> La automatización masiva impulsada por la IA plantea, en términos completamente nuevos, el problema que Marx articuló con la maquinaria en el Tomo I: la tecnología bajo el capitalismo no libera el tiempo humano — lo convierte en desempleo estructural, deprime salarios, y concentra los beneficios de la productividad en quienes poseen las plataformas. El capítulo XIII del Tomo I sobre la maquinaria se lee como un análisis del presente.</li></ul>
+<h3 id="las-criticas-a-marx-lo-que-sus-adversarios-tienen-razon-en-s">Las críticas a Marx: lo que sus adversarios tienen razón en señalar</h3>
+<p>Una crítica intelectualmente honesta exige ser igualmente rigurosa con las objeciones serias a Marx. Las que siguen no son las acusaciones fáciles del anticomunismo de guerra fría — son las que merecen tomarse en serio:</p>
+<h4>El problema de la transformación no está resuelto</h4>
+<p>La matemática del paso de valores a precios de producción (Tomo III) tiene inconsistencias formales que Marx no resolvió y que el debate técnico posterior no ha zanjado del todo. Si los precios no se derivan consistentemente del valor, parte del edificio lógico se tambalea.</p>
+<h4>La teoría del valor-trabajo es controvertida</h4>
+<p>¿Por qué el trabajo sería la única fuente de valor y no la escasez, las preferencias o la utilidad? La tradición neoclásica (Jevons, Menger, Walras) rechaza esta premisa y construye una teoría alternativa coherente. La elección entre ellas no es solo técnica: refleja preguntas filosóficas profundas sobre qué es el valor.</p>
+<h4>La tesis del empobrecimiento absoluto fue falsada</h4>
+<p>Marx sugirió que el capitalismo tendería a empobrecer absolutamente a la clase obrera. El siglo XX mostró que los trabajadores en los países avanzados mejoraron sus condiciones materiales de vida significativamente —con luchas, con Estado de Bienestar, pero dentro del capitalismo. La tesis del empobrecimiento relativo (la desigualdad crece aunque los salarios reales suban) es más robusta pero menos dramática.</p>
+<h4>No anticipó la capacidad reformista del capitalismo</h4>
+<p>El Estado de Bienestar, la democracia liberal, los derechos sindicales, la legislación ambiental — el capitalismo demostró una capacidad de adaptación y absorción de demandas que Marx subestimó. Eduard Bernstein lo señaló ya en 1899: la revolución no era inminente porque el capitalismo podía reformarse.</p>
+<h4>Su visión del sujeto histórico es eurocéntrica</h4>
+<p>El proletariado industrial del que Marx esperaba la transformación era, en su época, fundamentalmente europeo y masculino. Las tradiciones feministas (Silvia Federici) y poscoloniales señalan que el capitalismo se sostiene también sobre trabajo reproductivo no remunerado y sobre la explotación colonial — áreas que Marx toca pero no desarrolla sistemáticamente.</p>
+<h4>El experimento soviético como refutación práctica</h4>
+<p>El socialismo realmente existente produjo, en la mayoría de sus versiones, regímenes autoritarios que reprimieron a los propios trabajadores en cuyo nombre gobernaban. Puede argumentarse (y Marx lo haría) que eso no era su socialismo — pero la pregunta sobre qué pasa con la concentración de poder en ausencia de mercados y propiedad privada sigue sin respuesta satisfactoria.</p>
+<h4>Subestimó la agencia individual y cultural</h4>
+<p>La estructura económica no determina mecánicamente todo lo demás. Las tradiciones culturales, las identidades nacionales y religiosas, la psicología individual — han demostrado ser fuerzas que no se reducen a su "base material". Max Weber mostró con el calvinismo y el espíritu capitalista que la causalidad también puede ir en el sentido inverso: de la cultura a la economía.</p>
+<h4>No resolvió el problema del cálculo económico</h4>
+<p>Ludwig von Mises argumentó en 1920 que la planificación centralizada es imposible porque no puede generar la información que los precios de mercado proveen descentralizadamente. La experiencia soviética dio, en muchos aspectos, razón a esta objeción. Cómo coordinar la producción social sin mercados ni precios sigue siendo un problema abierto para cualquier proyecto socialista serio.</p>
+<aside class="recuadro"><p>Que estas críticas sean serias no invalida el proyecto marxista: invita a reformularlo. La pregunta no es "¿tenía Marx razón en todo?" — nadie la tiene. La pregunta es: "¿sus herramientas conceptuales siguen siendo las más potentes disponibles para entender el capitalismo?" Y esa es una pregunta viva.</p></aside>
+<h3 id="vigencia-lo-que-marx-ve-que-los-economistas-mainstream-no-qu">Vigencia: lo que Marx ve que los economistas mainstream no quieren mirar</h3>
+<p>No hace falta ser marxista para reconocer que ciertas preguntas que Marx formuló siguen sin respuesta satisfactoria en la economía convencional. Aquí está lo que sigue vigente:</p>
+<ul><li><strong>Desigualdad estructural.</strong> Piketty demostró empíricamente lo que Marx teorizó: cuando la tasa de retorno del capital supera la tasa de crecimiento, la riqueza se concentra indefinidamente. El 1% más rico posee más que el 50% inferior de la humanidad. No es una anomalía: es la dinámica normal del capital.</li><li><strong>La crisis de 2008 y la financiarización.</strong> El capital ficticio —hipotecas subprime empaquetadas en derivados, vendidas como si fueran valor— colapsó exactamente como Marx describió en el Tomo III: la esfera financiera se autonomizó hasta que chocó con el valor real.</li><li><strong>La IA y el ejército de reserva digital.</strong> La automatización amenaza con desplazar millones de empleos sin que el sistema tenga un mecanismo para redistribuir los beneficios de la productividad. El debate sobre renta básica universal es, en el fondo, el debate marxista sobre la relación entre tecnología, trabajo y distribución.</li><li><strong>La crisis climática como contradicción sistémica.</strong> El capitalismo exige crecimiento indefinido en un planeta finito. La lógica de la valorización del capital no tiene ningún mecanismo interno para frenar la destrucción ecológica si destruirla es rentable. La crisis climática es, en términos marxistas, la contradicción entre valor de uso (la biosfera habitable) y valor de cambio (el petróleo vendible).</li><li><strong>El fetichismo digital.</strong> Los algoritmos de las plataformas tecnológicas son, literalmente, sistemas que convierten relaciones sociales (atención, amistad, opinión, deseo) en relaciones entre cosas cuantificables (clics, likes, tiempo de pantalla). El fetichismo del siglo XXI ya no es la mercancía: es el dato.</li><li><strong>La acumulación por desposesión.</strong> David Harvey demuestra que la "acumulación originaria" no fue solo un episodio histórico pasado: continúa hoy en la privatización de servicios públicos, el cercamiento de bienes comunes digitales, el extractivismo en el Sur global. El capitalismo sigue necesitando "afueras" que conquistar.</li></ul>
+<h3 id="palabra-final-por-que-marx-sigue-siendo-necesario">Palabra final: por qué Marx sigue siendo necesario</h3>
+<p>Marx no nos da un programa político listo para usar en 2026. Los tres tomos de El Capital no terminan con una receta para el socialismo del siglo XXI, en parte porque Marx tuvo la honestidad intelectual de no escribir recetas para sociedades que no podía conocer. Lo que nos da es algo más valioso: un <strong>método</strong> y un conjunto de <strong>preguntas</strong> que el pensamiento económico dominante sigue evitando sistemáticamente.</p>
+<p>¿Quién produce la riqueza y quién la apropia? ¿Qué relaciones sociales se ocultan detrás de las categorías del mercado? ¿Tiene el capitalismo contradicciones que no puede resolver desde dentro, o solo "desafíos" que la buena política puede gestionar? ¿Es posible organizar la producción social de forma que sirva a las necesidades humanas en vez de a la valorización del capital?</p>
+<p>Estas preguntas no son solo académicas. Son las preguntas de las que depende si entendemos o no lo que está pasando con la automatización, con la desigualdad, con la crisis climática, con la financiarización, con las guerras comerciales — con el mundo en que vivimos. Y Marx, aunque haya que discutirlo, corregirlo, actualizarlo en muchos puntos, sigue siendo el pensador que las formuló con más rigor y más profundidad que cualquier otro.</p>
+<p>No hace falta compartir sus conclusiones políticas para reconocer que sus preguntas son indispensables. Lo que sería un error — intelectual, no solo político — es creer que se puede entender el capitalismo del siglo XXI sin haberlo pasado por este tamiz.</p>
+<blockquote>«Los filósofos no han hecho más que interpretar de diversos modos el mundo, pero de lo que se trata es de transformarlo.» — <em>Karl Marx — Tesis sobre Feuerbach, XI (1845)</em></blockquote>
+<h3 id="creditos-de-las-imagenes">Créditos de las imágenes</h3>
+<p>Todas las imágenes provienen de Wikimedia Commons. Son de dominio público, salvo la fotografía del monumento a Marx y Engels en Berlín (Mdelt, CC BY-SA 4.0).</p>
+</section>
+  <p class="colofon">Pieza hermana de <a href="https://alex-vazquez73.github.io/el-capitalismo/">El capitalismo a juicio</a>. La misma pregunta por el excedente: allá el límite se decide; aquí, el límite es el capital.</p>
+  <footer class="end">
+    <span>Alejandro Vázquez · 2026</span>
+    <a href="#portada">Volver al inicio ↑</a>
+  </footer>
+</main>
+
+<script>
+(function(){
+  var bar=document.getElementById('bar'),t=document.getElementById('toggle');
+  function prog(){var h=document.documentElement,m=h.scrollHeight-h.clientHeight;
+    bar.style.width=(m>0?(h.scrollTop/m)*100:0)+'%';}
+  addEventListener('scroll',prog,{passive:true});prog();
+  t.addEventListener('click',function(){
+    var r=document.documentElement,cur=r.getAttribute('data-theme');
+    if(!cur){cur=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';}
+    var nx=cur==='dark'?'light':'dark';r.setAttribute('data-theme',nx);
+    try{localStorage.setItem('av-tema',nx);}catch(e){}
+  });
+  try{var sv=localStorage.getItem('av-tema');if(sv)document.documentElement.setAttribute('data-theme',sv);}catch(e){}
+  var links=[].slice.call(document.querySelectorAll('#rail a'));
+  var secs=links.map(function(a){return document.getElementById(a.dataset.target);}).filter(Boolean);
+  if('IntersectionObserver' in window && secs.length){
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){
+      if(e.isIntersecting){links.forEach(function(a){
+        a.classList.toggle('on',a.dataset.target===e.target.id);});}});},
+      {rootMargin:'-20% 0px -70% 0px'});
+    secs.forEach(function(s){io.observe(s);});
+  }
+
+  // la barra flotante se esconde al bajar y reaparece al subir — solo en
+  // móvil, donde el texto ocupa todo el ancho y la barra le caía encima.
+  //
+  // SIN requestAnimationFrame a propósito. La primera versión usaba un rAF
+  // como amortiguador, con un cerrojo que solo se soltaba dentro del propio
+  // rAF; cuando el navegador lo suspende —pestaña en segundo plano, o el modo
+  // de bajo consumo del iPhone, que Safari estrangula sin piedad— el cerrojo
+  // se quedaba echado y la barra no volvía NUNCA. El trabajo real son dos
+  // comparaciones y un toggle de clase: hacerlo directo en el listener pasivo
+  // es más barato que el andamio que lo protegía.
+  // La decisión vive en una función pura —sin DOM, sin efectos— para poder
+  // probarla con una tabla de verdad. UMBRAL: no se esconde en los primeros
+  // 240px, para que la portada nunca aparezca sin barra. HISTERESIS de 6px:
+  // sin ella, el rebote elástico de iOS la haría parpadear.
+  function decidirBarra(y,ult,movil){
+    if(!movil){return 'mostrar';}
+    if(y>ult+6&&y>240){return 'ocultar';}
+    if(y<ult-6){return 'mostrar';}
+    return 'nada';
+  }
+  var tb=document.querySelector('.topbar'),ult=0,mv=matchMedia('(max-width:640px)');
+  addEventListener('scroll',function(){
+    var y=scrollY>0?scrollY:0, d=decidirBarra(y,ult,mv.matches);
+    if(d==='ocultar'){tb.classList.add('oculta');}
+    else if(d==='mostrar'){tb.classList.remove('oculta');}
+    ult=y;
+  },{passive:true});
+  // dos redes de seguridad: al volver a la pestaña y al cambiar de tamaño,
+  // la barra reaparece pase lo que pase.
+  mv.addEventListener('change',function(){tb.classList.remove('oculta');});
+  document.addEventListener('visibilitychange',function(){
+    if(!document.hidden){tb.classList.remove('oculta');ult=scrollY>0?scrollY:0;}
+  });
+})();
+</script>
+</html>
