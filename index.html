@@ -118,29 +118,21 @@ h1{font-family:"Fraunces","Newsreader",Georgia,serif;font-weight:400;
 .estante .min{font-family:"IBM Plex Mono",monospace;font-size:.68rem;color:var(--ink-soft);
   white-space:nowrap;font-variant-numeric:tabular-nums;}
 .estante .sub{grid-column:1/-1;font-family:"Fraunces",Georgia,serif;font-style:italic;
-  font-weight:300;font-size:.98rem;color:var(--ink-soft);margin:0 0 .5rem;line-height:1.35;}
+  font-weight:300;font-size:.98rem;color:var(--ink-soft);margin:0 0 .45rem;line-height:1.35;}
 .lomo{grid-column:1/-1;display:flex;align-items:center;gap:.7rem;min-width:0;}
 .lomo i{display:block;height:.55rem;border-radius:1px;flex:none;width:calc(var(--w)*.78%);
   background:var(--c);opacity:.9;transition:opacity .18s;}
 .estante a:hover .lomo i{opacity:1;}
 .lomo em{font-style:normal;font-family:"IBM Plex Mono",monospace;font-size:.62rem;
   color:var(--ink-soft);white-space:nowrap;font-variant-numeric:tabular-nums;}
-.estante details{padding:0 0 1rem;}
-.estante summary{font-family:"IBM Plex Mono",monospace;font-size:.6rem;letter-spacing:.13em;
-  text-transform:uppercase;color:var(--ink-soft);cursor:pointer;width:max-content;
-  list-style:none;padding:.15rem 0;}
-.estante summary::-webkit-details-marker{display:none;}
-.estante summary::before{content:"+ ";}
-.estante details[open] summary::before{content:"− ";}
-.estante summary:hover{color:var(--ink);}
-.estante summary:focus-visible{outline:none;box-shadow:0 0 0 2px var(--lamp);}
-.estante details p{margin:.5rem 0 0;font-size:.98rem;line-height:1.6;color:var(--ink-soft);}
+/* 2026-10-06: el resumen va visible bajo cada título (antes, plegado). */
+.estante .resumen{grid-column:1/-1;margin:0 0 .8rem;font-size:1rem;line-height:1.6;}
 .a-eco{--c:var(--lamp);} .a-fil{--c:var(--ink-soft);} .a-sci{--c:var(--tool);}
 
 /* AÑADIDO 2026-10-06 — aplicaciones: se usan, no se leen */
 .apps{list-style:none;margin:0 0 3.6rem;padding:0;display:flex;flex-direction:column;gap:.8rem;}
 .app{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:.2rem 1rem;align-items:center;
-  border:1px dashed var(--tool);background:var(--tool-soft);border-radius:999px;
+  border:1px dashed var(--tool);background:var(--tool-soft);border-radius:14px;
   padding:.85rem 1.4rem;text-decoration:none;color:inherit;transition:border-style .18s,background .18s;}
 .app:hover,.app:focus-visible{border-style:solid;outline:none;}
 .app:focus-visible{box-shadow:0 0 0 2px var(--tool);}
@@ -150,6 +142,7 @@ h1{font-family:"Fraunces","Newsreader",Georgia,serif;font-weight:400;
 .app .ti{display:block;font-family:"Fraunces",Georgia,serif;font-weight:400;font-size:1.12rem;line-height:1.25;margin:0;}
 .app .sub{display:block;font-family:"Fraunces",Georgia,serif;font-style:italic;font-weight:300;
   font-size:.92rem;color:var(--ink-soft);line-height:1.35;}
+.app .resumen{display:block;margin:.45rem 0 0;font-size:.95rem;line-height:1.55;}
 .app .leer{color:var(--tool);}
 
 /* AÑADIDO 2026-10-06 — suscripción */
@@ -206,7 +199,7 @@ h1{font-family:"Fraunces","Newsreader",Georgia,serif;font-weight:400;
   .estante a{padding:1rem .6rem .9rem;margin:0 -.6rem;}
   .estante h3{font-size:1.2rem;}
   .lomo i{width:calc(var(--w)*.5%);}
-  .app{grid-template-columns:minmax(0,1fr) auto;border-radius:14px;padding:.9rem 1.1rem;}
+  .app{grid-template-columns:minmax(0,1fr) auto;padding:.9rem 1.1rem;}
   .app .sello{grid-column:1/-1;}
   .sus{padding:1.35rem 1.3rem 1.1rem;}
   .nota{padding:1.35rem 1.3rem .9rem;}
@@ -225,6 +218,7 @@ h1{font-family:"Fraunces","Newsreader",Georgia,serif;font-weight:400;
   .destacada .sub{font-size:1.18rem;}
   .estante h3{font-size:1.42rem;}
   .estante .sub{font-size:1.06rem;}
+  .estante .resumen{font-size:1.06rem;}
   .nota p{font-size:1.06rem;}
 }
 </style>
@@ -235,7 +229,7 @@ h1{font-family:"Fraunces","Newsreader",Georgia,serif;font-weight:400;
   <header class="hero">
     <div class="lamp" aria-hidden="true"></div>
     <p class="eyebrow">Archivo · Alejandro Vázquez</p>
-    <h1>Lo que voy escribiendo</h1>
+    <h1>Lo que voy entendiendo</h1>
     <p class="lede">Ensayos y aplicaciones de filosofía, economía, ciencia y misticismo. Se hacen para entender algo, no para convencer a nadie; si de paso incomodan un poco, mejor.</p>
     <p class="totales"><span><b>5</b> ensayos</span><span><b>1</b> aplicación</span><span><b>64,526</b> palabras</span><span><b>~5 h 23 min</b> de lectura</span></p>
   </header>
@@ -244,7 +238,7 @@ h1{font-family:"Fraunces","Newsreader",Georgia,serif;font-weight:400;
   <a class="destacada" href="karl-marx/">
     <p class="meta"><span class="kind">Economía política</span><span>Junio 2026</span></p>
     <h2>Lo que nadie ve y lo que todos creen ver</h2>
-    <p class="sub">Una lectura de El Capital, de la fábrica a la superficie</p>
+    <p class="sub">Una lectura de El Capital de Marx, de la fábrica a la superficie</p>
     <p class="blurb">Una guía para leer El Capital de principio a fin, sin ser experto: de dónde sale la ganancia, por qué el sistema tiene crisis y qué ideas de Marx siguen vigentes. También, las críticas que sí le aciertan.</p>
     <p class="cifras"><span><b>14,100</b> palabras</span><span><b>~1 h 10 min</b> de lectura</span><span><b>8</b> figuras</span><span><b>6</b> tablas</span></p>
     <p class="leer"><span>Leer</span><span>&rarr;</span></p>
@@ -258,36 +252,36 @@ h1{font-family:"Fraunces","Newsreader",Georgia,serif;font-weight:400;
         <h3>La inteligencia animal: la escalera era una coartada</h3>
         <span class="min">~30 min</span>
         <p class="sub">Con un parásito de villano y una abeja de testigo</p>
+        <p class="resumen">Solemos ordenar a los animales en una escalera, con nosotros hasta arriba. Esa escalera no se sostiene: hay cuervos más listos que chimpancés y mohos que resuelven laberintos sin una sola neurona. Y una pista incómoda: le negamos inteligencia a un animal justo antes de comérnoslo.</p>
         <span class="lomo" aria-hidden="true"><i style="--w:23.6"></i><em>6,100 pal.</em></span>
       </a>
-      <details><summary>Resumen</summary><p>Solemos ordenar a los animales en una escalera, con nosotros hasta arriba. Esa escalera no se sostiene: hay cuervos más listos que chimpancés y mohos que resuelven laberintos sin una sola neurona. Y una pista incómoda: le negamos inteligencia a un animal justo antes de comérnoslo.</p></details>
     </li>
     <li class="a-fil">
       <a href="incomodidad-despertar/">
         <h3>La incomodidad, ¿precio del despertar?</h3>
         <span class="min">~16 min</span>
         <p class="sub">Una noche en Wirikuta, el Buda y el sinsentido que no se mueve</p>
+        <p class="resumen">Tras una noche de frío y lluvia en una ceremonia en el desierto, una pregunta sencilla: ¿hace falta pasarla mal para despertar? La respuesta separa el sufrimiento inútil del esfuerzo que sí transforma, con ayuda del budismo.</p>
         <span class="lomo" aria-hidden="true"><i style="--w:12.4"></i><em>3,200 pal. · 2 fig.</em></span>
       </a>
-      <details><summary>Resumen</summary><p>Tras una noche de frío y lluvia en una ceremonia en el desierto, una pregunta sencilla: ¿hace falta pasarla mal para despertar? La respuesta separa el sufrimiento inútil del esfuerzo que sí transforma, con ayuda del budismo.</p></details>
     </li>
     <li class="a-fil">
       <a href="sisifo-despierto/">
         <h3>Imaginar a Sísifo despierto</h3>
         <span class="min">~1 h 17 min</span>
         <p class="sub">El sinsentido, el absurdo y la angustia</p>
+        <p class="resumen">Angustia, sinsentido y absurdo parecen lo mismo, pero no lo son: una es lo que sientes, otro lo que ves y el último lo que haces con eso. De Kierkegaard a Camus, y por qué hoy estas preguntas ya no duelen aunque sigan sin respuesta.</p>
         <span class="lomo" aria-hidden="true"><i style="--w:59.4"></i><em>15,326 pal.</em></span>
       </a>
-      <details><summary>Resumen</summary><p>Angustia, sinsentido y absurdo parecen lo mismo, pero no lo son: una es lo que sientes, otro lo que ves y el último lo que haces con eso. De Kierkegaard a Camus, y por qué hoy estas preguntas ya no duelen aunque sigan sin respuesta.</p></details>
     </li>
     <li class="a-eco">
       <a href="el-capitalismo/">
         <h3>El capitalismo a juicio</h3>
         <span class="min">~2 h 10 min</span>
         <p class="sub">Prosperidad, desigualdad y los límites de la acumulación</p>
+        <p class="resumen">¿El capitalismo nos hizo más ricos o más desiguales? Un juicio con defensa y acusación, datos de fuentes originales y México de 1982 a 2025 como caso principal. Empecé con una opinión y los datos me la cambiaron.</p>
         <span class="lomo" aria-hidden="true"><i style="--w:100.0"></i><em>25,800 pal. · 11 fig.</em></span>
       </a>
-      <details><summary>Resumen</summary><p>¿El capitalismo nos hizo más ricos o más desiguales? Un juicio con defensa y acusación, datos de fuentes originales y México de 1982 a 2025 como caso principal. Empecé con una opinión y los datos me la cambiaron.</p></details>
     </li>
   </ul>
 
@@ -295,11 +289,24 @@ h1{font-family:"Fraunces","Newsreader",Georgia,serif;font-weight:400;
   <ul class="apps">
     <li><a class="app" href="carta-natal/">
       <span class="sello"><span>◎</span>Aplicación</span>
-      <span><span class="ti">La energía del Universo — Carta Natal</span><span class="sub">Tu carta natal, calculada en tu propio navegador</span></span>
+      <span><span class="ti">La energía del Universo — Carta Natal</span><span class="sub">Tu carta natal, calculada en tu propio navegador</span><span class="resumen">Calcula tu carta natal con datos astronómicos precisos y la dibuja: planetas, casas y aspectos. No te dice qué significa; eso queda de tu lado. Todo ocurre en tu navegador y tus datos no salen de tu dispositivo.</span></span>
       <span class="leer"><span>Abrir</span><span>&rarr;</span></span>
     </a></li>
   </ul>
 
+  <section class="sus" aria-labelledby="sus-h">
+    <h2 id="sus-h">Avísame cuando haya algo nuevo</h2>
+    <p>Deja tu correo y te aviso cuando publique algo nuevo.</p>
+    <form id="sus-form" action="https://script.google.com/macros/s/AKfycbydAFZU9gQbTbA8Hx9k6OV9UeA_-c_7EbmQmuE9abYVbe0bLyEaxjbovTrZqA4tmyX3vw/exec" method="post">
+      <label class="oculto" for="sus-correo">Tu correo</label>
+      <input id="sus-correo" name="correo" type="email" required autocomplete="email" placeholder="tu@correo.com">
+      <label class="oculto" for="sus-web">No llenes este campo</label>
+      <input class="oculto" id="sus-web" name="web" type="text" tabindex="-1" autocomplete="off">
+      <button type="submit">Avisarme</button>
+    </form>
+    <p class="estado" id="sus-estado" role="status" hidden></p>
+    <p class="letra">Solo se guarda tu correo y no se comparte con nadie. <a href="privacidad/">Aviso de privacidad</a>.</p>
+  </section>
   <div class="nota">
     <p><strong>Sobre este archivo.</strong> Existe para tener las cosas en un solo lugar y poder compartirlas. No se vende nada. Si algo de aquí te sirve para pensar, ya cumplió.</p>
   </div>

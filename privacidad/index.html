@@ -114,29 +114,21 @@ h1{font-family:"Fraunces","Newsreader",Georgia,serif;font-weight:400;
 .estante .min{font-family:"IBM Plex Mono",monospace;font-size:.68rem;color:var(--ink-soft);
   white-space:nowrap;font-variant-numeric:tabular-nums;}
 .estante .sub{grid-column:1/-1;font-family:"Fraunces",Georgia,serif;font-style:italic;
-  font-weight:300;font-size:.98rem;color:var(--ink-soft);margin:0 0 .5rem;line-height:1.35;}
+  font-weight:300;font-size:.98rem;color:var(--ink-soft);margin:0 0 .45rem;line-height:1.35;}
 .lomo{grid-column:1/-1;display:flex;align-items:center;gap:.7rem;min-width:0;}
 .lomo i{display:block;height:.55rem;border-radius:1px;flex:none;width:calc(var(--w)*.78%);
   background:var(--c);opacity:.9;transition:opacity .18s;}
 .estante a:hover .lomo i{opacity:1;}
 .lomo em{font-style:normal;font-family:"IBM Plex Mono",monospace;font-size:.62rem;
   color:var(--ink-soft);white-space:nowrap;font-variant-numeric:tabular-nums;}
-.estante details{padding:0 0 1rem;}
-.estante summary{font-family:"IBM Plex Mono",monospace;font-size:.6rem;letter-spacing:.13em;
-  text-transform:uppercase;color:var(--ink-soft);cursor:pointer;width:max-content;
-  list-style:none;padding:.15rem 0;}
-.estante summary::-webkit-details-marker{display:none;}
-.estante summary::before{content:"+ ";}
-.estante details[open] summary::before{content:"− ";}
-.estante summary:hover{color:var(--ink);}
-.estante summary:focus-visible{outline:none;box-shadow:0 0 0 2px var(--lamp);}
-.estante details p{margin:.5rem 0 0;font-size:.98rem;line-height:1.6;color:var(--ink-soft);}
+/* 2026-10-06: el resumen va visible bajo cada título (antes, plegado). */
+.estante .resumen{grid-column:1/-1;margin:0 0 .8rem;font-size:1rem;line-height:1.6;}
 .a-eco{--c:var(--lamp);} .a-fil{--c:var(--ink-soft);} .a-sci{--c:var(--tool);}
 
 /* AÑADIDO 2026-10-06 — aplicaciones: se usan, no se leen */
 .apps{list-style:none;margin:0 0 3.6rem;padding:0;display:flex;flex-direction:column;gap:.8rem;}
 .app{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:.2rem 1rem;align-items:center;
-  border:1px dashed var(--tool);background:var(--tool-soft);border-radius:999px;
+  border:1px dashed var(--tool);background:var(--tool-soft);border-radius:14px;
   padding:.85rem 1.4rem;text-decoration:none;color:inherit;transition:border-style .18s,background .18s;}
 .app:hover,.app:focus-visible{border-style:solid;outline:none;}
 .app:focus-visible{box-shadow:0 0 0 2px var(--tool);}
@@ -146,6 +138,7 @@ h1{font-family:"Fraunces","Newsreader",Georgia,serif;font-weight:400;
 .app .ti{display:block;font-family:"Fraunces",Georgia,serif;font-weight:400;font-size:1.12rem;line-height:1.25;margin:0;}
 .app .sub{display:block;font-family:"Fraunces",Georgia,serif;font-style:italic;font-weight:300;
   font-size:.92rem;color:var(--ink-soft);line-height:1.35;}
+.app .resumen{display:block;margin:.45rem 0 0;font-size:.95rem;line-height:1.55;}
 .app .leer{color:var(--tool);}
 
 /* AÑADIDO 2026-10-06 — suscripción */
@@ -202,7 +195,7 @@ h1{font-family:"Fraunces","Newsreader",Georgia,serif;font-weight:400;
   .estante a{padding:1rem .6rem .9rem;margin:0 -.6rem;}
   .estante h3{font-size:1.2rem;}
   .lomo i{width:calc(var(--w)*.5%);}
-  .app{grid-template-columns:minmax(0,1fr) auto;border-radius:14px;padding:.9rem 1.1rem;}
+  .app{grid-template-columns:minmax(0,1fr) auto;padding:.9rem 1.1rem;}
   .app .sello{grid-column:1/-1;}
   .sus{padding:1.35rem 1.3rem 1.1rem;}
   .nota{padding:1.35rem 1.3rem .9rem;}
@@ -221,6 +214,7 @@ h1{font-family:"Fraunces","Newsreader",Georgia,serif;font-weight:400;
   .destacada .sub{font-size:1.18rem;}
   .estante h3{font-size:1.42rem;}
   .estante .sub{font-size:1.06rem;}
+  .estante .resumen{font-size:1.06rem;}
   .nota p{font-size:1.06rem;}
 }
 
@@ -247,7 +241,31 @@ h1{font-family:"Fraunces","Newsreader",Georgia,serif;font-weight:400;
   <p>Escribe tu correo en el formulario de abajo y se borra de la lista de avisos. Con eso ejerces tus derechos de cancelación y oposición.</p>
   <h2>Cambios a este aviso</h2>
   <p>Si este aviso cambia, la versión vigente estará siempre en esta página.</p>
-
+  <section class="sus" style="margin-top:2.6rem" aria-labelledby="baja-h">
+    <h2 id="baja-h">Darme de baja</h2>
+    <form id="sus-form" action="https://script.google.com/macros/s/AKfycbydAFZU9gQbTbA8Hx9k6OV9UeA_-c_7EbmQmuE9abYVbe0bLyEaxjbovTrZqA4tmyX3vw/exec" method="post">
+      <input type="hidden" name="accion" value="baja">
+      <label class="oculto" for="baja-correo">Tu correo</label>
+      <input id="baja-correo" name="correo" type="email" required autocomplete="email" placeholder="tu@correo.com">
+      <button type="submit">Darme de baja</button>
+    </form>
+    <p class="estado" id="sus-estado" role="status" hidden></p>
+  </section>
+<script>
+(function(){
+  var f=document.getElementById('sus-form');
+  if(f){
+    f.addEventListener('submit',function(ev){
+      ev.preventDefault();
+      var b=f.querySelector('button'),e=document.getElementById('sus-estado');
+      b.disabled=true;e.hidden=false;e.textContent='Enviando…';
+      fetch(f.action,{method:'POST',mode:'no-cors',body:new URLSearchParams(new FormData(f))})
+        .then(function(){e.textContent='Listo, tu correo se quitó de la lista.';f.reset();})
+        .catch(function(){e.textContent='No se pudo enviar. Revisa tu conexión e inténtalo de nuevo.';b.disabled=false;});
+    });
+  }
+})();
+</script>
   <footer class="end" style="margin-top:4rem">
     <span>Alejandro Vázquez · Ciudad de México</span>
     <span>Actualizado octubre 2026</span>
