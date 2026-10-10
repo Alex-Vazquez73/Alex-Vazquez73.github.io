@@ -1,0 +1,550 @@
+<!doctype html>
+<html lang="es">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>¿Vive más quien tarda más en nacer?</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,600&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,600;1,6..72,300;1,6..72,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --ground:#EBEDF1; --surface:#F5F6F8; --ink:#141A22; --ink-soft:#58616F;
+  --rule:#D2D8E0; --lamp:#8A5E0F; --lamp-glow:rgba(216,162,74,.16); --shade:rgba(20,26,34,.06);
+  --measure:35rem;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --ground:#0E1218; --surface:#151B23; --ink:#E6E4DF; --ink-soft:#98A0AC;
+    --rule:#242C37; --lamp:#D8A24A; --lamp-glow:rgba(216,162,74,.10); --shade:rgba(230,228,223,.05);
+  }
+}
+:root[data-theme="dark"]{
+  --ground:#0E1218; --surface:#151B23; --ink:#E6E4DF; --ink-soft:#98A0AC;
+  --rule:#242C37; --lamp:#D8A24A; --lamp-glow:rgba(216,162,74,.10); --shade:rgba(230,228,223,.05);
+}
+*{box-sizing:border-box;}
+/* el resplandor del farol es más ancho que la pantalla a propósito;
+   sin esto, en móvil la página se desliza de lado. */
+html{overflow-x:clip;}
+body{
+  background:var(--ground); color:var(--ink);
+  font-family:"Newsreader",Georgia,"Times New Roman",serif;
+  font-size:1.135rem; line-height:1.72; font-weight:300;
+  margin:0; padding:0; overflow-x:hidden; overflow-wrap:break-word;
+  -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
+}
+#bar{position:fixed;top:0;left:0;height:2px;width:0;background:var(--lamp);z-index:60;transition:width .12s linear;}
+.wrap{max-width:var(--measure);margin:0 auto;padding:0 1.5rem 8rem;}
+
+.cover{position:relative;padding:7.5rem 0 4.5rem;}
+.lamp{position:absolute;top:-14rem;left:50%;transform:translateX(-50%);
+  width:min(60rem,150vw);height:34rem;pointer-events:none;
+  background:radial-gradient(ellipse 50% 50% at 50% 50%,var(--lamp-glow),transparent 70%);}
+.eyebrow{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:.68rem;letter-spacing:.19em;
+  text-transform:uppercase;color:var(--ink-soft);margin:0 0 2.1rem;}
+.cover h1{font-family:"Fraunces","Newsreader",Georgia,serif;font-weight:400;
+  font-size:clamp(2.6rem,8.5vw,4.1rem);line-height:1.03;letter-spacing:-.022em;
+  margin:0 0 1.3rem;text-wrap:balance;}
+.subtitle{font-family:"Fraunces",Georgia,serif;font-weight:300;font-style:italic;
+  font-size:clamp(1.15rem,3.4vw,1.42rem);line-height:1.4;color:var(--ink-soft);
+  margin:0 0 2.6rem;text-wrap:balance;}
+.byline{font-family:"IBM Plex Mono",monospace;font-size:.76rem;letter-spacing:.05em;
+  color:var(--ink-soft);margin:0;padding-top:1.5rem;border-top:1px solid var(--rule);}
+.stats{display:flex;gap:2.2rem;flex-wrap:wrap;font-family:"IBM Plex Mono",monospace;
+  font-size:.72rem;letter-spacing:.05em;color:var(--ink-soft);margin:.9rem 0 0;
+  font-variant-numeric:tabular-nums;}
+
+.cartucho{margin:3.5rem 0 1rem;padding:1.9rem 0;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);}
+.cartucho p.lead{font-family:"IBM Plex Mono",monospace;font-size:.68rem;letter-spacing:.17em;
+  text-transform:uppercase;color:var(--ink-soft);margin:0 0 1.5rem;}
+.st-grid{display:grid;gap:1.15rem;}
+.st{display:grid;grid-template-columns:2.6rem 1fr;gap:.9rem;align-items:baseline;
+  text-decoration:none;color:inherit;padding:.45rem .55rem;margin:-.45rem -.55rem;border-radius:2px;}
+a.st:hover,a.st:focus-visible{background:var(--shade);outline:none;}
+a.st:focus-visible{box-shadow:0 0 0 2px var(--lamp);}
+.st .rn{font-family:"IBM Plex Mono",monospace;font-size:.72rem;color:var(--lamp);letter-spacing:.08em;}
+.st .nm{font-family:"Fraunces",Georgia,serif;font-size:1.06rem;font-weight:400;}
+.st .ds{display:block;font-size:.92rem;color:var(--ink-soft);font-style:italic;margin-top:.12rem;}
+
+/* el aviso del espejo: la pieza se mudó y esta copia lo dice arriba */
+.aviso{background:var(--surface);border:1px solid var(--rule);
+  border-left:2px solid var(--lamp);border-radius:2px;
+  padding:1.05rem 1.2rem;margin:4.5rem 0 0;
+  font-family:"IBM Plex Mono",monospace;font-size:.75rem;line-height:1.7;
+  color:var(--ink-soft);}
+.aviso strong{color:var(--ink);font-weight:500;}
+.aviso a{color:var(--lamp);text-decoration:none;border-bottom:1px solid var(--lamp);
+  word-break:break-word;}
+.aviso a:hover{color:var(--ink);border-color:var(--ink);}
+.con-aviso .cover{padding-top:3rem;}
+@media (max-width:640px){.aviso{margin-top:4rem;font-size:.72rem;padding:.95rem 1rem;}
+  .con-aviso .cover{padding-top:2.2rem;}}
+
+.abstract{background:var(--surface);border:1px solid var(--rule);border-left:2px solid var(--lamp);
+  padding:1.9rem 1.8rem 1.2rem;margin:0 0 3.2rem;border-radius:2px;}
+.abstract h3{margin:0 0 1.2rem;font-family:"IBM Plex Mono",monospace;font-weight:500;
+  font-size:.72rem;letter-spacing:.17em;text-transform:uppercase;color:var(--lamp);}
+.abstract p{font-size:.985rem;line-height:1.68;color:var(--ink-soft);margin:0 0 1.05rem;}
+.abstract p strong{color:var(--ink);font-weight:600;}
+
+.part{padding-top:1rem;}
+.part-title{font-family:"Fraunces",Georgia,serif;font-weight:400;
+  font-size:clamp(1.75rem,5vw,2.35rem);line-height:1.14;letter-spacing:-.015em;
+  margin:5.5rem 0 2.6rem;padding-top:3rem;border-top:1px solid var(--rule);text-wrap:balance;}
+#introduccion .part-title{display:none;}
+h3{font-family:"Fraunces",Georgia,serif;font-weight:600;font-size:1.24rem;line-height:1.3;
+  letter-spacing:-.005em;margin:3.2rem 0 1.1rem;text-wrap:balance;}
+h4{font-family:"IBM Plex Mono",monospace;font-weight:500;font-size:.74rem;letter-spacing:.15em;
+  text-transform:uppercase;color:var(--ink-soft);margin:2.4rem 0 1rem;}
+p{margin:0 0 1.35rem;}
+strong{font-weight:600;color:var(--ink);}
+em{font-style:italic;}
+blockquote{margin:2.5rem 0;padding:0 0 0 1.6rem;border-left:2px solid var(--lamp);
+  font-family:"Fraunces",Georgia,serif;font-size:1.24rem;line-height:1.45;font-weight:300;
+  color:var(--ink);text-wrap:pretty;}
+blockquote strong{font-weight:600;}
+.nota-final{color:var(--ink-soft);font-size:.86rem;line-height:1.62;}
+
+#rail{position:fixed;top:50%;transform:translateY(-50%);left:2.2rem;z-index:40;display:none;}
+#rail ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:.15rem;}
+#rail a{display:grid;grid-template-columns:1.6rem 1fr;gap:.55rem;align-items:baseline;
+  text-decoration:none;color:var(--ink-soft);padding:.42rem .5rem;border-radius:2px;
+  border-left:2px solid transparent;transition:color .2s,border-color .2s;}
+#rail a:hover{color:var(--ink);}
+#rail a:focus-visible{outline:none;box-shadow:0 0 0 2px var(--lamp);}
+#rail a.on{color:var(--ink);border-left-color:var(--lamp);}
+#rail .num{font-family:"IBM Plex Mono",monospace;font-size:.62rem;letter-spacing:.1em;text-align:right;opacity:.8;}
+#rail .lbl{font-family:"IBM Plex Mono",monospace;font-size:.66rem;letter-spacing:.11em;text-transform:uppercase;}
+@media (min-width:1180px){#rail{display:block;}}
+
+.topbar{position:fixed;top:1.15rem;right:1.15rem;z-index:50;display:flex;gap:.5rem;
+  transition:transform .28s ease,opacity .28s ease;}
+/* en móvil la columna ocupa todo el ancho y la barra fija caía encima del
+   texto. Se esconde al bajar y vuelve en cuanto se hace el gesto de subir. */
+.topbar.oculta{transform:translateY(-160%);opacity:0;pointer-events:none;}
+.topbar a,.topbar button{background:var(--surface);color:var(--ink-soft);border:1px solid var(--rule);
+  font-family:"IBM Plex Mono",monospace;font-size:.62rem;letter-spacing:.13em;text-transform:uppercase;
+  padding:.5rem .8rem;border-radius:2px;cursor:pointer;text-decoration:none;
+  transition:color .2s,border-color .2s;display:inline-flex;align-items:center;
+  min-height:2.6rem;}
+.topbar a:hover,.topbar button:hover{color:var(--ink);border-color:var(--ink-soft);}
+.topbar a:focus-visible,.topbar button:focus-visible{outline:none;box-shadow:0 0 0 2px var(--lamp);}
+
+/* el colofón: enlaza esta pieza con su hermana del archivo. Va en la voz
+   del cuerpo (serif, minúsculas), no en la del pie, porque es texto que se
+   lee, no metadato. */
+.colofon{margin:4rem 0 0;font-family:"Newsreader",Georgia,serif;
+  font-style:italic;font-size:.94rem;line-height:1.6;color:var(--ink-soft);}
+.colofon a{color:var(--lamp);font-style:normal;text-decoration:none;
+  border-bottom:1px solid var(--lamp-glow);}
+.colofon a:hover{border-color:var(--lamp);}
+
+.end{margin-top:5rem;padding-top:2.5rem;border-top:1px solid var(--rule);
+  font-family:"IBM Plex Mono",monospace;font-size:.68rem;letter-spacing:.13em;
+  text-transform:uppercase;color:var(--ink-soft);display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;}
+.end a{color:var(--ink-soft);text-decoration:none;border-bottom:1px solid var(--rule);}
+.end a:hover{color:var(--lamp);border-color:var(--lamp);}
+html{scroll-behavior:smooth;}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto;} *{transition:none!important;}}
+/* ── lectura en móvil ─────────────────────────────────────────────────
+   Hasta el 2026-08-25 estas reglas eran letra muerta: la página no
+   declaraba <meta viewport>, así que el teléfono la componía a 980px y la
+   encogía entera. El resultado era un escritorio en miniatura —letra de
+   7px efectivos y media pantalla de margen desperdiciado— y al hacer zoom
+   el texto se salía de lado, porque el documento seguía midiendo 980px.
+   Con el viewport puesto, el móvil deja de ser un escritorio encogido y
+   pasa a merecer su propia medida. Aquí está.                          */
+@media (max-width:640px){
+  body{font-size:1.16rem;line-height:1.70;}
+  /* el español encadena palabras largas; en una columna de ~330px sin
+     guionado la línea queda con agujeros. */
+  p,li,.abstract p,aside.recuadro p,.st .ds{hyphens:auto;-webkit-hyphens:auto;}
+  .wrap{padding:0 1.3rem 5rem;}
+  .cover{padding:4.6rem 0 3rem;}
+  .cover h1{font-size:clamp(2.3rem,9.5vw,3.1rem);letter-spacing:-.02em;}
+  .subtitle{font-size:1.18rem;margin-bottom:2rem;}
+  .eyebrow{margin-bottom:1.6rem;}
+  .stats{gap:.4rem 1.4rem;font-size:.7rem;}
+  .cartucho{margin:2.6rem 0 .5rem;padding:1.5rem 0;}
+  .st .nm{font-size:1.1rem;}
+  .st .ds{font-size:.95rem;}
+  .abstract{padding:1.4rem 1.25rem .9rem;margin-bottom:2.6rem;}
+  .abstract p{font-size:1.04rem;line-height:1.66;}
+  .part-title{font-size:1.9rem;margin:4rem 0 2rem;padding-top:2.4rem;}
+  h3{font-size:1.28rem;margin:2.7rem 0 .9rem;}
+  blockquote{font-size:1.2rem;margin:2rem 0;padding-left:1.2rem;}
+  figure.fig,.tabla{width:94vw;}
+  figcaption{font-size:.735rem;}
+  .tabla table{font-size:.8rem;}
+  .tabla th{font-size:.7rem;}
+  .tabla th,.tabla td{padding:.55rem .7rem;}
+  aside.recuadro{padding:1.25rem 1.2rem .9rem;margin:2.2rem 0;}
+  aside.recuadro p{font-size:1.04rem;}
+  .end{margin-top:3.5rem;}
+}
+
+/* ── figuras, tablas y listas ─────────────────────────────────────────
+   Rompen el ancho de lectura: una gráfica de datos a 35rem es ilegible.
+   El pie se queda en tipografía mono, como el resto del aparato.        */
+figure.fig{margin:3.6rem 0;width:min(50rem,92vw);margin-left:50%;transform:translateX(-50%);}
+figure.fig img{width:100%;height:auto;display:block;border:1px solid var(--rule);border-radius:2px;}
+figcaption{font-family:"IBM Plex Mono",monospace;font-size:.715rem;line-height:1.6;
+  color:var(--ink-soft);margin:.95rem 0 0;padding-left:.1rem;}
+figcaption .n{color:var(--lamp);letter-spacing:.06em;}
+
+.tabla{margin:3.2rem 0;width:min(50rem,92vw);margin-left:50%;transform:translateX(-50%);}
+.tabla-scroll{overflow-x:auto;border:1px solid var(--rule);border-radius:2px;
+  -webkit-overflow-scrolling:touch;}
+.tabla table{border-collapse:collapse;width:100%;font-family:"IBM Plex Mono",monospace;
+  font-size:.755rem;line-height:1.52;font-variant-numeric:tabular-nums;}
+.tabla th,.tabla td{padding:.6rem .8rem;text-align:left;vertical-align:top;
+  border-bottom:1px solid var(--rule);}
+.tabla th{color:var(--lamp);font-weight:500;font-size:.665rem;letter-spacing:.1em;
+  text-transform:uppercase;background:var(--surface);white-space:nowrap;}
+.tabla tbody tr:last-child td{border-bottom:none;}
+.tabla td strong{color:var(--ink);}
+.tabla caption{caption-side:bottom;}
+
+/* recuadro: la celda única con que Word marcaba los apartes del ensayo
+   (◆ veredictos, diseños de demostración, epígrafes) */
+aside.recuadro{background:var(--surface);border:1px solid var(--rule);
+  border-left:2px solid var(--lamp);padding:1.5rem 1.6rem 1.1rem;margin:2.8rem 0;border-radius:2px;}
+aside.recuadro p{font-size:.985rem;line-height:1.66;color:var(--ink-soft);margin:0 0 1rem;}
+aside.recuadro p:last-child{margin-bottom:0;}
+aside.recuadro p strong{color:var(--ink);}
+aside.recuadro .marca{font-family:"IBM Plex Mono",monospace;font-size:.68rem;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--lamp);display:block;margin:0 0 .9rem;}
+
+ul{margin:0 0 1.5rem;padding-left:1.15rem;}
+li{margin:0 0 .62rem;padding-left:.2rem;}
+li::marker{color:var(--lamp);}
+
+@media (max-width:900px){
+  figure.fig,.tabla{width:92vw;}
+}
+
+/* ── escala de escritorio ─────────────────────────────────────────────
+   El móvil ya estaba bien y no se toca. De 1024px para arriba la página
+   crece: la letra sube ~25%, la columna crece con ella para conservar el
+   largo de línea (~62 caracteres, que es donde la lectura larga cansa
+   menos), y el aire lateral y vertical se duplica.                     */
+@media (min-width:1024px){
+  :root{--measure:44rem;}
+  body{font-size:1.42rem;line-height:1.74;}
+  .wrap{padding:0 3rem 11rem;}
+  .cover{padding:9rem 0 5.5rem;}
+  .cover h1{font-size:clamp(3.4rem,6vw,4.8rem);}
+  .subtitle{font-size:1.62rem;}
+  p{margin:0 0 1.6rem;}
+  h3{font-size:1.46rem;margin:4rem 0 1.3rem;}
+  .part-title{margin:7rem 0 3.2rem;padding-top:3.6rem;}
+  blockquote{font-size:1.44rem;margin:3rem 0;padding-left:2rem;}
+  figure.fig,.tabla{width:min(60rem,90vw);}
+  figcaption{font-size:.8rem;}
+  .tabla table{font-size:.85rem;}
+  .tabla th{font-size:.72rem;}
+  .tabla th,.tabla td{padding:.72rem .95rem;}
+  aside.recuadro{padding:2rem 2.1rem 1.5rem;margin:3.4rem 0;}
+  aside.recuadro p{font-size:1.16rem;line-height:1.7;}
+  .abstract{padding:2.3rem 2.2rem 1.5rem;}
+  .abstract p{font-size:1.16rem;line-height:1.72;}
+  li{margin:0 0 .75rem;}
+  ul{padding-left:1.4rem;}
+}
+@media (min-width:1500px){
+  :root{--measure:47rem;}
+  body{font-size:1.5rem;}
+  figure.fig,.tabla{width:min(64rem,86vw);}
+}
+
+/* longevidad-gestacion: la Figura 1 es interactiva (iframe) */
+figure.fig.interactiva iframe{display:block;width:100%;height:600px;border:1px solid var(--rule);
+  border-radius:2px;background:var(--ground);}
+@media (max-width:640px){figure.fig.interactiva iframe{height:500px;}}
+/* la foto del equidna mide 600 px: no se estira al ancho de las gráficas */
+figure.fig img[src$="equidna-pico-largo.jpg"]{max-width:600px;margin:0 auto;}
+/* enlaces dentro del texto: al cuaderno, a la figura */
+main p a,main li a,.tabla a,.recuadro a,figcaption a{color:var(--lamp);text-decoration:none;
+  border-bottom:1px solid var(--rule);}
+main p a:hover,main li a:hover,.recuadro a:hover,figcaption a:hover{border-color:var(--lamp);}
+</style>
+
+<div id="bar"></div>
+<div class="topbar"><a href="../">Archivo</a><button id="toggle" type="button" aria-label="Cambiar tema">Tema</button></div>
+<nav id="rail" aria-label="Partes">
+  <ul>
+      <li><a href="#introduccion" data-target="introduccion"><span class="num">—</span><span class="lbl">Resumen</span></a></li>
+      <li><a href="#capitulo-i-la-pregunta" data-target="capitulo-i-la-pregunta"><span class="num">I</span><span class="lbl">La pregunta</span></a></li>
+      <li><a href="#capitulo-ii-los-datos" data-target="capitulo-ii-los-datos"><span class="num">II</span><span class="lbl">Los datos</span></a></li>
+      <li><a href="#capitulo-iii-la-primera-mirada" data-target="capitulo-iii-la-primera-mirada"><span class="num">III</span><span class="lbl">La primera mirada</span></a></li>
+      <li><a href="#capitulo-iv-la-regresion-paso-por-paso" data-target="capitulo-iv-la-regresion-paso-por-paso"><span class="num">IV</span><span class="lbl">La regresión, paso por…</span></a></li>
+      <li><a href="#capitulo-v-el-enemigo-oculto-el-tamano" data-target="capitulo-v-el-enemigo-oculto-el-tamano"><span class="num">V</span><span class="lbl">El enemigo oculto</span></a></li>
+      <li><a href="#capitulo-vi-el-arbol" data-target="capitulo-vi-el-arbol"><span class="num">VI</span><span class="lbl">El árbol</span></a></li>
+      <li><a href="#capitulo-vii-los-que-rompen-la-regla" data-target="capitulo-vii-los-que-rompen-la-regla"><span class="num">VII</span><span class="lbl">Los que rompen la regla</span></a></li>
+      <li><a href="#capitulo-viii-cuanto-pesa-cada-cosa" data-target="capitulo-viii-cuanto-pesa-cada-cosa"><span class="num">VIII</span><span class="lbl">Cuánto pesa cada cosa</span></a></li>
+      <li><a href="#capitulo-ix-conclusiones" data-target="capitulo-ix-conclusiones"><span class="num">IX</span><span class="lbl">Conclusiones</span></a></li>
+  </ul>
+</nav>
+
+<main class="wrap">
+<header class="cover" id="portada">
+  <div class="lamp" aria-hidden="true"></div>
+  <p class="eyebrow">Ensayo · Biología y estadística</p>
+  <h1>¿Vive más quien tarda más en nacer?</h1>
+  <p class="subtitle">Gestación y longevidad en 877 mamíferos: un análisis estadístico</p>
+  <p class="byline">Alejandro Vázquez · octubre de 2026</p>
+  <p class="stats"><span>8,100 palabras</span><span>~40 min de lectura</span><span>7 figuras · 10 tablas · cuaderno</span></p>
+  <div class="cartucho">
+    <p class="lead">El recorrido</p>
+    <div class="st-grid">
+      <a class="st" href="#capitulo-iv-la-regresion-paso-por-paso"><span class="rn">IV</span><span><span class="nm">La regresión, paso por paso</span><span class="ds">Una recta, luego logaritmos: duplicar la gestación multiplica la vida por 1.5.</span></span></a>
+      <a class="st" href="#capitulo-vi-el-arbol"><span class="rn">VI</span><span><span class="nm">El árbol</span><span class="ds">En primates la regla casi se cumple uno a uno. En murciélagos no existe.</span></span></a>
+      <a class="st" href="#capitulo-ix-conclusiones"><span class="rn">IX</span><span><span class="nm">El tempo</span><span class="ds">Lo que tarda en hacerse no dura porque tardó: tarda y dura por la misma razón.</span></span></a>
+    </div>
+  </div>
+</header>
+<section class="part" id="introduccion">
+<div class="abstract"><h3 id="resumen">Resumen</h3>
+<p class="nota-final"><em>Este ensayo pone a prueba una intuición vieja: que los mamíferos que tardan más en gestarse viven más. Lo hace con 877 especies de la base AnAge y un cuaderno de Python que cualquiera puede volver a correr.</em></p>
+<p>La pregunta de investigación: ¿hay una correlación entre la duración de la gestación y la longevidad máxima de una especie? Y, si la hay, ¿significa que una gestación más larga <em>lleva</em> a una vida más larga?</p>
+<p>La respuesta corta es que sí a lo primero y no a lo segundo. La correlación existe y es fuerte: r = 0.75 en escala logarítmica, y la gestación sola explica el 57% de las diferencias de longevidad entre especies. Cada vez que la gestación se duplica, la longevidad esperada se multiplica por 1.5. Pero esa cifra no sobrevive a las preguntas que hay que hacerle. Al tomar en cuenta el tamaño corporal, el «efecto» de la gestación cae de 0.59 a 0.38; al añadir el tamaño de camada, a 0.24; con la madurez sexual, a 0.16; y si además se compara solo dentro de cada orden de mamíferos, a 0.10. Si al modelo con masa y camada se le dice nada más si la especie es murciélago o primate, la gestación queda en 0.08. Sigue siendo distinta de cero, pero ya no es lo que parecía.</p>
+<p>Los hallazgos centrales: (1) la relación es una ley de potencia en la que la vida crece menos que proporcionalmente con la gestación, así que las especies de gestación larga «caben» menos veces en su propia vida. (2) La «ley» no es universal: en primates la pendiente es 0.83 y en murciélagos es cero. (3) Los casos más extremos, como equidnas y wombats, que viven hasta ocho veces lo que su gestación predice, no son biología de la longevidad sino un artefacto: en marsupiales y monotremas la gestación mide otra cosa. (4) Entre las variables que explican la longevidad, la que más pesa es la madurez sexual (35% del poder explicativo). Sin ella, gestación y masa corporal quedan empatadas.</p>
+<p>La conclusión: la gestación no es una causa de la longevidad sino uno de los síntomas de algo más hondo, el <em>tempo</em> de una especie. Gestación, madurez y vida son manecillas del mismo reloj, y el reloj lo marcan el tamaño, el linaje y la forma de vida.</p>
+<aside class="recuadro"><p><em>Una correlación de 0.75 puede ser una verdad y, a la vez, una pista falsa. Ambas cosas se descubren con la misma herramienta: preguntándole a los datos una vez más.</em></p></aside>
+<aside class="recuadro"><span class="marca">Sobre el cuaderno</span><p>Cada número de este ensayo sale del <a href="cuaderno.html">cuaderno de Python</a> que lo acompaña. Las referencias del tipo <em>(cuaderno, §6.3)</em> son enlaces a la sección exacta donde se calcula cada cifra. El cuaderno parte del archivo crudo de AnAge, no tiene pasos manuales y se puede <a href="Limpieza_y_scatter_longevidad_gestacion3.ipynb">descargar</a> para correrlo: quien lo haga obtiene los mismos resultados.</p></aside>
+
+</section>
+<section class="part" id="capitulo-i-la-pregunta"><h2 class="part-title">Capítulo I. La pregunta</h2>
+<p>Hay una intuición que casi todo el mundo comparte sin haberla formulado: lo que tarda en hacerse, dura. El roble crece despacio y vive siglos; el hongo brota en una noche y se pudre en una semana. Un elefante pasa veintidós meses en el vientre de su madre y llega a los sesenta y cinco años; un ratón nace a los diecinueve días y no pasa de cuatro. Pareciera que la naturaleza le cobra a cada especie su vida en el mismo plazo en que se la entregó.</p>
+<p>La intuición tiene algo de moral, y conviene desconfiar de ella por eso. Suena a que la paciencia se premia y la prisa se castiga, a que la vida es una inversión cuyo rendimiento depende del capital inicial. Tiene también algo de teleológico: como si la gestación larga existiera <em>para</em> una vida larga, como si el comienzo supiera del final.</p>
+<p>La pregunta que este ensayo se hace es más modesta y más dura. No pregunta si la intuición es bonita sino si es cierta, y en qué sentido:</p>
+<p>1. <strong>¿Existe una correlación</strong> entre la gestación y la longevidad entre especies de mamíferos? 2. <strong>¿Qué forma tiene?</strong> ¿Cada día de gestación «compra» la misma cantidad de vida, o la relación se curva? 3. <strong>¿Sobrevive a los controles?</strong> ¿La gestación dice algo propio sobre la longevidad, o es la sombra de otra variable, sobre todo del tamaño corporal? 4. <strong>¿Es universal?</strong> ¿La relación se cumple igual en todas las ramas del árbol de los mamíferos? 5. <strong>¿Quiénes rompen la regla, y por qué?</strong></p>
+<p>Cada pregunta corresponde a un paso del análisis, y cada paso se hace en público: con el código, los resultados completos y la interpretación. La meta no es solo responder sino mostrar <em>cómo</em> una cifra va cambiando de significado a medida que se la interroga. Esa es, en el fondo, la lección de método del ensayo.</p>
+</section>
+<section class="part" id="capitulo-ii-los-datos"><h2 class="part-title">Capítulo II. Los datos</h2>
+</div>
+<h3 id="la-fuente">La fuente</h3>
+<p>Los datos vienen de <strong>AnAge</strong>, la base de datos de envejecimiento y longevidad animal del Human Ageing Genomic Resources (HAGR), mantenida por João Pedro de Magalhães y su grupo (de Magalhães &amp; Costa, 2009; Tacutu et al., 2018). Es la referencia estándar en biología comparada del envejecimiento: 4,645 especies de vertebrados, cada una con su longevidad máxima registrada y, cuando existen, otros rasgos de su ciclo de vida: gestación, masa adulta, tamaño de camada, edad de madurez sexual, metabolismo.</p>
+<h3 id="la-limpieza-paso-por-paso-cuaderno-3cuadernohtmls3">La limpieza, paso por paso <em>(<a href="cuaderno.html#s3">cuaderno, §3</a>)</em></h3>
+<p>1. <strong>Solo mamíferos.</strong> De las 4,645 especies, 1,349 son mamíferos. Se descartan aves, reptiles y peces porque en ellos el campo «Gestation/Incubation» mezcla gestación con incubación, y comparar las dos sería comparar cosas distintas. 2. <strong>Columnas de interés</strong>, renombradas al español: gestación (días), longevidad máxima (años), masa adulta (g), destete (días), tamaño de camada, madurez sexual de la hembra (días), partos por año, origen del ejemplar y tamaño de muestra. 3. <strong>Conversión a número.</strong> Los vacíos quedan marcados como faltantes. La gestación falta en el 18% de los mamíferos y la longevidad en el 24%. 4. <strong>Descarte de filas sin las dos variables clave.</strong> De 1,349 especies quedan <strong>877</strong>. 5. <strong>Valores imposibles y duplicados.</strong> No hubo valores cero o negativos ni nombres científicos repetidos. El conjunto final es de 877 especies.</p>
+<p>La Tabla 1 resume lo que queda.</p>
+<div class="tabla"><div class="tabla-scroll"><table><thead><tr><th>Variable</th><th>Especies con dato</th><th>Mediana</th><th>Rango</th></tr></thead><tbody><tr><td>Gestación (días)</td><td>877</td><td>85</td><td>10 – 670</td></tr><tr><td>Longevidad máxima (años)</td><td>877</td><td>17.9</td><td>2.1 – 211</td></tr><tr><td>Masa adulta (g)</td><td>876</td><td>2,965</td><td>2.1 – 136,000,000</td></tr><tr><td>Tamaño de camada</td><td>853</td><td>1.6</td><td>1 – 18</td></tr><tr><td>Madurez sexual (días)</td><td>785</td><td>450</td><td>24 – 8,212</td></tr><tr><td>Destete (días)</td><td>592</td><td>86.5</td><td>13 – 1,111</td></tr></tbody></table></div><figcaption><span class="n">Tabla 1.</span> <em>Las 877 especies del análisis. La masa abarca ocho órdenes de magnitud, de una musaraña de 2 gramos a la ballena azul. Cuaderno §3.6.</em></figcaption></div>
+<h3 id="tres-advertencias-antes-de-empezar">Tres advertencias antes de empezar</h3>
+<p class="nota-final"><strong>La longevidad es un récord, no un promedio.</strong> AnAge registra la edad máxima documentada de cada especie: los 122.5 años del humano son los de Jeanne Calment, no la esperanza de vida de nadie. Un récord depende de cuántos ejemplares se han observado, así que las especies bien estudiadas tienden a tener récords más altos.</p>
+<p><strong>Casi todo viene de cautiverio.</strong> De las 877 especies, 802 tienen su récord de ejemplares en cautiverio, 70 de silvestres y 5 de origen desconocido. Se vuelve sobre esto en el capítulo VII.</p>
+<p class="nota-final"><strong>Las especies no son independientes.</strong> Un ratón y una rata no son dos experimentos separados de la naturaleza: comparten un ancestro reciente y heredaron de él buena parte de lo que son. Este es el problema más serio de comparar especies (Felsenstein, 1985), y tiene su propio capítulo, el VI.</p>
+</section>
+<section class="part" id="capitulo-iii-la-primera-mirada"><h2 class="part-title">Capítulo III. La primera mirada</h2>
+<p>La Figura 1 es la gráfica de partida del proyecto: cada punto es una especie. Es interactiva: al pasar el cursor sobre un punto, o tocarlo en el teléfono, aparece qué animal es, cuánto gesta, cuánto vive y cuánto <em>debería</em> vivir según su gestación. El botón de arriba cambia entre escala logarítmica y lineal.</p>
+<figure class="fig interactiva"><iframe src="dispersion.html" title="Dispersión interactiva de longevidad contra gestación en 877 mamíferos" loading="lazy"></iframe><figcaption><span class="n">Figura 1.</span> <em>Longevidad máxima contra gestación en 877 mamíferos. La línea es el ajuste log-log del capítulo IV; la franja, un error típico hacia cada lado. Los círculos huecos son marsupiales y monotremas, que importarán en el capítulo VI. <a href="dispersion.html">Abrir en pantalla completa</a>.</em></figcaption></figure>
+<p>Lo primero que salta a la vista es que la intuición no era falsa: la nube sube. Lo segundo es cuánto se dispersa alrededor de la tendencia. A gestación casi idéntica, unos sesenta días, conviven el murciélago café, que pesa diez gramos y vive treinta y cuatro años, la rata topo desnuda, que vive treinta y uno, y docenas de especies que no llegan a diez. La vaca y el humano gestan casi lo mismo, unos 280 días. Una vive veinte años y el otro, ciento veintidós.</p>
+<p>Una sola cifra resume la relación: la correlación entre gestación y longevidad es <strong>0.68</strong>. La correlación de rangos, que solo pregunta si al ordenar las especies por gestación quedan también ordenadas por longevidad, sin exigir que la relación sea una recta, es <strong>0.75</strong>. Que la segunda sea mayor es la primera pista de que la relación no es una recta. Ya hay correlación. La pregunta siguiente es cuál es su forma.</p>
+</section>
+<section class="part" id="capitulo-iv-la-regresion-paso-por-paso"><h2 class="part-title">Capítulo IV. La regresión, paso por paso</h2>
+<aside class="recuadro"><span class="marca">Qué es una regresión</span><p>Una regresión busca la línea que mejor pasa por la nube de puntos: la que deja, en conjunto, la menor distancia entre cada punto y la línea. Esa línea da dos cosas. Una <strong>pendiente</strong>, que dice cuánto cambia una variable cuando la otra cambia. Y un <strong>R²</strong>, entre 0 y 1, que dice qué tanto de las diferencias entre especies queda explicado por la línea: 0.46 quiere decir que la línea explica el 46% y que el 54% restante depende de otras cosas.</p></aside>
+<h3 id="paso-1-el-modelo-lineal-cuaderno-61cuadernohtmls6">Paso 1: el modelo lineal <em>(<a href="cuaderno.html#s6">cuaderno, §6.1</a>)</em></h3>
+<p>El punto de partida es la regresión más simple posible, una recta:</p>
+<aside class="recuadro"><p><em>Longevidad = β₀ + β₁ · Gestación + error</em></p></aside>
+<p>β₀ es dónde empieza la recta (la longevidad que tendría una especie con cero días de gestación) y β₁ es su pendiente (cuántos años de vida se suman por cada día de gestación). El cálculo se hace con la librería `statsmodels` de Python, que además de la línea da todo lo necesario para saber qué tan confiable es.</p>
+<div class="tabla"><div class="tabla-scroll"><table><thead><tr><th>Término</th><th>Coeficiente</th><th>Error estándar</th><th>t</th><th>p</th><th>IC 95%</th></tr></thead><tbody><tr><td>Intercepto (β₀)</td><td>7.93 años</td><td>0.616</td><td>12.9</td><td>&lt; 0.001</td><td>[6.72, 9.14]</td></tr><tr><td>Gestación (β₁, por día)</td><td>0.104 años</td><td>0.004</td><td>27.5</td><td>&lt; 0.001</td><td>[0.096, 0.111]</td></tr></tbody></table></div><figcaption><span class="n">Tabla 2.</span> <em>Modelo lineal simple. N = 877, R² = 0.464. Cuaderno §6.1.</em></figcaption></div>
+<aside class="recuadro"><span class="marca">Cómo leer la tabla</span><p>El <strong>error estándar</strong> dice qué tan precisa es la estimación: qué tanto cambiaría si se repitiera con otras especies. El <strong>t</strong> es el coeficiente dividido entre su error: cuántas veces cabe el error dentro del efecto. Un t mayor que 2 ya se considera claro; aquí es 27.5. El <strong>p</strong> es la probabilidad de encontrar un resultado así de fuerte si en realidad la gestación no tuviera nada que ver con la longevidad: con p &lt; 0.001, esa posibilidad se descarta. El <strong>intervalo de confianza (IC 95%)</strong> es el rango donde, razonablemente, está el valor verdadero.</p></aside>
+<p class="nota-final"><strong>Qué quiere decir:</strong> cada día adicional de gestación se asocia con 0.104 años más de longevidad máxima, unos 38 días. Diez días más de gestación, un año más de vida. La gestación explica el 46% de las diferencias de longevidad.</p>
+<p class="nota-final"><strong>Por qué no hay que quedarse aquí.</strong> El modelo trae señales de que está mal planteado. Los errores, es decir, las distancias entre cada especie y la recta, no se reparten de forma pareja: casi todas las especies quedan cerca y unas pocas quedan lejísimos, por arriba. Y la dispersión crece a medida que avanza la gestación (una prueba estadística, la de Breusch-Pagan, lo confirma). La gráfica lo hace evidente (Figura 2, panel A): la recta pasa por encima de las especies chicas, con un punto de partida de ocho años que ningún ratón alcanza, y a la derecha la nube se abre en abanico. El modelo lineal no miente, pero contesta una pregunta que los datos no plantean.</p>
+<h3 id="paso-2-los-logaritmos-cuaderno-63cuadernohtmls6-3">Paso 2: los logaritmos <em>(<a href="cuaderno.html#s6-3">cuaderno, §6.3</a>)</em></h3>
+<p>Cuando las variables abarcan varios órdenes de magnitud, como aquí, donde la gestación va de 10 a 670 días y la masa de 2 gramos a 136 toneladas, la naturaleza no suele sumar: multiplica. Pasar de 10 a 20 días de gestación no se parece a pasar de 300 a 310; se parece a pasar de 300 a 600. Es la tradición de la alometría, que desde Kleiber (1932) estudia cómo cambian los rasgos de los organismos con su tamaño (Calder, 1984). La relación que se busca es una <strong>ley de potencia</strong>:</p>
+<aside class="recuadro"><p><em>L = a · G^b</em></p></aside>
+<p>Los logaritmos convierten multiplicaciones en sumas, y con ellos la curva se vuelve recta:</p>
+<aside class="recuadro"><p><em>log L = log a + b · log G</em></p></aside>
+<p>La ventaja es que el coeficiente <em>b</em> deja de ser «años por día» y se vuelve una <strong>elasticidad</strong>: cuánto cambia la longevidad, en porcentaje, cuando la gestación cambia 1%. Es la misma idea con la que un economista mide cuánto cae la demanda cuando sube un precio.</p>
+<figure class="fig"><img src="figuras/fig02.png" alt="Figura 2" loading="lazy"><figcaption><span class="n">Figura 2.</span> <em>El mismo conjunto de datos en dos escalas. La curvatura y el abanico del panel A desaparecen en el panel B: la relación es una ley de potencia.</em></figcaption></figure>
+<div class="tabla"><div class="tabla-scroll"><table><thead><tr><th>Término</th><th>Coeficiente</th><th>Error estándar</th><th>IC 95%</th><th>IC 95% robusto</th></tr></thead><tbody><tr><td>Intercepto (log₁₀ a)</td><td>0.077</td><td>0.034</td><td>[0.010, 0.144]</td><td>—</td></tr><tr><td>Exponente <em>b</em></td><td><strong>0.589</strong></td><td>0.017</td><td>[0.555, 0.623]</td><td>[0.552, 0.626]</td></tr></tbody></table></div><figcaption><span class="n">Tabla 3.</span> <em>Modelo log-log. N = 877, R² = 0.567. El intervalo robusto (HC3) no supone que la dispersión sea pareja. Cuaderno §6.3 y §12.</em></figcaption></div>
+<p class="nota-final"><strong>Qué quiere decir.</strong> El ajuste mejora de un R² de 0.46 a uno de 0.57, sin añadir nada más que los logaritmos. El exponente <em>b</em> = 0.59 se lee así: <strong>si la gestación se duplica, la longevidad esperada se multiplica por 1.5.</strong> Una especie que gesta 200 días vive, en promedio, 50% más que una que gesta 100.</p>
+<p class="nota-final"><strong>Cuánto se equivoca.</strong> El error típico del modelo equivale a un factor de <strong>×1.63</strong>. Para dos de cada tres especies, la longevidad real cae entre 1.63 veces menos y 1.63 veces más de lo que predice su gestación. Es la franja de la Figura 1, y es ancha: la gestación orienta, pero no adivina.</p>
+<p class="nota-final"><strong>Las señales de alarma, otra vez.</strong> En escala logarítmica los errores ya se reparten de forma casi pareja, que es lo que el modelo necesita. Queda algo de abanico, porque las especies de gestación corta se dispersan más, así que el cuaderno recalcula los errores con un método que no supone dispersión pareja (los llamados errores robustos). El error estándar apenas cambia, de 0.017 a 0.019. Ninguna conclusión depende de ese detalle.</p>
+<h3 id="paso-3-contra-que-se-compara-cuaderno-12cuadernohtmls12">Paso 3: ¿contra qué se compara? <em>(<a href="cuaderno.html#s12">cuaderno, §12</a>)</em></h3>
+<p>Una regresión no termina en el coeficiente: termina en la pregunta que se le hace. La más básica es si la gestación tiene algo que ver con la longevidad, es decir, si <em>b</em> podría ser cero. Con t ≈ 34, la respuesta es que no: <em>b</em> no es cero. Pero eso ya se veía en la gráfica. La pregunta interesante es contra qué valor <em>teórico</em> conviene comparar el 0.59.</p>
+<p>Aquí hay una corrección que hacerle a la primera versión del cuaderno, que lo comparaba contra 0.25. Ese número viene de una regla famosa de la biología: los tiempos de un organismo crecen con su masa elevada a la ¼ (West, Brown &amp; Enquist, 1997). Pero es un exponente de la <strong>masa</strong>. Si la gestación y la longevidad crecieran <em>ambas</em> con la masa elevada a ¼, entonces entre ellas serían <strong>proporcionales</strong>: el doble de una, el doble de la otra. El exponente que las une sería <strong>1</strong>. Ésa es la comparación con sentido: ¿corren los dos relojes al mismo paso?</p>
+<p><strong>No: <em>b</em> = 1 se descarta con t ≈ −24.</strong> La longevidad crece <em>menos</em> que proporcionalmente con la gestación.</p>
+<p>Antes de dar el 0.59 por bueno hay que hacer una corrección más, porque hay dos razones para pensar que se queda corto.</p>
+<p class="nota-final"><strong>La primera es estadística.</strong> La regresión común supone que la variable de la derecha (la gestación) se mide sin error y que todo el ruido está en la de la izquierda (la longevidad). Aquí no es así: la gestación de una especie también es un promedio imperfecto. Cuando las dos variables tienen ruido, la pendiente sale más plana de lo que es en realidad. Este efecto se llama atenuación. Hay un método que trata a las dos variables por igual, el eje mayor reducido (Warton et al., 2006), y da <strong>0.78</strong>.</p>
+<p class="nota-final"><strong>La segunda es biológica.</strong> La gestación crece con la masa elevada a 0.198 y la longevidad con la masa elevada a 0.163. Si las dos dependieran solo del tamaño, el exponente que las une sería 0.163/0.198 = <strong>0.82</strong>.</p>
+<p>Dos caminos distintos llegan casi al mismo número, alrededor de 0.8. Ésa es la mejor estimación de cómo se relacionan los dos relojes: <strong>cerca de ir al mismo paso, pero un poco por debajo.</strong> El 0.59 es la cifra correcta para <em>predecir</em> la longevidad a partir de la gestación, y una cifra demasiado baja para <em>describir</em> la relación entre las dos.</p>
+<h3 id="una-consecuencia-curiosa-cuantas-gestaciones-caben-en-una-vi">Una consecuencia curiosa: cuántas gestaciones caben en una vida <em>(<a href="cuaderno.html#s14">cuaderno, §14</a>)</em></h3>
+<p>Si la vida crece menos que la gestación, las especies de gestación larga caben menos veces en su propia vida. Basta dividir una entre otra para comprobarlo: entre más larga la gestación, menos veces cabe en la vida (correlación de −0.62). La mediana de los mamíferos es de unas <strong>71 gestaciones por vida</strong>. El humano, con 160, está muy por encima, y eso adelanta lo que viene en el capítulo VII.</p>
+</section>
+<section class="part" id="capitulo-v-el-enemigo-oculto-el-tamano"><h2 class="part-title">Capítulo V. El enemigo oculto: el tamaño</h2>
+<h3 id="la-sospecha">La sospecha</h3>
+<p>Un elefante gesta mucho y vive mucho. También es enorme. Un ratón gesta poco y vive poco, y también es diminuto. ¿Y si la gestación no tuviera nada que ver, y las dos variables solo reflejaran el tamaño del animal? Es la sospecha clásica de la <strong>variable omitida</strong>: si el tamaño empuja a la vez la gestación y la longevidad, la correlación entre las dos puede ser, en parte o del todo, un espejismo. Como el helado y los ahogados: los dos suben en verano, y no porque el helado ahogue a nadie.</p>
+<p>La sospecha es razonable. La masa sola explica el 53% de las diferencias de longevidad, casi tanto como la gestación, y el 47% de las diferencias de gestación.</p>
+<h3 id="paso-4-la-regresion-multiple-cuaderno-7cuadernohtmls7">Paso 4: la regresión múltiple <em>(<a href="cuaderno.html#s7">cuaderno, §7</a>)</em></h3>
+<p>La regresión múltiple pone varias variables a competir a la vez. El coeficiente de cada una responde a una pregunta más fina: <strong>¿cuánto cambia la longevidad si cambia la gestación y el tamaño se queda igual?</strong> Es la manera estadística de comparar a dos especies del mismo tamaño que solo difieren en su gestación.</p>
+<p>Para comparar modelos de forma justa hay que usar <strong>las mismas especies</strong> en todos. Cada variable tiene huecos distintos, y un R² calculado con 877 especies no se puede comparar con otro calculado con 852. El cuaderno usa las 852 que tienen gestación, longevidad, masa y camada.</p>
+<div class="tabla"><div class="tabla-scroll"><table><thead><tr><th>Modelo (variable explicada: log longevidad)</th><th>Variables</th><th>R²</th><th>R² ajustada</th><th>AIC</th></tr></thead><tbody><tr><td>Gestación</td><td>1</td><td>0.568</td><td>0.568</td><td>−214.8</td></tr><tr><td>Masa</td><td>1</td><td>0.533</td><td>0.532</td><td>−147.6</td></tr><tr><td>Camada</td><td>1</td><td>0.432</td><td>0.431</td><td>19.2</td></tr><tr><td>Gestación + masa</td><td>2</td><td>0.652</td><td>0.651</td><td>−395.1</td></tr><tr><td>Gestación + masa + camada</td><td>3</td><td>0.684</td><td>0.683</td><td>−477.3</td></tr><tr><td>… + origen del ejemplar</td><td>5</td><td>0.690</td><td>0.688</td><td>−488.9</td></tr></tbody></table></div><figcaption><span class="n">Tabla 4.</span> <em>Comparación de modelos con las mismas 852 especies. Todas las variables numéricas en logaritmo. La R² ajustada y el AIC castigan las variables de más; en el AIC, más bajo es mejor. Cuaderno §7.</em></figcaption></div>
+<p>Tres lecturas:</p>
+<p>1. <strong>Sola, la gestación gana</strong>: explica más que la masa y más que la camada. 2. <strong>Los R² no se suman.</strong> 0.57 + 0.53 + 0.43 daría más de 1. Las tres variables se solapan, porque a las tres las empuja lo mismo. 3. <strong>Juntas sí ayudan</strong>: el modelo de tres variables llega a 0.68, y el AIC, que penaliza meter variables de más, lo prefiere con claridad. Añadir el origen del ejemplar apenas mueve la aguja.</p>
+<div class="tabla"><div class="tabla-scroll"><table><thead><tr><th>Término</th><th>Coeficiente</th><th>Error estándar</th><th>t</th><th>IC 95%</th></tr></thead><tbody><tr><td>Intercepto</td><td>0.524</td><td>0.047</td><td>11.1</td><td>[0.431, 0.616]</td></tr><tr><td>log gestación</td><td><strong>0.239</strong></td><td>0.025</td><td>9.4</td><td>[0.189, 0.288]</td></tr><tr><td>log masa</td><td>0.089</td><td>0.006</td><td>14.8</td><td>[0.077, 0.101]</td></tr><tr><td>log camada</td><td>−0.277</td><td>0.029</td><td>−9.4</td><td>[−0.335, −0.219]</td></tr></tbody></table></div><figcaption><span class="n">Tabla 5.</span> <em>El modelo de tres variables. N = 852, R² = 0.684. Todos los coeficientes con p &lt; 0.001. Cuaderno §7.</em></figcaption></div>
+<p class="nota-final"><strong>Qué quiere decir.</strong> El coeficiente de la gestación <strong>cae de 0.59 a 0.24</strong> cuando el tamaño y la camada se mantienen fijos. Más de la mitad de lo que parecía «efecto de la gestación» era en realidad tamaño corporal y estrategia reproductiva: tener muchas crías baratas o pocas crías caras. Pero la gestación <strong>no desaparece</strong>: con t = 9.4 sigue diciendo algo que la masa y la camada no dicen. Entre dos especies del mismo tamaño, la que gesta más sigue tendiendo a vivir más.</p>
+<p>El signo de la camada es igual de elocuente. A igual gestación y tamaño, cada vez que se duplica el número de crías por parto, la longevidad esperada cae un 17%. Es el famoso «vivir rápido, morir joven» (Promislow &amp; Harvey, 1990) en un solo número.</p>
+<aside class="recuadro"><span class="marca">¿Se estorban las variables entre sí?</span><p>Cuando dos variables se parecen demasiado, la regresión no sabe a cuál darle el crédito, y los coeficientes se vuelven inestables. Eso se mide con el <strong>factor de inflación de la varianza (VIF)</strong>: arriba de 5 empieza a preocupar. Aquí los VIF son 2.8, 1.9 y 1.9. Las variables se parecen, pero no tanto como para confundir al modelo.</p></aside>
+<h3 id="paso-5-la-prueba-de-hipotesis-con-el-modelo-completo-cuadern">Paso 5: la prueba de hipótesis, con el modelo completo <em>(<a href="cuaderno.html#s8">cuaderno, §8</a>)</em></h3>
+<p>La misma lógica de antes, ahora con el coeficiente de 0.239:</p>
+<ul><li><strong>t</strong> = 0.239 / 0.025 = 9.4. El efecto es nueve veces más grande que su margen de error.</li><li><strong>p</strong> ≈ 0. Si la gestación no tuviera relación propia con la longevidad, ver un resultado así sería prácticamente imposible. Conviene repetir lo que el p <em>no</em> es: no es la probabilidad de que la gestación no importe. Es qué tan raros serían estos datos <em>si</em> no importara.</li><li><strong>IC 95%</strong> = [0.189, 0.288]. El valor verdadero está, razonablemente, en ese rango. Un detalle revelador: este intervalo <em>contiene</em> 0.25, que en el modelo simple quedaba descartado. La misma variable lleva a conclusiones distintas según con qué se la compare, y por eso un coeficiente no se interpreta sin decir de qué modelo viene.</li></ul>
+<h3 id="paso-6-mas-variables-y-la-que-faltaba-cuaderno-7cuadernohtml">Paso 6: más variables, y la que faltaba <em>(<a href="cuaderno.html#s7">cuaderno, §7</a> y <a href="cuaderno.html#s10">§10</a>)</em></h3>
+<p>Dos variables más mejoran el ajuste:</p>
+<ul><li><strong>El destete.</strong> Con las 591 especies que lo tienen, sube el R² de 0.73 a 0.75. Una prueba F confirma que la mejora no es casualidad, pero cuesta el 30% de las especies.</li><li><strong>La madurez sexual de la hembra.</strong> Es la variable que más se parece a la longevidad (correlación de 0.82, más que la gestación) y la tienen 785 especies. Al añadirla, con las mismas 765 especies, <strong>el R² salta de 0.69 a 0.78</strong>, y el coeficiente de la gestación vuelve a encogerse, de 0.24 a <strong>0.16</strong>.</li></ul>
+<p>La madurez se lleva parte de lo que explicaba la gestación porque las dos miden casi lo mismo: qué tan despacio se desarrolla un animal. Quien gesta largo, madura tarde. Se vuelve sobre esto en el capítulo VIII.</p>
+</section>
+<section class="part" id="capitulo-vi-el-arbol"><h2 class="part-title">Capítulo VI. El árbol</h2>
+<h3 id="el-problema-que-la-estadistica-estandar-no-ve">El problema que la estadística estándar no ve</h3>
+<p>Todo lo anterior trata a las 877 especies como 877 casos independientes. No lo son. Los 189 roedores comparten un ancestro, igual que los 134 primates, y heredaron de él un <em>estilo</em> de vida: un ritmo, una manera de reproducirse, un tamaño. Cuando la regresión «descubre» que la gestación predice la longevidad, una parte de lo que descubre es simplemente que los primates se parecen a los primates y los roedores a los roedores. Es como encuestar a 877 personas que resultan ser doce familias: la muestra es más chica de lo que parece. Felsenstein (1985) planteó el problema para la biología, y su solución completa, la regresión filogenética, exige un árbol con las distancias evolutivas entre especies que este cuaderno no tiene. Pero hay dos aproximaciones que sí caben y que dicen mucho.</p>
+<h3 id="paso-7-marsupiales-y-monotremas-cuaderno-13cuadernohtmls13">Paso 7: marsupiales y monotremas <em>(<a href="cuaderno.html#s13">cuaderno, §13</a>)</em></h3>
+<p>Hay 84 especies que no son placentarias: 41 diprotodontos (canguros, koalas, wombats), 22 dasiuromorfos, 10 zarigüeyas, 8 bandicuts y 3 monotremas (los dos equidnas y el ornitorrinco). En ellas, la «gestación» <strong>no mide lo mismo</strong>. Un canguro rojo nace a los 33 días, del tamaño de un frijol, y termina de desarrollarse en la bolsa durante meses. Un equidna pone un huevo. Comparar sus 10 o 30 días con los 280 de un humano es comparar el principio de un proceso con el proceso entero.</p>
+<p>En la Figura 1 aparecen como círculos huecos, y se ve el problema: forman un grupo a la izquierda, por encima de la línea. En promedio viven <strong>1.36 veces</strong> lo que predice su gestación, y los diprotodontos, 1.95 veces. Si se les retira:</p>
+<div class="tabla"><div class="tabla-scroll"><table><thead><tr><th>Muestra</th><th>N</th><th>Exponente <em>b</em></th><th>R²</th></tr></thead><tbody><tr><td>Todos los mamíferos</td><td>877</td><td>0.589</td><td>0.567</td></tr><tr><td>Solo placentarios</td><td>793</td><td>0.651</td><td>0.613</td></tr></tbody></table></div><figcaption><span class="n">Tabla 6.</span> <em>Al retirar marsupiales y monotremas, el ajuste mejora. Cuaderno §13.</em></figcaption></div>
+<p>El ajuste <em>mejora</em>. Los casos extremos de esas especies no eran biología de la longevidad: eran una variable que, en ellas, mide otra cosa.</p>
+<h3 id="paso-8-comparar-dentro-de-cada-rama-cuaderno-13cuadernohtmls">Paso 8: comparar dentro de cada rama <em>(<a href="cuaderno.html#s13">cuaderno, §13</a>)</em></h3>
+<p>La segunda aproximación consiste en comparar a cada especie <strong>solo con las de su propio orden</strong>: roedores con roedores, primates con primates. Técnicamente se llama efectos fijos: el modelo le da a cada orden su propio punto de partida, de modo que las diferencias permanentes entre órdenes no cuenten, y la pendiente se calcula solo con lo que varía <em>dentro</em> de cada uno. Es la misma técnica con la que un economista compara a cada estado consigo mismo para que las diferencias de siempre entre estados no contaminen el efecto que busca. Los errores se calculan aceptando que las especies del mismo orden se parecen entre sí.</p>
+<p>Con los diez órdenes que tienen al menos 15 especies (803 en total):</p>
+<ul><li><strong>Sin separar por orden</strong>, la pendiente es 0.60.</li><li><strong>Dentro de cada orden</strong>, 0.51. La relación aguanta bastante bien.</li><li><strong>Dentro de cada orden y con el tamaño fijo</strong>, 0.20, con un margen de error amplio (p = 0.04). Apenas pasa la prueba.</li><li><strong>El modelo más exigente</strong>, dentro de cada orden y con masa, camada y madurez, deja a la gestación en <strong>0.10</strong> (IC 95%: 0.03 a 0.17; p = 0.005), con un R² de 0.85.</li></ul>
+<h3 id="paso-9-la-misma-ley-para-todos-cuaderno-13cuadernohtmls13">Paso 9: ¿la misma ley para todos? <em>(<a href="cuaderno.html#s13">cuaderno, §13</a>)</em></h3>
+<p>Si la relación fuera una ley general de los mamíferos, la pendiente debería parecerse en cada orden. No se parece.</p>
+<figure class="fig"><img src="figuras/fig03.png" alt="Figura 3" loading="lazy"><figcaption><span class="n">Figura 3.</span> <em>La pendiente dentro de seis órdenes. La línea punteada es el ajuste de los 877 mamíferos; la ámbar, el ajuste dentro de cada orden.</em></figcaption></figure>
+<div class="tabla"><div class="tabla-scroll"><table><thead><tr><th>Orden</th><th>Especies</th><th>Pendiente</th><th>Error estándar</th><th>p</th><th>R²</th></tr></thead><tbody><tr><td>Roedores</td><td>189</td><td>0.63</td><td>0.05</td><td>&lt; 0.001</td><td>0.47</td></tr><tr><td>Carnívoros</td><td>145</td><td>0.52</td><td>0.05</td><td>&lt; 0.001</td><td>0.47</td></tr><tr><td>Artiodáctilos</td><td>142</td><td>0.52</td><td>0.07</td><td>&lt; 0.001</td><td>0.26</td></tr><tr><td>Primates</td><td>134</td><td><strong>0.83</strong></td><td>0.11</td><td>&lt; 0.001</td><td>0.30</td></tr><tr><td>Murciélagos</td><td>65</td><td><strong>−0.02</strong></td><td>0.12</td><td>0.84</td><td>0.00</td></tr><tr><td>Diprotodontos</td><td>41</td><td>0.11</td><td>0.20</td><td>0.57</td><td>0.01</td></tr><tr><td>Cetáceos</td><td>35</td><td>1.64</td><td>0.59</td><td>0.009</td><td>0.19</td></tr><tr><td>Dasiuromorfos</td><td>22</td><td>0.07</td><td>0.19</td><td>0.73</td><td>0.01</td></tr><tr><td>Musarañas y topos</td><td>15</td><td>0.88</td><td>0.32</td><td>0.015</td><td>0.37</td></tr><tr><td>Perisodáctilos</td><td>15</td><td>0.43</td><td>0.31</td><td>0.19</td><td>0.13</td></tr></tbody></table></div><figcaption><span class="n">Tabla 7.</span> <em>Regresión log-log dentro de cada orden con al menos 15 especies. Cuaderno §13.</em></figcaption></div>
+<p>Para saber si las diferencias entre órdenes son reales o casualidad, se compara un modelo que obliga a todos los órdenes a tener la misma pendiente con otro que le deja a cada uno la suya. La prueba F da <strong>F = 8.3, p &lt; 0.001</strong>: las pendientes son distintas de verdad.</p>
+<p>Los dos extremos son los más interesantes:</p>
+<ul><li><strong>En los primates la gestación pesa más que en ningún otro orden grande</strong> (0.83, cerca de ir al mismo paso). Entre monos, una gestación más larga sí acompaña casi uno a uno a una vida más larga.</li><li><strong>En los murciélagos no pesa nada.</strong> La pendiente es literalmente cero. Un murciélago que gesta 50 días y uno que gesta 250 tienen, en promedio, la misma longevidad. Algo distinto de la gestación decide cuánto vive un murciélago.</li></ul>
+<p>La conclusión de este capítulo es incómoda para la intuición del principio: <strong>la «ley» es, en buena parte, una diferencia entre ramas del árbol, no una regla dentro de ellas.</strong> Los órdenes de gestación larga son también órdenes longevos. Dentro de cada uno, la relación es fuerte en algunos, débil en otros y no existe en algunos más.</p>
+</section>
+<section class="part" id="capitulo-vii-los-que-rompen-la-regla"><h2 class="part-title">Capítulo VII. Los que rompen la regla</h2>
+<h3 id="paso-10-leer-los-residuales-cuaderno-9cuadernohtmls9-y-14cua">Paso 10: leer los residuales <em>(<a href="cuaderno.html#s9">cuaderno, §9</a> y <a href="cuaderno.html#s14">§14</a>)</em></h3>
+<p>Un residual es lo que el modelo no explica: la distancia entre lo que vive una especie y lo que su gestación predice. Aquí se expresa como factor: ×2 quiere decir que vive el doble de lo esperado; ×0.5, la mitad. Los residuales no son basura estadística: son la lista de preguntas que el modelo deja abiertas.</p>
+<div class="tabla"><div class="tabla-scroll"><table><thead><tr><th>Especie</th><th>Gestación (días)</th><th>Longevidad (años)</th><th>Esperada (años)</th><th>Factor</th></tr></thead><tbody><tr><td>Equidna de pico largo</td><td>10</td><td>41.2</td><td>4.6</td><td>×8.9</td></tr><tr><td>Equidna de hocico corto</td><td>22</td><td>49.5</td><td>7.4</td><td>×6.7</td></tr><tr><td>Ballena boreal</td><td>396</td><td>211</td><td>40.4</td><td>×5.2</td></tr><tr><td>Wombat de nariz peluda</td><td>21</td><td>30.0</td><td>7.2</td><td>×4.2</td></tr><tr><td><strong>Humano</strong></td><td>280</td><td>122.5</td><td>33.0</td><td><strong>×3.7</strong></td></tr><tr><td>Murciélago café</td><td>55</td><td>34</td><td>12.6</td><td>×2.7</td></tr><tr><td>Chimpancé</td><td>229</td><td>68</td><td>29.3</td><td>×2.3</td></tr><tr><td>Rata topo desnuda</td><td>70</td><td>31</td><td>14.6</td><td>×2.1</td></tr><tr><td>Vaca doméstica</td><td>277</td><td>20</td><td>32.8</td><td>×0.6</td></tr><tr><td>Rata noruega</td><td>21</td><td>3.8</td><td>7.2</td><td>×0.5</td></tr><tr><td>Musaraña almizclera roja</td><td>25</td><td>2.2</td><td>7.9</td><td>×0.3</td></tr><tr><td>Tenrec rayado</td><td>59</td><td>2.7</td><td>13.2</td><td>×0.2</td></tr></tbody></table></div><figcaption><span class="n">Tabla 8.</span> <em>Residuales del modelo log-log simple. «Esperada» es la longevidad que corresponde a la gestación de la especie según la Tabla 3. Cuaderno §14.</em></figcaption></div>
+<p>La lista separa tres tipos de excepción.</p>
+<p class="nota-final"><strong>Las excepciones de medición.</strong> Los cuatro primeros lugares de «viven de más» los ocupan monotremas y marsupiales: equidnas, wombats y el ornitorrinco. No son longevos <em>a pesar de</em> su gestación corta. Su gestación es corta porque mide otra cosa (capítulo VI).</p>
+<p>El campeón de la tabla merece que se le vea la cara. El equidna de pico largo de Nueva Guinea es el residual más extremo de los 877 mamíferos: según su «gestación» debería vivir menos de cinco años, y el récord registrado es de 41.</p>
+<figure class="fig"><img src="figuras/equidna-pico-largo.jpg" alt="Equidna de pico largo" loading="lazy"><figcaption><span class="n">Figura 4.</span> <em>Equidna de pico largo (Zaglossus bruijni). Diez días de «gestación» en un animal que pone huevos, donde la cifra mide otra cosa, y 41 años de vida: ×8.9 lo que predice el modelo. Foto: Jaganath, <a href="https://commons.wikimedia.org/wiki/File:Long-beakedEchidna.jpg">Wikimedia Commons</a>, licencia <a href="https://creativecommons.org/licenses/by-sa/3.0/">CC BY-SA 3.0</a>.</em></figcaption></figure>
+<p class="nota-final"><strong>Las excepciones biológicas.</strong> Aquí están los casos que la biología del envejecimiento estudia por su cuenta. La <strong>ballena boreal</strong>, el mamífero más longevo conocido, con edades de más de dos siglos calculadas a partir de cambios químicos en el cristalino del ojo (George et al., 1999). La <strong>rata topo desnuda</strong>, un roedor de 35 gramos que vive más de treinta años y casi no muestra el aumento del riesgo de morir con la edad que define al envejecimiento (Buffenstein, 2005). Y los <strong>murciélagos</strong>, que viven en promedio mucho más que cualquier mamífero terrestre de su tamaño (Austad &amp; Fischer, 1991). La explicación más aceptada es que volar los protege de los depredadores, y una especie que corre poco peligro puede «costear» un cuerpo que dure (Healy et al., 2014).</p>
+<p class="nota-final"><strong>Las excepciones del dato.</strong> La vaca vive ×0.6 de lo esperado. Probablemente no es que las vacas envejezcan rápido, sino que casi ninguna llega a vieja: el ganado se sacrifica mucho antes de su límite biológico, y el récord lo refleja.</p>
+<h3 id="paso-11-el-patron-por-familias-cuaderno-14cuadernohtmls14">Paso 11: el patrón por familias <em>(<a href="cuaderno.html#s14">cuaderno, §14</a>)</em></h3>
+<p>Si los residuales fueran puro ruido, cada orden tendría tantas especies por arriba como por abajo de lo esperado. La Figura 5 muestra que no es así.</p>
+<figure class="fig"><img src="figuras/fig05.png" alt="Figura 5" loading="lazy"><figcaption><span class="n">Figura 5.</span> <em>Cuántas veces vive cada especie lo que predice su gestación, agrupadas por orden. Cada caja contiene a la mitad central de las especies; la línea ámbar es la mediana; la línea punteada, «vive lo esperado».</em></figcaption></figure>
+<aside class="recuadro"><span class="marca">Cómo leer un diagrama de caja</span><p>Cada caja resume a un grupo de especies. La línea de en medio es la <strong>mediana</strong>: la mitad del grupo vive más que eso y la otra mitad menos. La caja abarca a la mitad central del grupo, y las líneas que salen de ella llegan hasta los casos más alejados que no son extremos. Cuanto más alta la caja, más vive ese orden respecto a lo que dicta su gestación; cuanto más larga, más diferentes son las especies entre sí.</p></aside>
+<p>Musarañas y topos viven sistemáticamente menos de lo esperado (la mediana ronda ×0.4); artiodáctilos y roedores, algo menos. Primates, carnívoros y cetáceos viven más. Y los canguros, koalas y wombats, que van hasta arriba, son el artefacto del capítulo VI. Los murciélagos tienen la caja más larga de todas: hay de todo, porque el modelo simple solo ve su gestación y no sabe lo diminutos que son.</p>
+<p>Al tomar en cuenta el tamaño y la camada, la historia de los murciélagos se invierte. Si al modelo de la Tabla 5 se le añaden solo <strong>dos datos de sí o no</strong>, «es murciélago» y «es primate»:</p>
+<ul><li>El R² sube de <strong>0.68 a 0.75</strong>.</li><li>A igual gestación, tamaño y camada, ser murciélago multiplica la longevidad esperada por <strong>×2.0</strong>, y ser primate, por <strong>×1.9</strong>.</li><li><strong>El coeficiente de la gestación cae de 0.24 a 0.08</strong> (IC 95%: 0.03 a 0.13).</li></ul>
+<p>Este es quizás el resultado más revelador del ensayo. Dos datos de sí o no sobre el linaje explican más que la gestación misma, y se llevan casi todo lo que ella parecía explicar. Saber si un animal vuela o si es un mono dice más sobre cuánto vivirá que saber cuántos días pasó en el vientre.</p>
+<h3 id="el-humano">El humano</h3>
+<p>El humano vive ×3.7 lo que predice su gestación, más que cualquier otro placentario salvo la ballena boreal. Parte de la anomalía es real: los primates ya son longevos para su tamaño, y nosotros somos el primate más longevo. Parte es el dato: los 122.5 años son un único récord, el de la persona mejor documentada de la especie más documentada del planeta. Ninguna otra especie de la base fue observada con tanta atención ni durante tanto tiempo, y un récord crece con el número de observaciones.</p>
+<p>La función de predicción del cuaderno, construida con el modelo de tres variables, le asigna al humano 34 años: el límite de un chimpancé un poco más grande. La diferencia entre 34 y 122 no está en la gestación.</p>
+<div class="tabla"><div class="tabla-scroll"><table><thead><tr><th>Especie</th><th>Esperada (gest. + masa + camada)</th><th>Real</th><th>Factor</th></tr></thead><tbody><tr><td>Caballo</td><td>41.2</td><td>57</td><td>×1.4</td></tr><tr><td>Perro</td><td>14.1</td><td>27</td><td>×1.9</td></tr><tr><td>Murciélago café</td><td>10.7</td><td>34</td><td>×3.2</td></tr><tr><td>Humano</td><td>34.3</td><td>122.5</td><td>×3.6</td></tr><tr><td>Rata topo desnuda</td><td>7.4</td><td>31</td><td>×4.2</td></tr></tbody></table></div><figcaption><span class="n">Tabla 9.</span> <em>Predicciones del modelo de tres variables para cinco mamíferos conocidos. Cuaderno §9.</em></figcaption></div>
+<h3 id="el-cautiverio-una-advertencia-sobre-el-dato-cuaderno-15cuade">El cautiverio: una advertencia sobre el dato <em>(<a href="cuaderno.html#s15">cuaderno, §15</a>)</em></h3>
+<p>Una sospecha natural es que los animales de zoológico viven más que los silvestres, y que eso infla los récords. El problema es que con estos datos no se puede medir bien: el 91% de los récords viene de cautiverio, y entre las 70 especies silvestres están las grandes ballenas, cuya edad se calcula en el campo. Por eso, a igual gestación, el cautiverio sale asociado a vidas un poco <em>más cortas</em>. No es que el zoológico acorte la vida. Es que las especies que caen en cada grupo son muy distintas.</p>
+<p>Lo que sí se puede decir es que la pendiente se mantiene: 0.65 en silvestres y 0.58 en cautivas, y entre 0.43 y 0.60 según cuántos ejemplares respaldan cada récord. <strong>Que la relación existe no depende de la fuente del dato; su tamaño exacto, un poco sí.</strong></p>
+</section>
+<section class="part" id="capitulo-viii-cuanto-pesa-cada-cosa"><h2 class="part-title">Capítulo VIII. Cuánto pesa cada cosa</h2>
+<h3 id="por-que-la-correlacion-no-basta-cuaderno-11cuadernohtmls11">Por qué la correlación no basta <em>(<a href="cuaderno.html#s11">cuaderno, §11</a>)</em></h3>
+<p>Con cuatro variables que se solapan, la pregunta «¿cuál importa más?» no tiene una respuesta obvia. La correlación de cada una con la longevidad reparte mal el crédito, porque le atribuye a cada variable también lo que comparte con las demás. Es como premiar a cada jugador por todos los goles del equipo en los que tocó el balón: la suma de los premios da más goles de los que hubo.</p>
+<p>El <strong>análisis de dominancia</strong> resuelve el problema con una idea de la teoría de juegos, el valor de Shapley (Lindeman, Merenda &amp; Gold, 1980; Grömping, 2006). Prueba todas las combinaciones posibles de variables, mide cuánto R² añade cada una al entrar en cada combinación y promedia. Así, lo que dos variables comparten se reparte entre ellas en vez de contarse dos veces, y los aportes suman exactamente el R² total.</p>
+<div class="tabla"><div class="tabla-scroll"><table><thead><tr><th>Variable</th><th>Correlación simple</th><th>Coeficiente estandarizado</th><th>Aporte al R²</th><th>% del R²</th></tr></thead><tbody><tr><td>Madurez sexual</td><td>0.820</td><td>0.450</td><td>0.273</td><td>34.8%</td></tr><tr><td><strong>Gestación</strong></td><td>0.772</td><td>0.210</td><td>0.194</td><td><strong>24.8%</strong></td></tr><tr><td>Masa corporal</td><td>0.734</td><td>0.188</td><td>0.175</td><td>22.4%</td></tr><tr><td>Tamaño de camada</td><td>−0.671</td><td>−0.169</td><td>0.141</td><td>18.0%</td></tr></tbody></table></div><figcaption><span class="n">Tabla 10.</span> <em>Tres maneras de medir la importancia, con las mismas 765 especies. El coeficiente estandarizado pone todas las variables en la misma escala para poder compararlas. Cuaderno §11.</em></figcaption></div>
+<p>Los tres métodos coinciden en el orden, pero solo la dominancia reparte sin contar dos veces. Con las cuatro variables, <strong>la gestación es la segunda, no la primera</strong>: la madurez sexual le gana con claridad.</p>
+<h3 id="y-sin-la-madurez-cuaderno-16cuadernohtmls16">¿Y sin la madurez? <em>(<a href="cuaderno.html#s16">cuaderno, §16</a>)</em></h3>
+<p>La madurez gana, pero hay una sospecha legítima: ¿no se parece demasiado a la longevidad? Al fin y al cabo es un tiempo <em>dentro</em> de la vida, y nadie vive menos de lo que tarda en madurar. Si la madurez ocupara casi toda la vida, la correlación de 0.82 sería en parte pura aritmética. Conviene mirar las dos cosas: qué pasa si se quita y si de verdad es circular.</p>
+<figure class="fig"><img src="figuras/fig06.png" alt="Figura 6" loading="lazy"><figcaption><span class="n">Figura 6.</span> <em>Reparto del R² por análisis de dominancia, sin la madurez sexual (A) y con ella (B).</em></figcaption></figure>
+<p class="nota-final"><strong>Sin la madurez, gestación y masa quedan empatadas.</strong> Con las 852 especies de la muestra amplia, la masa aporta el 37% del R² y la gestación el 36%. Con las 765 especies que tienen madurez, el orden se invierte (38% contra 36%), y entre los placentarios la gestación saca un poco más de ventaja (40% contra 36%). La camada queda tercera en todos los casos, con una cuarta parte. Ninguna de las dos domina: <strong>el tamaño del animal y la lentitud de su desarrollo se reparten el crédito casi por mitades.</strong></p>
+<p class="nota-final"><strong>La madurez no es circular, pero tampoco es una explicación.</strong> Dos pruebas. La primera: en la mediana de las especies, la madurez ocupa solo el <strong>7%</strong> de la vida máxima (entre 2% y 18% para nueve de cada diez especies). Es una rebanada demasiado delgada para fabricar por sí sola una correlación de 0.82. La segunda: si en vez de la vida total se explica solo la <strong>vida adulta</strong>, lo que queda después de madurar, la madurez sigue pesando y el R² apenas baja, de 0.78 a 0.74. Las variables tampoco se estorban: sus VIF quedan entre 2 y 3.</p>
+<p>La razón por la que la madurez predice tan bien es otra: es la manecilla del reloj más cercana a la que se quiere leer. Gestar es el primer tramo del desarrollo y madurar es el último; la longevidad es lo que viene después. Por eso conviene no confundir predecir con explicar. Decir que una especie «vive mucho porque madura tarde» es casi decir que vive despacio porque vive despacio. La madurez sirve para predecir mejor; para entender, apunta a la misma causa común que la gestación.</p>
+<h3 id="la-sintesis">La síntesis</h3>
+<p>La Figura 7 reúne el recorrido entero en una sola imagen: el coeficiente de la gestación, con su margen de error, en cada uno de los modelos del ensayo.</p>
+<figure class="fig"><img src="figuras/fig07.png" alt="Figura 7" loading="lazy"><figcaption><span class="n">Figura 7.</span> <em>El coeficiente de log(gestación) en seis modelos. Cada control le quita una parte; ninguno lo lleva a cero.</em></figcaption></figure>
+<p>De 0.59 a 0.08. La relación que el capítulo III veía a simple vista no era falsa. Lo que pasa es que la mayor parte de lo que mide no es la gestación.</p>
+</section>
+<section class="part" id="capitulo-ix-conclusiones"><h2 class="part-title">Capítulo IX. Conclusiones</h2>
+<h3 id="las-respuestas">Las respuestas</h3>
+<p class="nota-final"><strong>1. ¿Existe una correlación?</strong> Sí, y es fuerte. r = 0.75 en escala logarítmica; la gestación sola explica el 57% de las diferencias de longevidad máxima entre 877 especies de mamíferos, y el 61% entre los placentarios.</p>
+<p class="nota-final"><strong>2. ¿Qué forma tiene?</strong> Una ley de potencia en la que la vida crece menos que la gestación. Duplicar la gestación multiplica la longevidad esperada por 1.5. Corregido el sesgo de atenuación, la relación entre los dos relojes ronda un exponente de 0.8: cerca de ir al mismo paso, pero por debajo.</p>
+<p class="nota-final"><strong>3. ¿Sobrevive a los controles?</strong> Sí, pero encogida. Con masa y camada, el coeficiente pasa de 0.59 a 0.24; con madurez sexual, a 0.16; dentro de cada orden, a 0.10. Nunca llega a cero, pero termina siendo una fracción de lo que parecía.</p>
+<p><strong>4. ¿Es universal?</strong> No. Las pendientes difieren entre órdenes: casi uno a uno en primates, nula en murciélagos. La regularidad es en buena parte una diferencia <em>entre</em> ramas del árbol.</p>
+<p class="nota-final"><strong>5. ¿Quiénes rompen la regla?</strong> Tres tipos de excepción: las de medición (marsupiales y monotremas, cuya gestación mide otra cosa), las biológicas (ballena boreal, rata topo desnuda, murciélagos, primates) y las del dato (el ganado, el récord humano).</p>
+<p class="nota-final"><strong>Y a la pregunta del principio, si una gestación más larga <em>lleva</em> a una vida más larga, la respuesta es no.</strong> No en el sentido causal que la intuición sugería. Son datos observados entre especies, no un experimento, y lo que muestran es asociación. La forma en que esa asociación se disuelve al controlar otras variables es la huella de una causa común.</p>
+<h3 id="la-causa-comun-el-tempo">La causa común: el tempo</h3>
+<p>Gestación, madurez sexual, destete, tamaño de camada y longevidad no son cinco rasgos independientes. Son cinco lecturas de un mismo eje, el que la biología llama el <strong>continuo lento–rápido</strong> (Stearns, 1992; Promislow &amp; Harvey, 1990). Una especie no «elige» una gestación larga y por eso vive mucho. Su linaje la colocó en un lugar del eje, en función de su tamaño, de cuánto la amenaza el mundo y de cómo se gana la vida, y desde ese lugar todos sus relojes van despacio o van rápido a la vez.</p>
+<p>Por eso la madurez sexual le gana a la gestación: es una lectura más limpia del mismo eje. Por eso, sin ella, gestación y tamaño empatan: son dos caras de la misma lentitud. Por eso dos datos sobre el linaje se llevan casi todo el efecto: el linaje es donde vive el eje. Y por eso los murciélagos rompen la regla: volar los sacó del eje terrestre. Con pocos depredadores, la selección favoreció cuerpos que duran, sin importar cuánto tardaran en hacerse.</p>
+<p>La intuición del roble y el hongo tenía razón en el patrón y se equivocaba en el mecanismo. Lo que tarda en hacerse no dura <em>porque</em> tardó. Tarda y dura por la misma razón.</p>
+<h3 id="lo-que-el-metodo-ensena">Lo que el método enseña</h3>
+<p>Este ensayo cuenta, en el fondo, la historia de un número que se fue encogiendo. Cada paso fue honesto y cada cifra fue correcta para la pregunta que contestaba: 0.104 años por día, 0.59 de elasticidad, 0.24 con masa y camada, 0.08 sabiendo si la especie vuela o es un mono. El error no habría estado en ninguna de esas cifras sino en detenerse en la primera y contarla como si fuera la última.</p>
+<p>Hay aquí una lección que va más allá de la biología. La correlación es una pregunta mal planteada con buena cara. Responde con firmeza a «¿se mueven juntas estas dos cosas?», y deja que el lector crea que respondió a «¿una produce a la otra?». La regresión múltiple, la comparación dentro de cada rama y la lectura de los residuales no son técnicas para encontrar la verdad. Son técnicas para <em>perder ilusiones de manera ordenada</em>.</p>
+<h3 id="lo-que-queda-abierto">Lo que queda abierto</h3>
+<ul><li><strong>La regresión filogenética.</strong> Es el siguiente paso natural: incorporar el árbol de los mamíferos y medir la relación descontando el parentesco. Comparar dentro de cada orden es una aproximación gruesa a eso.</li><li><strong>Crías precoces y crías indefensas.</strong> Un potro camina a las pocas horas de nacer; un ratón nace ciego y sin pelo. La gestación mide cosas distintas en unos y otros, y AnAge no trae esa variable.</li><li><strong>La tasa metabólica.</strong> Para 327 especies AnAge trae el metabolismo basal. A igual tamaño, más metabolismo se asocia con menos longevidad, la vieja hipótesis de la «tasa de vida» (Pearl, 1928; Speakman, 2005), pero la gestación sigue pesando al añadirlo. Merece su propio análisis.</li><li><strong>Aves.</strong> En las aves la incubación es el equivalente de la gestación, y son famosas por vivir mucho para su tamaño. La misma pregunta, con el mismo cuaderno, en otra clase de vertebrados.</li></ul>
+<h3 id="nota-de-metodo">Nota de método</h3>
+<p class="nota-final"><strong>Software.</strong> Python 3 con `pandas`, `numpy`, `statsmodels` (regresiones, pruebas t y F, errores robustos y agrupados, VIF), `scipy` y `seaborn`/`matplotlib`. Las figuras se generan a partir del archivo crudo con la misma limpieza que el <a href="cuaderno.html">cuaderno</a>, y la Figura 1 con Chart.js.</p>
+<p><strong>Decisiones del análisis</strong>, anotadas para quien quiera discutirlas:</p>
+<ul><li>Todas las variables numéricas se usan en logaritmo base 10. Las elasticidades se leen igual en cualquier base.</li><li>Las comparaciones entre modelos se hacen siempre con las mismas especies.</li><li>La comparación dentro de cada orden usa los órdenes con al menos 15 especies, y sus márgenes de error aceptan que las especies del mismo orden se parecen entre sí.</li><li>No se eliminaron valores extremos. Los marsupiales y monotremas se analizan aparte, pero se mantienen en los modelos principales para no cambiar la muestra a mitad del ensayo; la Tabla 6 muestra qué pasa sin ellos.</li></ul>
+<p class="nota-final"><strong>Limitaciones.</strong> Datos observados entre especies: asociación, no causa. Sin corrección filogenética completa. La longevidad es un récord sensible a cuánto se ha estudiado cada especie. La gestación de AnAge no distingue crías precoces de crías indefensas.</p>
+<h3 id="referencias">Referencias</h3>
+<ul><li>Austad, S. N., &amp; Fischer, K. E. (1991). Mammalian aging, metabolism, and ecology: evidence from the bats and marsupials. <em>Journal of Gerontology</em>, 46(2), B47–B53.</li><li>Buffenstein, R. (2005). The naked mole-rat: a new long-living model for human aging research. <em>Journal of Gerontology: Biological Sciences</em>, 60(11), 1369–1377.</li><li>Calder, W. A. (1984). <em>Size, Function, and Life History</em>. Harvard University Press.</li><li>de Magalhães, J. P., &amp; Costa, J. (2009). A database of vertebrate longevity records and their relation to other life-history traits. <em>Journal of Evolutionary Biology</em>, 22(8), 1770–1774.</li><li>Felsenstein, J. (1985). Phylogenies and the comparative method. <em>The American Naturalist</em>, 125(1), 1–15.</li><li>George, J. C., Bada, J., Zeh, J., et al. (1999). Age and growth estimates of bowhead whales (<em>Balaena mysticetus</em>) via aspartic acid racemization. <em>Canadian Journal of Zoology</em>, 77(4), 571–580.</li><li>Grömping, U. (2006). Relative importance for linear regression in R: the package relaimpo. <em>Journal of Statistical Software</em>, 17(1), 1–27.</li><li>Healy, K., Guillerme, T., Finlay, S., et al. (2014). Ecology and mode-of-life explain lifespan variation in birds and mammals. <em>Proceedings of the Royal Society B</em>, 281, 20140298.</li><li>Kleiber, M. (1932). Body size and metabolism. <em>Hilgardia</em>, 6(11), 315–353.</li><li>Lindeman, R. H., Merenda, P. F., &amp; Gold, R. Z. (1980). <em>Introduction to Bivariate and Multivariate Analysis</em>. Scott, Foresman.</li><li>Pearl, R. (1928). <em>The Rate of Living</em>. Knopf.</li><li>Promislow, D. E. L., &amp; Harvey, P. H. (1990). Living fast and dying young: a comparative analysis of life-history variation among mammals. <em>Journal of Zoology</em>, 220(3), 417–437.</li><li>Speakman, J. R. (2005). Body size, energy metabolism and lifespan. <em>Journal of Experimental Biology</em>, 208(9), 1717–1730.</li><li>Stearns, S. C. (1992). <em>The Evolution of Life Histories</em>. Oxford University Press.</li><li>Tacutu, R., Thornton, D., Johnson, E., et al. (2018). Human Ageing Genomic Resources: new and updated databases. <em>Nucleic Acids Research</em>, 46(D1), D1083–D1090.</li><li>Warton, D. I., Wright, I. J., Falster, D. S., &amp; Westoby, M. (2006). Bivariate line-fitting methods for allometry. <em>Biological Reviews</em>, 81(2), 259–291.</li><li>West, G. B., Brown, J. H., &amp; Enquist, B. J. (1997). A general model for the origin of allometric scaling laws in biology. <em>Science</em>, 276(5309), 122–126.</li></ul>
+</section>
+  <footer class="end">
+    <span>Alejandro Vázquez · 2026</span>
+    <a href="#portada">Volver al inicio ↑</a>
+  </footer>
+</main>
+
+<script>
+(function(){
+  var bar=document.getElementById('bar'),t=document.getElementById('toggle');
+  function prog(){var h=document.documentElement,m=h.scrollHeight-h.clientHeight;
+    bar.style.width=(m>0?(h.scrollTop/m)*100:0)+'%';}
+  addEventListener('scroll',prog,{passive:true});prog();
+  t.addEventListener('click',function(){
+    var r=document.documentElement,cur=r.getAttribute('data-theme');
+    if(!cur){cur=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';}
+    var nx=cur==='dark'?'light':'dark';r.setAttribute('data-theme',nx);
+    try{localStorage.setItem('av-tema',nx);}catch(e){}
+  });
+  try{var sv=localStorage.getItem('av-tema');if(sv)document.documentElement.setAttribute('data-theme',sv);}catch(e){}
+  var links=[].slice.call(document.querySelectorAll('#rail a'));
+  var secs=links.map(function(a){return document.getElementById(a.dataset.target);}).filter(Boolean);
+  if('IntersectionObserver' in window && secs.length){
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){
+      if(e.isIntersecting){links.forEach(function(a){
+        a.classList.toggle('on',a.dataset.target===e.target.id);});}});},
+      {rootMargin:'-20% 0px -70% 0px'});
+    secs.forEach(function(s){io.observe(s);});
+  }
+
+  // la barra flotante se esconde al bajar y reaparece al subir — solo en
+  // móvil, donde el texto ocupa todo el ancho y la barra le caía encima.
+  //
+  // SIN requestAnimationFrame a propósito. La primera versión usaba un rAF
+  // como amortiguador, con un cerrojo que solo se soltaba dentro del propio
+  // rAF; cuando el navegador lo suspende —pestaña en segundo plano, o el modo
+  // de bajo consumo del iPhone, que Safari estrangula sin piedad— el cerrojo
+  // se quedaba echado y la barra no volvía NUNCA. El trabajo real son dos
+  // comparaciones y un toggle de clase: hacerlo directo en el listener pasivo
+  // es más barato que el andamio que lo protegía.
+  // La decisión vive en una función pura —sin DOM, sin efectos— para poder
+  // probarla con una tabla de verdad. UMBRAL: no se esconde en los primeros
+  // 240px, para que la portada nunca aparezca sin barra. HISTERESIS de 6px:
+  // sin ella, el rebote elástico de iOS la haría parpadear.
+  function decidirBarra(y,ult,movil){
+    if(!movil){return 'mostrar';}
+    if(y>ult+6&&y>240){return 'ocultar';}
+    if(y<ult-6){return 'mostrar';}
+    return 'nada';
+  }
+  var tb=document.querySelector('.topbar'),ult=0,mv=matchMedia('(max-width:640px)');
+  addEventListener('scroll',function(){
+    var y=scrollY>0?scrollY:0, d=decidirBarra(y,ult,mv.matches);
+    if(d==='ocultar'){tb.classList.add('oculta');}
+    else if(d==='mostrar'){tb.classList.remove('oculta');}
+    ult=y;
+  },{passive:true});
+  // dos redes de seguridad: al volver a la pestaña y al cambiar de tamaño,
+  // la barra reaparece pase lo que pase.
+  mv.addEventListener('change',function(){tb.classList.remove('oculta');});
+  document.addEventListener('visibilitychange',function(){
+    if(!document.hidden){tb.classList.remove('oculta');ult=scrollY>0?scrollY:0;}
+  });
+})();
+</script>
+</html>
