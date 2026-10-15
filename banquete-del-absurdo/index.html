@@ -1,0 +1,844 @@
+<!doctype html>
+<html lang="es">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>El Banquete del Absurdo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,600&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,600;1,6..72,300;1,6..72,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --ground:#EBEDF1; --surface:#F5F6F8; --ink:#141A22; --ink-soft:#58616F;
+  --rule:#D2D8E0; --lamp:#8A5E0F; --lamp-glow:rgba(216,162,74,.16); --shade:rgba(20,26,34,.06);
+  --measure:35rem;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --ground:#0E1218; --surface:#151B23; --ink:#E6E4DF; --ink-soft:#98A0AC;
+    --rule:#242C37; --lamp:#D8A24A; --lamp-glow:rgba(216,162,74,.10); --shade:rgba(230,228,223,.05);
+  }
+}
+:root[data-theme="dark"]{
+  --ground:#0E1218; --surface:#151B23; --ink:#E6E4DF; --ink-soft:#98A0AC;
+  --rule:#242C37; --lamp:#D8A24A; --lamp-glow:rgba(216,162,74,.10); --shade:rgba(230,228,223,.05);
+}
+*{box-sizing:border-box;}
+/* el resplandor del farol es más ancho que la pantalla a propósito;
+   sin esto, en móvil la página se desliza de lado. */
+html{overflow-x:clip;}
+body{
+  background:var(--ground); color:var(--ink);
+  font-family:"Newsreader",Georgia,"Times New Roman",serif;
+  font-size:1.135rem; line-height:1.72; font-weight:300;
+  margin:0; padding:0; overflow-x:hidden; overflow-wrap:break-word;
+  -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
+}
+#bar{position:fixed;top:0;left:0;height:2px;width:0;background:var(--lamp);z-index:60;transition:width .12s linear;}
+.wrap{max-width:var(--measure);margin:0 auto;padding:0 1.5rem 8rem;}
+
+.cover{position:relative;padding:7.5rem 0 4.5rem;}
+.lamp{position:absolute;top:-14rem;left:50%;transform:translateX(-50%);
+  width:min(60rem,150vw);height:34rem;pointer-events:none;
+  background:radial-gradient(ellipse 50% 50% at 50% 50%,var(--lamp-glow),transparent 70%);}
+.eyebrow{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:.68rem;letter-spacing:.19em;
+  text-transform:uppercase;color:var(--ink-soft);margin:0 0 2.1rem;}
+.cover h1{font-family:"Fraunces","Newsreader",Georgia,serif;font-weight:400;
+  font-size:clamp(2.6rem,8.5vw,4.1rem);line-height:1.03;letter-spacing:-.022em;
+  margin:0 0 1.3rem;text-wrap:balance;}
+.subtitle{font-family:"Fraunces",Georgia,serif;font-weight:300;font-style:italic;
+  font-size:clamp(1.15rem,3.4vw,1.42rem);line-height:1.4;color:var(--ink-soft);
+  margin:0 0 2.6rem;text-wrap:balance;}
+.byline{font-family:"IBM Plex Mono",monospace;font-size:.76rem;letter-spacing:.05em;
+  color:var(--ink-soft);margin:0;padding-top:1.5rem;border-top:1px solid var(--rule);}
+.stats{display:flex;gap:2.2rem;flex-wrap:wrap;font-family:"IBM Plex Mono",monospace;
+  font-size:.72rem;letter-spacing:.05em;color:var(--ink-soft);margin:.9rem 0 0;
+  font-variant-numeric:tabular-nums;}
+
+.cartucho{margin:3.5rem 0 1rem;padding:1.9rem 0;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);}
+.cartucho p.lead{font-family:"IBM Plex Mono",monospace;font-size:.68rem;letter-spacing:.17em;
+  text-transform:uppercase;color:var(--ink-soft);margin:0 0 1.5rem;}
+.st-grid{display:grid;gap:1.15rem;}
+.st{display:grid;grid-template-columns:2.6rem 1fr;gap:.9rem;align-items:baseline;
+  text-decoration:none;color:inherit;padding:.45rem .55rem;margin:-.45rem -.55rem;border-radius:2px;}
+a.st:hover,a.st:focus-visible{background:var(--shade);outline:none;}
+a.st:focus-visible{box-shadow:0 0 0 2px var(--lamp);}
+.st .rn{font-family:"IBM Plex Mono",monospace;font-size:.72rem;color:var(--lamp);letter-spacing:.08em;}
+.st .nm{font-family:"Fraunces",Georgia,serif;font-size:1.06rem;font-weight:400;}
+.st .ds{display:block;font-size:.92rem;color:var(--ink-soft);font-style:italic;margin-top:.12rem;}
+
+/* el aviso del espejo: la pieza se mudó y esta copia lo dice arriba */
+.aviso{background:var(--surface);border:1px solid var(--rule);
+  border-left:2px solid var(--lamp);border-radius:2px;
+  padding:1.05rem 1.2rem;margin:4.5rem 0 0;
+  font-family:"IBM Plex Mono",monospace;font-size:.75rem;line-height:1.7;
+  color:var(--ink-soft);}
+.aviso strong{color:var(--ink);font-weight:500;}
+.aviso a{color:var(--lamp);text-decoration:none;border-bottom:1px solid var(--lamp);
+  word-break:break-word;}
+.aviso a:hover{color:var(--ink);border-color:var(--ink);}
+.con-aviso .cover{padding-top:3rem;}
+@media (max-width:640px){.aviso{margin-top:4rem;font-size:.72rem;padding:.95rem 1rem;}
+  .con-aviso .cover{padding-top:2.2rem;}}
+
+.abstract{background:var(--surface);border:1px solid var(--rule);border-left:2px solid var(--lamp);
+  padding:1.9rem 1.8rem 1.2rem;margin:0 0 3.2rem;border-radius:2px;}
+.abstract h3{margin:0 0 1.2rem;font-family:"IBM Plex Mono",monospace;font-weight:500;
+  font-size:.72rem;letter-spacing:.17em;text-transform:uppercase;color:var(--lamp);}
+.abstract p{font-size:.985rem;line-height:1.68;color:var(--ink-soft);margin:0 0 1.05rem;}
+.abstract p strong{color:var(--ink);font-weight:600;}
+
+.part{padding-top:1rem;}
+.part-title{font-family:"Fraunces",Georgia,serif;font-weight:400;
+  font-size:clamp(1.75rem,5vw,2.35rem);line-height:1.14;letter-spacing:-.015em;
+  margin:5.5rem 0 2.6rem;padding-top:3rem;border-top:1px solid var(--rule);text-wrap:balance;}
+#introduccion .part-title{display:none;}
+h3{font-family:"Fraunces",Georgia,serif;font-weight:600;font-size:1.24rem;line-height:1.3;
+  letter-spacing:-.005em;margin:3.2rem 0 1.1rem;text-wrap:balance;}
+h4{font-family:"IBM Plex Mono",monospace;font-weight:500;font-size:.74rem;letter-spacing:.15em;
+  text-transform:uppercase;color:var(--ink-soft);margin:2.4rem 0 1rem;}
+p{margin:0 0 1.35rem;}
+strong{font-weight:600;color:var(--ink);}
+em{font-style:italic;}
+blockquote{margin:2.5rem 0;padding:0 0 0 1.6rem;border-left:2px solid var(--lamp);
+  font-family:"Fraunces",Georgia,serif;font-size:1.24rem;line-height:1.45;font-weight:300;
+  color:var(--ink);text-wrap:pretty;}
+blockquote strong{font-weight:600;}
+.nota-final{color:var(--ink-soft);font-size:.86rem;line-height:1.62;}
+
+#rail{position:fixed;top:50%;transform:translateY(-50%);left:2.2rem;z-index:40;display:none;}
+#rail ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:.15rem;}
+#rail a{display:grid;grid-template-columns:1.6rem 1fr;gap:.55rem;align-items:baseline;
+  text-decoration:none;color:var(--ink-soft);padding:.42rem .5rem;border-radius:2px;
+  border-left:2px solid transparent;transition:color .2s,border-color .2s;}
+#rail a:hover{color:var(--ink);}
+#rail a:focus-visible{outline:none;box-shadow:0 0 0 2px var(--lamp);}
+#rail a.on{color:var(--ink);border-left-color:var(--lamp);}
+#rail .num{font-family:"IBM Plex Mono",monospace;font-size:.62rem;letter-spacing:.1em;text-align:right;opacity:.8;}
+#rail .lbl{font-family:"IBM Plex Mono",monospace;font-size:.66rem;letter-spacing:.11em;text-transform:uppercase;}
+@media (min-width:1180px){#rail{display:block;}}
+
+.topbar{position:fixed;top:1.15rem;right:1.15rem;z-index:50;display:flex;gap:.5rem;
+  transition:transform .28s ease,opacity .28s ease;}
+/* en móvil la columna ocupa todo el ancho y la barra fija caía encima del
+   texto. Se esconde al bajar y vuelve en cuanto se hace el gesto de subir. */
+.topbar.oculta{transform:translateY(-160%);opacity:0;pointer-events:none;}
+.topbar a,.topbar button{background:var(--surface);color:var(--ink-soft);border:1px solid var(--rule);
+  font-family:"IBM Plex Mono",monospace;font-size:.62rem;letter-spacing:.13em;text-transform:uppercase;
+  padding:.5rem .8rem;border-radius:2px;cursor:pointer;text-decoration:none;
+  transition:color .2s,border-color .2s;display:inline-flex;align-items:center;
+  min-height:2.6rem;}
+.topbar a:hover,.topbar button:hover{color:var(--ink);border-color:var(--ink-soft);}
+.topbar a:focus-visible,.topbar button:focus-visible{outline:none;box-shadow:0 0 0 2px var(--lamp);}
+
+/* el colofón: enlaza esta pieza con su hermana del archivo. Va en la voz
+   del cuerpo (serif, minúsculas), no en la del pie, porque es texto que se
+   lee, no metadato. */
+.colofon{margin:4rem 0 0;font-family:"Newsreader",Georgia,serif;
+  font-style:italic;font-size:.94rem;line-height:1.6;color:var(--ink-soft);}
+.colofon a{color:var(--lamp);font-style:normal;text-decoration:none;
+  border-bottom:1px solid var(--lamp-glow);}
+.colofon a:hover{border-color:var(--lamp);}
+
+.end{margin-top:5rem;padding-top:2.5rem;border-top:1px solid var(--rule);
+  font-family:"IBM Plex Mono",monospace;font-size:.68rem;letter-spacing:.13em;
+  text-transform:uppercase;color:var(--ink-soft);display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;}
+.end a{color:var(--ink-soft);text-decoration:none;border-bottom:1px solid var(--rule);}
+.end a:hover{color:var(--lamp);border-color:var(--lamp);}
+html{scroll-behavior:smooth;}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto;} *{transition:none!important;}}
+/* ── lectura en móvil ─────────────────────────────────────────────────
+   Hasta el 2026-08-25 estas reglas eran letra muerta: la página no
+   declaraba <meta viewport>, así que el teléfono la componía a 980px y la
+   encogía entera. El resultado era un escritorio en miniatura —letra de
+   7px efectivos y media pantalla de margen desperdiciado— y al hacer zoom
+   el texto se salía de lado, porque el documento seguía midiendo 980px.
+   Con el viewport puesto, el móvil deja de ser un escritorio encogido y
+   pasa a merecer su propia medida. Aquí está.                          */
+@media (max-width:640px){
+  body{font-size:1.16rem;line-height:1.70;}
+  /* el español encadena palabras largas; en una columna de ~330px sin
+     guionado la línea queda con agujeros. */
+  p,li,.abstract p,aside.recuadro p,.st .ds{hyphens:auto;-webkit-hyphens:auto;}
+  .wrap{padding:0 1.3rem 5rem;}
+  .cover{padding:4.6rem 0 3rem;}
+  .cover h1{font-size:clamp(2.3rem,9.5vw,3.1rem);letter-spacing:-.02em;}
+  .subtitle{font-size:1.18rem;margin-bottom:2rem;}
+  .eyebrow{margin-bottom:1.6rem;}
+  .stats{gap:.4rem 1.4rem;font-size:.7rem;}
+  .cartucho{margin:2.6rem 0 .5rem;padding:1.5rem 0;}
+  .st .nm{font-size:1.1rem;}
+  .st .ds{font-size:.95rem;}
+  .abstract{padding:1.4rem 1.25rem .9rem;margin-bottom:2.6rem;}
+  .abstract p{font-size:1.04rem;line-height:1.66;}
+  .part-title{font-size:1.9rem;margin:4rem 0 2rem;padding-top:2.4rem;}
+  h3{font-size:1.28rem;margin:2.7rem 0 .9rem;}
+  blockquote{font-size:1.2rem;margin:2rem 0;padding-left:1.2rem;}
+  figure.fig,.tabla{width:94vw;}
+  figcaption{font-size:.735rem;}
+  .tabla table{font-size:.8rem;}
+  .tabla th{font-size:.7rem;}
+  .tabla th,.tabla td{padding:.55rem .7rem;}
+  aside.recuadro{padding:1.25rem 1.2rem .9rem;margin:2.2rem 0;}
+  aside.recuadro p{font-size:1.04rem;}
+  .end{margin-top:3.5rem;}
+}
+
+/* ── figuras, tablas y listas ─────────────────────────────────────────
+   Rompen el ancho de lectura: una gráfica de datos a 35rem es ilegible.
+   El pie se queda en tipografía mono, como el resto del aparato.        */
+figure.fig{margin:3.6rem 0;width:min(50rem,92vw);margin-left:50%;transform:translateX(-50%);}
+figure.fig img{width:100%;height:auto;display:block;border:1px solid var(--rule);border-radius:2px;}
+figcaption{font-family:"IBM Plex Mono",monospace;font-size:.715rem;line-height:1.6;
+  color:var(--ink-soft);margin:.95rem 0 0;padding-left:.1rem;}
+figcaption .n{color:var(--lamp);letter-spacing:.06em;}
+
+.tabla{margin:3.2rem 0;width:min(50rem,92vw);margin-left:50%;transform:translateX(-50%);}
+.tabla-scroll{overflow-x:auto;border:1px solid var(--rule);border-radius:2px;
+  -webkit-overflow-scrolling:touch;}
+.tabla table{border-collapse:collapse;width:100%;font-family:"IBM Plex Mono",monospace;
+  font-size:.755rem;line-height:1.52;font-variant-numeric:tabular-nums;}
+.tabla th,.tabla td{padding:.6rem .8rem;text-align:left;vertical-align:top;
+  border-bottom:1px solid var(--rule);}
+.tabla th{color:var(--lamp);font-weight:500;font-size:.665rem;letter-spacing:.1em;
+  text-transform:uppercase;background:var(--surface);white-space:nowrap;}
+.tabla tbody tr:last-child td{border-bottom:none;}
+.tabla td strong{color:var(--ink);}
+.tabla caption{caption-side:bottom;}
+
+/* recuadro: la celda única con que Word marcaba los apartes del ensayo
+   (◆ veredictos, diseños de demostración, epígrafes) */
+aside.recuadro{background:var(--surface);border:1px solid var(--rule);
+  border-left:2px solid var(--lamp);padding:1.5rem 1.6rem 1.1rem;margin:2.8rem 0;border-radius:2px;}
+aside.recuadro p{font-size:.985rem;line-height:1.66;color:var(--ink-soft);margin:0 0 1rem;}
+aside.recuadro p:last-child{margin-bottom:0;}
+aside.recuadro p strong{color:var(--ink);}
+aside.recuadro .marca{font-family:"IBM Plex Mono",monospace;font-size:.68rem;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--lamp);display:block;margin:0 0 .9rem;}
+
+ul{margin:0 0 1.5rem;padding-left:1.15rem;}
+li{margin:0 0 .62rem;padding-left:.2rem;}
+li::marker{color:var(--lamp);}
+
+@media (max-width:900px){
+  figure.fig,.tabla{width:92vw;}
+}
+
+/* ── escala de escritorio ─────────────────────────────────────────────
+   El móvil ya estaba bien y no se toca. De 1024px para arriba la página
+   crece: la letra sube ~25%, la columna crece con ella para conservar el
+   largo de línea (~62 caracteres, que es donde la lectura larga cansa
+   menos), y el aire lateral y vertical se duplica.                     */
+@media (min-width:1024px){
+  :root{--measure:44rem;}
+  body{font-size:1.42rem;line-height:1.74;}
+  .wrap{padding:0 3rem 11rem;}
+  .cover{padding:9rem 0 5.5rem;}
+  .cover h1{font-size:clamp(3.4rem,6vw,4.8rem);}
+  .subtitle{font-size:1.62rem;}
+  p{margin:0 0 1.6rem;}
+  h3{font-size:1.46rem;margin:4rem 0 1.3rem;}
+  .part-title{margin:7rem 0 3.2rem;padding-top:3.6rem;}
+  blockquote{font-size:1.44rem;margin:3rem 0;padding-left:2rem;}
+  figure.fig,.tabla{width:min(60rem,90vw);}
+  figcaption{font-size:.8rem;}
+  .tabla table{font-size:.85rem;}
+  .tabla th{font-size:.72rem;}
+  .tabla th,.tabla td{padding:.72rem .95rem;}
+  aside.recuadro{padding:2rem 2.1rem 1.5rem;margin:3.4rem 0;}
+  aside.recuadro p{font-size:1.16rem;line-height:1.7;}
+  .abstract{padding:2.3rem 2.2rem 1.5rem;}
+  .abstract p{font-size:1.16rem;line-height:1.72;}
+  li{margin:0 0 .75rem;}
+  ul{padding-left:1.4rem;}
+}
+@media (min-width:1500px){
+  :root{--measure:47rem;}
+  body{font-size:1.5rem;}
+  figure.fig,.tabla{width:min(64rem,86vw);}
+}
+
+/* ── libreto ─────────────────────────────────────────────────────────── */
+p.parl{margin:0 0 1.45rem;}
+p.ficha > strong:first-child{font-family:"IBM Plex Mono",monospace;font-size:.78rem;
+  font-weight:500;letter-spacing:.14em;color:var(--lamp);}
+p.parl .quien{display:block;font-family:"IBM Plex Mono",monospace;font-size:.7rem;
+  font-weight:500;letter-spacing:.17em;color:var(--lamp);margin:0 0 .18rem;}
+em.acot{color:var(--ink-soft);}
+blockquote{font-family:"Newsreader",Georgia,serif;font-size:1rem;line-height:1.62;
+  font-weight:300;color:var(--ink-soft);border-left:1px solid var(--rule);
+  margin:2.1rem 0;padding:0 0 0 1.2rem;}
+blockquote em{font-style:italic;}
+h4{text-align:center;margin:3.2rem 0 2rem;}
+@media (max-width:640px){blockquote{font-size:1.03rem;margin:1.8rem 0;}}
+@media (min-width:1024px){blockquote{font-size:1.2rem;margin:2.6rem 0;padding-left:1.6rem;}
+  p.parl .quien{font-size:.76rem;}}
+</style>
+
+<div id="bar"></div>
+<div class="topbar"><a href="../">Archivo</a><button id="toggle" type="button" aria-label="Cambiar tema">Tema</button></div>
+<nav id="rail" aria-label="Partes">
+  <ul>
+      <li><a href="#introduccion" data-target="introduccion"><span class="num">—</span><span class="lbl">Preliminares</span></a></li>
+      <li><a href="#acto-i-por-que-hay-algo-y-no-mas-bien-nada" data-target="acto-i-por-que-hay-algo-y-no-mas-bien-nada"><span class="num">I</span><span class="lbl">Acto I</span></a></li>
+      <li><a href="#acto-ii-que-hacemos-con-la-angustia" data-target="acto-ii-que-hacemos-con-la-angustia"><span class="num">II</span><span class="lbl">Acto II</span></a></li>
+      <li><a href="#acto-iii-el-cierre-de-nietzsche" data-target="acto-iii-el-cierre-de-nietzsche"><span class="num">III</span><span class="lbl">Acto III</span></a></li>
+      <li><a href="#notas-para-quien-quiera-saber-mas" data-target="notas-para-quien-quiera-saber-mas"><span class="num">◇</span><span class="lbl">Notas</span></a></li>
+  </ul>
+</nav>
+
+<main class="wrap">
+<header class="cover" id="portada">
+  <div class="lamp" aria-hidden="true"></div>
+  <p class="eyebrow">Libreto · Filosofía existencialista</p>
+  <h1>El Banquete del Absurdo</h1>
+  <p class="subtitle">Simposio sobre por qué hay algo y no más bien nada</p>
+  <p class="byline">Alejandro Vázquez · 14 de octubre de 2026</p>
+  <p class="stats"><span>18,500 palabras</span><span>~95 min de lectura</span><span>Tres actos · seis duelos · dos sobremesas</span></p>
+  <div class="cartucho">
+    <p class="lead">Seis duelos y una silla vacía</p>
+    <div class="st-grid">
+      <a class="st" href="#primer-duelo-leibniz-y-schopenhauer"><span class="rn">I</span><span><span class="nm">Leibniz y Schopenhauer</span><span class="ds">¿El mejor o el peor de los mundos posibles?</span></span></a>
+      <a class="st" href="#segundo-duelo-kant-y-wittgenstein"><span class="rn">II</span><span><span class="nm">Kant y Wittgenstein</span><span class="ds">¿Dónde se acaba lo que se puede pensar?</span></span></a>
+      <a class="st" href="#tercer-duelo-heidegger-y-sartre"><span class="rn">III</span><span><span class="nm">Heidegger y Sartre</span><span class="ds">¿Quién entendió la nada?</span></span></a>
+      <a class="st" href="#cuarto-duelo-nagarjuna-y-cioran"><span class="rn">IV</span><span><span class="nm">Nāgārjuna y Cioran</span><span class="ds">¿La nada pesa o libera?</span></span></a>
+      <a class="st" href="#quinto-duelo-kierkegaard-y-nietzsche"><span class="rn">V</span><span><span class="nm">Kierkegaard y Nietzsche</span><span class="ds">¿Dios?</span></span></a>
+      <a class="st" href="#sexto-duelo-camus-y-beauvoir"><span class="rn">VI</span><span><span class="nm">Camus y Beauvoir</span><span class="ds">¿Uno se rebela solo?</span></span></a>
+    </div>
+  </div>
+</header>
+<section class="part" id="introduccion">
+<h3 id="nota-preliminar">Nota preliminar</h3>
+<p>Una advertencia antes de sentarte: esta obra no te dará la respuesta, y quien te la prometa en otra parte te está vendiendo algo. Lo que sí hará es ponerte, a oscuras, frente a doce de los personajes más lúcidos que ha tenido el pensamiento, y obligarte a notar cuál de ellos te incomoda más. Esa incomodidad es el dato.</p>
+<p>No es un ensayo con disfraz ni un teatro que pide perdón por pensar. Es una mesa puesta. A ella se sientan filósofos que en vida casi nunca coincidieron —algunos apenas se soportaban, otros no llegaron a conocerse—, y cada uno sostiene una manera distinta de mirar la misma pregunta. Unos creen que se responde; otros, que está mal hecha; otros, que no se responde: se padece, se disuelve o se calla. No se ponen de acuerdo. Ese es el punto. Y como doce a la mesa son demasiados —lo dirá Kant, que de cenas sabía—, cada uno tendrá enfrente a su contrario: seis duelos, y dos sobremesas en las que, por un rato, dejan de ser ideas y vuelven a ser personas.</p>
+<p>La regla es de Platón. En su <em>Banquete</em>, cada comensal pronunciaba un elogio del amor; aquí cada uno responde, a su modo, a lo que nos desvela a las tres de la madrugada: ¿para qué existimos? ¿Por qué no nacimos con instrucciones de hacia dónde ir? ¿Cuál es el sentido de nuestra existencia? Ninguna de las tres trae respuesta incluida.</p>
+<p>Escrita para el oído y para la penumbra. No hay una sola luz eléctrica: solo velas, y lo que ellas consienten mostrar. Léase despacio. Mejor aún, escúchese, en voz alta, con una sola vela encendida. Y si al terminar no te movió nada, léela otra vez: o no estabas escuchando, o llegaste con la respuesta decidida de antemano.</p>
+<h3 id="la-leyenda-del-banquete">La leyenda del Banquete</h3>
+<p>Dicen —y nadie recuerda quién lo dijo primero— que existe un salón fuera de todo mapa y de toda fecha. A él no se llega: se es llamado, y solo hay una manera de serlo.</p>
+<p>Ocurre cuando alguien vivo, en cualquier siglo, solo y de madrugada, se plantea de verdad la pregunta —¿por qué hay algo y no más bien nada?— y en lugar de desviar la mirada la sostiene, con un miedo que no es de adorno. Entonces, en ese salón sin tiempo, las velas se encienden por su cuenta y los personajes toman su sitio en la mesa para discutirla. Allí el tiempo corre en desorden: lo que alguno dirá algún día, otro ya se lo está reprochando.</p>
+<p>No discuten por gusto sino por condena, o por sustento: existen mientras la pregunta siga abierta. El día que alguien la responda de verdad —o que el vivo, de pronto, deje de necesitar la pregunta—, el Banquete se acaba y todos se apagan, ahora sin regreso. Los sostiene, pues, lo mismo que los desvela: su propia sed.</p>
+<p>En el extremo de la mesa queda siempre una silla vacía con el cubierto servido. Es del vivo que los convocó sin saberlo. No puede cruzar, jamás se sienta; escucha. Y por él se juega todo: no para persuadirlo de una respuesta que no existe, sino para mostrarle, antes del amanecer, cómo se vive sin ella.</p>
+<p>Esta noche alguien preguntó. Por eso estamos aquí reunidos nuevamente.</p>
+<h3 id="reparto">Reparto</h3>
+<p><em class="acot">(Doce voces y una silla vacía.)</em></p>
+<p class="nota-final"><em>Cómo leerlo: el nombre en versalitas abre lo que dice cada personaje. Lo que va entre paréntesis y en cursiva dentro de un parlamento es un gesto o un tono. Los párrafos en gris, con una línea al costado, describen la escena: no los dice nadie, los ve el público.</em></p>
+<p class="ficha"><strong>LEIBNIZ</strong> — <em>A la cabecera de la mesa.</em> El que puso la pregunta sobre la mesa hace tres siglos y se fue convencido de que tenía respuesta. Bajo una peluca de rizos que le sobra por todos lados, con el pie enfermo en alto sobre un cojín —la gota—, habla con el orden sereno de quien cree que el universo es un cálculo bien hecho. Donde otros tienen cubierto, él tiene papel, tintero y una caja de latón con manivela —su máquina de calcular— cuyo mecanismo hace el tictac que se oye en toda la sala; la pluma no se detiene nunca. Escribió doscientas mil páginas y publicó apenas un libro. A su entierro fue su secretario, y nadie más.</p>
+<p class="ficha"><strong>CAMUS</strong> — Convoca, y esta vez preside apenas, porque es el anfitrión eterno de este Banquete. Fuma Gauloises uno tras otro; el humo azul sube y se enreda con el humo negro de las velas. Tose de cuando en cuando, seco, y lo disimula. Claridad de mediodía mediterráneo en un salón que no ha visto el sol jamás. Fue portero de futbol y aún se sienta como quien espera un balón. Su madre era analfabeta y casi sorda, y casi no hablaba: el silencio del mundo, para él, tiene domicilio. En el bolsillo del abrigo lleva un boleto de tren sin usar.</p>
+<p class="ficha"><strong>KIERKEGAARD</strong> — Frágil, elegante, irónico hasta el dolor. Vierte en su taza una montaña absurda de azúcar y la ahoga en café negro, ritual que repite sin darse cuenta. Las perneras del pantalón no le quedan parejas —una ciudad entera se rió de eso durante años— y se los mira cuando lo hieren. Habla como si detrás de cada frase hubiera otro hablando por él, porque publicó media obra con nombres que no eran el suyo y reseñó sus propios libros con un tercero.</p>
+<p class="ficha"><strong>SCHOPENHAUER</strong> — Magnífico y sardónico. A sus pies, un perro de pelo rizado —un caniche— que atiende al nombre de <em>Atma</em> («alma», «el sí mismo profundo», en sánscrito) y cuyos ojos reflejan las velas. Junto al plato, una flauta travesera que toca una hora diaria, siempre Rossini, siempre antes de comer. Y junto a la flauta, una moneda de oro que pone sobre la mesa al empezar y se vuelve a guardar al terminar: es una apuesta consigo mismo que gana todas las noches. Come por dos, y si alguien se lo hace notar contesta que piensa por tres. Los mira a todos como a niños que no han notado los hilos que los mueven.</p>
+<p class="ficha"><strong>SARTRE</strong> — Estrábico, feo y magnético, energía de café a medianoche eterna. Pipa que enciende y apaga y vuelve a encender con la vela más cercana. Bebe taza tras taza y se echa a la boca, del bolsillo del saco, unas pastillas que no ofrece a nadie. No se está quieto ni cuando escucha. Frente a él, un plato de mariscos que no tocará en toda la noche. A Beauvoir le dice Castor y le habla de usted desde hace cincuenta años: nunca se casaron ni vivieron bajo el mismo techo.</p>
+<p class="ficha"><strong>BEAUVOIR</strong> — Turbante impecable, cuaderno abierto, pluma en mano. Toma nota de todos, incluso de sí misma. Habla rápido, agudo, sin pausas, como quien lleva prisa desde niña. Es la única de la mesa con cuerpo de caminante: se va sola a los montes ocho, diez horas, con un pan y una naranja. Sartre le dice Castor; ella le dice Sartre, y en las cartas, «mi querido pequeño ser». Se hablan de usted. La única que, cuando habla de libertad, no olvida que hay otros en la sala —y que hay una silla vacía.</p>
+<p class="ficha"><strong>HEIDEGGER</strong> — Viene del bosque y no del salón, y es el único de la mesa que huele a otra cosa: a leña, a frío, a intemperie. Trae un traje de paño que se diseñó él mismo —ni de ciudad ni de campo— y su propio pan. Habla en una lengua propia, tallada a mano, que a ratos ilumina y a ratos cierra las puertas. Se sienta un poco aparte, en el borde de la luz de las velas. Cuando dice "el pueblo", "la tierra", "el arraigo", un frío breve cruza la mesa y las llamas se inclinan.</p>
+<p class="ficha"><strong>KANT</strong> — Pequeño, de gris, recto como si la silla le debiera algo. No toca el respaldo. Come una sola vez al día, a la hora exacta, y el plato le llega puntual aunque nadie lo sirva. Mira siempre un punto de la pared donde la vela apenas dibuja la silueta de una torre que no está: la de una iglesia de Königsberg, ciudad de la que no salió en toda su vida y cuyos límites, en cambio, recorrió todos. Las medias se las sujeta con un artilugio de resortes que inventó él mismo. En su tumba está escrito lo que más le asombraba: el cielo estrellado sobre él, y dentro de él, la ley moral.</p>
+<p class="ficha"><strong>WITTGENSTEIN</strong> — De pie junto al candelabro más pobre de la sala, en camisa abierta, sin corbata. Cuando piensa, se sienta en el borde de la silla con la cabeza entre las manos, como quien sostiene algo que se le va a caer. Regaló una fortuna que ninguno de esta mesa habría regalado y fue maestro de escuela en aldeas donde nadie lo entendía. Come siempre lo mismo y le da igual qué sea. Su primer libro termina con una orden —callar— y él mismo nunca pudo cumplirla.</p>
+<p class="ficha"><strong>NĀGĀRJUNA</strong> — Sentado con las piernas cruzadas, una taza de té que humea en calma. Sonríe. Habla poco y por negaciones. Entre los dedos hace girar, sin darse cuenta, una brizna de hierba. Es el único que no le tiene miedo al vacío del ventanal: lo saluda como a un viejo conocido, porque ya bajó una vez al fondo del agua y volvió con las manos llenas.</p>
+<p class="ficha"><strong>CIORAN</strong> — En un rincón, donde la luz de las velas casi no llega, como quiere el destino y como quiso quien imaginó esta mesa. Una copa de vino que nunca termina. Insomne profesional desde los veinte años. Cruzó Francia entera en bicicleta y comió veinte años en comedores de estudiantes con una credencial que no le correspondía; no ha poseído nunca nada. Cambió de idioma a media vida y dice que fue una catástrofe. Demuele a todos con una sola línea y vuelve a su copa. Se ríe solo, en la sombra. Hay unos años suyos, en Bucarest, de los que no habla jamás.</p>
+<p class="ficha"><strong>NIETZSCHE</strong> — No se sienta: camina por los bordes oscuros de la sala. Se protege los ojos incluso de las velas —la migraña—, y al fondo, un piano cubierto de cera de mil noches que a veces roza con dos dedos. Camina porque no sabe pensar sentado: seis, ocho horas diarias, con libretas en el bolsillo. Escucha casi toda la noche en la penumbra. Cuando por fin habla, ya nadie lo interrumpe.</p>
+<h3 id="escenografia">Escenografía</h3>
+<p>No es un salón. Es algo entre una cripta y una capilla abandonada, de bóveda de piedra que sube hasta perderse en una oscuridad que ninguna vela alcanza. Podría ser un refectorio de monasterio muerto; podría ser el comedor de una casa que se hundió hace siglos y sigue, por terquedad, sirviendo la cena.</p>
+<p>En el centro, una mesa larguísima de madera negra, casi petrificada, con vetas que a la luz temblorosa parecen venas. Sobre ella, una <strong>araña de hierro</strong> cargada de velas cuelga de una cadena que se pierde arriba; la cera cae, gota a gota, y se ha ido acumulando en estalactitas pálidas sobre el mantel, sobre los platos, sobre los años. A lo largo de las paredes, <strong>candelabros</strong> altos, torcidos, y <strong>cirios</strong> clavados donde caben. No hay otra luz. Cuando en esta obra se diga "luz", entiéndase siempre: fuego pequeño, inquieto, a punto de apagarse.</p>
+<p>Al fondo de la sala, en lugar de pared, se abre <strong>el arco</strong>: una abertura enorme de piedra, sin cristal ni puerta —¿ventana?, ¿boca?—, que da a lo que hay afuera de la cripta: un espacio negro, absoluto, sin una sola estrella. Es la ventana al vacío. Cuando en esta obra se diga «el arco», entiéndase siempre eso. Ese vacío no es un decorado: es un personaje que mira hacia adentro. Una corriente fría entra por él sin ruido, y todas las llamas de la sala se inclinan hacia el vacío, como si la oscuridad las respirara despacio.</p>
+<p>En las paredes, medio tragados por la sombra, <strong>cuadros</strong> en marcos de oro ennegrecido. La penumbra no deja verlos enteros; hay que reconstruirlos a fuerza de miradas, y uno nunca está seguro de que sigan igual que hace un momento:</p>
+<ul><li>Sobre la cabecera, un lienzo de niebla: <strong>un monje diminuto, de espaldas, ante un mar y un cielo inmensos y vacíos</strong> que se confunden en el horizonte. La figura es una mota. Todo lo demás es abismo. El cuadro y el arco del fondo se reflejan; no se sabe cuál copia a cuál.</li><li>Frente a la silla de Schopenhauer, oscurísimo, <strong>un dios viejo y desnudo que devora a su hijo</strong>, todo dientes y ojos de loco, la boca llena. Cuando la conversación se ensombrece, jurarías que mastica más hondo.</li><li>Cerca de la puerta que nadie usa, una <strong>naturaleza muerta</strong>: una calavera, un reloj de arena casi vacío, una vela consumiéndose y una flor marchita. La arena del reloj no parece detenerse nunca, por más que uno la vigile.</li><li>En un rincón, <strong>una isla blanca de cipreses negros</strong>, y una barca que lleva hacia ella a una figura de pie, envuelta en lino, remando en aguas quietas. Nadie sabe si va o si vuelve.</li><li>Y el último, el más grande y el más pequeño a la vez: <strong>un marco enorme que no contiene nada</strong>. Solo negro. Un negro tan hondo que no se distingue del arco del fondo. Es el retrato de la Nada, y nadie en la sala recuerda quién lo colgó ni por qué el marco sigue ocupado si dentro no hay pintura.</li></ul>
+<p>Al <strong>pie de la mesa</strong>, apartada del resto, una <strong>silla vacía con su cubierto puesto</strong>: copa, plato, servilleta doblada. Nadie la ocupa en toda la obra. Nadie la mira directamente. Pero de vez en cuando alguien, al hablar, se vuelve hacia ella un segundo, como quien recuerda que lo escuchan.</p>
+<p>Sobre la mesa, servida y casi intacta, la cena. Cada cubierto dice quién se sienta ahí antes de que nadie abra la boca: un plato desbordado y ya empezado, y junto a él una moneda de oro; una sola comida servida a su hora exacta, sin una migaja fuera de sitio; una taza donde el azúcar hace una duna pálida que todavía nadie ha ahogado; un plato de mariscos que su dueño no mirará en toda la noche; un pan moreno traído de fuera, que no es de esta casa; un plato de lo mismo de siempre, que nadie mira; una taza de té; una copa llena; un cenicero que se va llenando mientras los platos no bajan. Y a la cabecera, en lugar de plato, papel, tintero y una caja de latón con manivela.</p>
+<p>Un piano al fondo, cubierto de cera de mil noches, en penumbra.</p>
+<p>No hay reloj visible. Y sin embargo se oye uno.</p>
+
+</section>
+<section class="part" id="acto-i-por-que-hay-algo-y-no-mas-bien-nada"><h2 class="part-title">Acto I — ¿Por qué hay algo y no más bien nada?</h2>
+<blockquote><em class="acot">(Oscuridad total. Ni una vela. Solo el arco del fondo —esa abertura de piedra sin cristal que da al vacío—, y afuera el espacio negro que respira. Bajo todo, muy tenue, un tictac. Entonces, sin que nadie las toque, una a una, las velas del salón empiezan a encenderse solas —un chasquido leve, una llama, otra, otra— hasta que la araña de hierro arde entera y la cera comienza a caer. Y en ese temblor de fuego, a la cabecera de la mesa emerge LEIBNIZ —peluca, pie en alto, la manivela de latón girando entre sus dedos—, y habla sereno, ordenado, como si el aire pensara.)</em></blockquote>
+<p class="parl"><span class="quien">LEIBNIZ</span>¿Por qué hay algo y no más bien nada?</p>
+<blockquote><em class="acot">(Pausa larga. El tictac. Las llamas se inclinan hacia el arco.)</em></blockquote>
+<p class="parl"><span class="quien">LEIBNIZ</span>Yo hice esta pregunta hace trescientos años, señores, y la hice tranquilo. Todo lo que existe pudo no existir. Y lo que pudo no existir necesita una razón para estar aquí. Nada pasa sin una razón. Sigan la cadena hacia atrás, eslabón por eslabón, y llegarán a Algo que es su propia razón, que no pudo no ser. La nada no es el principio de nada. Es lo que pone el entendimiento perezoso donde ya no quiere seguir pensando.</p>
+<blockquote><em class="acot">(Con las velas ya encendidas, se los ve a todos, como si siempre hubieran estado ahí: manos, rostros, el brillo de una copa, los ojos del perro. CAMUS apaga un cigarro contra el borde de un plato de cera y enciende otro en la llama de una vela. El humo sube recto y luego se tuerce hacia el vacío.)</em></blockquote>
+<p class="parl"><span class="quien">CAMUS</span><em class="acot">(mirando el arco, luego a la mesa)</em> Otra vez las velas solas. Otra vez, entonces, alguien preguntó. <em class="acot">(se pone de pie, despacio; su voz llena la cripta)</em> Señores. Señora. Amigos, enemigos, adversarios de toda la vida. Los convoco, una vez más, al Gran Banquete del Absurdo.</p>
+<blockquote><em class="acot">(Las llamas tiemblan como si reconocieran la fórmula. CIORAN, en su sombra, alza la copa sin decir nada.)</em></blockquote>
+<p class="parl"><span class="quien">CAMUS</span>Ya saben por qué estamos aquí, y por qué seguimos aquí, que no es lo mismo. Estamos porque cada uno, en su siglo, miró de frente el silencio del mundo y no apartó la vista. Y seguimos, noche tras noche, porque nunca resolvimos lo que vinimos a resolver. Ese es el pacto, y es cruel: el día que uno de nosotros conteste de verdad la pregunta, este salón se apaga para siempre, y nosotros con él. <em class="acot">(pausa; humo)</em> De modo que discutimos para no apagarnos. Nos mantiene vivos lo mismo que no nos deja dormir.</p>
+<p class="parl"><span class="quien">SCHOPENHAUER</span><em class="acot">(sardónico, acariciando al perro)</em> Y sin embargo, Camus, cada noche la abre usted. Como si presidir un naufragio lo volviera menos naufragio.</p>
+<p class="parl"><span class="quien">CAMUS</span>La abro yo, doctor, porque fui el único que dijo en voz alta lo que todos sabíamos. <em class="acot">(y entonces se vuelve, apenas un segundo, hacia la silla vacía al pie de la mesa)</em> Esta noche, además, hay un oído nuevo. Alguien vivo nos llamó sin saber que existíamos. Está ahí, en esa silla que ninguno va a ocupar. No viene a que le demos una respuesta, porque no tenemos ninguna. Viene a aprender cómo se vive sin ella. <em class="acot">(bajando la voz)</em> Así que esta vez no discutamos para lucirnos. Discutamos para él. Antes de que amanezca de su lado del mundo.</p>
+<blockquote><em class="acot">(Silencio. Por primera vez todos miran, un instante, la silla vacía. Luego SARTRE golpea la pipa contra el cenicero y rompe el hechizo.)</em></blockquote>
+<p class="parl"><span class="quien">SARTRE</span>Muy solemne. Pero volvamos a la pregunta, que es lo único honesto que se ha dicho. Señor Leibniz, usted la hace muy tranquilo, con su cadena de razones. Y está mal hecha desde la primera palabra.</p>
+<p class="parl"><span class="quien">LEIBNIZ</span><em class="acot">(sin detener la manivela)</em> ¿Mal hecha, señor Sartre?</p>
+<p class="parl"><span class="quien">SARTRE</span>Mal hecha. Da por sentado que la nada era el punto de—</p>
+<p class="parl"><span class="quien">CAMUS</span><em class="acot">(le quita la frase a media palabra, sin mirarlo)</em> —de partida. Que el vacío es lo normal, lo barato, lo que no cuesta, y que existir es el escándalo que hay que justificar. <em class="acot">(SARTRE cierra la pipa en el puño.)</em> Es como llegar a un estadio lleno y preguntar muy serio: ¿por qué hay gente y no más bien butacas vacías? La pregunta solo suena razonable si uno ya decidió, antes de mirar, que lo vacío venía primero. ¿Y quién lo decidió? Nadie ha probado nunca que la nada sea más barata que el ser.</p>
+<blockquote><em class="acot">(CIORAN, desde su rincón oscuro, sin voltear, a su copa.)</em></blockquote>
+<p class="parl"><span class="quien">CIORAN</span>Yo puedo probarlo. Todas las mañanas.</p>
+<blockquote><em class="acot">(Risa breve, seca, de él solo, que la cripta multiplica en ecos.)</em></blockquote>
+<p class="parl"><span class="quien">SARTRE</span><em class="acot">(a la mesa entera, como si CAMUS no estuviera sentado a tres sillas de distancia)</em> Nuestro portero me robó la frase, pero la dijo bien, cosa rara en él. Yo le pongo el resto. <em class="acot">(se inclina hacia Leibniz; la vela le ilumina el ojo torcido)</em> Señor Leibniz, usted dice que todo tiene una razón. Yo escribí una novela sobre un hombre que se sienta en un parque, frente a la raíz de un castaño, y la mira hasta marearse. Una raíz negra, retorcida, enorme. Y de pronto entiende que esa raíz no tiene ninguna razón para estar ahí. Ninguna. Está de sobra. Como el parque, como el banco, como él. <em class="acot">(golpea la mesa con la pipa)</em> Todo lo que existe nace sin razón, dura por pura inercia y muere por casualidad. Esa novela la escribí yo, pero la raíz la vi yo también.</p>
+<p class="parl"><span class="quien">LEIBNIZ</span><em class="acot">(con una cortesía impecable)</em> Que usted no vea la razón, señor Sartre, no quiere decir que no la haya.</p>
+<p class="parl"><span class="quien">SARTRE</span>Y que usted la vea, señor Leibniz, no quiere decir que exista.</p>
+<p class="parl"><span class="quien">CAMUS</span>Y además, perdónenme los dos, da lo mismo. <em class="acot">(se sienta, cruza las piernas, fuma)</em> Si el mundo tiene una razón o no, si tiene tres dimensiones o doce, eso viene después. Solo hay un problema filosófico de verdad serio: decidir si la vida vale o no la pena de vivirse. Todo lo demás es juego. Su pregunta, señor Leibniz, es un juego hermoso. La mía no.</p>
+<p class="parl"><span class="quien">LEIBNIZ</span><em class="acot">(herido, sin perder la forma)</em> Dediqué la vida a ese juego, señor Camus.</p>
+<p class="parl"><span class="quien">CAMUS</span>Lo sé. Por eso le dejo la primera mano. La mía la juego al final.</p>
+<blockquote><em class="acot">(KANT, que hasta ahora no ha abierto la boca, junta las manos sobre la mesa. No toca el respaldo de la silla. Habla sin elevar la voz, sin apartar los ojos del punto de la pared donde debería estar la torre.)</em></blockquote>
+<p class="parl"><span class="quien">KANT</span>Antes de seguir, una objeción. No de filósofo: de anfitrión.</p>
+<p class="parl"><span class="quien">CAMUS</span>Lo escuchamos, profesor.</p>
+<p class="parl"><span class="quien">KANT</span>Somos doce.</p>
+<p class="parl"><span class="quien">CAMUS</span>Doce y una silla.</p>
+<p class="parl"><span class="quien">KANT</span>En mi casa, en Königsberg, comía una sola vez al día, a la una en punto, y siempre con amigos. Y la regla era clara: a la mesa, nunca menos que las Gracias ni más que las Musas. De tres a nueve. Con doce, la conversación se rompe: cada quien le habla a su vecino y nadie escucha a nadie.</p>
+<p class="parl"><span class="quien">SCHOPENHAUER</span>Como en cualquier universidad.</p>
+<p class="parl"><span class="quien">KANT</span>Y había otra regla. En mi mesa no se hablaba de filosofía. Se hablaba de política, de comida, del clima.</p>
+<p class="parl"><span class="quien">CIORAN</span><em class="acot">(desde la sombra)</em> Entonces se equivocó usted de casa, profesor.</p>
+<p class="parl"><span class="quien">KANT</span>Eso me temo. <em class="acot">(pausa)</em> Propongo lo único razonable: que nadie hable contra todos. Que cada uno hable con su contrario. Así, al menos, alguien escucha a alguien.</p>
+<p class="parl"><span class="quien">CAMUS</span><em class="acot">(sonríe por primera vez en la noche)</em> Por parejas. Como en un baile. O como en un duelo. <em class="acot">(mira la mesa)</em> Y no hace falta sortearlas: cada uno sabe quién es su contrario. Lo ha sabido toda la vida. <em class="acot">(hacia la cabecera)</em> La pregunta es suya, señor Leibniz. Que la defienda contra el hombre que más la odia.</p>
+<p class="parl"><span class="quien">SCHOPENHAUER</span><em class="acot">(dejando de acariciar al perro)</em> Con muchísimo gusto.</p>
+<h3 id="primer-duelo-leibniz-y-schopenhauer">Primer duelo · Leibniz y Schopenhauer</h3>
+<h4>¿El mejor o el peor de los mundos posibles?</h4>
+<blockquote><em class="acot">(SCHOPENHAUER saca una moneda de oro y la pone sobre la mesa, junto a su plato desbordado. LEIBNIZ la mira, curioso, sin dejar la manivela.)</em></blockquote>
+<p class="parl"><span class="quien">LEIBNIZ</span>Doctor, me mira usted como quien mira a un vendedor de ungüentos.</p>
+<p class="parl"><span class="quien">SCHOPENHAUER</span>Lo miro como a un hombre que escribió que este es el mejor de los mundos posibles. Y que lo escribió con gota, con el pie en un cojín, y sin que nadie fuera a su entierro más que su secretario.</p>
+<p class="parl"><span class="quien">LEIBNIZ</span>Era un secretario excelente. <em class="acot">(pausa)</em> Y dije el mejor <em>posible</em>, doctor, no el mejor <em>imaginable</em>. Dios tuvo delante infinitos mundos, como un arquitecto tiene infinitos planos sobre la mesa, y escogió el que tiene más orden con menos reglas. Que haya dolor no lo desmiente. Un cuadro sin sombras no sería un cuadro: sería una mancha.</p>
+<p class="parl"><span class="quien">SCHOPENHAUER</span>Haga usted una prueba sencilla. Compare el gusto del animal que come con el dolor del animal que es comido. <em class="acot">(señala el cuadro del dios que devora a su hijo, a su espalda)</em> Ahí lo tiene. ¿Cuál de los dos pesa más?</p>
+<p class="parl"><span class="quien">LEIBNIZ</span>Usted solo mira un lado del plato.</p>
+<p class="parl"><span class="quien">SCHOPENHAUER</span>Y usted solo mira el plato. <em class="acot">(come un bocado enorme)</em> Le digo lo contrario, señor matemático: este es el <em>peor</em> de los mundos posibles. Si fuera tantito peor, ya no podría existir. Está calculado justo para aguantar, ni un gramo más. Ahí tiene su orden.</p>
+<p class="parl"><span class="quien">LEIBNIZ</span>¿Y qué hay detrás, según usted? ¿Qué hay, si no hay razón?</p>
+<p class="parl"><span class="quien">SCHOPENHAUER</span>Hambre. <em class="acot">(levanta el brazo, despacio, y lo deja en el aire)</em> No hay que salir del mundo para encontrarlo. Levante el brazo y pregúntese quién lo levanta. No es una razón. Es un <em>querer</em>. Yo lo llamo Voluntad. Un querer ciego, sin meta, que empuja a todo a seguir existiendo nada más por seguir existiendo. La piedra que cae, la planta que busca la luz, el animal que devora, ustedes que preguntan: todo es lo mismo, hambre que quiere más hambre. <em class="acot">(baja el brazo)</em> Y querer es carecer, y carecer duele. Por eso duele todo. Su pregunta, señor Leibniz, es ese hambre usando su juguete más caro, la cabeza, para asombrarse de sí misma un rato antes de volver a tener hambre.</p>
+<blockquote><em class="acot">(LEIBNIZ gira la manivela, como quien busca el argumento dentro del mecanismo. Luego toma la pluma y escribe en el papel.)</em></blockquote>
+<p class="parl"><span class="quien">LEIBNIZ</span>Déjeme enseñarle algo, doctor. Inventé una manera de contar con solo dos signos: el uno y el cero. Con ellos se escribe cualquier número. Cualquiera. <em class="acot">(levanta el papel hacia la luz)</em> El uno es Dios. El cero es la nada. Y de la nada, con un solo uno, sale todo. Lo mandé grabar en una medalla.</p>
+<p class="parl"><span class="quien">SCHOPENHAUER</span>Y nadie se la compró.</p>
+<p class="parl"><span class="quien">LEIBNIZ</span><em class="acot">(dolido, sin perder la forma)</em> Se la ofrecí a un duque.</p>
+<p class="parl"><span class="quien">KANT</span><em class="acot">(sin apartar los ojos de la torre)</em> Con el uno y el cero se cuenta, señor Leibniz. Pero no se demuestra que alguien esté contando.</p>
+<p class="parl"><span class="quien">SCHOPENHAUER</span>¿Sabe por qué es usted optimista, Leibniz? Porque nunca tuvo hambre de verdad. Fue consejero de príncipes, comió en sus mesas, peleó con Newton por quién había inventado el cálculo. Desde ahí, el mundo se ve muy bien ordenado.</p>
+<p class="parl"><span class="quien">LEIBNIZ</span>Lo inventamos los dos. Pero yo lo escribí mejor: todavía hoy se escribe como yo lo escribí. <em class="acot">(se recompone; sonríe por primera vez)</em> ¿Y usted, doctor? Vive de las rentas de su padre, come por dos en el mejor hotel de Fráncfort y saca una moneda de oro todas las noches. Para ser el filósofo del dolor, se le ve muy bien alimentado.</p>
+<p class="parl"><span class="quien">SCHOPENHAUER</span><em class="acot">(golpea la moneda contra la mesa)</em> Esta moneda es para los pobres el día que los oficiales ingleses de mi hotel hablen de algo que no sean caballos, perros y mujeres. Treinta años, y no la he perdido nunca.</p>
+<p class="parl"><span class="quien">LEIBNIZ</span>Esta noche podría perderla.</p>
+<p class="parl"><span class="quien">SCHOPENHAUER</span>¿Con ustedes? Ustedes hablan de la nada, que es casi lo mismo que hablar de caballos. Pero no nos distraigamos con mi moneda. Que el de la silla se lleve claras las dos cuentas. <em class="acot">(a la silla vacía)</em> La de él: todo lo que existe tiene una razón; la última razón es Dios; y Dios escogió el mejor de los mundos posibles, de modo que el dolor es la sombra que el cuadro necesita. La mía: detrás del mundo no hay ninguna razón, hay un querer ciego que nunca se llena. Por eso vivir es desear, desear es sufrir, y este es el peor mundo que todavía alcanza a sostenerse.</p>
+<p class="parl"><span class="quien">LEIBNIZ</span>Lo ha resumido usted mejor que mis discípulos, doctor. <em class="acot">(a la silla vacía)</em> Solo le corrijo una palabra. Yo no digo que el mal no exista. Digo que un mundo con algo de mal y muchísimo orden es mejor que ningún mundo. Y que, si hay algo y no nada, es porque el ser es mejor que la nada, y Dios lo sabía. <em class="acot">(conciliador, como quien ha pasado la vida tendiendo puentes)</em> Quizá tengamos razón los dos, doctor. Usted describe el mundo. Yo describo la elección.</p>
+<p class="parl"><span class="quien">SCHOPENHAUER</span>Eso mismo les dijo a los católicos y a los protestantes cuando quiso reconciliarlos. ¿Lo logró?</p>
+<p class="parl"><span class="quien">LEIBNIZ</span>No. <em class="acot">(pausa)</em> Pero se escribieron cartas durante veinte años. A veces eso es todo lo que se consigue.</p>
+<blockquote><em class="acot">(SCHOPENHAUER no contesta. Por un segundo, solo uno, parece que va a guardar la moneda. No la guarda.)</em></blockquote>
+<h3 id="segundo-duelo-kant-y-wittgenstein">Segundo duelo · Kant y Wittgenstein</h3>
+<h4>¿Dónde se acaba lo que se puede pensar?</h4>
+<p class="parl"><span class="quien">KANT</span>Señor Leibniz, usted me enseñó a pensar, y le debo la ruina de su pregunta. Permítame explicarle por qué. Y le ruego que no deje de girar esa manivela: me ayuda a ordenarme.</p>
+<p class="parl"><span class="quien">LEIBNIZ</span><em class="acot">(sin detener la manivela)</em> Lo escucho, profesor.</p>
+<p class="parl"><span class="quien">KANT</span>Su regla, que todo tiene una razón, funciona muy bien <em>dentro</em> del mundo. Esa vela se apagó porque entró aire por el arco. El aire entró porque afuera hace frío. Y así. Pero usted usó la misma regla para preguntar por la razón del mundo <em>entero</em>, y ahí la regla ya no tiene dónde apoyarse. <em class="acot">(pausa)</em> Piense en una paloma. Cuando vuela, siente que el aire le estorba, y se imagina que en el vacío volaría mucho mejor. <em class="acot">(por primera vez mira el arco)</em> Ahí tiene el vacío, señor Leibniz. Sin aire no se vuela: se cae. La razón es igual. Necesita el mundo para sostenerse, y su pregunta quiere volar justo donde ya no hay aire.</p>
+<p class="parl"><span class="quien">LEIBNIZ</span>¿Y entonces no hay respuesta?</p>
+<p class="parl"><span class="quien">KANT</span>Hay algo más incómodo. Yo le puedo demostrar, con la misma limpieza, que el mundo tuvo un principio y que no lo tuvo. Que hay un Dios necesario y que no lo hay. Cuando la razón prueba dos cosas contrarias igual de bien, no es que una de las pruebas falle. Es que la razón se salió de su terreno. <em class="acot">(pausa)</em> Y lo peor es esto: a la razón le tocó una suerte rara. La persiguen preguntas que no puede dejar de hacerse, porque están en su naturaleza, y que no puede contestar, porque la rebasan. Su pregunta es así. No es que la respuesta esté escondida. Es que no es de las que se encuentran.</p>
+<blockquote><em class="acot">(KANT mira hacia el arco. No tiembla.)</em></blockquote>
+<p class="parl"><span class="quien">KANT</span>Hubo un francés, que esta noche no vino, a quien este mismo silencio de los espacios infinitos le daba espanto. Yo lo miro desde el mismo suelo y siento otra cosa: respeto. Dos cosas me llenan de asombro cada vez que vuelvo a ellas: el cielo estrellado sobre mí <em class="acot">(el arco)</em> y la ley moral dentro de mí <em class="acot">(se toca el pecho)</em>. Del cielo no puedo saber por qué está ahí. De la ley, sí sé lo que me pide. Eso me basta para una vida.</p>
+<blockquote><em class="acot">(WITTGENSTEIN, de pie junto al candelabro más pobre de la sala, se tapa la cara con las manos. Cuando las baja, parece enojado consigo mismo. Habla seco, a golpes.)</em></blockquote>
+<p class="parl"><span class="quien">WITTGENSTEIN</span>Profesor, usted le tuvo a esa pregunta un respeto de más. <em class="acot">(a Leibniz)</em> Y usted, uno de menos. <em class="acot">(a todos)</em> Una pregunta tiene sentido cuando uno sabe qué cara tendría su respuesta. Díganme: ¿qué cara tendría la respuesta a «por qué hay algo y no más bien nada»? ¿Qué cosa del mundo la contestaría? Cualquier cosa que pongan sobre esta mesa ya es <em>algo</em>. Ya está dentro de lo que se preguntaba.</p>
+<p class="parl"><span class="quien">KANT</span>Entonces usted tampoco tiene respuesta.</p>
+<p class="parl"><span class="quien">WITTGENSTEIN</span>No. Pero sé por qué no. <em class="acot">(se acerca a la mesa; mira una mosca invisible)</em> Para mí, la filosofía sirve para una sola cosa: enseñarle a la mosca a salir de la botella. Esta pregunta es una botella, profesor. Llevan trescientos años dándose de golpes contra el vidrio.</p>
+<p class="parl"><span class="quien">KANT</span>Usted dice botella. Yo diría frontera.</p>
+<p class="parl"><span class="quien">WITTGENSTEIN</span>Usted dibujó la frontera desde dentro de la razón. Yo la dibujé desde dentro del lenguaje. Lo malo es que para dibujar una frontera hay que ver los dos lados. Y del otro lado no se ve nada.</p>
+<p class="parl"><span class="quien">KANT</span>Por eso yo la dibujé sin cruzarla.</p>
+<p class="parl"><span class="quien">WITTGENSTEIN</span><em class="acot">(casi sonríe)</em> Y yo la crucé para ver si había algo, y volví con las manos vacías. <em class="acot">(pausa)</em> Lo único que traje fue esto: lo raro no es <em>cómo</em> es el mundo. Lo raro es <em>que</em> sea. Eso no se explica. Se muestra.</p>
+<p class="parl"><span class="quien">KANT</span><em class="acot">(con una curiosidad muy seca)</em> Me dicen que usted escribió un libro para demostrar que no se podía decir nada.</p>
+<p class="parl"><span class="quien">WITTGENSTEIN</span>Y después escribí otro para demostrar que el primero estaba mal.</p>
+<p class="parl"><span class="quien">KANT</span>Yo nunca me desdije.</p>
+<p class="parl"><span class="quien">WITTGENSTEIN</span>Se nota. <em class="acot">(sin malicia)</em> También me dicen que usted no salió nunca de su ciudad.</p>
+<p class="parl"><span class="quien">KANT</span>Nunca hizo falta. El mundo pasaba por Königsberg. Y usted, me dicen, regaló una fortuna.</p>
+<p class="parl"><span class="quien">WITTGENSTEIN</span>Era un estorbo.</p>
+<p class="parl"><span class="quien">KANT</span>Yo ahorré la vida entera para tener una casa y comer con amigos.</p>
+<p class="parl"><span class="quien">WITTGENSTEIN</span><em class="acot">(tras un silencio)</em> Por eso usted era feliz, profesor, y yo no.</p>
+<p class="parl"><span class="quien">CAMUS</span>¿Y con todo eso, qué se hace?</p>
+<p class="parl"><span class="quien">WITTGENSTEIN</span>Lo que dice la última línea de mi primer libro, y que ni yo obedecí. <em class="acot">(pausa)</em> De lo que no se puede hablar, hay que callar.</p>
+<p class="parl"><span class="quien">CIORAN</span><em class="acot">(a su copa)</em> Qué suerte la suya. Yo no he hecho otra cosa en la vida que hablar de lo que no se puede.</p>
+<p class="parl"><span class="quien">WITTGENSTEIN</span><em class="acot">(sin sonreír)</em> Por eso me interesa usted. <em class="acot">(a todos)</em> Les digo mi postura sin rodeos, para que el de la silla no se confunda. Una pregunta de verdad es la que alguna respuesta podría contestar. «¿Por qué hay algo y no más bien nada?» no tiene ninguna respuesta posible, así que no es una pregunta: es un asombro disfrazado de pregunta. El asombro está bien; es lo más hondo que tenemos. Lo que no tiene sentido es querer convertirlo en una explicación. <em class="acot">(pausa)</em> Por eso mi primer libro termina con una confesión: mis propias frases son como una escalera. Sirven para subir hasta ver el mundo con claridad. Una vez arriba, hay que tirarlas, porque ya no hacen falta. Y lo que se ve desde ahí no se puede decir: solo se puede mostrar, o callar.</p>
+<p class="parl"><span class="quien">KANT</span>Entonces la diferencia entre usted y yo cabe en una frase. <em class="acot">(a la silla vacía)</em> Yo digo que la pregunta es legítima pero no tiene respuesta: la razón no puede dejar de hacérsela, y tampoco puede contestarla. Él dice que ni siquiera es una pregunta.</p>
+<p class="parl"><span class="quien">WITTGENSTEIN</span>Y los dos terminamos en el mismo sitio, profesor: callados frente al cielo estrellado. Usted, con respeto. Yo, con la cara entre las manos.</p>
+<h3 id="tercer-duelo-heidegger-y-sartre">Tercer duelo · Heidegger y Sartre</h3>
+<h4>¿Quién entendió la nada?</h4>
+<blockquote><em class="acot">(HEIDEGGER, que ha estado inmóvil en el borde de la luz, se mueve por primera vez. Parte un trozo de su pan moreno. Al hablar él, dos velas se apagan sin causa.)</em></blockquote>
+<p class="parl"><span class="quien">SARTRE</span><em class="acot">(antes de que HEIDEGGER diga nada)</em> Miren al hombre del bosque. Trae su propio pan, como si aquí fueran a envenenarlo.</p>
+<p class="parl"><span class="quien">HEIDEGGER</span>Este pan lo hizo alguien que conozco. <em class="acot">(sin calor)</em> El suyo, no sé.</p>
+<p class="parl"><span class="quien">SARTRE</span>¿Y ese traje? No es de ciudad ni de campo.</p>
+<p class="parl"><span class="quien">HEIDEGGER</span>Lo diseñé yo.</p>
+<p class="parl"><span class="quien">SARTRE</span>Como su filosofía: ni de aquí ni de allá, y hecha a mano para que no le quede a nadie más.</p>
+<blockquote><em class="acot">(HEIDEGGER no responde a la burla. Se vuelve hacia la cabecera.)</em></blockquote>
+<p class="parl"><span class="quien">HEIDEGGER</span>Señor Leibniz, la pregunta es suya, y se la debo. Yo la llamé, dos siglos después, la pregunta fundamental. Y le hice lo peor que se le puede hacer a un hombre: la tomé en serio y le quité la respuesta. <em class="acot">(a todos)</em> Piensen en un martillo. Mientras clavas, no lo ves. Ves el clavo, la tabla, la casa que vas a hacer. El martillo desaparece en tu mano. Solo cuando se rompe, de pronto, <em>está ahí</em>. <em class="acot">(pausa)</em> Con el Ser nos pasa igual. Lo usamos a cada instante —esta copa <em>es</em>, esta vela <em>es</em>, este perro <em>es</em>— y nunca lo vemos. Durante dos mil años preguntamos por las cosas que hay, y creímos que preguntábamos por el Ser. La pregunta del señor Leibniz es el martillo roto. Por un segundo deja de ser obvio que las cosas sean. Y nos golpea, como un rayo, lo más increíble de todo: que hay algo. <em class="acot">(pausa)</em> No la arreglen tan rápido. No la contesten. Mírenla rota. Sosténganla.</p>
+<p class="parl"><span class="quien">LEIBNIZ</span><em class="acot">(con un dolor muy ordenado)</em> Es decir, que renuncian. Que a mi pregunta le arrancan la respuesta y la dejan huérfana, temblando, para <em>admirarla</em>.</p>
+<p class="parl"><span class="quien">CIORAN</span><em class="acot">(desde la sombra, a su copa)</em> Huérfana y temblando. Por fin alguien me describe.</p>
+<p class="parl"><span class="quien">SARTRE</span>Muy bonito el martillo. Pero usted escribió también una frase que hizo reír a media Viena. <em class="acot">(saborea cada palabra)</em> «La nada nadea.»</p>
+<p class="parl"><span class="quien">HEIDEGGER</span>La nada nadea.</p>
+<p class="parl"><span class="quien">SARTRE</span>¿Y el martes martea? ¿Y la sopa sopea?</p>
+<blockquote><em class="acot">(Risas en la mesa. Incluso SCHOPENHAUER. HEIDEGGER no se inmuta.)</em></blockquote>
+<p class="parl"><span class="quien">WITTGENSTEIN</span><em class="acot">(desde su candelabro, sin reírse)</em> No se ría tan pronto, Sartre. Yo me imagino muy bien lo que quiere decir con la nada y con la angustia. El hombre tiene el impulso de golpear contra las paredes del lenguaje. Ese golpear no tiene ninguna esperanza. Y sin embargo no me burlo de él ni por mi vida.</p>
+<p class="parl"><span class="quien">HEIDEGGER</span><em class="acot">(a Wittgenstein, sin calor)</em> Respeta usted lo que declara imposible. Es una manera muy cómoda de respetar.</p>
+<p class="parl"><span class="quien">WITTGENSTEIN</span>Es la única que conozco.</p>
+<p class="parl"><span class="quien">SARTRE</span><em class="acot">(impaciente)</em> Muy bien: el martillo, la nada que nadea. Pero díganos lo importante, Heidegger. ¿Qué es el hombre en todo esto? Sin bosques.</p>
+<p class="parl"><span class="quien">HEIDEGGER</span>Al ser humano no lo llamo «hombre», ni «sujeto», ni «conciencia». Lo llamo <em>Dasein</em>: el <em>ser-ahí</em>. <em class="acot">(pausa)</em> <em>Ahí</em>: en un lugar, en un tiempo, en una lengua, en una familia que no escogió. El Dasein es el único ser al que su propio ser le importa; el único que puede preguntar qué significa ser. La piedra es, pero no se pregunta. El perro del doctor es, pero no se pregunta. Nosotros sí.</p>
+<p class="parl"><span class="quien">SARTRE</span>¿Y qué descubre ese Dasein cuando abre los ojos?</p>
+<p class="parl"><span class="quien">HEIDEGGER</span><em class="acot">(se vuelve hacia la silla vacía)</em> Lo primero que descubre el Dasein cuando abre los ojos es que fue <em>arrojado</em>. Nadie le preguntó si quería nacer, ni en qué siglo, ni de qué padres, ni en qué idioma iba a pensar. Despierta ya en marcha, en medio de un mundo que no eligió, sin manual y sin nadie que le diga para qué está aquí. No hay guía. A eso le llamo estar arrojado. <em class="acot">(pausa)</em> Y en ese camino sin guía hay una sola cosa segura: que termina. El Dasein es un ser para la muerte. Casi todos huyen de eso disolviéndose en <em>la gente</em>: hacen lo que se hace, piensan lo que se piensa, viven como se vive. Existir de verdad, de manera <em>propia</em>, es lo contrario: mirar de frente que fuiste arrojado y que vas a morir, y desde ahí hacerte cargo de tu vida. <em class="acot">(a Leibniz)</em> Por eso su pregunta no es un juego de lógica, señor. Es la pregunta de alguien que se encontró aquí sin instrucciones, y que sabe que se va a ir.</p>
+<p class="parl"><span class="quien">SARTRE</span><em class="acot">(despacio, sin burla por primera vez)</em> Eso de arrojado se lo tomé prestado, lo confieso. Yo lo llamé <em>abandono</em>: estamos solos, sin excusas, sin un Dios que nos haya hecho un plan. Pero aquí nos separamos, y que el de la silla lo oiga bien. <em class="acot">(toma un cuchillo de la mesa y lo levanta)</em> Piensen en un cortapapeles. Antes de fabricarlo, el artesano ya sabía para qué iba a servir: primero la idea, después la cosa. Esa idea previa es la <em>esencia</em>. Con el hombre pasa al revés. Nadie lo pensó antes, porque no hay ningún Dios artesano. El hombre primero <em>existe</em>: aparece, se encuentra arrojado, como dice usted. Y solo después se define por lo que hace. <em class="acot">(deja el cuchillo)</em> La existencia va antes que la esencia. No hay una naturaleza humana escrita de antemano: eres lo que haces con lo que te tocó. Y como nadie te dio instrucciones, estás condenado a ser libre. Tienes que inventarte, y eres responsable de lo que inventas.</p>
+<p class="parl"><span class="quien">HEIDEGGER</span>¿Y la nada? ¿También la inventa usted?</p>
+<p class="parl"><span class="quien">SARTRE</span>La nada se la explico sin bosques, Heidegger. <em class="acot">(apoya los codos en la mesa)</em> Quedo con mi amigo Pierre a las cuatro en un café. Llego a las cuatro y cuarto. Pierre no está. Y de pronto el café entero —las mesas, el humo, los meseros, la gente— se vuelve un fondo borroso para una sola cosa: que Pierre no está. Esa ausencia llena el café más que todos los que sí están. <em class="acot">(golpea la mesa)</em> Esa es la nada. No nadea sola en un claro del bosque. La traigo yo, cuando espero algo que no está. Sin nosotros, el mundo estaría lleno hasta el borde, sin un hueco. Somos nosotros los que le abrimos agujeros.</p>
+<p class="parl"><span class="quien">HEIDEGGER</span>Escribió usted un libro que se llama <em>El ser y la nada</em>. El título me suena.</p>
+<p class="parl"><span class="quien">SARTRE</span>Usted escribió <em>Ser y tiempo</em>. Yo le puse lo que le faltaba.</p>
+<p class="parl"><span class="quien">HEIDEGGER</span>Le puso un francés. <em class="acot">(pausa)</em> Y le dio la vuelta a una frase vieja. Dijo que la existencia va antes que la esencia, y creyó que así salía de la metafísica. Pero poner una palabra donde estaba la otra es seguir jugando en el mismo tablero con las piezas cambiadas de color.</p>
+<p class="parl"><span class="quien">SARTRE</span>Entonces dígame en qué nos separamos, y dígalo claro.</p>
+<p class="parl"><span class="quien">HEIDEGGER</span>En esto. <em class="acot">(a la silla vacía)</em> Él pone al hombre en el centro, como el dueño que lo inventa todo: los valores, el sentido, su propia esencia. Yo no. El hombre no es el amo del ser: es su <em>pastor</em>. No está aquí para fabricar el sentido a gritos, sino para escuchar, para cuidar, para dejar que las cosas se muestren como son. Los dos decimos que fuiste arrojado sin guía. Él dice: entonces, invéntate. Yo digo: entonces, despierta. <em class="acot">(a Sartre)</em> Algún día le escribiré una carta para explicárselo. Usted dirá que no la entendió.</p>
+<p class="parl"><span class="quien">SARTRE</span><em class="acot">(seco)</em> Un pastor espera. Yo no tengo tiempo de esperar: elijo. Escríbame la carta desde su bosque.</p>
+<p class="parl"><span class="quien">BEAUVOIR</span><em class="acot">(sin dejar de escribir, rápido, para la silla vacía)</em> Para que el de la silla no se pierda entre el bosque y el café. Los dos dicen que llegamos al mundo arrojados y sin guía. Heidegger dice que la tarea es despertar: dejar de vivir como vive la gente, mirar de frente la propia muerte y asombrarse de que haya algo. Sartre dice que la tarea es elegir: como nadie nos hizo con un plan, cada uno se inventa con lo que hace. Uno escucha; el otro fabrica. <em class="acot">(levanta la vista)</em> Y a los dos se les olvida lo mismo: la pregunta, la del bosque o la del café, siempre la hace alguien sentado a una mesa con otros. Anótelo usted también, Sartre, porque se le va a olvidar. Nadie se hace esta pregunta solo en el universo. Hasta el vivo de la silla se la hizo pensando en alguien.</p>
+<blockquote><em class="acot">(KIERKEGAARD, que ha estado vertiendo azúcar en su taza —una pequeña duna pálida, casi como la cera de la mesa—, levanta la vista. Ahoga el azúcar en café negro y remueve; la cucharilla tintinea en la cripta.)</em></blockquote>
+<p class="parl"><span class="quien">KIERKEGAARD</span><em class="acot">(irónico, suave)</em> Me llaman. Siempre me llaman cuando la razón se queda sin piso. Pero todavía no: estamos en la pregunta, no en lo que se hace con ella. <em class="acot">(bebe; hace una mueca dulcísima)</em> Solo diré esto, porque nadie lo ha dicho: esta pregunta no se piensa. Se <em>padece</em>. El que la piensa en abstracto no la ha sentido nunca. El que la sintió, tiembla. Y ese arco, créanme, lo sabe.</p>
+<h3 id="cuarto-duelo-nagarjuna-y-cioran">Cuarto duelo · Nāgārjuna y Cioran</h3>
+<h4>¿La nada pesa o libera?</h4>
+<blockquote><em class="acot">(Todos guardan silencio. Y entonces, muy despacio, NĀGĀRJUNA deja su taza de té; el vapor sube recto, indiferente a la corriente que tuerce a las velas. Sonríe.)</em></blockquote>
+<p class="parl"><span class="quien">NĀGĀRJUNA</span>Me invitaron desde muy lejos, así que hablaré poco. Y lo que diga los va a incomodar a todos por igual, que es la única cortesía que conozco. <em class="acot">(mira el arco, sin inquietud)</em> Dicen que una vez bajé al fondo del agua a recoger unos libros que el mundo todavía no merecía. Se los cuento para que sepan por qué ese hueco negro no me parece un abismo, sino una puerta por la que ya pasé. <em class="acot">(pausa)</em> Llevan toda la noche peleando por dos palabras: <em>ser</em> y <em>nada</em>. Y no se han dado cuenta de que las dos están huecas.</p>
+<p class="parl"><span class="quien">SARTRE</span><em class="acot">(molesto)</em> ¿Huecas?</p>
+<p class="parl"><span class="quien">NĀGĀRJUNA</span>Huecas. Miren. <em class="acot">(toma una vela de la mesa y, con ella, enciende otra apagada)</em> Esta llama nueva, ¿es la misma de la otra vela? <em class="acot">(pausa)</em> No es la misma. ¿Es otra distinta? Tampoco: sin la primera no estaría. <em class="acot">(deja las dos velas juntas)</em> Así es todo lo que existe. Nada está solo. Nada tiene adentro un pedazo macizo que sea suyo y de nadie más. Todo es <em>por</em> otra cosa, <em>con</em> otra cosa, <em>a partir de</em> otra cosa. Quiten las causas, quiten las condiciones, quiten al que mira, y no queda un ser escondido debajo. A eso le llamo vacío.</p>
+<p class="parl"><span class="quien">LEIBNIZ</span>Entonces usted le da la razón a la nada.</p>
+<p class="parl"><span class="quien">NĀGĀRJUNA</span>No, señor de la peluca. Esa es la trampa. <em class="acot">(señala el marco negro de la pared)</em> Miren ese cuadro sin pintura. Ustedes ven una falta, un agujero donde debería haber algo. Yo veo lo más tranquilo que hay en esta sala. Mi vacío no es el hueco que dejó el ser al caerse. Es que ni el ser ni la nada son sólidos. Su pregunta supone que uno de los dos tiene que ganar. Y ninguno gana, porque ninguno de los dos está ahí del modo en que ustedes lo quieren.</p>
+<p class="parl"><span class="quien">SCHOPENHAUER</span><em class="acot">(inclinando la cabeza, casi con reverencia)</em> Leí a los suyos todas las noches antes de dormir, cuarenta años, junto a este mismo perro. Y ni siquiera en su lengua: un latín traducido de un persa traducido del sánscrito. La verdad me llegó de tercera mano y deformada, y aun así la reconocí. Ha sido el consuelo de mi vida.</p>
+<p class="parl"><span class="quien">NĀGĀRJUNA</span><em class="acot">(con una sonrisa mínima)</em> Lo que usted leía cada noche era otra casa del mismo valle, doctor. Sus libros hablaban de un alma que permanece debajo de todo. Los míos pasaron la vida demostrando que no hay tal cosa. <em class="acot">(bebe té)</em> Pero sé reconocer a quien llegó a la puerta correcta por el lado equivocado. Con eso basta para una cena.</p>
+<p class="parl"><span class="quien">CIORAN</span><em class="acot">(desde la sombra)</em> Dos mil años de esfuerzo humano para venir a decirme que ni siquiera tengo la dignidad de ser algo. <em class="acot">(bebe)</em> Es la mejor noticia que me han dado en una mesa.</p>
+<p class="parl"><span class="quien">NĀGĀRJUNA</span><em class="acot">(volviéndose hacia el rincón)</em> No se alegre tan pronto.</p>
+<p class="parl"><span class="quien">CIORAN</span>Yo nunca me alegro pronto. Me alegro tarde, y a solas.</p>
+<p class="parl"><span class="quien">NĀGĀRJUNA</span>Usted ha hecho del vacío una opinión. Y los maestros dijeron que, para quien hace del vacío una opinión, no hay remedio.</p>
+<p class="parl"><span class="quien">CIORAN</span><em class="acot">(encantado, de verdad)</em> Por fin un diagnóstico. Sesenta años sin dormir y nadie me lo había dado. <em class="acot">(se inclina hacia la luz; por primera vez se le ve la cara entera)</em> Empecé a no dormir a los veinte años, en una ciudad pequeña de Rumanía. Caminaba toda la noche por calles vacías, mientras todos dormían. Y ahí entendí que la nada no es una idea de los libros. La nada es lo que queda cuando todos duermen menos tú.</p>
+<p class="parl"><span class="quien">NĀGĀRJUNA</span>Eso no es la nada. Es la soledad.</p>
+<p class="parl"><span class="quien">CIORAN</span>A esa hora, maestro, son la misma cosa. <em class="acot">(pausa)</em> Yo quise ser budista, ¿sabe? Leí a los suyos con envidia. Me faltó un detalle: renunciar al placer de sufrir.</p>
+<p class="parl"><span class="quien">NĀGĀRJUNA</span>No es un detalle.</p>
+<p class="parl"><span class="quien">CIORAN</span>Para mí es todo. <em class="acot">(señala con la copa la brizna de hierba que NĀGĀRJUNA hace girar entre los dedos)</em> ¿Y esa hierba que no suelta en toda la noche?</p>
+<p class="parl"><span class="quien">NĀGĀRJUNA</span>Cuentan que solo una brizna de hierba podía cortarme la cabeza, porque en otra vida, segando, maté sin querer a un insecto con una igual. Es una leyenda. <em class="acot">(sonríe)</em> Las leyendas son lo único verdadero que cuentan de mí.</p>
+<p class="parl"><span class="quien">CIORAN</span>Qué envidia. Usted sabe con qué se va a morir. Yo solo sé que va a ser tarde. <em class="acot">(bebe)</em> Uno siempre se mata demasiado tarde: por eso no vale la pena tomarse la molestia.</p>
+<p class="parl"><span class="quien">NĀGĀRJUNA</span>Dígale al de la silla, sin bromas, qué piensa usted. Una sola vez.</p>
+<p class="parl"><span class="quien">CIORAN</span><em class="acot">(deja la copa; por una vez, serio)</em> Que el error no es morir. El error es haber nacido. Antes de nacer no me faltaba nada; nací, y desde entonces todo me falta. Por eso la nada no me asusta: me da nostalgia. Y no hay remedio ni consuelo que valga. Solo queda verlo con toda claridad, y reírse un poco para aguantar. Esa es toda mi filosofía: lucidez sin consuelo.</p>
+<p class="parl"><span class="quien">NĀGĀRJUNA</span>Y la mía, para que la comparen. <em class="acot">(señala las dos velas juntas)</em> Nada existe por sí solo: todo depende de otra cosa, como esta llama de aquella. Por eso no hay un ser sólido al que aferrarse, ni una nada sólida que extrañar. Usted extraña la nada como quien extraña su casa. Yo le digo que esa casa tampoco existe. Cuando eso se ve, no queda tristeza: queda ligereza.</p>
+<p class="parl"><span class="quien">CIORAN</span>Me quita usted hasta la nostalgia.</p>
+<p class="parl"><span class="quien">NĀGĀRJUNA</span>Es lo más generoso que puedo hacer por usted. Me han dicho que soy sereno. En mi tiempo me llamaban el que no deja una opinión en pie. <em class="acot">(alza la taza hacia el rincón)</em> Usted me cae bien. Tiene muchas opiniones, y ninguna se tiene en pie.</p>
+<blockquote><em class="acot">(CIORAN alza la copa hacia él. Es el primer brindis de la noche que no lleva veneno.)</em></blockquote>
+<p class="parl"><span class="quien">LEIBNIZ</span><em class="acot">(débil ya, como retirándose; la manivela se hace más lenta)</em> Entonces mi pregunta se disuelve en el humo. La corrigen, le ponen límites, la declaran indecible, la padecen, la reducen a hambre, la llaman hueca. Nadie la responde. <em class="acot">(pausa)</em> Muy bien. Se la devuelvo así, sin respuesta. A ver qué hacen con ella cuando amanezca. Y a ver qué le enseñan al que espera en la silla.</p>
+<blockquote><em class="acot">(La manivela se detiene, y el tictac también. LEIBNIZ queda inmóvil, con las manos sobre el papel donde escribió el uno y el cero. Varias velas de la araña se apagan de golpe y la mesa queda a media luz. BEAUVOIR abre el cuaderno.)</em></blockquote>
+<p class="parl"><span class="quien">BEAUVOIR</span>Antes de pasar a otra pregunta, dejo el acta. <em class="acot">(se detiene; levanta la vista)</em> Aunque me pregunto por qué será que la que toma notas siempre es la mujer.</p>
+<p class="parl"><span class="quien">SARTRE</span>Porque usted escribe más rápido, Castor.</p>
+<p class="parl"><span class="quien">BEAUVOIR</span>Porque ustedes hablan más largo. <em class="acot">(vuelve al cuaderno)</em> La levanto yo, pero porque si la levanta usted, Sartre, sale usted de protagonista. <em class="acot">(lee, rápida, clara, sin adornos)</em> Doce maneras de recibir la pregunta, de dos en dos, como pidió el profesor.</p>
+<p>Leibniz: hay una razón, y esa razón es Dios, que eligió el mejor de los mundos posibles. Schopenhauer: no hay razón; hay hambre, y este es el peor mundo posible.</p>
+<p>Kant: es legítima, pero la razón no puede contestarla ni dejar de hacerla. Wittgenstein: ni siquiera es una pregunta, porque ninguna respuesta podría contestarla; solo queda asombrarse de que haya mundo, y callar.</p>
+<p>Heidegger: fuimos arrojados al mundo sin guía y vamos hacia la muerte; la pregunta no se contesta, se sostiene, como un martillo roto que por fin se ve. Sartre: el mundo está de sobra y el hombre no trae esencia; primero existe y después se hace, y la nada la traemos nosotros.</p>
+<p>Nāgārjuna: nada existe por sí solo; ni el ser ni la nada son sólidos, y la pregunta se disuelve con ellos. Cioran: el error fue nacer; la nada sí era mejor, y lo comprueba cada mañana.</p>
+<p>Kierkegaard: no se piensa; se padece. Camus: no importa; lo que importa es si vale la pena vivir.</p>
+<p>Nietzsche: no dijo nada. <em class="acot">(lo busca en la penumbra; él sigue caminando)</em> Anoto su silencio.</p>
+<p>Y yo: nadie se la hace solo. Esa la anoto dos veces.</p>
+<p><em class="acot">(cierra el cuaderno)</em> Doce maneras, y noten una cosa: cada uno eligió la pregunta que le quedaba cómoda. Y ninguna de las doce le dice al que espera en la silla qué hacer con ella mañana.</p>
+<blockquote><em class="acot">(CAMUS aplasta el cigarro, se pone de pie del todo, mira a todos y luego a la silla vacía.)</em></blockquote>
+<p class="parl"><span class="quien">CAMUS</span>Ahí está, entonces. La pregunta grande no tiene respuesta, o tiene doce, que es lo mismo. <em class="acot">(pausa)</em> Pero yo no los convoqué para eso. Ninguno de nosotros vive de metafísica. Vivimos de mañanas. Así que dejo sobre la mesa la única pregunta por la que vale la pena arder cada noche. <em class="acot">(pausa larga; el humo, la penumbra)</em> Sabiendo que nadie va a responder por qué estamos aquí, ¿qué demonios hacemos con estar aquí? ¿Qué hacemos con la angustia que queda cuando la pregunta se calla y nosotros seguimos despiertos, con las velas medio muertas y el vacío respirando en el arco?</p>
+<blockquote><em class="acot">(Oscuridad lenta. Se van apagando las velas una por una, hasta que solo queda el rojo del cigarro de Camus flotando en lo negro. Luego, ni eso.)</em></blockquote>
+<h4>Telón del primer acto</h4>
+<h3 id="sobremesa-i-la-ronda-del-amor">Sobremesa I · La ronda del amor</h3>
+<blockquote><em class="acot">(Entreacto. Las velas se reencienden a medias, sin ceremonia, como en una casa donde ya se terminó de cenar y nadie quiere levantarse. Nadie discute. Se oyen cubiertos, el raspar de una silla, la cucharilla de KIERKEGAARD. El arco respira despacio. Es el único momento de la noche en que parecen personas cenando, y no ideas.)</em></blockquote>
+<p class="parl"><span class="quien">BEAUVOIR</span><em class="acot">(mirando el plato intacto frente a SARTRE)</em> ¿No va a comer sus langostas, Sartre?</p>
+<p class="parl"><span class="quien">SARTRE</span><em class="acot">(sin mirar el plato)</em> Ni las voy a ver.</p>
+<p class="parl"><span class="quien">BEAUVOIR</span><em class="acot">(a la mesa)</em> Probó una droga en el año treinta y cinco, para un estudio sobre la imaginación. Desde entonces lo siguen. Langostas, cangrejos. Un año entero lo siguieron por la calle.</p>
+<p class="parl"><span class="quien">SARTRE</span>Iban detrás de mí, a la altura de la rodilla. Muy educadas. Nunca me alcanzaron.</p>
+<p class="parl"><span class="quien">CIORAN</span><em class="acot">(desde el rincón)</em> El filósofo de la libertad, perseguido por mariscos.</p>
+<p class="parl"><span class="quien">SARTRE</span>Libre de elegir no mirarlas.</p>
+<blockquote><em class="acot">(SCHOPENHAUER observa a KIERKEGAARD, que acaba de construir en su taza otra montaña de azúcar.)</em></blockquote>
+<p class="parl"><span class="quien">SCHOPENHAUER</span>¿Cuánta azúcar le pone a eso, joven?</p>
+<p class="parl"><span class="quien">KIERKEGAARD</span>La necesaria para hacer una montaña. Luego la ahogo en café negro, hasta que desaparece. <em class="acot">(remueve)</em> Así me gusta la vida: muy dulce, y ahogada.</p>
+<p class="parl"><span class="quien">KANT</span><em class="acot">(a WITTGENSTEIN, que no ha tocado su plato)</em> ¿No le gusta lo que le sirvieron?</p>
+<p class="parl"><span class="quien">WITTGENSTEIN</span>Me da igual lo que coma, mientras sea siempre lo mismo.</p>
+<p class="parl"><span class="quien">KANT</span><em class="acot">(aprobando, de verdad)</em> Por fin alguien razonable en esta mesa.</p>
+<blockquote><em class="acot">(BEAUVOIR cierra el cuaderno y lo deja sobre la mesa, cosa que no ha hecho en toda la noche.)</em></blockquote>
+<p class="parl"><span class="quien">BEAUVOIR</span>Hay algo que me intriga. Platón juntó a sus invitados a cenar y los puso a hablar del amor. Ustedes llevan un acto entero hablando de la nada. Me pregunto por qué.</p>
+<p class="parl"><span class="quien">CIORAN</span>Porque de la nada sabemos más.</p>
+<p class="parl"><span class="quien">CAMUS</span><em class="acot">(divertido, apagando el cigarro)</em> Entonces respetemos la costumbre de la casa. Una ronda. Cada quien dice, en una frase, a quién amó. Nada de teorías.</p>
+<p class="parl"><span class="quien">KANT</span>Eso no estaba en el programa.</p>
+<p class="parl"><span class="quien">CAMUS</span>Nada de esta noche estaba en el programa, profesor. Empiece usted, Leibniz, que está en la cabecera.</p>
+<p class="parl"><span class="quien">LEIBNIZ</span><em class="acot">(tras un silencio largo)</em> A los cincuenta años pensé en casarme. La dama me pidió tiempo para pensarlo. <em class="acot">(pausa)</em> Eso me dio tiempo a mí para pensarlo también.</p>
+<blockquote><em class="acot">(Risa general. LEIBNIZ, por una vez, se ríe con ellos.)</em></blockquote>
+<p class="parl"><span class="quien">KANT</span><em class="acot">(casi sonríe)</em> A mí me pasó dos veces. Pesé tanto los pros y los contras que una se casó con otro y la otra se fue de la ciudad. La razón, ya lo dije, tiene límites.</p>
+<p class="parl"><span class="quien">SCHOPENHAUER</span>Casarse es cortar a la mitad tus derechos y duplicar tus deberes. <em class="acot">(acaricia al perro)</em> Yo amé a este. No me ha decepcionado nunca.</p>
+<p class="parl"><span class="quien">BEAUVOIR</span>Usted escribió un ensayo entero sobre las mujeres, doctor. Lo leí. No tiene una sola idea. Tiene un pleito con su madre.</p>
+<p class="parl"><span class="quien">SCHOPENHAUER</span>Mi madre escribía novelas, y se vendían. Cuando salió mi primer libro me dijo que la edición entera se iba a quedar en la bodega. Le contesté que a mí me iban a leer cuando de los suyos no quedara ni uno en las librerías de viejo. <em class="acot">(pausa)</em> Acerté. Por desgracia, el apellido es el mismo.</p>
+<p class="parl"><span class="quien">KIERKEGAARD</span><em class="acot">(remueve el café, sin levantar la vista)</em> Yo me comprometí con una muchacha de dieciocho años. Regine. Y rompí el compromiso, a propósito, de la manera más fea que pude, para que me odiara y quedara libre de mí. <em class="acot">(pausa)</em> Después escribí veinte libros para explicarle por qué.</p>
+<p class="parl"><span class="quien">BEAUVOIR</span>¿Y alguna vez le preguntó a ella si quería ser libre de usted?</p>
+<p class="parl"><span class="quien">KIERKEGAARD</span><em class="acot">(tras un silencio)</em> No. Eso habría sido demasiado fácil.</p>
+<p class="parl"><span class="quien">NIETZSCHE</span><em class="acot">(desde la sombra, sin dejar de caminar)</em> Yo le pedí matrimonio a una mujer dos veces. La primera, a través de un amigo. La segunda, en persona. Las dos me dijo que no. <em class="acot">(pausa)</em> Ahí tienen al filósofo del martillo.</p>
+<p class="parl"><span class="quien">BEAUVOIR</span>Y luego escribió: «¿Vas con mujeres? No olvides el látigo».</p>
+<p class="parl"><span class="quien">NIETZSCHE</span>Lo dice una vieja en mi libro. No yo.</p>
+<p class="parl"><span class="quien">BEAUVOIR</span>En la única foto que se conserva de ustedes tres, el látigo lo tiene ella. Y la foto la preparó usted.</p>
+<blockquote><em class="acot">(NIETZSCHE se detiene un instante. No contesta. Sigue caminando.)</em></blockquote>
+<p class="parl"><span class="quien">CAMUS</span><em class="acot">(a SARTRE y BEAUVOIR)</em> Ahora ustedes. Y no se defiendan, que aquí todos nos confesamos.</p>
+<p class="parl"><span class="quien">SARTRE</span><em class="acot">(encantado de contarlo)</em> Nosotros firmamos un contrato. En octubre del veintinueve, sentados en un banco de piedra junto al Louvre. Dos años, renovables. Un amor necesario, el nuestro, y los demás, contingentes. Y la regla de no mentirnos nunca: contarnos todo.</p>
+<p class="parl"><span class="quien">BEAUVOIR</span>Lo renovamos cincuenta años. <em class="acot">(sin mirarlo)</em> Y nos contamos todo.</p>
+<p class="parl"><span class="quien">SARTRE</span>Todo.</p>
+<p class="parl"><span class="quien">BEAUVOIR</span>Casi todo. <em class="acot">(pausa)</em> Los contingentes los pagamos los dos. No por igual.</p>
+<p class="parl"><span class="quien">CIORAN</span>Cincuenta años juntos, y se hablan de usted.</p>
+<p class="parl"><span class="quien">BEAUVOIR</span>Precisamente por eso duramos cincuenta años.</p>
+<p class="parl"><span class="quien">CAMUS</span>¿Nunca se casaron?</p>
+<p class="parl"><span class="quien">SARTRE</span>Nunca. Ni vivimos bajo el mismo techo. Cada uno su cuarto de hotel, su departamento, su mesa en el café. Escribíamos en la misma mesa, eso sí, cada quien su página.</p>
+<p class="parl"><span class="quien">BEAUVOIR</span>Y yo leía todas las suyas antes que nadie. Le tachaba la mitad.</p>
+<p class="parl"><span class="quien">SARTRE</span>La mitad mala. <em class="acot">(a la mesa)</em> En las cartas le escribía «mi encantador Castor».</p>
+<p class="parl"><span class="quien">BEAUVOIR</span>Y yo le escribía «mi querido pequeño ser».</p>
+<p class="parl"><span class="quien">CAMUS</span><em class="acot">(divertido)</em> ¿Pequeño ser?</p>
+<p class="parl"><span class="quien">BEAUVOIR</span>Era la única manera de bajarlo de la estatua.</p>
+<p class="parl"><span class="quien">CAMUS</span><em class="acot">(riendo; ya le toca)</em> Yo me casé dos veces y no supe serle fiel a ninguna. <em class="acot">(enciende otro cigarro)</em> Fiel, de verdad, solo fui al mar. Y a mi madre.</p>
+<blockquote><em class="acot">(HEIDEGGER no dice nada. Todos esperan. El silencio se alarga.)</em></blockquote>
+<p class="parl"><span class="quien">HEIDEGGER</span>Hay cosas que no pertenecen a la mesa.</p>
+<p class="parl"><span class="quien">BEAUVOIR</span><em class="acot">(abriendo el cuaderno, sin mirarlo)</em> Anoto: Heidegger, una alumna.</p>
+<blockquote><em class="acot">(HEIDEGGER aparta la vista hacia el arco. WITTGENSTEIN siente que lo miran.)</em></blockquote>
+<p class="parl"><span class="quien">WITTGENSTEIN</span>De eso no hablo.</p>
+<p class="parl"><span class="quien">CIORAN</span>Por fin cumple su libro. <em class="acot">(bebe)</em> Yo viví cincuenta años con la misma mujer y no nos casamos nunca. Es lo único que he hecho con constancia en la vida, además de no dormir.</p>
+<p class="parl"><span class="quien">NĀGĀRJUNA</span><em class="acot">(con la brizna entre los dedos)</em> Yo amé, durante muchas vidas, a alguien que creía que era yo. Fue el amor más largo, y el más falso.</p>
+<blockquote><em class="acot">(Silencio. BEAUVOIR repasa sus notas, cuenta con la pluma y lee.)</em></blockquote>
+<p class="parl"><span class="quien">BEAUVOIR</span>Anoto: de doce que somos, diez no se casaron nunca. Y los dos que se casaron… <em class="acot">(mira a CAMUS y a HEIDEGGER; ninguno le sostiene la mirada)</em> mejor no lo anoto.</p>
+<p class="parl"><span class="quien">CIORAN</span>Y luego se preguntan por qué la filosofía es tan triste.</p>
+<p class="parl"><span class="quien">KANT</span>Por eso en mi casa no se hablaba de esto en la mesa.</p>
+<blockquote><em class="acot">(Risa larga, de todos, por primera y única vez en la noche. Hasta HEIDEGGER, en el borde de la luz, baja la cabeza para que no se le vea la boca. Luego, una a una, las velas vuelven a crecer, y la risa se apaga como se apagan las risas: sin que nadie decida cuándo.)</em></blockquote>
+</section>
+<section class="part" id="acto-ii-que-hacemos-con-la-angustia"><h2 class="part-title">Acto II — ¿Qué hacemos con la angustia?</h2>
+<blockquote><em class="acot">(La misma cripta. Las velas arden más bajas ahora, más gastadas; la cera ha corrido más. El humo se ha espesado. La risa de la sobremesa ya no está en ninguna parte. La pregunta de Camus cuelga en el aire frío. KIERKEGAARD deja su taza con un golpecito nítido que resuena en la bóveda.)</em></blockquote>
+<p class="parl"><span class="quien">KIERKEGAARD</span>Ahora sí me llaman de verdad, Camus. <em class="acot">(se pone de pie, frágil, teatral; la vela más cercana le alarga la sombra en la pared)</em> La angustia. Al fin nombran lo único real de toda la noche. Pero óiganme bien, porque la van a confundir con el miedo, y no es el miedo. El miedo le teme a algo: al perro que muerde, al examen, a la muerte concreta. La angustia no le teme a <em>nada</em>, y por eso es peor. Es el mareo de estar parado al borde de un precipicio y descubrir que lo que te marea no es la caída. Es que <em>podrías</em> saltar. Que nadie, afuera, decide por ti. Ese vértigo no viene del abismo de abajo. Viene de tu propia libertad.</p>
+<p class="parl"><span class="quien">SARTRE</span><em class="acot">(rápido, encendiéndose)</em> En eso estamos de acuerdo, danés, y es raro. Siga.</p>
+<p class="parl"><span class="quien">KIERKEGAARD</span>No va a estar de acuerdo en lo que sigue. <em class="acot">(pausa)</em> ¿Qué se hace con ese vértigo? La razón no te salva: ya vimos en el primer acto que se queda muda. Entonces uno salta. El salto de la fe. Te arrojas a lo que no se puede probar, y descansas en el poder que te puso aquí. Como Abraham, subiendo el monte con su hijo, dispuesto a lo impensable, sin argumentos, sin garantías, contra toda razón. Y justo por eso, creyendo. <em class="acot">(se vuelve hacia KANT)</em> Y usted, profesor, lo dejó escrito: tuvo que quitarle espacio al saber para hacerle lugar a la fe.</p>
+<p class="parl"><span class="quien">KANT</span>Hacerle <em>lugar</em>, joven. Lugar para esperar y para obrar bien. No para esconderse. <em class="acot">(pausa)</em> Si me hubiera tocado subir ese monte con Abraham, le habría dicho a la voz que le ordenaba matar a su hijo: que no debo matar a mi hijo, eso es seguro. Que tú seas Dios, eso no lo es.</p>
+<p class="parl"><span class="quien">KIERKEGAARD</span>Ahí está nuestra diferencia, profesor. Usted le pide credenciales a la voz. Yo, cuando la razón me deja sin piso y la angustia me tiene colgado del vértigo, no pido credenciales: me refugio. Me refugio en la fe porque es el único lugar donde mi angustia tiene a quién dirigirse. <em class="acot">(pausa)</em> Usted abrió la puerta. Yo entré, y cerré con llave.</p>
+<blockquote><em class="acot">(SARTRE se echa a la boca dos pastillas del bolsillo del saco y las baja con un trago de café frío.)</em></blockquote>
+<p class="parl"><span class="quien">BEAUVOIR</span><em class="acot">(sin levantar la vista)</em> Sartre, deje esas pastillas.</p>
+<p class="parl"><span class="quien">SARTRE</span>Con estas pastillas escribí un libro de setecientas páginas.</p>
+<p class="parl"><span class="quien">BEAUVOIR</span>Y nadie ha terminado de leerlas.</p>
+<blockquote><em class="acot">(SARTRE se levanta de golpe, la pipa apagada en la mano; la silla raspa la piedra. Lleva años sin dormir del todo y se le nota en las manos.)</em></blockquote>
+<p class="parl"><span class="quien">SARTRE</span><em class="acot">(a Kierkegaard)</em> ¡Y ahí es donde hace trampa! <em class="acot">(casi con afecto furioso)</em> Usted describe la libertad mejor que nadie: el vértigo, el que nadie decida por ti, todo eso es exacto. ¡Y en el último segundo le entrega el volante a un Dios que no ha contestado nunca! Salta para dejar de cargar con la angustia. Eso no es valentía. Es la huida más elegante que se ha inventado. <em class="acot">(camina entre las velas; su sombra se agiganta en la bóveda)</em> La angustia no es un problema que se resuelva con un salto. Es la señal de que por fin estás frente a tu libertad en vez de esconderte de ella. Y casi todos se esconden. <em class="acot">(se detiene)</em> Miren al mesero perfecto de cualquier café: se mueve, se inclina, sirve, como si <em>fuera</em> mesero, como una piedra es piedra. Para no tener que cargar con que a cada segundo <em>elige</em> serlo. Eso es la mala fe: volverse cosa para no ser libre. Su salto, danés, es lo mismo, pero con incienso.</p>
+<p class="parl"><span class="quien">WITTGENSTEIN</span><em class="acot">(sin soltarse la cabeza de las manos)</em> Sartre, usted trata la fe como una hipótesis mal comprobada y le exige pruebas. Pero el que cree así no cree una hipótesis. Cree una manera de vivir. Y a una manera de vivir no se le piden pruebas: se la mira, y se ve si sostiene. <em class="acot">(pausa)</em> Yo leí a este hombre con una veneración que casi no le di a nadie. No me parece que huya. Me parece que se apuesta la vida entera a algo que no puede decir.</p>
+<p class="parl"><span class="quien">KIERKEGAARD</span><em class="acot">(sin ofenderse; se mira un instante las perneras desiguales del pantalón)</em> Una ciudad entera se rió de mí por la calle, hombre de café. Un periódico me dibujaba cada semana con estos pantalones, uno más corto que el otro, y los niños me gritaban por la calle el título de mi propio libro. <em class="acot">(suave)</em> A mí no me hable de huidas elegantes. ¿Y su respuesta cuál es?</p>
+<p class="parl"><span class="quien">SARTRE</span>Comprometerse. No hay un sentido esperándote en ningún lado: ni arriba con Dios, ni en el hambre del perro del doctor, ni en ese marco negro de la pared. El sentido no se encuentra: se <em>fabrica</em>. Eligiendo, actuando, y haciéndote cargo de todo lo que cuelga de lo que elegiste. Estamos condenados a ser libres. Condenados, sí, porque no pedimos esta libertad y no la podemos devolver. Y cada vez que eliges, no eliges solo por ti: le propones al mundo entero una imagen de lo que un hombre debería ser. Esa es la carga. No hay salto que te la quite.</p>
+<p class="parl"><span class="quien">KANT</span><em class="acot">(levantando apenas la mano)</em> Perdón. «Le propones al mundo entero una imagen de lo que un hombre debería ser.» Eso lo escribí yo, con otras palabras: obra solo de una manera que puedas querer como ley para todos.</p>
+<p class="parl"><span class="quien">SARTRE</span><em class="acot">(sin ironía, casi con respeto)</em> Con una diferencia, profesor. Su ley llegaba de arriba, ya redactada, y a usted le bastaba obedecerla. La mía la redacto yo, esta noche, sin copia y sin red. Por eso pesa más.</p>
+<p class="parl"><span class="quien">KANT</span><em class="acot">(tras pensarlo)</em> Pesa distinto. No sé si más.</p>
+<blockquote><em class="acot">(LEIBNIZ, que no ha dicho una palabra desde que se detuvo su manivela, se aclara la garganta. Todos se vuelven, sorprendidos.)</em></blockquote>
+<p class="parl"><span class="quien">LEIBNIZ</span>Señores, si me permiten. Quizá su fe, señor Kierkegaard, y su compromiso, señor Sartre, sean el mismo reloj visto desde dos lados. Uno pone la razón del mundo arriba; el otro, adentro. Pero los dos dicen que hay que <em>decidir</em>.</p>
+<p class="parl"><span class="quien">KIERKEGAARD y SARTRE</span><em class="acot">(a la vez)</em> No.</p>
+<p class="parl"><span class="quien">LEIBNIZ</span><em class="acot">(a Beauvoir, sin desanimarse)</em> Anote usted, señora: es la primera vez en la noche que estos dos se ponen de acuerdo.</p>
+<p class="parl"><span class="quien">BEAUVOIR</span>Ya lo anoté.</p>
+<blockquote><em class="acot">(NĀGĀRJUNA, que ha escuchado todo el cruce sin mover la taza, habla sin levantar la voz.)</em></blockquote>
+<p class="parl"><span class="quien">NĀGĀRJUNA</span>Señor Sartre. Usted dice «yo elijo». ¿Quién elige?</p>
+<p class="parl"><span class="quien">SARTRE</span>Yo.</p>
+<p class="parl"><span class="quien">NĀGĀRJUNA</span>Búsquelo. ¿Dónde está ese yo?</p>
+<p class="parl"><span class="quien">SARTRE</span><em class="acot">(se detiene; piensa; se sienta)</em> No está adentro. Lo escribí hace mucho: el yo no vive dentro de la conciencia, como un inquilino. Está afuera, en el mundo, como el de cualquier otro. Lo voy haciendo con lo que hago.</p>
+<p class="parl"><span class="quien">NĀGĀRJUNA</span><em class="acot">(sonríe)</em> Entonces ya va a medio camino. <em class="acot">(bebe té)</em> Me temo que no va a llegar.</p>
+<blockquote><em class="acot">(BEAUVOIR cierra el cuaderno. Habla con precisión de bisturí, y las velas parecen aquietarse para oírla.)</em></blockquote>
+<p class="parl"><span class="quien">BEAUVOIR</span>Casi, Sartre. Pero se queda a mitad de camino, como siempre. <em class="acot">(SARTRE voltea)</em> Habla usted de la libertad como si cada uno fuera una isla que se inventa desde cero. «Elígete, hazte, propón tu imagen.» Muy bien. ¿Y los demás? <em class="acot">(se pone de pie, como quien lleva horas sentada y lo agradece)</em> Yo no soy libre en el vacío. Soy libre <em>entre</em> libertades. Mi libertad tropieza con la suya en cada gesto, y la suya con la mía. Una libertad que solo se afirma a sí misma y pisa a las demás no es libertad: es capricho. Es tiranía con buena prensa. <em class="acot">(pausa)</em> Después de la muerte de todos los mandamientos, la única ética que queda es esta: soy libre, y precisamente por eso soy responsable de que los otros también lo sean. Nadie se salva solo. <em class="acot">(mira la silla vacía)</em> Y ese que espera en la silla tampoco se va a salvar solo. Recuérdenlo cuando le hablen.</p>
+<p class="parl"><span class="quien">SARTRE</span><em class="acot">(a regañadientes, con un afecto que no controla)</em> Castor.</p>
+<p class="parl"><span class="quien">BEAUVOIR</span><em class="acot">(sin devolverle la mirada, escribiendo)</em> No me diga Castor cuando acaba de perder.</p>
+<p class="parl"><span class="quien">KANT</span><em class="acot">(golpeando suavemente la mesa con los nudillos)</em> Señores: de uno en uno. Esto ya parece mercado.</p>
+<blockquote><em class="acot">(HEIDEGGER habla sin moverse, y su voz baja la temperatura. La corriente del arco arrecia y tres velas se doblan casi hasta apagarse.)</em></blockquote>
+<p class="parl"><span class="quien">HEIDEGGER</span>Siguen tratando la angustia como una molestia que hay que administrar. «¿Qué hago con ella?» Esa pregunta ya es huida. Es la voz de <em>la gente</em>: «así se hace», «así se piensa», «así se vive». Ese nadie sin cara en el que todos nos disolvemos para no tener que existir de verdad. <em class="acot">(pausa)</em> La angustia no viene a estorbarte. Viene a <em>separarte</em> de la gente. Te arranca de la plática y te deja solo frente a tu propia vida: finita, tuya, intransferible hasta la muerte. <em class="acot">(mira la naturaleza muerta de la pared: la calavera, el reloj de arena)</em> Ese cuadro dice más que todos nosotros. La arena cae. Nadie puede morirse tu muerte por ti. La angustia no es una alarma que apagar. Es una llamada. Te llama de vuelta a ti mismo.</p>
+<blockquote><em class="acot">(Un frío breve. Las llamas se inclinan. BEAUVOIR lo mira con algo que no es simpatía. SARTRE aprieta la mandíbula. CIORAN, en su sombra, suelta una risita.)</em></blockquote>
+<p class="parl"><span class="quien">CIORAN</span><em class="acot">(bajito, desde el rincón)</em> Bonito, el arraigo. La tierra, el pueblo, el destino propio del que existe de cara a su fin. Ya vimos a dónde llevó eso a algunos cuando bajaron de la montaña con antorchas. <em class="acot">(bebe)</em> Perdón. Es tarde, o es siempre, y no duermo.</p>
+<blockquote><em class="acot">(HEIDEGGER no responde. Pero por primera vez en toda la noche se vuelve del todo hacia el rincón oscuro y lo mira. No con rabia: con reconocimiento. El silencio se alarga más de lo que nadie en esta mesa soporta. Las llamas, por una vez, no se mueven.)</em></blockquote>
+<p class="parl"><span class="quien">HEIDEGGER</span><em class="acot">(muy quedo, sin reproche, casi con lástima)</em> Bucarest. Mil novecientos treinta y seis.</p>
+<blockquote><em class="acot">(CIORAN no contesta. Baja la copa sin beber. Se hunde en su sombra, y por primera vez en toda la noche no tiene una línea. BEAUVOIR levanta la vista del cuaderno, mira a uno y al otro, y no escribe nada. Nadie acude a rescatar a nadie.)</em></blockquote>
+<p class="parl"><span class="quien">CIORAN</span><em class="acot">(al cabo de mucho, mirando su copa, sin el filo de antes)</em> Escribí un libro a los veinticinco años. Un libro joven, entusiasta, con antorchas. <em class="acot">(pausa)</em> Llevo la vida entera quitándole páginas en cada edición, y me cambié de idioma para que no me alcanzara. <em class="acot">(bebe, por fin)</em> Es más fácil borrar un libro que borrar al que lo escribió. Por eso no duermo. Y por eso, señores, yo no le paso la cuenta a nadie en esta mesa: las debo todas. <em class="acot">(alza la mirada hacia el borde de la luz)</em> Pero hay quien no ha pagado ninguna, y se sienta aparte para no verlo. Friburgo. Mil novecientos treinta y tres.</p>
+<blockquote><em class="acot">(HEIDEGGER no contesta. No hay ahí un reproche que pueda devolver ni una disculpa que quiera dar. Se cierra y se retira al borde de la luz, y nadie lo detiene. Aquí no hubo vencedor, y tampoco simetría: la cuenta de uno no borra la del otro. El silencio es insoportable. SCHOPENHAUER lo rompe; toma la flauta y la gira entre los dedos.)</em></blockquote>
+<p class="parl"><span class="quien">SCHOPENHAUER</span>Todos ustedes creen que la solución es <em>más</em>. Más compromiso, más salto, más existencia auténtica. <em class="acot">(niega con la cabeza)</em> Es el hambre hablando por sus bocas. La angustia es la Voluntad sintiéndose a sí misma, y ustedes quieren curarla con más Voluntad. Es como apagar un incendio con gasolina. O estas velas con más fuego.</p>
+<p class="parl"><span class="quien">SARTRE</span>¿Y usted qué propone? ¿Dormirse?</p>
+<p class="parl"><span class="quien">SCHOPENHAUER</span>Casi. Querer <em>menos</em>. Aquietar el hambre. Y hay tres puertas para eso, las tres hacia el mismo lado. <em class="acot">(levanta un dedo)</em> La primera, la música. Cuando escuchas música de verdad, por un rato dejas de desear. Ya no quieres nada: solo oyes. Y en ese rato eres libre. <em class="acot">(otro dedo)</em> La segunda, la compasión. Cuando ves que la misma hambre que te duele a ti le duele al perro, al mendigo, a tu enemigo, dejas de empujar contra ellos. <em class="acot">(otro)</em> La tercera, la más difícil: la renuncia. Dejar de alimentar el querer hasta que se apague solo, como una vela sin cera.</p>
+<p class="parl"><span class="quien">NĀGĀRJUNA</span>Se parece a lo que nosotros llamamos liberación. No es igual. Pero se parece.</p>
+<blockquote><em class="acot">(Desde la penumbra, sin dejar de caminar, NIETZSCHE habla por primera vez en este acto. Lo hace a propósito de Schopenhauer, sin mirarlo.)</em></blockquote>
+<p class="parl"><span class="quien">NIETZSCHE</span><em class="acot">(mirando de reojo la flauta)</em> Y después de comer, la flauta. Una hora diaria. Siempre Rossini. <em class="acot">(sigue caminando)</em> Ese hombre fue mi educador. Lo encontré a los veintiún años en una librería de viejo de Leipzig, y en dos semanas no pude dormir ni soltarlo. Me cambió la vida. Lo que no le perdoné nunca no fue el pesimismo. Fue que, después de negarlo todo, se sentara a tocar.</p>
+<p class="parl"><span class="quien">SCHOPENHAUER</span><em class="acot">(sin voltearse, la mano cerrada sobre la flauta)</em> Toco porque mientras toco no quiero nada, muchacho. Una hora al día sin querer nada. <em class="acot">(pausa)</em> Usted, que compone y a quien le dijeron en la cara que su música era mala, debería ser el único de esta mesa que me entiende.</p>
+<blockquote><em class="acot">(NIETZSCHE no contesta. Es la única vez en toda la noche que no se queda con la última palabra. Vuelve a la sombra.)</em></blockquote>
+<p class="parl"><span class="quien">WITTGENSTEIN</span><em class="acot">(desde el candelabro más pobre)</em> Doctor, esa hora sin querer nada la conozco. Usted la llamó contemplación. Yo la llamé ver el mundo desde fuera, entero, como un todo, sin querer nada de él. A eso le dije lo místico. <em class="acot">(pausa)</em> Le debo más de lo que confesé. Que el que mira no es una pieza del mundo, sino su borde, eso lo aprendí de usted.</p>
+<p class="parl"><span class="quien">SCHOPENHAUER</span><em class="acot">(con una sequedad que casi es afecto)</em> Se nota. Pero usted llegó al borde y se calló. Yo le puse nombre: Voluntad.</p>
+<p class="parl"><span class="quien">WITTGENSTEIN</span>Por eso me callé.</p>
+<h3 id="quinto-duelo-kierkegaard-y-nietzsche">Quinto duelo · Kierkegaard y Nietzsche</h3>
+<h4>¿Dios?</h4>
+<blockquote><em class="acot">(KIERKEGAARD no ha dejado de mirar hacia la sombra por donde camina NIETZSCHE. Habla hacia ella, sin levantarse.)</em></blockquote>
+<p class="parl"><span class="quien">KIERKEGAARD</span>Usted. El que camina. Siéntese un momento.</p>
+<p class="parl"><span class="quien">NIETZSCHE</span><em class="acot">(sin detenerse)</em> No sé pensar sentado. Un francés escribió que solo se puede pensar y escribir sentado. Es el pecado contra el Espíritu Santo. Solo valen los pensamientos que se caminan.</p>
+<p class="parl"><span class="quien">KIERKEGAARD</span>Yo también caminaba. Toda Copenhague, todos los días, hablando con cualquiera que me cruzara. <em class="acot">(pausa)</em> Pero no para huir de Dios. Usted escribió que Dios ha muerto.</p>
+<p class="parl"><span class="quien">NIETZSCHE</span><em class="acot">(se detiene, por fin, en el borde de la luz)</em> Lo escribí en boca de un loco. Uno que enciende una linterna a plena luz de la mañana y corre al mercado gritando: «¿Dónde está Dios? Yo se los voy a decir: lo hemos matado. Ustedes y yo.» <em class="acot">(pausa)</em> Y la gente del mercado se rió de él.</p>
+<p class="parl"><span class="quien">KIERKEGAARD</span>Se rió.</p>
+<p class="parl"><span class="quien">NIETZSCHE</span>Y el loco tiró la linterna al suelo y la rompió. «Llegué demasiado pronto», dijo. «Todavía no es mi tiempo.»</p>
+<p class="parl"><span class="quien">KIERKEGAARD</span><em class="acot">(con una sonrisa triste)</em> A mí me pasó lo mismo, al revés. Escribí que en un teatro se incendió el escenario, y salió el payaso a avisarle al público. Creyeron que era parte de la función y aplaudieron. Volvió a avisar, más fuerte, y aplaudieron más. <em class="acot">(pausa)</em> Así se va a acabar el mundo: entre los aplausos de la gente que cree que es un chiste.</p>
+<p class="parl"><span class="quien">NIETZSCHE</span>Usted también avisaba de un incendio.</p>
+<p class="parl"><span class="quien">KIERKEGAARD</span>Yo avisaba que Dios estaba vivo y que nadie lo tomaba en serio. Usted avisa que está muerto. No sé cuál de los dos asustó más.</p>
+<p class="parl"><span class="quien">NIETZSCHE</span>Ninguno. Los dos hicimos reír. <em class="acot">(pausa)</em> Me hablaron de usted, ¿sabe? Un danés, en mil ochocientos ochenta y ocho. Me escribió que tenía que leerlo. Le contesté que lo haría. Ya no me alcanzó el tiempo.</p>
+<p class="parl"><span class="quien">KIERKEGAARD</span>A mí no me alcanzó para que me leyeran.</p>
+<p class="parl"><span class="quien">NIETZSCHE</span><em class="acot">(acercándose a la mesa, por primera vez)</em> Usted saltó. Cuando la razón se le acabó, se echó en brazos de Dios.</p>
+<p class="parl"><span class="quien">KIERKEGAARD</span>¿Y usted? Cuando se le murió Dios, ¿a dónde saltó?</p>
+<p class="parl"><span class="quien">NIETZSCHE</span>A ninguna parte. Me quedé en el suelo. Y aprendí a bailar en él.</p>
+<p class="parl"><span class="quien">KIERKEGAARD</span>Entonces digámosle al de la silla, cada uno, lo que de verdad pensamos. <em class="acot">(a la silla vacía)</em> Hay tres maneras de vivir. La del que vive para el placer, saltando de una emoción a otra, hasta que termina aburrido y desesperado. La del que vive para el deber: se casa, trabaja, cumple, y aun así siente que algo le falta. Y la del que se planta solo frente a Dios, sin pruebas y sin multitud, y salta. La verdad que importa no es la que se demuestra: es aquella por la que uno está dispuesto a vivir y a morir. Para mí, esa verdad es Dios. Y a ella no se llega pensando. Se llega saltando.</p>
+<p class="parl"><span class="quien">NIETZSCHE</span><em class="acot">(a la silla vacía)</em> Y yo te digo lo contrario. Dios ha muerto: ya no hay nada allá arriba que le dé sentido a lo de aquí abajo. Ni premio, ni castigo, ni otro mundo mejor que este. Eso no es una tragedia: es una tarea. Si nadie nos da los valores, tenemos que crearlos nosotros. Y el único criterio que me queda es este: lo que hago, ¿le dice sí a la vida o le dice no? Todo lo que la hace más grande, más fuerte, más alegre, vale. Todo lo que la empequeñece, aunque se llame virtud, no.</p>
+<p class="parl"><span class="quien">KIERKEGAARD</span>Bailar, dice usted. <em class="acot">(lo mira: la mano sobre los ojos, la palidez)</em> ¿Con esos dolores de cabeza?</p>
+<p class="parl"><span class="quien">NIETZSCHE</span><em class="acot">(es la primera vez en la noche que algo le duele de verdad, y no lo esconde)</em> Con ellos. <em class="acot">(pausa)</em> El resto se lo digo en el último acto, danés. No lo voy a gastar aquí.</p>
+<blockquote><em class="acot">(Vuelve a la sombra. KIERKEGAARD lo sigue con la mirada, y por una vez no tiene ninguna ironía preparada.)</em></blockquote>
+<blockquote><em class="acot">(CAMUS, que ha escuchado todo fumando, se pone de pie por fin; su sombra cae sobre la mesa.)</em></blockquote>
+<p class="parl"><span class="quien">CAMUS</span>Aquí me bajo del tren de todos ustedes. <em class="acot">(a Schopenhauer)</em> Doctor, querer menos hasta apagarse me suena a rendirse con buenos modales. <em class="acot">(a Kierkegaard)</em> Saltar a la fe me suena a cerrar los ojos en plena tormenta. <em class="acot">(a Sartre y Beauvoir)</em> Y comprometerse está bien, pero ustedes lo llenan de tanta responsabilidad que se les olvida vivir. <em class="acot">(camina entre las velas)</em> Pero antes de decir qué propongo, tengo que separar dos palabras que esta noche se han revuelto: angustia y absurdo.</p>
+<p class="parl"><span class="quien">SARTRE</span>Sepárelas, pues.</p>
+<p class="parl"><span class="quien">CAMUS</span>La angustia, la del danés y la suya, pasa <em>adentro</em>. Me descubro libre y no sé qué hacer con tanta libertad. Y entonces hago lo que hace todo el mundo cuando se angustia: le pregunto al mundo para qué. <em class="acot">(se detiene y señala el arco con el cigarro)</em> Y el mundo, ese que respira allá afuera, no contesta. No dice que no. No dice nada. Ese silencio frente a mi pregunta es el absurdo. No es un sentimiento que se cure. Es un hecho que se descubre, como se descubre una pared en la oscuridad. <em class="acot">(pausa)</em> Tres escalones: primero el mareo de ser libre; luego la pregunta que le lanzo al mundo; luego el silencio con que el mundo me responde. Y en ese tercer escalón cada uno de ustedes eligió una puerta para escapar.</p>
+<p class="parl"><span class="quien">WITTGENSTEIN</span><em class="acot">(sin levantar la cara de las manos)</em> Un consejo de quien subió una escalera parecida, Camus: al llegar arriba, se tira.</p>
+<p class="parl"><span class="quien">CAMUS</span>Yo no tiro nada. Me quedo en el escalón, con el silencio enfrente. Y propongo lo más simple y lo más difícil: no resolver el absurdo. Mantenerlo vivo. Despierto. El absurdo no está en el mundo ni está en mí: está en el choque entre los dos. Entre mi hambre de sentido y el silencio del universo. Si mato mi hambre, como el doctor, se acaba el choque. Si me invento un sentido, como el danés, se acaba el choque. En los dos casos hago trampa. La dignidad está en sostener las dos cosas a la vez: seguir preguntando, aunque sepa que no hay respuesta. Seguir queriendo, frente a un cosmos que no quiere nada.</p>
+<p class="parl"><span class="quien">SARTRE</span><em class="acot">(a la mesa, no a él)</em> ¿Y eso cómo se vive, en concreto? Porque suena bonito y no dice nada.</p>
+<p class="parl"><span class="quien">BEAUVOIR</span><em class="acot">(sin levantar la pluma)</em> Llevan dos actos discutiendo por encima de esta mesa y ninguno de los dos ha mirado al otro ni una sola vez. <em class="acot">(anota)</em> Lo dejo escrito, porque es lo único de esta noche que se parece de verdad a la vida.</p>
+<p class="parl"><span class="quien">CAMUS</span><em class="acot">(una media sonrisa; y por fin, por primera vez en la noche, se vuelve hacia SARTRE)</em> Piense en un hombre condenado a empujar una piedra enorme montaña arriba, para verla rodar de vuelta, y volver a empujarla, para siempre. El castigo perfecto: un trabajo inútil y sin esperanza. <em class="acot">(pausa)</em> Pues yo digo que hay que imaginarlo feliz. No porque la piedra desaparezca: no desaparece nunca. Sino porque, en el momento en que baja la montaña a buscar otra vez su piedra, ese hombre <em>sabe</em>. Sabe que la piedra es suya, que el destino es suyo, que ningún dios lo condenó, porque no hay dios. Y esa lucidez, que debería aplastarlo, lo corona. La piedra sigue rodando. Pero él baja la montaña, y en la bajada es libre.</p>
+<p class="parl"><span class="quien">SARTRE</span><em class="acot">(tras un silencio, sin hostilidad)</em> Bien dicho, Camus. Siempre lo dijo usted mejor que yo. Por eso nunca le perdoné que tuviera razón a medias.</p>
+<h3 id="sexto-duelo-camus-y-beauvoir">Sexto duelo · Camus y Beauvoir</h3>
+<h4>¿Uno se rebela solo?</h4>
+<p class="parl"><span class="quien">BEAUVOIR</span>Su Sísifo está solo, Camus.</p>
+<p class="parl"><span class="quien">CAMUS</span><em class="acot">(divertido)</em> Ya sabía que venía de usted.</p>
+<p class="parl"><span class="quien">BEAUVOIR</span>Hay una montaña, una piedra y un hombre. ¿Dónde están los otros? ¿Quién le lleva agua? ¿Quién empuja otra piedra en la montaña de al lado? <em class="acot">(pausa)</em> Yo he subido montes enteros sola, ocho, diez horas, con un pan y una naranja en la bolsa, sin mapa, sin cruzarme con un alma. Y aun ahí iba discutiendo con alguien. Nunca estuve sola, ni en la cima.</p>
+<p class="parl"><span class="quien">CAMUS</span>Ese Sísifo lo escribí antes de cumplir treinta, en plena guerra, cuando uno se siente solo aunque no lo esté. <em class="acot">(apaga el cigarro, despacio)</em> Después escribí otra frase, y esa la firmo todavía: <em>me rebelo, luego somos</em>. El esclavo que un día dice «no», no lo dice nada más por él. Lo dice por todos los esclavos. La rebelión empieza en uno, y termina en todos.</p>
+<p class="parl"><span class="quien">BEAUVOIR</span><em class="acot">(lo mira, sorprendida a su pesar)</em> Eso ya se parece a lo mío.</p>
+<p class="parl"><span class="quien">CAMUS</span>No se lo diga a Sartre.</p>
+<p class="parl"><span class="quien">SARTRE</span><em class="acot">(sin voltear)</em> Ya lo oí.</p>
+<p class="parl"><span class="quien">CAMUS</span><em class="acot">(sonríe; a la mesa)</em> Yo fui portero de futbol, en Argel, antes de que la tuberculosis me sacara de la cancha. Y todo lo que sé con certeza sobre la moral y los deberes de los hombres se lo debo al futbol. <em class="acot">(pausa)</em> En la portería aprendí que el balón nunca llega por donde uno lo espera. Y que el portero está solo, sí, más solo que nadie en la cancha. Pero si los otros diez no corren, no hay portero que alcance.</p>
+<p class="parl"><span class="quien">BEAUVOIR</span>Es lo más sensato que le he oído en dos actos.</p>
+<p class="parl"><span class="quien">SCHOPENHAUER</span><em class="acot">(desde su plato, sin levantar la vista)</em> Los hombres son como puercoespines en invierno. Se juntan para no morirse de frío, se pinchan con las púas, se separan, vuelven a tener frío, se vuelven a juntar. Hasta que encuentran la distancia justa: ni tan cerca que se lastimen, ni tan lejos que se congelen. <em class="acot">(come)</em> A esa distancia la llaman cortesía.</p>
+<p class="parl"><span class="quien">BEAUVOIR</span>Usted la llama cortesía, doctor. Yo la llamo ética.</p>
+<p class="parl"><span class="quien">CAMUS</span>Entonces díganos su ética entera, Simone. La suya, no la de Sartre.</p>
+<p class="parl"><span class="quien">BEAUVOIR</span><em class="acot">(a la silla vacía)</em> Sartre dijo que el hombre primero existe y después se hace. Yo lo apliqué donde a él no se le ocurrió: no se nace mujer, se llega a serlo. Nadie nace con un destino escrito; nos lo van poniendo encima, y por eso se puede cambiar. <em class="acot">(pausa)</em> Mi postura es esta: somos ambiguos. Libres, y al mismo tiempo atados a un cuerpo, a una época, a lo que otros hicieron de nosotros. Eso no es un defecto que corregir: es la condición humana. Y como mi libertad solo existe entre otras libertades, querer ser libre de verdad es querer que los demás también lo sean. El sentido no baja del cielo ni sale de la roca: se construye entre personas.</p>
+<p class="parl"><span class="quien">CAMUS</span><em class="acot">(a la silla vacía)</em> Y la mía, para que no se quede en una piedra: el mundo no tiene sentido, y yo no dejo de pedírselo. Ese choque es el absurdo. No lo resuelvo saltando a la fe ni quitándome de en medio: lo sostengo despierto, y me rebelo. Y mi rebelión, al final, nunca es solo mía. <em class="acot">(a Beauvoir, ya en otro tono, con una galantería que no le funciona)</em> Usted nunca me tuvo simpatía, Simone.</p>
+<p class="parl"><span class="quien">BEAUVOIR</span>Le tuve simpatía. Lo que no le tuve fue paciencia. <em class="acot">(abre el cuaderno)</em> Y lo metí en una novela.</p>
+<p class="parl"><span class="quien">CAMUS</span>Lo sé. Me hizo más guapo de lo que soy.</p>
+<p class="parl"><span class="quien">BEAUVOIR</span>No. Lo hice exactamente igual de guapo. Lo que le cambié fue la razón.</p>
+<blockquote><em class="acot">(CAMUS ríe, de verdad, echando la cabeza atrás. Es la risa de alguien que ha vivido al sol, y en la cripta suena extraña, como una ventana abierta.)</em></blockquote>
+<p class="parl"><span class="quien">CIORAN</span><em class="acot">(desde el rincón, alzando la copa; la sombra se la traga a medias)</em> Precioso. Sísifo feliz, el esclavo que dice no, los puercoespines. Yo, en la bajada, me sentaría a un lado del camino y dejaría que la piedra me pasara por encima. <em class="acot">(bebe)</em> Ustedes se esfuerzan demasiado. Empujar la piedra, saltar al cielo, comprometerse con la humanidad, apagar el hambre. Cuánta actividad. <em class="acot">(pausa)</em> La verdad es más humilde y más terrible: no hay nada que <em>hacer</em> con la angustia. Hacer ya es demasiado optimismo. La angustia se habita, como se habita un cuarto sin muebles, o esta cripta sin ventanas. Con lucidez, y con humor negro, que es la cortesía del desesperado. <em class="acot">(los mira)</em> ¿Saben cuál es mi gran hazaña filosófica? Que esta mañana, otra vez, no me maté. Y mañana probablemente tampoco. Ese «todavía no», repetido cada día, sin razón, sin fe, sin proyecto, esa terquedad absurda de seguir, es la única respuesta honesta que tengo. No la recomiendo. Solo la practico.</p>
+<p class="parl"><span class="quien">WITTGENSTEIN</span><em class="acot">(sin levantar la cabeza)</em> La solución del problema de la vida se nota en que el problema desaparece. Los que la encontraron no supieron decir en qué consistía.</p>
+<p class="parl"><span class="quien">CIORAN</span>Yo la encontré una vez, creo. Se me cayó esa misma mañana.</p>
+<blockquote><em class="acot">(Silencio. El humo cuelga en la bóveda. Todos se han pronunciado. Todos menos uno. NIETZSCHE, que ha caminado toda la escena por los bordes oscuros, la mano sobre los ojos, se detiene junto al piano cubierto de cera. Pulsa dos teclas, muy suave. El sonido queda vibrando entre las piedras, y una vela lejana se apaga con la vibración.)</em></blockquote>
+<p class="parl"><span class="quien">CAMUS</span><em class="acot">(mirando a Nietzsche)</em> Falta uno. El que ha hablado poco, y siempre para herir.</p>
+<p class="parl"><span class="quien">NIETZSCHE</span><em class="acot">(sin voltear todavía)</em> He estado escuchando. Es lo que hace la sombra: escucha, y espera a que se apaguen las voces fuertes. Y las velas. <em class="acot">(pausa)</em> Déjenme el último acto. Lo que tengo que decir no es una respuesta más al lado de las suyas. Es otra cosa. Y va, sobre todo, para el que espera en la silla.</p>
+<blockquote><em class="acot">(Oscuridad. La nota del piano se apaga lentamente en lo negro, y con ella, todas las velas.)</em></blockquote>
+<h4>Telón del segundo acto</h4>
+<h3 id="sobremesa-ii-la-ronda-de-las-ultimas-palabras">Sobremesa II · La ronda de las últimas palabras</h3>
+<blockquote><em class="acot">(Entreacto. Oscuridad casi completa. Solo arden las velas que están más cerca de cada plato, una por comensal, como si a cada uno le hubieran dejado la suya. El tictac de la máquina de Leibniz ha vuelto, muy lento. Nadie se levanta. NIETZSCHE sigue de pie junto al piano, de espaldas.)</em></blockquote>
+<p class="parl"><span class="quien">CAMUS</span>Antes del último acto, una ronda más. <em class="acot">(enciende un cigarro con su vela)</em> No de lo que pensamos. De cómo nos fuimos. Una frase cada uno.</p>
+<p class="parl"><span class="quien">KANT</span>Primero el amor, ahora la muerte. Mi regla no sobrevive a esta noche.</p>
+<p class="parl"><span class="quien">CAMUS</span>Ninguna regla sobrevive a esta noche, profesor. Señor Leibniz.</p>
+<p class="parl"><span class="quien">LEIBNIZ</span>A mi entierro fue mi secretario. Nadie más.</p>
+<p class="parl"><span class="quien">SARTRE</span>Al mío fueron cincuenta mil personas.</p>
+<p class="parl"><span class="quien">SCHOPENHAUER</span>Y ninguno lo había leído entero.</p>
+<blockquote><em class="acot">(SARTRE abre la boca para contestar, y la cierra. BEAUVOIR sonríe sin levantar la vista.)</em></blockquote>
+<p class="parl"><span class="quien">KANT</span>A mí me dieron un poco de vino con agua. Lo probé y dije: «Está bien». <em class="acot">(pausa)</em> Fue lo último que dije. Me pareció suficiente.</p>
+<p class="parl"><span class="quien">SCHOPENHAUER</span>A mí me encontró la criada por la mañana, sentado en el sofá. Ni para morirme me acosté.</p>
+<p class="parl"><span class="quien">KIERKEGAARD</span>Yo me desplomé en la calle, a los cuarenta y dos años, con el último dinero de mi padre gastado. En el hospital no quise que un pastor me diera la comunión. La quería de un laico, de un hombre cualquiera. <em class="acot">(pausa)</em> No me la dieron.</p>
+<p class="parl"><span class="quien">WITTGENSTEIN</span>Yo le dije a la mujer que me cuidaba: «Díganles que he tenido una vida maravillosa».</p>
+<p class="parl"><span class="quien">CIORAN</span><em class="acot">(de verdad sorprendido)</em> ¿Maravillosa? ¿Usted?</p>
+<p class="parl"><span class="quien">WITTGENSTEIN</span>Lo dije. No dije que la hubiera entendido.</p>
+<p class="parl"><span class="quien">CAMUS</span><em class="acot">(se palpa el abrigo, saca un boleto de tren sin usar, lo mira)</em> Yo tenía este boleto para volver a París en tren. Un amigo me convenció de irme con él en coche, que era más rápido. <em class="acot">(lo guarda)</em> Lo traigo todavía. No sé para qué.</p>
+<p class="parl"><span class="quien">HEIDEGGER</span>Me enterraron en el pueblo donde nací, junto a la iglesia donde mi padre tocaba las campanas. <em class="acot">(pausa)</em> Volví al lugar del que nunca me fui.</p>
+<p class="parl"><span class="quien">BEAUVOIR</span>A mí me enterraron junto a él. <em class="acot">(a SARTRE, con la voz más baja que ha tenido en toda la noche)</em> Escribí que su muerte nos separaba. Que la mía no nos iba a reunir. Y que ya era bastante hermoso que nuestras vidas hubieran estado de acuerdo tanto tiempo.</p>
+<p class="parl"><span class="quien">SARTRE</span><em class="acot">(sin ninguna ironía; la pipa quieta en la mano)</em> Castor.</p>
+<p class="parl"><span class="quien">BEAUVOIR</span>Esta vez sí puede decírmelo.</p>
+<p class="parl"><span class="quien">CIORAN</span>Yo, que viví de la lucidez, me fui sin memoria. Al final ya no sabía quién era Cioran. <em class="acot">(bebe)</em> Fueron mis mejores años.</p>
+<p class="parl"><span class="quien">NĀGĀRJUNA</span><em class="acot">(hace girar la brizna de hierba)</em> Un príncipe necesitaba mi cabeza más que yo. Se la di. Con una brizna como esta.</p>
+<p class="parl"><span class="quien">CAMUS</span><em class="acot">(hacia el piano)</em> ¿Nietzsche?</p>
+<blockquote><em class="acot">(NIETZSCHE no contesta. No se vuelve. Su mano descansa sobre la tapa del piano.)</em></blockquote>
+<p class="parl"><span class="quien">BEAUVOIR</span><em class="acot">(anota)</em> Anoto su silencio. Otra vez.</p>
+<p class="parl"><span class="quien">LEIBNIZ</span><em class="acot">(muy quedo, con la manivela quieta)</em> Doce maneras de irse. Y ninguna explica por qué vinimos.</p>
+<blockquote><em class="acot">(Las velas de los platos se apagan una por una, empezando por la de Leibniz y terminando por la de Camus. Al final solo queda, junto al piano, el candelabro de tres cirios.)</em></blockquote>
+</section>
+<section class="part" id="acto-iii-el-cierre-de-nietzsche"><h2 class="part-title">Acto III — El cierre de Nietzsche</h2>
+<blockquote><em class="acot">(La cripta, casi a oscuras. Solo unas pocas velas sobreviven, muy bajas, ahogándose en su propia cera. El arco del fondo respira más hondo que nunca. Los demás están en penumbra, atentos, quietos; incluso CIORAN ha dejado de reír. El candelabro de tres cirios arde junto al piano, y su luz cae sobre NIETZSCHE, de pie. Antes de que empiece, CAMUS pide, con la mano, una última ronda de voces.)</em></blockquote>
+<p class="parl"><span class="quien">CAMUS</span>Antes de que hable usted, Nietzsche, que cada quien diga en una sola frase qué <em>hace</em> con la pregunta. No qué piensa de ella: qué hace. Y que se la diga a la silla vacía, para que se la lleve el que está sentado ahí. De dos en dos, como pidió el profesor.</p>
+<blockquote><em class="acot">(Cada uno responde hacia la silla vacía.)</em></blockquote>
+<p class="parl"><span class="quien">LEIBNIZ</span><em class="acot">(sin la manivela, apenas)</em> Yo sigo creyendo que hay una razón, y que Dios la tiene. Que no me la hayan dejado ver no prueba que no exista.</p>
+<p class="parl"><span class="quien">SCHOPENHAUER</span><em class="acot">(acariciando al perro, cuyos ojos brillan en lo oscuro)</em> Yo apaciguo el hambre: música, compasión, renuncia. Todo lo demás es la rueda del querer girando en el vacío.</p>
+<p class="parl"><span class="quien">KANT</span>Yo sé hasta dónde llega mi razón, y ahí me detengo. De lo que no puedo saber, no finjo saber. De lo que debo hacer, no me eximo. Y lo que me toca esperar, lo espero sin pedirle pruebas al cielo.</p>
+<p class="parl"><span class="quien">WITTGENSTEIN</span>Del mundo no se puede decir nada; que exista, eso se muestra. Yo me callo. <em class="acot">(se cubre la cara)</em> Y como no sé hacerlo del todo, me tapo la cara.</p>
+<p class="parl"><span class="quien">HEIDEGGER</span>Fui arrojado aquí sin guía, y voy hacia mi muerte. No contesto la pregunta: la sostengo. La angustia me saca de la gente y me pone frente a esa muerte, que nadie puede vivir por mí. Desde ahí, y solo desde ahí, me asombro de que haya algo. Eso es todo lo que sé hacer. Y es un oficio.</p>
+<p class="parl"><span class="quien">SARTRE</span>Nadie me hizo con un plan: yo me hago. Elijo, y cargo con todo lo que cuelga de lo que elegí. Sin coartadas. <em class="acot">(de reojo, a Kierkegaard y a Schopenhauer)</em> Ni el cielo ni el hambre me firman permisos.</p>
+<p class="parl"><span class="quien">NĀGĀRJUNA</span><em class="acot">(deja la taza y hace girar entre los dedos la brizna de hierba de su leyenda)</em> Yo suelto la pregunta. Y suelto también al «yo» que la hace. <em class="acot">(a la mesa)</em> Y en ese doble soltar, curiosamente, ninguno de ustedes ha sido más libre que yo esta noche.</p>
+<p class="parl"><span class="quien">CIORAN</span><em class="acot">(alza la copa desde la sombra y mira a HEIDEGGER)</em> Yo no me maté hoy, y no le pasé la cuenta a nadie. Es todo lo que tengo. Es más de lo que parece.</p>
+<p class="parl"><span class="quien">KIERKEGAARD</span><em class="acot">(quedo)</em> Yo salto, y me refugio en la fe. <em class="acot">(a los demás)</em> Sé que ustedes lo llaman trampa. Prefiero la trampa que me sostiene a la lucidez que me deja colgando.</p>
+<p class="parl"><span class="quien">BEAUVOIR</span><em class="acot">(a SARTRE, con ternura y sin concesiones)</em> Yo elijo <em>con</em> los otros, Sartre, o no es libertad: es abuso. <em class="acot">(a la silla vacía)</em> Y nadie en esta mesa se hizo la pregunta solo. Tú tampoco.</p>
+<p class="parl"><span class="quien">CAMUS</span><em class="acot">(último; se toca el bolsillo del abrigo, donde está el boleto)</em> Yo no resuelvo el absurdo: lo mantengo vivo. Me rebelo, que es decir que no estoy solo. Y bajo la montaña despierto. <em class="acot">(a Nietzsche)</em> Ahora usted. Cierra la noche.</p>
+<blockquote><em class="acot">(NIETZSCHE se aparta del piano. Camina hacia el centro, hacia el candelabro de tres cirios, que ahora es casi la única luz. Se quita la mano de los ojos —la migraña cede, o él la vence— y por primera vez los mira a todos, uno por uno. Y al final, largamente, mira la silla vacía.)</em></blockquote>
+<p class="parl"><span class="quien">NIETZSCHE</span>Los escuché toda la noche. Y los quiero a casi todos, incluso a los que se equivocan con elegancia. <em class="acot">(pasa junto a Kant)</em> Hasta a mi chino de Königsberg. <em class="acot">(KANT no se inmuta: conoce el apodo y lo considera inexacto; nunca estuvo en China.)</em> Pero ninguno terminó la frase. <em class="acot">(pausa)</em> Todos siguen preguntando qué <em>hacer</em> con la angustia, como si fuera un huésped molesto al que hay que sacar de la casa. <em class="acot">(los señala de dos en dos, como estuvieron sentados toda la noche)</em> El señor Leibniz la explica, y el doctor la padece. El profesor le pone límites, y el austriaco la calla. El del bosque la sostiene, y el del café la vuelve tarea. El maestro la suelta, y el rumano se sienta con ella en lo oscuro, que es casi sabiduría. El danés la despide por la puerta del cielo. La señora la reparte entre todos, que ya es mucho. Y Camus la mantiene despierta y la mira a los ojos, que es lo más valiente que he visto esta noche. <em class="acot">(pausa larga)</em> Yo les propongo lo que a ninguno se le ocurrió, porque es lo más difícil que existe: <em>amarla</em>. Amarlo todo. Sin quitarle una coma.</p>
+<p class="parl"><span class="quien">SARTRE</span><em class="acot">(bajo)</em> Amar <em>qué</em>.</p>
+<p class="parl"><span class="quien">NIETZSCHE</span>El destino, Sartre. Lo que fue, lo que es, lo que será. <em>Amor fati</em>: amor al destino. <em class="acot">(a todos)</em> Y cuidado, porque lo van a confundir con lo que más desprecio: la resignación. El esclavo que aguanta lo que no puede cambiar y le pone encima el nombre de «virtud», de «paciencia», de «humildad». Eso no. <em class="acot">(niega con fuerza; la llama del cirio se estremece)</em> Amar el destino no es aguantar con buena cara. Es <em>querer</em> que haya sido así. Al punto de que, si pudieran rebobinar el universo entero y cambiar una sola cosa —el peor día, la pérdida, la traición, la noche en que quisieron no haber nacido—, <em>no la cambiarían</em>. No porque fuera buena. Sino porque es un hilo del tejido que ustedes son, y arrancarlo sería arrancarse.</p>
+<blockquote><em class="acot">(Camina. Los demás lo siguen con la mirada. Su sombra se mueve entre los cuadros.)</em></blockquote>
+<p class="parl"><span class="quien">NIETZSCHE</span>Déjenme partir el problema en dos manos, porque ahí está toda la sabiduría que traigo. <em class="acot">(levanta una mano hacia la luz)</em> Esta mano es el futuro. Lo que todavía está abierto, lo que depende de cómo pasen sus horas. Eso se <em>cambia</em>. Y tengo una piedra de toque para saber qué cambiar. <em class="acot">(pausa)</em> Imaginen que un demonio se les mete en la noche más solitaria —una noche como esta, de velas moribundas— y les dice: esta vida que vives, la vas a vivir otra vez, y otra, infinitas veces. Cada dolor, cada aburrimiento, cada angustia de no saber qué hacer con tus días, idénticos, para siempre. ¿Se tirarían al suelo maldiciendo al demonio? ¿O le dirían: nunca oí nada más divino? <em class="acot">(baja la voz)</em> Eso no es una profecía. Es una balanza. Vivan de tal manera que puedan querer la repetición. Todo lo que hacen por inercia, por miedo, por quedar bien, para matar el rato —todo lo que no firmarían para la eternidad— sobra. El eterno retorno no les dice <em>qué</em> hacer. Les da un filtro brutal para reconocer lo que no.</p>
+<p class="parl"><span class="quien">BEAUVOIR</span><em class="acot">(con cuidado)</em> ¿Y la otra mano?</p>
+<p class="parl"><span class="quien">NIETZSCHE</span><em class="acot">(levanta la otra)</em> Esta mano es lo cerrado, señora. El pasado. Y aquí está lo que ninguno se atrevió a decir en toda la noche. Hay cosas que no querrían repetir y que ya pasaron, y no las pueden tocar. El pasado está sellado, como la cera de esta mesa. Y sobre eso —no sobre el futuro— pesa la prueba más dura del amor al destino. Porque el demonio también pregunta por lo que ya fue. <em class="acot">(pausa)</em> Si su única respuesta al pasado que les dolió es <em>ojalá no hubiera pasado</em> —si viven queriendo corregir lo que no se deja corregir—, entonces le están diciendo No a su propia vida. Y ese No, sostenido en el tiempo, tiene un nombre, el que más desprecio: <em>resentimiento</em>. La guerra perpetua contra un hecho consumado. Una cadena que amarra al herido con el que lo hirió, para siempre, en un forcejeo que el otro muchas veces ni siquiera recuerda.</p>
+<p class="parl"><span class="quien">SCHOPENHAUER</span><em class="acot">(sombrío)</em> Entonces predica usted el perdón. Como el danés del azúcar.</p>
+<p class="parl"><span class="quien">NIETZSCHE</span>No, doctor. El perdón sigue mirando al otro. Yo predico algo más egoísta y más limpio. <em class="acot">(se toca el pecho)</em> La energía que gastan deseando que el pasado hubiera sido distinto es <em>exactamente</em> la misma que necesitan para construir el futuro que sí querrían repetir. Es un solo depósito. Como la cera: cada gota que se quema llorando lo que fue es una gota que no alumbrará lo que viene. Uno no suelta el pasado por bondad. Lo suelta porque necesita ese combustible para lo que sigue. No es que primero sanen y después construyan. Sueltan <em>para</em> construir. Y muchas veces es construir lo que termina de soltarlos.</p>
+<blockquote><em class="acot">(Pausa. NĀGĀRJUNA sonríe apenas, reconociendo algo en la penumbra.)</em></blockquote>
+<p class="parl"><span class="quien">NĀGĀRJUNA</span><em class="acot">(muy quedo)</em> Soltar. Al menos en una palabra coincidimos, occidental ardiente.</p>
+<p class="parl"><span class="quien">NIETZSCHE</span><em class="acot">(devolviéndole una inclinación)</em> En una palabra, maestro. En lo demás, usted suelta hasta el «yo», y yo lo forjo. Ahí nos separamos. <em class="acot">(a todos, otra vez)</em> Y una última trampa, la más fina, para que el de la silla no se vaya con un consuelo barato. Amar el destino no es decir «todo pasó por una razón». <em class="acot">(de reojo, a Kierkegaard)</em> Esa frase, la de los que necesitan creer que alguien acomodó su dolor para su bien, es el salto del danés otra vez, disfrazado de sabiduría de sobremesa.</p>
+<p class="parl"><span class="quien">KIERKEGAARD</span><em class="acot">(sin levantarse, sin ironía)</em> La vida se entiende hacia atrás, Nietzsche. Pero se vive hacia adelante. Lo escribí antes que usted.</p>
+<p class="parl"><span class="quien">NIETZSCHE</span>Lo escribió. <em class="acot">(pausa)</em> No lo vivió: se refugió. <em class="acot">(a todos)</em> Esa frase vuelve a meter de contrabando un guion, un autor, un sentido escondido que estaba ahí desde antes, esperándolos. No. Nada pasó <em>por</em> una razón. No había nadie acomodándolo para que ustedes crecieran. Pasó, sin más, sin propósito, gratis como todo lo que existe. ¿No abrimos la noche con eso, con que no hay razón suficiente? <em class="acot">(a Leibniz, con una reverencia que no es burla)</em> Perdóneme, señor. <em class="acot">(a todos)</em> El sentido no estaba en el pasado esperándolos. Lo ponen <em>ustedes</em>, ahora, hacia atrás. Son el autor que le pone sentido a lo que le pasó, no el lector que descubre el que ya venía escrito. <em>Esa</em> es la diferencia entre el consuelo y la fuerza. Y por eso pesa.</p>
+<blockquote><em class="acot">(Se detiene en el centro. Los tres cirios del candelabro son ya casi lo único que arde. Se vuelve hacia la silla vacía al pie de la mesa. Desde aquí, y solo con ella, habla de tú.)</em></blockquote>
+<p class="parl"><span class="quien">NIETZSCHE</span><em class="acot">(a la silla vacía)</em> Y ahora bajo la pregunta de las alturas al único lugar donde importa. Empezamos la noche preguntando por qué hay algo y no nada. Terminamos aquí, y no es una caída: es el camino entero, bien hecho. La pregunta grande no tenía respuesta, y esa es su respuesta. El universo no te dio un porqué. <em class="acot">(pausa)</em> Entonces tú le das un cómo. <em class="acot">(mira la silla, y más allá de ella, la oscuridad de la sala)</em> Pero no en grande. No en una resolución épica de medianoche que se evapora con el café de la mañana. El eterno retorno no se juega en la cumbre de una gran decisión. Se juega en la textura de un martes cualquiera. En la llamada que no haces por miedo. En la hora que regalas a algo que no elegirías. En el «sí» que dices por cobardía cuando querías decir «no». La vida que querrías repetir está hecha, sobre todo, de días que ninguna película filmaría. <em class="acot">(pausa; mira de reojo a KANT)</em> El viejo de Königsberg se murió diciendo «está bien», con un trago de vino con agua, y no se dio cuenta de que era lo más sabio que se dijo en esta mesa.</p>
+<blockquote><em class="acot">(Toma aire. Última vuelta de tuerca, casi con ternura feroz, hablando ya directamente hacia la silla vacía, hacia el vivo, hacia el lector, hacia la oscuridad.)</em></blockquote>
+<p class="parl"><span class="quien">NIETZSCHE</span><em class="acot">(a la silla vacía)</em> Así que te devuelvo el demonio, a ti, que nos llamaste sin saberlo y escuchas desde el otro lado. Piensa en el día de ayer. No el mejor. No el peor. Uno cualquiera, con sus horas grises. Si tuvieras que vivirlo otra vez, idéntico, infinitas veces, ¿dirías que sí? <em class="acot">(pausa larga; el silencio de la cripta)</em> Y si la respuesta te raspa la garganta, no le eches la culpa a la doctrina. Pregúntate qué te está pidiendo cambiar en cómo pasas las horas. Porque esa es la única pregunta que sí depende de ti. La nada no te dio un porqué. Tú le vas a dar un cómo. Mañana. Por la mañana. En lo pequeño. Empezando por un solo acto que sí firmarías para siempre. <em class="acot">(susurro)</em> Uno solo. Con ese basta para empezar. Y quizá, si empiezas, este salón por fin pueda apagarse en paz.</p>
+<blockquote><em class="acot">(Silencio. NIETZSCHE da media vuelta hacia el piano.)</em></blockquote>
+<p class="parl"><span class="quien">CIORAN</span><em class="acot">(desde la sombra, sin filo, casi con cuidado)</em> ¿Y usted?</p>
+<blockquote><em class="acot">(NIETZSCHE se detiene.)</em></blockquote>
+<p class="parl"><span class="quien">CIORAN</span>Su vida, Nietzsche. Idéntica. Infinitas veces. Las jaquecas, los cuartos de pensión, la mujer que le dijo que no dos veces, los libros que no leyó nadie. <em class="acot">(pausa)</em> El austriaco dijo que la suya había sido maravillosa. ¿Usted diría que sí?</p>
+<blockquote><em class="acot">(NIETZSCHE abre la boca. No sale nada. Se lleva la mano a los ojos —la migraña, o no la migraña—. Por primera vez en toda la noche, el hombre que no podía estarse quieto no se mueve. En el rincón, CIORAN baja la copa despacio y no remata. Nadie completa la frase por él. Y nadie, en esta mesa de doce, se atreve a llamar a eso una derrota.)</em></blockquote>
+<blockquote><em class="acot">(NIETZSCHE vuelve al piano. Pulsa un acorde, entero esta vez, que llena la cripta hasta la bóveda invisible. Y con el acorde, en lugar de apagarse, todas las velas de la sala se encienden de golpe, altísimas, doradas: un último derroche de luz. Se ve, por fin, la mesa entera. CAMUS enciende un último cigarro y sonríe. KIERKEGAARD remueve su café dulcísimo. SARTRE y BEAUVOIR se miran, y por una vez ninguno de los dos escribe ni habla. HEIDEGGER contempla el arco. NĀGĀRJUNA cierra los ojos. KANT aparta por fin los ojos de la torre y mira el arco. WITTGENSTEIN baja las manos. LEIBNIZ apoya la mano en la manivela. Y SCHOPENHAUER, sin decir palabra, se levanta, camina hasta el pie de la mesa y deja su moneda de oro junto al plato de la silla vacía: esta noche, por fin, se habló de algo. Luego vuelve a su sitio, se lleva la flauta a los labios, y no sopla. CIORAN, en su rincón, alza hacia la silla vacía su copa, todavía llena.)</em></blockquote>
+<blockquote><em class="acot">(Entonces, en el arco del fondo, en el espacio negro e infinito que respiró toda la noche, por primera vez, se enciende una sola estrella. Sobre la mesa, la manivela de Leibniz da un solo tic y se detiene. Nadie sabe si es una respuesta o un reflejo. En la pared, el marco negro —el retrato de la Nada— ya no parece tan vacío.)</em></blockquote>
+<blockquote><em class="acot">(Todas las velas se apagan de un soplo. Oscuridad. Solo la estrella, un instante más. Y luego, ni eso.)</em></blockquote>
+<h4>Telón</h4>
+</section>
+<section class="part" id="notas-para-quien-quiera-saber-mas"><h2 class="part-title">Notas — Para quien quiera saber más</h2>
+<p>Esta obra es una ficción: estos doce nunca se sentaron a la misma mesa, y los diálogos son inventados. Lo que no es inventado son las ideas. Cada postura sale de la obra de su autor, dicha con palabras sencillas, y muchas de las costumbres de la mesa —la flauta, el azúcar, la moneda, los mariscos, el boleto de tren— están documentadas. Esta página es para quien quiera separar lo uno de lo otro, o seguir leyendo.</p>
+<h3 id="las-seis-parejas">Las seis parejas</h3>
+<div class="tabla"><div class="tabla-scroll"><table><thead><tr><th>Duelo</th><th>Pareja</th><th>La pregunta</th><th>Para seguir leyendo</th></tr></thead><tbody><tr><td>I</td><td>Leibniz y Schopenhauer</td><td>¿El mejor o el peor de los mundos posibles?</td><td><em>Principios de la naturaleza y de la gracia</em> · <em>El mundo como voluntad y representación</em></td></tr><tr><td>II</td><td>Kant y Wittgenstein</td><td>¿Dónde se acaba lo que se puede pensar?</td><td><em>Crítica de la razón pura</em> · <em>Tractatus logico-philosophicus</em></td></tr><tr><td>III</td><td>Heidegger y Sartre</td><td>¿Quién entendió la nada?</td><td><em>Ser y tiempo</em> · <em>El existencialismo es un humanismo</em></td></tr><tr><td>IV</td><td>Nāgārjuna y Cioran</td><td>¿La nada pesa o libera?</td><td><em>Fundamentos de la vía media</em> · <em>Del inconveniente de haber nacido</em></td></tr><tr><td>V</td><td>Kierkegaard y Nietzsche</td><td>¿Dios?</td><td><em>Temor y temblor</em> · <em>La gaya ciencia</em></td></tr><tr><td>VI</td><td>Camus y Beauvoir</td><td>¿Uno se rebela solo?</td><td><em>El mito de Sísifo</em> · <em>Para una moral de la ambigüedad</em></td></tr></tbody></table></div></div>
+<h3 id="que-es-historia-y-que-es-invencion">Qué es historia y qué es invención</h3>
+<p class="ficha"><strong>Documentado.</strong> La regla de Kant para sus cenas —nunca menos invitados que las Gracias ni más que las Musas— y sus últimas palabras, «está bien». El entierro de Leibniz, al que solo fue su secretario, y su sistema binario como imagen de la creación. La flauta diaria de Schopenhauer, su caniche Atma y la moneda de oro de su hotel. El azúcar de Kierkegaard, las burlas de Copenhague y su compromiso roto con Regine Olsen. Los crustáceos que persiguieron a Sartre tras la mescalina; su pacto con Beauvoir, que nunca se casaron ni vivieron juntos y se hablaron de usted durante cincuenta y un años. La cabaña y el traje de Heidegger, y su rectorado de 1933. El libro de juventud de Cioran, de 1936, que pasó la vida recortando. Camus como portero de futbol y el boleto de tren que no usó. La fortuna que regaló Wittgenstein y sus últimas palabras. Las caminatas de Nietzsche, su reproche por la flauta de Schopenhauer y la fotografía del látigo con Lou Salomé.</p>
+<p><strong>Leyenda.</strong> Toda la biografía de Nāgārjuna, desde los libros rescatados del fondo del agua hasta la brizna de hierba. Algunas anécdotas de Kant, como las dos candidatas que se cansaron de esperar.</p>
+<p><strong>Invención.</strong> La cripta, la silla vacía, los diálogos y casi todas las bromas. Las frases célebres están dichas en lenguaje sencillo, no citadas al pie de la letra.</p>
+<p>Y una cosa que no se dice a propósito: Turín, enero de 1889.</p>
+</section>
+  <p class="colofon">Pieza hermana de <a href="https://alex-vazquez73.github.io/sisifo-despierto/">Imaginar a Sísifo despierto</a>. Allá la roca se piensa a solas; aquí se discute a la mesa.</p>
+  <footer class="end">
+    <span>Alejandro Vázquez · 2026</span>
+    <a href="#portada">Volver al inicio ↑</a>
+  </footer>
+</main>
+
+<script>
+(function(){
+  var bar=document.getElementById('bar'),t=document.getElementById('toggle');
+  function prog(){var h=document.documentElement,m=h.scrollHeight-h.clientHeight;
+    bar.style.width=(m>0?(h.scrollTop/m)*100:0)+'%';}
+  addEventListener('scroll',prog,{passive:true});prog();
+  t.addEventListener('click',function(){
+    var r=document.documentElement,cur=r.getAttribute('data-theme');
+    if(!cur){cur=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';}
+    var nx=cur==='dark'?'light':'dark';r.setAttribute('data-theme',nx);
+    try{localStorage.setItem('av-tema',nx);}catch(e){}
+  });
+  try{var sv=localStorage.getItem('av-tema');if(sv)document.documentElement.setAttribute('data-theme',sv);}catch(e){}
+  var links=[].slice.call(document.querySelectorAll('#rail a'));
+  var secs=links.map(function(a){return document.getElementById(a.dataset.target);}).filter(Boolean);
+  if('IntersectionObserver' in window && secs.length){
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){
+      if(e.isIntersecting){links.forEach(function(a){
+        a.classList.toggle('on',a.dataset.target===e.target.id);});}});},
+      {rootMargin:'-20% 0px -70% 0px'});
+    secs.forEach(function(s){io.observe(s);});
+  }
+
+  // la barra flotante se esconde al bajar y reaparece al subir — solo en
+  // móvil, donde el texto ocupa todo el ancho y la barra le caía encima.
+  //
+  // SIN requestAnimationFrame a propósito. La primera versión usaba un rAF
+  // como amortiguador, con un cerrojo que solo se soltaba dentro del propio
+  // rAF; cuando el navegador lo suspende —pestaña en segundo plano, o el modo
+  // de bajo consumo del iPhone, que Safari estrangula sin piedad— el cerrojo
+  // se quedaba echado y la barra no volvía NUNCA. El trabajo real son dos
+  // comparaciones y un toggle de clase: hacerlo directo en el listener pasivo
+  // es más barato que el andamio que lo protegía.
+  // La decisión vive en una función pura —sin DOM, sin efectos— para poder
+  // probarla con una tabla de verdad. UMBRAL: no se esconde en los primeros
+  // 240px, para que la portada nunca aparezca sin barra. HISTERESIS de 6px:
+  // sin ella, el rebote elástico de iOS la haría parpadear.
+  function decidirBarra(y,ult,movil){
+    if(!movil){return 'mostrar';}
+    if(y>ult+6&&y>240){return 'ocultar';}
+    if(y<ult-6){return 'mostrar';}
+    return 'nada';
+  }
+  var tb=document.querySelector('.topbar'),ult=0,mv=matchMedia('(max-width:640px)');
+  addEventListener('scroll',function(){
+    var y=scrollY>0?scrollY:0, d=decidirBarra(y,ult,mv.matches);
+    if(d==='ocultar'){tb.classList.add('oculta');}
+    else if(d==='mostrar'){tb.classList.remove('oculta');}
+    ult=y;
+  },{passive:true});
+  // dos redes de seguridad: al volver a la pestaña y al cambiar de tamaño,
+  // la barra reaparece pase lo que pase.
+  mv.addEventListener('change',function(){tb.classList.remove('oculta');});
+  document.addEventListener('visibilitychange',function(){
+    if(!document.hidden){tb.classList.remove('oculta');ult=scrollY>0?scrollY:0;}
+  });
+})();
+</script>
+</html>
