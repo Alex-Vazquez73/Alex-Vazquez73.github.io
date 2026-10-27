@@ -67,11 +67,18 @@ h1{font-family:"Fraunces","Newsreader",Georgia,serif;font-weight:400;
 .aviso a:hover{color:var(--ink);border-color:var(--ink);}
 .con-aviso .hero{padding-top:3rem;}
 
-.section-label{font-family:"IBM Plex Mono",monospace;font-size:.68rem;letter-spacing:.17em;
-  text-transform:uppercase;color:var(--ink-soft);margin:0 0 1.4rem;
-  padding-top:2.2rem;border-top:1px solid var(--rule);
-  display:flex;justify-content:space-between;gap:1rem;}
-.section-label .count{font-variant-numeric:tabular-nums;}
+/* 2026-10-26 — Alex: los títulos de sección se veían muy poco. Ahora el nombre
+   va en Fraunces, grande y en tinta plena, con una raya de lámpara sobre el
+   filete; la nota de la derecha sigue en mono pequeña. */
+.section-label{position:relative;margin:0 0 1.7rem;padding-top:2.4rem;
+  border-top:1px solid var(--rule);
+  display:flex;justify-content:space-between;align-items:baseline;gap:.4rem 1rem;flex-wrap:wrap;}
+.section-label::before{content:"";position:absolute;top:-1px;left:0;
+  width:3rem;height:3px;background:var(--lamp);}
+.section-label>span:first-child{font-family:"Fraunces","Newsreader",Georgia,serif;font-weight:400;
+  font-size:clamp(1.6rem,4.6vw,2.05rem);line-height:1.1;letter-spacing:-.015em;color:var(--ink);}
+.section-label .count{font-family:"IBM Plex Mono",monospace;font-size:.64rem;letter-spacing:.15em;
+  text-transform:uppercase;color:var(--ink-soft);font-variant-numeric:tabular-nums;}
 
 .meta{font-family:"IBM Plex Mono",monospace;font-size:.65rem;letter-spacing:.13em;
   text-transform:uppercase;color:var(--ink-soft);margin:0 0 .75rem;
