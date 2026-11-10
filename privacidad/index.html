@@ -358,6 +358,25 @@ h1{font-family:"Fraunces","Newsreader",Georgia,serif;font-weight:400;
   .puerta .todas{padding:.95rem 1.2rem 1.1rem;}
 }
 
+/* ══ AÑADIDO 2026-11-09 (noche) — mejoras medias de la revisión ═════════ */
+/* Letra pequeña: etiquetas y cifras medían ~10 px; suben a ~12 px. */
+.cat,.puerta .datos,.totales,.cuenta,.chip,.cifras,.estante .min,.fecha{font-size:.75rem;}
+.meta,.leer,.volver,.eyebrow,.puerta .todas,.lomo em,.chip.sub{font-size:.72rem;}
+.section-label .count,.end{font-size:.7rem;}
+.cat{letter-spacing:.09em;}
+/* Filtros cómodos para el dedo: 44 px de alto. */
+.chip,.chip.sub{min-height:2.75rem;padding:.5rem 1rem;}
+/* La cabecera de cada pieza: categoría a la izquierda, fecha a la derecha. */
+.cab{grid-column:1/-1;display:flex;justify-content:space-between;align-items:baseline;
+  gap:.2rem 1rem;flex-wrap:wrap;margin:0 0 .35rem;}
+.estante .cab .cat,.app .cab .cat{margin:0;}
+.fecha{font-family:"IBM Plex Mono",monospace;letter-spacing:.09em;text-transform:uppercase;
+  color:var(--ink-soft);white-space:nowrap;}
+.app .cab{grid-column:2/-1;align-self:end;}
+@media (max-width:640px){
+  .app .cab{grid-column:1/-1;}
+}
+
 .priv h2{font-family:"Fraunces",Georgia,serif;font-weight:400;font-size:1.3rem;margin:2.2rem 0 .4rem;}
 .priv p{margin:0;color:var(--ink-soft);}
 .priv .volver{font-family:"IBM Plex Mono",monospace;font-size:.66rem;letter-spacing:.15em;

@@ -361,6 +361,25 @@ h1{font-family:"Fraunces","Newsreader",Georgia,serif;font-weight:400;
   .puerta .recientes{padding:.2rem 1.2rem .3rem;}
   .puerta .todas{padding:.95rem 1.2rem 1.1rem;}
 }
+
+/* ══ AÑADIDO 2026-11-09 (noche) — mejoras medias de la revisión ═════════ */
+/* Letra pequeña: etiquetas y cifras medían ~10 px; suben a ~12 px. */
+.cat,.puerta .datos,.totales,.cuenta,.chip,.cifras,.estante .min,.fecha{font-size:.75rem;}
+.meta,.leer,.volver,.eyebrow,.puerta .todas,.lomo em,.chip.sub{font-size:.72rem;}
+.section-label .count,.end{font-size:.7rem;}
+.cat{letter-spacing:.09em;}
+/* Filtros cómodos para el dedo: 44 px de alto. */
+.chip,.chip.sub{min-height:2.75rem;padding:.5rem 1rem;}
+/* La cabecera de cada pieza: categoría a la izquierda, fecha a la derecha. */
+.cab{grid-column:1/-1;display:flex;justify-content:space-between;align-items:baseline;
+  gap:.2rem 1rem;flex-wrap:wrap;margin:0 0 .35rem;}
+.estante .cab .cat,.app .cab .cat{margin:0;}
+.fecha{font-family:"IBM Plex Mono",monospace;letter-spacing:.09em;text-transform:uppercase;
+  color:var(--ink-soft);white-space:nowrap;}
+.app .cab{grid-column:2/-1;align-self:end;}
+@media (max-width:640px){
+  .app .cab{grid-column:1/-1;}
+}
 </style>
 
 <button id="toggle" type="button" aria-label="Cambiar tema">Tema</button>
@@ -397,7 +416,7 @@ h1{font-family:"Fraunces","Newsreader",Georgia,serif;font-weight:400;
       <ul class="recientes">
         <li class="c-fil"><a href="banquete-del-absurdo/"><i></i><span>El Banquete del Absurdo</span></a></li>
         <li class="c-sci"><a href="longevidad-gestacion/"><i></i><span>¿Vive más quien tarda más en nacer?</span></a></li>
-        <li class="c-eco"><a href="karl-marx/"><i></i><span>Lo que se esconde detrás de la ganancia</span></a></li>
+        <li class="c-sci"><a href="inteligencia-animal/"><i></i><span>La inteligencia animal: la escalera era una coartada</span></a></li>
       </ul>
       <a class="todas" href="ensayos/"><span>Ver los 7</span><span>&rarr;</span></a>
     </section>

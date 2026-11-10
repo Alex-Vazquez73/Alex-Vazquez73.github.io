@@ -361,6 +361,25 @@ h1{font-family:"Fraunces","Newsreader",Georgia,serif;font-weight:400;
   .puerta .recientes{padding:.2rem 1.2rem .3rem;}
   .puerta .todas{padding:.95rem 1.2rem 1.1rem;}
 }
+
+/* ══ AÑADIDO 2026-11-09 (noche) — mejoras medias de la revisión ═════════ */
+/* Letra pequeña: etiquetas y cifras medían ~10 px; suben a ~12 px. */
+.cat,.puerta .datos,.totales,.cuenta,.chip,.cifras,.estante .min,.fecha{font-size:.75rem;}
+.meta,.leer,.volver,.eyebrow,.puerta .todas,.lomo em,.chip.sub{font-size:.72rem;}
+.section-label .count,.end{font-size:.7rem;}
+.cat{letter-spacing:.09em;}
+/* Filtros cómodos para el dedo: 44 px de alto. */
+.chip,.chip.sub{min-height:2.75rem;padding:.5rem 1rem;}
+/* La cabecera de cada pieza: categoría a la izquierda, fecha a la derecha. */
+.cab{grid-column:1/-1;display:flex;justify-content:space-between;align-items:baseline;
+  gap:.2rem 1rem;flex-wrap:wrap;margin:0 0 .35rem;}
+.estante .cab .cat,.app .cab .cat{margin:0;}
+.fecha{font-family:"IBM Plex Mono",monospace;letter-spacing:.09em;text-transform:uppercase;
+  color:var(--ink-soft);white-space:nowrap;}
+.app .cab{grid-column:2/-1;align-self:end;}
+@media (max-width:640px){
+  .app .cab{grid-column:1/-1;}
+}
 </style>
 
 <button id="toggle" type="button" aria-label="Cambiar tema">Tema</button>
@@ -375,14 +394,13 @@ h1{font-family:"Fraunces","Newsreader",Georgia,serif;font-weight:400;
   </header>
 
   <div class="filtros" role="group" aria-label="Categorías"><button class="chip" type="button" data-f="" data-n="Todo" aria-pressed="true">Todo <em>7</em></button><button class="chip c-eco" type="button" data-f="eco" data-n="Economía" aria-pressed="false"><i></i>Economía <em>2</em></button><button class="chip c-sci" type="button" data-f="sci" data-n="Ciencia" aria-pressed="false"><i></i>Ciencia <em>2</em></button><button class="chip c-fil" type="button" data-f="fil" data-n="Filosofía" aria-pressed="false"><i></i>Filosofía <em>3</em></button></div>
-  <div class="filtros subs" data-de="eco" role="group" aria-label="Subcategorías de Economía" hidden><button class="chip sub c-eco" type="button" data-s="Economía política" data-de="eco" aria-pressed="false">Economía política <em>1</em></button><button class="chip sub c-eco" type="button" data-s="Desigualdad" data-de="eco" aria-pressed="false">Desigualdad <em>1</em></button></div>
-  <div class="filtros subs" data-de="sci" role="group" aria-label="Subcategorías de Ciencia" hidden><button class="chip sub c-sci" type="button" data-s="Mundo animal" data-de="sci" aria-pressed="false">Mundo animal <em>2</em></button></div>
+  <div class="filtros subs" data-de="eco" role="group" aria-label="Subcategorías de Economía" hidden><button class="chip sub c-eco" type="button" data-s="Desigualdad" data-de="eco" aria-pressed="false">Desigualdad <em>1</em></button><button class="chip sub c-eco" type="button" data-s="Economía política" data-de="eco" aria-pressed="false">Economía política <em>1</em></button></div>
   <div class="filtros subs" data-de="fil" role="group" aria-label="Subcategorías de Filosofía" hidden><button class="chip sub c-fil" type="button" data-s="Existencialismo" data-de="fil" aria-pressed="false">Existencialismo <em>2</em></button><button class="chip sub c-fil" type="button" data-s="Espiritualidad" data-de="fil" aria-pressed="false">Espiritualidad <em>1</em></button></div>
-  <p class="cuenta" id="cuenta" role="status"></p>
+  <p class="cuenta" id="cuenta" role="status" data-orden="Del más reciente al más antiguo"></p>
   <ul class="estante">
     <li class="c-fil" data-cat="fil" data-sub="Existencialismo">
       <a href="../banquete-del-absurdo/">
-        <span class="cat c-fil"><i></i><b>Filosofía</b>· Existencialismo</span>
+        <span class="cab"><span class="cat c-fil"><i></i><b>Filosofía</b>· Existencialismo</span><span class="fecha">Octubre 2026</span></span>
         <h3>El Banquete del Absurdo</h3>
         <span class="min">~1 h 35 min</span>
         <p class="sub">Simposio sobre por qué hay algo y no más bien nada</p>
@@ -392,7 +410,7 @@ h1{font-family:"Fraunces","Newsreader",Georgia,serif;font-weight:400;
     </li>
     <li class="c-sci" data-cat="sci" data-sub="Mundo animal">
       <a href="../longevidad-gestacion/">
-        <span class="cat c-sci"><i></i><b>Ciencia</b>· Mundo animal</span>
+        <span class="cab"><span class="cat c-sci"><i></i><b>Ciencia</b>· Mundo animal</span><span class="fecha">Octubre 2026</span></span>
         <h3>¿Vive más quien tarda más en nacer?</h3>
         <span class="min">~40 min</span>
         <p class="sub">Gestación y longevidad en 877 mamíferos: un análisis estadístico</p>
@@ -400,19 +418,9 @@ h1{font-family:"Fraunces","Newsreader",Georgia,serif;font-weight:400;
         <span class="lomo" aria-hidden="true"><i style="--w:31.4"></i><em>8,100 pal. · 7 fig.</em></span>
       </a>
     </li>
-    <li class="c-eco" data-cat="eco" data-sub="Economía política">
-      <a href="../karl-marx/">
-        <span class="cat c-eco"><i></i><b>Economía</b>· Economía política</span>
-        <h3>Lo que se esconde detrás de la ganancia</h3>
-        <span class="min">~1 h 10 min</span>
-        <p class="sub">Una lectura de El Capital de Marx, de la fábrica a la superficie</p>
-        <p class="resumen">Una guía para leer El Capital de principio a fin, sin ser experto: de dónde sale la ganancia, por qué el sistema tiene crisis y qué ideas de Marx siguen vigentes. También, las críticas que sí le aciertan.</p>
-        <span class="lomo" aria-hidden="true"><i style="--w:54.7"></i><em>14,100 pal. · 8 fig.</em></span>
-      </a>
-    </li>
     <li class="c-sci" data-cat="sci" data-sub="Mundo animal">
       <a href="../inteligencia-animal/">
-        <span class="cat c-sci"><i></i><b>Ciencia</b>· Mundo animal</span>
+        <span class="cab"><span class="cat c-sci"><i></i><b>Ciencia</b>· Mundo animal</span><span class="fecha">Agosto 2026</span></span>
         <h3>La inteligencia animal: la escalera era una coartada</h3>
         <span class="min">~30 min</span>
         <p class="sub">Con un parásito de villano y una abeja de testigo</p>
@@ -422,7 +430,7 @@ h1{font-family:"Fraunces","Newsreader",Georgia,serif;font-weight:400;
     </li>
     <li class="c-fil" data-cat="fil" data-sub="Espiritualidad">
       <a href="../incomodidad-despertar/">
-        <span class="cat c-fil"><i></i><b>Filosofía</b>· Espiritualidad</span>
+        <span class="cab"><span class="cat c-fil"><i></i><b>Filosofía</b>· Espiritualidad</span><span class="fecha">Agosto 2026</span></span>
         <h3>La incomodidad, ¿precio del despertar?</h3>
         <span class="min">~16 min</span>
         <p class="sub">Una noche en Wirikuta, el Buda y el sinsentido que no se mueve</p>
@@ -432,7 +440,7 @@ h1{font-family:"Fraunces","Newsreader",Georgia,serif;font-weight:400;
     </li>
     <li class="c-fil" data-cat="fil" data-sub="Existencialismo">
       <a href="../sisifo-despierto/">
-        <span class="cat c-fil"><i></i><b>Filosofía</b>· Existencialismo</span>
+        <span class="cab"><span class="cat c-fil"><i></i><b>Filosofía</b>· Existencialismo</span><span class="fecha">Agosto 2026</span></span>
         <h3>Imaginar a Sísifo despierto</h3>
         <span class="min">~1 h 17 min</span>
         <p class="sub">El sinsentido, el absurdo y la angustia</p>
@@ -442,12 +450,22 @@ h1{font-family:"Fraunces","Newsreader",Georgia,serif;font-weight:400;
     </li>
     <li class="c-eco" data-cat="eco" data-sub="Desigualdad">
       <a href="../el-capitalismo/">
-        <span class="cat c-eco"><i></i><b>Economía</b>· Desigualdad</span>
+        <span class="cab"><span class="cat c-eco"><i></i><b>Economía</b>· Desigualdad</span><span class="fecha">Agosto 2026</span></span>
         <h3>El capitalismo a juicio</h3>
         <span class="min">~2 h 10 min</span>
         <p class="sub">Prosperidad, desigualdad y los límites de la acumulación</p>
         <p class="resumen">¿El capitalismo nos hizo más ricos o más desiguales? Un juicio con defensa y acusación, datos de fuentes originales y México de 1982 a 2025 como caso principal. Empecé con una opinión y los datos me la cambiaron.</p>
         <span class="lomo" aria-hidden="true"><i style="--w:100.0"></i><em>25,800 pal. · 11 fig.</em></span>
+      </a>
+    </li>
+    <li class="c-eco" data-cat="eco" data-sub="Economía política">
+      <a href="../karl-marx/">
+        <span class="cab"><span class="cat c-eco"><i></i><b>Economía</b>· Economía política</span><span class="fecha">Junio 2026</span></span>
+        <h3>Lo que se esconde detrás de la ganancia</h3>
+        <span class="min">~1 h 10 min</span>
+        <p class="sub">Una lectura de El Capital de Marx, de la fábrica a la superficie</p>
+        <p class="resumen">Una guía para leer El Capital de principio a fin, sin ser experto: de dónde sale la ganancia, por qué el sistema tiene crisis y qué ideas de Marx siguen vigentes. También, las críticas que sí le aciertan.</p>
+        <span class="lomo" aria-hidden="true"><i style="--w:54.7"></i><em>14,100 pal. · 8 fig.</em></span>
       </a>
     </li>
   </ul>
@@ -484,7 +502,7 @@ h1{font-family:"Fraunces","Newsreader",Georgia,serif;font-weight:400;
     chips.forEach(function(c){c.setAttribute('aria-pressed',String(c.dataset.f===cat));});
     subs.forEach(function(c){c.setAttribute('aria-pressed',String(c.dataset.s===sub&&c.dataset.de===cat));});
     filas.forEach(function(f){f.hidden=f.dataset.de!==cat;});
-    cuenta.textContent=n+(n===1?' pieza':' piezas')+(cat?' · '+document.querySelector('.chip[data-f="'+cat+'"]').dataset.n:'')+(sub?' · '+sub:'');
+    cuenta.textContent=cat?n+(n===1?' pieza':' piezas')+' · '+document.querySelector('.chip[data-f="'+cat+'"]').dataset.n+(sub?' · '+sub:''):cuenta.dataset.orden;
     try{history.replaceState(null,'',cat?'#'+cat+(sub?'/'+encodeURIComponent(sub):''):location.pathname);}catch(e){}
   }
   chips.forEach(function(c){c.addEventListener('click',function(){cat=c.dataset.f;sub='';pinta();});});

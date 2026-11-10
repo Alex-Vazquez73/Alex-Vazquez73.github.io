@@ -361,6 +361,25 @@ h1{font-family:"Fraunces","Newsreader",Georgia,serif;font-weight:400;
   .puerta .recientes{padding:.2rem 1.2rem .3rem;}
   .puerta .todas{padding:.95rem 1.2rem 1.1rem;}
 }
+
+/* ══ AÑADIDO 2026-11-09 (noche) — mejoras medias de la revisión ═════════ */
+/* Letra pequeña: etiquetas y cifras medían ~10 px; suben a ~12 px. */
+.cat,.puerta .datos,.totales,.cuenta,.chip,.cifras,.estante .min,.fecha{font-size:.75rem;}
+.meta,.leer,.volver,.eyebrow,.puerta .todas,.lomo em,.chip.sub{font-size:.72rem;}
+.section-label .count,.end{font-size:.7rem;}
+.cat{letter-spacing:.09em;}
+/* Filtros cómodos para el dedo: 44 px de alto. */
+.chip,.chip.sub{min-height:2.75rem;padding:.5rem 1rem;}
+/* La cabecera de cada pieza: categoría a la izquierda, fecha a la derecha. */
+.cab{grid-column:1/-1;display:flex;justify-content:space-between;align-items:baseline;
+  gap:.2rem 1rem;flex-wrap:wrap;margin:0 0 .35rem;}
+.estante .cab .cat,.app .cab .cat{margin:0;}
+.fecha{font-family:"IBM Plex Mono",monospace;letter-spacing:.09em;text-transform:uppercase;
+  color:var(--ink-soft);white-space:nowrap;}
+.app .cab{grid-column:2/-1;align-self:end;}
+@media (max-width:640px){
+  .app .cab{grid-column:1/-1;}
+}
 </style>
 
 <button id="toggle" type="button" aria-label="Cambiar tema">Tema</button>
@@ -375,45 +394,44 @@ h1{font-family:"Fraunces","Newsreader",Georgia,serif;font-weight:400;
   </header>
 
   <div class="filtros" role="group" aria-label="Categorías"><button class="chip" type="button" data-f="" data-n="Todo" aria-pressed="true">Todo <em>6</em></button><button class="chip c-sci" type="button" data-f="sci" data-n="Ciencia" aria-pressed="false"><i></i>Ciencia <em>1</em></button><button class="chip c-mat" type="button" data-f="mat" data-n="Matemáticas" aria-pressed="false"><i></i>Matemáticas <em>3</em></button><button class="chip c-mis" type="button" data-f="mis" data-n="Misticismo" aria-pressed="false"><i></i>Misticismo <em>2</em></button></div>
-  <div class="filtros subs" data-de="sci" role="group" aria-label="Subcategorías de Ciencia" hidden><button class="chip sub c-sci" type="button" data-s="Astros" data-de="sci" aria-pressed="false">Astros <em>1</em></button></div>
-  <div class="filtros subs" data-de="mat" role="group" aria-label="Subcategorías de Matemáticas" hidden><button class="chip sub c-mat" type="button" data-s="Juegos" data-de="mat" aria-pressed="false">Juegos <em>1</em></button><button class="chip sub c-mat" type="button" data-s="Números" data-de="mat" aria-pressed="false">Números <em>1</em></button><button class="chip sub c-mat" type="button" data-s="Geometría" data-de="mat" aria-pressed="false">Geometría <em>1</em></button></div>
-  <div class="filtros subs" data-de="mis" role="group" aria-label="Subcategorías de Misticismo" hidden><button class="chip sub c-mis" type="button" data-s="Astrología" data-de="mis" aria-pressed="false">Astrología <em>1</em></button><button class="chip sub c-mis" type="button" data-s="Sonido" data-de="mis" aria-pressed="false">Sonido <em>1</em></button></div>
-  <p class="cuenta" id="cuenta" role="status"></p>
+  <div class="filtros subs" data-de="mat" role="group" aria-label="Subcategorías de Matemáticas" hidden><button class="chip sub c-mat" type="button" data-s="Geometría" data-de="mat" aria-pressed="false">Geometría <em>1</em></button><button class="chip sub c-mat" type="button" data-s="Números" data-de="mat" aria-pressed="false">Números <em>1</em></button><button class="chip sub c-mat" type="button" data-s="Juegos" data-de="mat" aria-pressed="false">Juegos <em>1</em></button></div>
+  <div class="filtros subs" data-de="mis" role="group" aria-label="Subcategorías de Misticismo" hidden><button class="chip sub c-mis" type="button" data-s="Sonido" data-de="mis" aria-pressed="false">Sonido <em>1</em></button><button class="chip sub c-mis" type="button" data-s="Astrología" data-de="mis" aria-pressed="false">Astrología <em>1</em></button></div>
+  <p class="cuenta" id="cuenta" role="status" data-orden="De la más reciente a la más antigua"></p>
   <ul class="apps">
-    <li class="c-mis" data-cat="mis" data-sub="Astrología"><a class="app" href="../carta-natal/">
-      <img class="mini" src="../miniaturas/carta-natal.jpg" alt="" width="640" height="480" loading="lazy" decoding="async">
-      <span class="cat c-mis"><i></i><b>Misticismo</b>· Astrología</span>
-      <span class="texto"><span class="ti">La energía del Universo — Carta Natal</span><span class="sub">Tu carta natal, calculada en tu propio navegador</span><span class="resumen">Calcula tu carta natal con datos astronómicos precisos y la dibuja: planetas, casas y aspectos. No te dice qué significa; eso queda de tu lado. Todo ocurre en tu navegador y tus datos no salen de tu dispositivo.</span></span>
-      <span class="leer"><span>Abrir</span><span>&rarr;</span></span>
-    </a></li>
-    <li class="c-mat" data-cat="mat" data-sub="Juegos"><a class="app" href="../sudoku-maestro/">
-      <img class="mini" src="../miniaturas/sudoku-maestro.jpg" alt="" width="640" height="480" loading="lazy" decoding="async">
-      <span class="cat c-mat"><i></i><b>Matemáticas</b>· Juegos</span>
-      <span class="texto"><span class="ti">Sudoku Maestro</span><span class="sub">Sudokus sin fin, cada uno con una sola solución</span><span class="resumen">Inventa un tablero nuevo cada vez y comprueba que tenga una sola solución, como debe ser. Tres niveles, notas, puntaje y una cita sobre los números en cada partida. Todo ocurre en tu navegador.</span></span>
-      <span class="leer"><span>Abrir</span><span>&rarr;</span></span>
-    </a></li>
-    <li class="c-mis" data-cat="mis" data-sub="Sonido"><a class="app" href="../frecuencias-binaurales/">
-      <img class="mini" src="../miniaturas/frecuencias-binaurales.jpg" alt="" width="640" height="480" loading="lazy" decoding="async">
-      <span class="cat c-mis"><i></i><b>Misticismo</b>· Sonido</span>
-      <span class="texto"><span class="ti">Frecuencias binaurales</span><span class="sub">Dos tonos, uno por oído, y el pulso que el cerebro pone entre ambos</span><span class="resumen">Genera en tu navegador tonos binaurales para dormir, meditar, calmarte o enfocarte, con temporizador, respiración guiada y sonido ambiente. Necesita audífonos. Es bienestar sonoro, no tratamiento. Todo ocurre en tu navegador.</span></span>
-      <span class="leer"><span>Abrir</span><span>&rarr;</span></span>
-    </a></li>
-    <li class="c-sci" data-cat="sci" data-sub="Astros"><a class="app" href="../la-inmensidad/">
-      <img class="mini" src="../miniaturas/la-inmensidad.jpg" alt="" width="640" height="480" loading="lazy" decoding="async">
-      <span class="cat c-sci"><i></i><b>Ciencia</b>· Astros</span>
-      <span class="texto"><span class="ti">La Inmensidad del Universo</span><span class="sub">Un atlas del vértigo cósmico</span><span class="resumen">Compara el tamaño de los astros, de una estrella de neutrones al universo observable, o viaja de la Tierra al borde de lo visible, incluso a la velocidad de la luz en tiempo real. Con fotografías reales de NASA, ESA y ESO; lo que nadie ha fotografiado está reconstruido y marcado. Todo ocurre en tu navegador.</span></span>
+    <li class="c-mat" data-cat="mat" data-sub="Geometría"><a class="app" href="../fractales/">
+      <img class="mini" src="../miniaturas/fractales.jpg" alt="" width="640" height="480" loading="lazy" decoding="async">
+      <span class="cab"><span class="cat c-mat"><i></i><b>Matemáticas</b>· Geometría</span><span class="fecha">Noviembre 2026</span></span>
+      <span class="texto"><span class="ti">El infinito que cabe en una regla</span><span class="sub">Un recorrido por los fractales</span><span class="resumen">Puntos lanzados al azar que dibujan un triángulo perfecto, una costa que no termina de medirse, un viaje de un billón de aumentos por el conjunto de Mandelbrot, helechos hechos con cuatro reglas, el caos de Lorenz y la forma quebrada del Dow Jones. Cada sección es visual primero; las fórmulas están a un botón. Al final, un laboratorio con doce fractales.</span></span>
       <span class="leer"><span>Abrir</span><span>&rarr;</span></span>
     </a></li>
     <li class="c-mat" data-cat="mat" data-sub="Números"><a class="app" href="../el-numero-mas-irracional/">
       <img class="mini" src="../miniaturas/el-numero-mas-irracional.jpg" alt="" width="640" height="480" loading="lazy" decoding="async">
-      <span class="cat c-mat"><i></i><b>Matemáticas</b>· Números</span>
+      <span class="cab"><span class="cat c-mat"><i></i><b>Matemáticas</b>· Números</span><span class="fecha">Octubre 2026</span></span>
       <span class="texto"><span class="ti">El número más irracional</span><span class="sub">Fibonacci y la proporción áurea, sin mitos</span><span class="resumen">Un recorrido visual por la sucesión de Fibonacci y φ: de dónde sale, la espiral, el girasol, los mitos que no resisten una regla y los retrocesos que usan los traders, con un tramo real del Dow Jones. Cada sección es visual primero; la demostración está a un botón. Todo ocurre en tu navegador.</span></span>
       <span class="leer"><span>Abrir</span><span>&rarr;</span></span>
     </a></li>
-    <li class="c-mat" data-cat="mat" data-sub="Geometría"><a class="app" href="../fractales/">
-      <img class="mini" src="../miniaturas/fractales.jpg" alt="" width="640" height="480" loading="lazy" decoding="async">
-      <span class="cat c-mat"><i></i><b>Matemáticas</b>· Geometría</span>
-      <span class="texto"><span class="ti">El infinito que cabe en una regla</span><span class="sub">Un recorrido por los fractales</span><span class="resumen">Puntos lanzados al azar que dibujan un triángulo perfecto, una costa que no termina de medirse, un viaje de un billón de aumentos por el conjunto de Mandelbrot, helechos hechos con cuatro reglas, el caos de Lorenz y la forma quebrada del Dow Jones. Cada sección es visual primero; las fórmulas están a un botón. Al final, un laboratorio con doce fractales.</span></span>
+    <li class="c-sci" data-cat="sci" data-sub="Astros"><a class="app" href="../la-inmensidad/">
+      <img class="mini" src="../miniaturas/la-inmensidad.jpg" alt="" width="640" height="480" loading="lazy" decoding="async">
+      <span class="cab"><span class="cat c-sci"><i></i><b>Ciencia</b>· Astros</span><span class="fecha">Octubre 2026</span></span>
+      <span class="texto"><span class="ti">La Inmensidad del Universo</span><span class="sub">Un atlas del vértigo cósmico</span><span class="resumen">Compara el tamaño de los astros, de una estrella de neutrones al universo observable, o viaja de la Tierra al borde de lo visible, incluso a la velocidad de la luz en tiempo real. Con fotografías reales de NASA, ESA y ESO; lo que nadie ha fotografiado está reconstruido y marcado. Todo ocurre en tu navegador.</span></span>
+      <span class="leer"><span>Abrir</span><span>&rarr;</span></span>
+    </a></li>
+    <li class="c-mis" data-cat="mis" data-sub="Sonido"><a class="app" href="../frecuencias-binaurales/">
+      <img class="mini" src="../miniaturas/frecuencias-binaurales.jpg" alt="" width="640" height="480" loading="lazy" decoding="async">
+      <span class="cab"><span class="cat c-mis"><i></i><b>Misticismo</b>· Sonido</span><span class="fecha">Octubre 2026</span></span>
+      <span class="texto"><span class="ti">Frecuencias binaurales</span><span class="sub">Dos tonos, uno por oído, y el pulso que el cerebro pone entre ambos</span><span class="resumen">Genera en tu navegador tonos binaurales para dormir, meditar, calmarte o enfocarte, con temporizador, respiración guiada y sonido ambiente. Necesita audífonos. Es bienestar sonoro, no tratamiento. Todo ocurre en tu navegador.</span></span>
+      <span class="leer"><span>Abrir</span><span>&rarr;</span></span>
+    </a></li>
+    <li class="c-mat" data-cat="mat" data-sub="Juegos"><a class="app" href="../sudoku-maestro/">
+      <img class="mini" src="../miniaturas/sudoku-maestro.jpg" alt="" width="640" height="480" loading="lazy" decoding="async">
+      <span class="cab"><span class="cat c-mat"><i></i><b>Matemáticas</b>· Juegos</span><span class="fecha">Octubre 2026</span></span>
+      <span class="texto"><span class="ti">Sudoku Maestro</span><span class="sub">Sudokus sin fin, cada uno con una sola solución</span><span class="resumen">Inventa un tablero nuevo cada vez y comprueba que tenga una sola solución, como debe ser. Tres niveles, notas, puntaje y una cita sobre los números en cada partida. Todo ocurre en tu navegador.</span></span>
+      <span class="leer"><span>Abrir</span><span>&rarr;</span></span>
+    </a></li>
+    <li class="c-mis" data-cat="mis" data-sub="Astrología"><a class="app" href="../carta-natal/">
+      <img class="mini" src="../miniaturas/carta-natal.jpg" alt="" width="640" height="480" loading="lazy" decoding="async">
+      <span class="cab"><span class="cat c-mis"><i></i><b>Misticismo</b>· Astrología</span><span class="fecha">Agosto 2026</span></span>
+      <span class="texto"><span class="ti">La energía del Universo — Carta Natal</span><span class="sub">Tu carta natal, calculada en tu propio navegador</span><span class="resumen">Calcula tu carta natal con datos astronómicos precisos y la dibuja: planetas, casas y aspectos. No te dice qué significa; eso queda de tu lado. Todo ocurre en tu navegador y tus datos no salen de tu dispositivo.</span></span>
       <span class="leer"><span>Abrir</span><span>&rarr;</span></span>
     </a></li>
   </ul>
@@ -450,7 +468,7 @@ h1{font-family:"Fraunces","Newsreader",Georgia,serif;font-weight:400;
     chips.forEach(function(c){c.setAttribute('aria-pressed',String(c.dataset.f===cat));});
     subs.forEach(function(c){c.setAttribute('aria-pressed',String(c.dataset.s===sub&&c.dataset.de===cat));});
     filas.forEach(function(f){f.hidden=f.dataset.de!==cat;});
-    cuenta.textContent=n+(n===1?' pieza':' piezas')+(cat?' · '+document.querySelector('.chip[data-f="'+cat+'"]').dataset.n:'')+(sub?' · '+sub:'');
+    cuenta.textContent=cat?n+(n===1?' pieza':' piezas')+' · '+document.querySelector('.chip[data-f="'+cat+'"]').dataset.n+(sub?' · '+sub:''):cuenta.dataset.orden;
     try{history.replaceState(null,'',cat?'#'+cat+(sub?'/'+encodeURIComponent(sub):''):location.pathname);}catch(e){}
   }
   chips.forEach(function(c){c.addEventListener('click',function(){cat=c.dataset.f;sub='';pinta();});});
