@@ -11,6 +11,12 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,600&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,600;1,6..72,300;1,6..72,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="icon" href="https://alex-vazquez73.github.io/favicon.svg" type="image/svg+xml">
+<link rel="alternate icon" href="https://alex-vazquez73.github.io/favicon.ico" sizes="any">
+<meta property="og:image" content="https://alex-vazquez73.github.io/tarjeta.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
 <style>
 :root{
   --ground:#EBEDF1; --surface:#F5F6F8; --ink:#141A22; --ink-soft:#58616F;
@@ -380,6 +386,13 @@ h1{font-family:"Fraunces","Newsreader",Georgia,serif;font-weight:400;
 @media (max-width:640px){
   .app .cab{grid-column:1/-1;}
 }
+/* 2026-11-09 (detalles) — una puerta para quien tiene poco tiempo */
+.empieza{font-family:"Fraunces",Georgia,serif;font-style:italic;font-weight:300;font-size:1.02rem;
+  line-height:1.45;color:var(--ink-soft);margin:0 0 1.6rem;text-wrap:pretty;}
+.empieza a{color:var(--ink);font-style:normal;font-weight:400;text-decoration:underline;
+  text-decoration-color:var(--lamp);text-decoration-thickness:1px;text-underline-offset:.22em;}
+.empieza a:hover{text-decoration-thickness:2px;}
+.empieza a:focus-visible{outline:none;box-shadow:0 0 0 2px var(--lamp);border-radius:2px;}
 </style>
 
 <button id="toggle" type="button" aria-label="Cambiar tema">Tema</button>
@@ -393,6 +406,7 @@ h1{font-family:"Fraunces","Newsreader",Georgia,serif;font-weight:400;
     <p class="totales"><span><b>7</b> ensayos</span><span><b>91,126</b> palabras</span><span><b>~7 h 38 min</b> de lectura</span></p>
   </header>
 
+  <p class="empieza">¿Poco tiempo? Empieza por <a href="../incomodidad-despertar/">La incomodidad, ¿precio del despertar?</a>: se lee en unos 16 min.</p>
   <div class="filtros" role="group" aria-label="Categorías"><button class="chip" type="button" data-f="" data-n="Todo" aria-pressed="true">Todo <em>7</em></button><button class="chip c-eco" type="button" data-f="eco" data-n="Economía" aria-pressed="false"><i></i>Economía <em>2</em></button><button class="chip c-sci" type="button" data-f="sci" data-n="Ciencia" aria-pressed="false"><i></i>Ciencia <em>2</em></button><button class="chip c-fil" type="button" data-f="fil" data-n="Filosofía" aria-pressed="false"><i></i>Filosofía <em>3</em></button></div>
   <div class="filtros subs" data-de="eco" role="group" aria-label="Subcategorías de Economía" hidden><button class="chip sub c-eco" type="button" data-s="Desigualdad" data-de="eco" aria-pressed="false">Desigualdad <em>1</em></button><button class="chip sub c-eco" type="button" data-s="Economía política" data-de="eco" aria-pressed="false">Economía política <em>1</em></button></div>
   <div class="filtros subs" data-de="fil" role="group" aria-label="Subcategorías de Filosofía" hidden><button class="chip sub c-fil" type="button" data-s="Existencialismo" data-de="fil" aria-pressed="false">Existencialismo <em>2</em></button><button class="chip sub c-fil" type="button" data-s="Espiritualidad" data-de="fil" aria-pressed="false">Espiritualidad <em>1</em></button></div>

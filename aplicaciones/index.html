@@ -11,6 +11,12 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,600&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,600;1,6..72,300;1,6..72,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="icon" href="https://alex-vazquez73.github.io/favicon.svg" type="image/svg+xml">
+<link rel="alternate icon" href="https://alex-vazquez73.github.io/favicon.ico" sizes="any">
+<meta property="og:image" content="https://alex-vazquez73.github.io/tarjeta.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
 <style>
 :root{
   --ground:#EBEDF1; --surface:#F5F6F8; --ink:#141A22; --ink-soft:#58616F;
@@ -380,6 +386,13 @@ h1{font-family:"Fraunces","Newsreader",Georgia,serif;font-weight:400;
 @media (max-width:640px){
   .app .cab{grid-column:1/-1;}
 }
+/* 2026-11-09 (detalles) — una puerta para quien tiene poco tiempo */
+.empieza{font-family:"Fraunces",Georgia,serif;font-style:italic;font-weight:300;font-size:1.02rem;
+  line-height:1.45;color:var(--ink-soft);margin:0 0 1.6rem;text-wrap:pretty;}
+.empieza a{color:var(--ink);font-style:normal;font-weight:400;text-decoration:underline;
+  text-decoration-color:var(--lamp);text-decoration-thickness:1px;text-underline-offset:.22em;}
+.empieza a:hover{text-decoration-thickness:2px;}
+.empieza a:focus-visible{outline:none;box-shadow:0 0 0 2px var(--lamp);border-radius:2px;}
 </style>
 
 <button id="toggle" type="button" aria-label="Cambiar tema">Tema</button>
@@ -407,31 +420,31 @@ h1{font-family:"Fraunces","Newsreader",Georgia,serif;font-weight:400;
     <li class="c-mat" data-cat="mat" data-sub="Números"><a class="app" href="../el-numero-mas-irracional/">
       <img class="mini" src="../miniaturas/el-numero-mas-irracional.jpg" alt="" width="640" height="480" loading="lazy" decoding="async">
       <span class="cab"><span class="cat c-mat"><i></i><b>Matemáticas</b>· Números</span><span class="fecha">Octubre 2026</span></span>
-      <span class="texto"><span class="ti">El número más irracional</span><span class="sub">Fibonacci y la proporción áurea, sin mitos</span><span class="resumen">Un recorrido visual por la sucesión de Fibonacci y φ: de dónde sale, la espiral, el girasol, los mitos que no resisten una regla y los retrocesos que usan los traders, con un tramo real del Dow Jones. Cada sección es visual primero; la demostración está a un botón. Todo ocurre en tu navegador.</span></span>
+      <span class="texto"><span class="ti">El número más irracional</span><span class="sub">Fibonacci y la proporción áurea, sin mitos</span><span class="resumen">Un recorrido visual por la sucesión de Fibonacci y φ: de dónde sale, la espiral, el girasol, los mitos que no resisten una regla y los retrocesos que usan los traders, con un tramo real del Dow Jones. Cada sección es visual primero; la demostración está a un botón.</span></span>
       <span class="leer"><span>Abrir</span><span>&rarr;</span></span>
     </a></li>
     <li class="c-sci" data-cat="sci" data-sub="Astros"><a class="app" href="../la-inmensidad/">
       <img class="mini" src="../miniaturas/la-inmensidad.jpg" alt="" width="640" height="480" loading="lazy" decoding="async">
       <span class="cab"><span class="cat c-sci"><i></i><b>Ciencia</b>· Astros</span><span class="fecha">Octubre 2026</span></span>
-      <span class="texto"><span class="ti">La Inmensidad del Universo</span><span class="sub">Un atlas del vértigo cósmico</span><span class="resumen">Compara el tamaño de los astros, de una estrella de neutrones al universo observable, o viaja de la Tierra al borde de lo visible, incluso a la velocidad de la luz en tiempo real. Con fotografías reales de NASA, ESA y ESO; lo que nadie ha fotografiado está reconstruido y marcado. Todo ocurre en tu navegador.</span></span>
+      <span class="texto"><span class="ti">La Inmensidad del Universo</span><span class="sub">Un atlas del vértigo cósmico</span><span class="resumen">Compara el tamaño de los astros, de una estrella de neutrones al universo observable, o viaja de la Tierra al borde de lo visible, incluso a la velocidad de la luz en tiempo real. Con fotografías reales de NASA, ESA y ESO; lo que nadie ha fotografiado está reconstruido y marcado.</span></span>
       <span class="leer"><span>Abrir</span><span>&rarr;</span></span>
     </a></li>
     <li class="c-mis" data-cat="mis" data-sub="Sonido"><a class="app" href="../frecuencias-binaurales/">
       <img class="mini" src="../miniaturas/frecuencias-binaurales.jpg" alt="" width="640" height="480" loading="lazy" decoding="async">
       <span class="cab"><span class="cat c-mis"><i></i><b>Misticismo</b>· Sonido</span><span class="fecha">Octubre 2026</span></span>
-      <span class="texto"><span class="ti">Frecuencias binaurales</span><span class="sub">Dos tonos, uno por oído, y el pulso que el cerebro pone entre ambos</span><span class="resumen">Genera en tu navegador tonos binaurales para dormir, meditar, calmarte o enfocarte, con temporizador, respiración guiada y sonido ambiente. Necesita audífonos. Es bienestar sonoro, no tratamiento. Todo ocurre en tu navegador.</span></span>
+      <span class="texto"><span class="ti">Frecuencias binaurales</span><span class="sub">Dos tonos, uno por oído, y el pulso que el cerebro pone entre ambos</span><span class="resumen">Genera en tu navegador tonos binaurales para dormir, meditar, calmarte o enfocarte, con temporizador, respiración guiada y sonido ambiente. Necesita audífonos. Es bienestar sonoro, no tratamiento.</span></span>
       <span class="leer"><span>Abrir</span><span>&rarr;</span></span>
     </a></li>
     <li class="c-mat" data-cat="mat" data-sub="Juegos"><a class="app" href="../sudoku-maestro/">
       <img class="mini" src="../miniaturas/sudoku-maestro.jpg" alt="" width="640" height="480" loading="lazy" decoding="async">
       <span class="cab"><span class="cat c-mat"><i></i><b>Matemáticas</b>· Juegos</span><span class="fecha">Octubre 2026</span></span>
-      <span class="texto"><span class="ti">Sudoku Maestro</span><span class="sub">Sudokus sin fin, cada uno con una sola solución</span><span class="resumen">Inventa un tablero nuevo cada vez y comprueba que tenga una sola solución, como debe ser. Tres niveles, notas, puntaje y una cita sobre los números en cada partida. Todo ocurre en tu navegador.</span></span>
+      <span class="texto"><span class="ti">Sudoku Maestro</span><span class="sub">Sudokus sin fin, cada uno con una sola solución</span><span class="resumen">Inventa un tablero nuevo cada vez y comprueba que tenga una sola solución, como debe ser. Tres niveles, notas, puntaje y una cita sobre los números en cada partida.</span></span>
       <span class="leer"><span>Abrir</span><span>&rarr;</span></span>
     </a></li>
     <li class="c-mis" data-cat="mis" data-sub="Astrología"><a class="app" href="../carta-natal/">
       <img class="mini" src="../miniaturas/carta-natal.jpg" alt="" width="640" height="480" loading="lazy" decoding="async">
       <span class="cab"><span class="cat c-mis"><i></i><b>Misticismo</b>· Astrología</span><span class="fecha">Agosto 2026</span></span>
-      <span class="texto"><span class="ti">La energía del Universo — Carta Natal</span><span class="sub">Tu carta natal, calculada en tu propio navegador</span><span class="resumen">Calcula tu carta natal con datos astronómicos precisos y la dibuja: planetas, casas y aspectos. No te dice qué significa; eso queda de tu lado. Todo ocurre en tu navegador y tus datos no salen de tu dispositivo.</span></span>
+      <span class="texto"><span class="ti">La energía del Universo — Carta Natal</span><span class="sub">Tu carta natal, calculada en tu propio navegador</span><span class="resumen">Calcula tu carta natal con datos astronómicos precisos y la dibuja: planetas, casas y aspectos. No te dice qué significa; eso queda de tu lado. Tus datos no salen de tu dispositivo.</span></span>
       <span class="leer"><span>Abrir</span><span>&rarr;</span></span>
     </a></li>
   </ul>
