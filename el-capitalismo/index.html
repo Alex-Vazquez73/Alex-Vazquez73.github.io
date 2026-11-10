@@ -3,6 +3,15 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>El capitalismo a juicio</title>
+<meta name="description" content="¿El capitalismo nos hizo más ricos o más desiguales? Un juicio con defensa y acusación, datos de fuentes originales y México de 1982 a 2025 como caso principal. Empecé con una opinión y los datos me la cambiaron.">
+<meta property="og:title" content="El capitalismo a juicio">
+<meta property="og:description" content="¿El capitalismo nos hizo más ricos o más desiguales? Un juicio con defensa y acusación, datos de fuentes originales y México de 1982 a 2025 como caso principal. Empecé con una opinión y los datos me la cambiaron.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://alex-vazquez73.github.io/el-capitalismo/">
+<meta property="og:image" content="https://alex-vazquez73.github.io/el-capitalismo/tarjeta.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,600&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,600;1,6..72,300;1,6..72,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
@@ -256,10 +265,26 @@ li::marker{color:var(--lamp);}
   body{font-size:1.5rem;}
   figure.fig,.tabla{width:min(64rem,86vw);}
 }
+
+:root{--naranja:#E05200;--verde:#089600;--gris:#7C8694;--lila:#8B5CF6;--magenta:#E6009E;}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){--naranja:#FF7A1A;--verde:#39FF14;--gris:#9AA3AF;--lila:#C4A1FF;--magenta:#FF2BD6;}
+}
+:root[data-theme="dark"]{--naranja:#FF7A1A;--verde:#39FF14;--gris:#9AA3AF;--lila:#C4A1FF;--magenta:#FF2BD6;}
+.c-eco{--c:var(--naranja);} .c-sci{--c:var(--verde);} .c-fil{--c:var(--gris);}
+.c-mat{--c:var(--lila);} .c-mis{--c:var(--magenta);}
+.catline{margin:1.2rem 0 0;}
+.cat{display:inline-flex;align-items:center;gap:.5rem;text-decoration:none;
+  font-family:"IBM Plex Mono",monospace;font-size:.75rem;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--ink-soft);min-height:2rem;}
+.cat i{display:inline-block;width:.65rem;height:.65rem;border-radius:50%;background:var(--c);flex:none;}
+.cat b{color:var(--ink);font-weight:500;}
+.cat:hover{color:var(--ink);}
+.cat:focus-visible{outline:none;box-shadow:0 0 0 2px var(--lamp);border-radius:2px;}
 </style>
 
 <div id="bar"></div>
-<div class="topbar"><a href="../">Archivo</a><button id="toggle" type="button" aria-label="Cambiar tema">Tema</button></div>
+<div class="topbar"><a href="../">Archivo</a><a href="../ensayos/">Ensayos</a><button id="toggle" type="button" aria-label="Cambiar tema">Tema</button></div>
 <nav id="rail" aria-label="Partes">
   <ul>
       <li><a href="#introduccion" data-target="introduccion"><span class="num">—</span><span class="lbl">Resumen</span></a></li>
@@ -291,6 +316,7 @@ li::marker{color:var(--lamp);}
   <p class="subtitle">Prosperidad, desigualdad y los límites de la acumulación</p>
   <p class="byline">Alejandro Vázquez · agosto de 2026</p>
   <p class="stats"><span>25,800 palabras</span><span>11 figuras · 17 tablas</span><span>modelo de Toulmin</span><span>México 1982–2025</span></p>
+  <p class="catline"><a class="cat c-eco" href="../ensayos/#eco/Desigualdad"><i></i><b>Economía</b>· Desigualdad</a></p>
   <div class="cartucho">
   <p class="lead">El expediente</p>
   <div class="st-grid">

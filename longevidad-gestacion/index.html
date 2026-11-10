@@ -3,6 +3,15 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>¿Vive más quien tarda más en nacer?</title>
+<meta name="description" content="Los mamíferos que gestan más tiempo viven más, y la relación es fuerte. Pero al tomar en cuenta el tamaño, cuántas crías tiene y el parentesco entre especies, el peso de la gestación se reduce a una fracción. No es que gestar más alargue la vida: las dos cosas van despacio por la misma razón.">
+<meta property="og:title" content="¿Vive más quien tarda más en nacer?">
+<meta property="og:description" content="Los mamíferos que gestan más tiempo viven más, y la relación es fuerte. Pero al tomar en cuenta el tamaño, cuántas crías tiene y el parentesco entre especies, el peso de la gestación se reduce a una fracción. No es que gestar más alargue la vida: las dos cosas van despacio por la misma razón.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://alex-vazquez73.github.io/longevidad-gestacion/">
+<meta property="og:image" content="https://alex-vazquez73.github.io/longevidad-gestacion/tarjeta.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,600&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,600;1,6..72,300;1,6..72,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
@@ -257,6 +266,22 @@ li::marker{color:var(--lamp);}
   figure.fig,.tabla{width:min(64rem,86vw);}
 }
 
+:root{--naranja:#E05200;--verde:#089600;--gris:#7C8694;--lila:#8B5CF6;--magenta:#E6009E;}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){--naranja:#FF7A1A;--verde:#39FF14;--gris:#9AA3AF;--lila:#C4A1FF;--magenta:#FF2BD6;}
+}
+:root[data-theme="dark"]{--naranja:#FF7A1A;--verde:#39FF14;--gris:#9AA3AF;--lila:#C4A1FF;--magenta:#FF2BD6;}
+.c-eco{--c:var(--naranja);} .c-sci{--c:var(--verde);} .c-fil{--c:var(--gris);}
+.c-mat{--c:var(--lila);} .c-mis{--c:var(--magenta);}
+.catline{margin:1.2rem 0 0;}
+.cat{display:inline-flex;align-items:center;gap:.5rem;text-decoration:none;
+  font-family:"IBM Plex Mono",monospace;font-size:.75rem;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--ink-soft);min-height:2rem;}
+.cat i{display:inline-block;width:.65rem;height:.65rem;border-radius:50%;background:var(--c);flex:none;}
+.cat b{color:var(--ink);font-weight:500;}
+.cat:hover{color:var(--ink);}
+.cat:focus-visible{outline:none;box-shadow:0 0 0 2px var(--lamp);border-radius:2px;}
+
 /* longevidad-gestacion: la Figura 1 es interactiva (iframe) */
 figure.fig.interactiva iframe{display:block;width:100%;height:600px;border:1px solid var(--rule);
   border-radius:2px;background:var(--ground);}
@@ -270,7 +295,7 @@ main p a:hover,main li a:hover,.recuadro a:hover,figcaption a:hover{border-color
 </style>
 
 <div id="bar"></div>
-<div class="topbar"><a href="../">Archivo</a><button id="toggle" type="button" aria-label="Cambiar tema">Tema</button></div>
+<div class="topbar"><a href="../">Archivo</a><a href="../ensayos/">Ensayos</a><button id="toggle" type="button" aria-label="Cambiar tema">Tema</button></div>
 <nav id="rail" aria-label="Partes">
   <ul>
       <li><a href="#introduccion" data-target="introduccion"><span class="num">—</span><span class="lbl">Resumen</span></a></li>
@@ -294,6 +319,7 @@ main p a:hover,main li a:hover,.recuadro a:hover,figcaption a:hover{border-color
   <p class="subtitle">Gestación y longevidad en 877 mamíferos: un análisis estadístico</p>
   <p class="byline">Alejandro Vázquez · octubre de 2026</p>
   <p class="stats"><span>8,100 palabras</span><span>~40 min de lectura</span><span>7 figuras · 10 tablas · cuaderno</span></p>
+  <p class="catline"><a class="cat c-sci" href="../ensayos/#sci/Mundo%20animal"><i></i><b>Ciencia</b>· Mundo animal</a></p>
   <div class="cartucho">
     <p class="lead">El recorrido</p>
     <div class="st-grid">

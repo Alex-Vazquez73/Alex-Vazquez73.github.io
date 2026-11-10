@@ -3,6 +3,15 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Lo que se esconde detrás de la ganancia</title>
+<meta name="description" content="Una guía para leer El Capital de principio a fin, sin ser experto: de dónde sale la ganancia, por qué el sistema tiene crisis y qué ideas de Marx siguen vigentes. También, las críticas que sí le aciertan.">
+<meta property="og:title" content="Lo que se esconde detrás de la ganancia">
+<meta property="og:description" content="Una guía para leer El Capital de principio a fin, sin ser experto: de dónde sale la ganancia, por qué el sistema tiene crisis y qué ideas de Marx siguen vigentes. También, las críticas que sí le aciertan.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://alex-vazquez73.github.io/karl-marx/">
+<meta property="og:image" content="https://alex-vazquez73.github.io/karl-marx/tarjeta.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,600&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,600;1,6..72,300;1,6..72,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
@@ -256,10 +265,26 @@ li::marker{color:var(--lamp);}
   body{font-size:1.5rem;}
   figure.fig,.tabla{width:min(64rem,86vw);}
 }
+
+:root{--naranja:#E05200;--verde:#089600;--gris:#7C8694;--lila:#8B5CF6;--magenta:#E6009E;}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){--naranja:#FF7A1A;--verde:#39FF14;--gris:#9AA3AF;--lila:#C4A1FF;--magenta:#FF2BD6;}
+}
+:root[data-theme="dark"]{--naranja:#FF7A1A;--verde:#39FF14;--gris:#9AA3AF;--lila:#C4A1FF;--magenta:#FF2BD6;}
+.c-eco{--c:var(--naranja);} .c-sci{--c:var(--verde);} .c-fil{--c:var(--gris);}
+.c-mat{--c:var(--lila);} .c-mis{--c:var(--magenta);}
+.catline{margin:1.2rem 0 0;}
+.cat{display:inline-flex;align-items:center;gap:.5rem;text-decoration:none;
+  font-family:"IBM Plex Mono",monospace;font-size:.75rem;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--ink-soft);min-height:2rem;}
+.cat i{display:inline-block;width:.65rem;height:.65rem;border-radius:50%;background:var(--c);flex:none;}
+.cat b{color:var(--ink);font-weight:500;}
+.cat:hover{color:var(--ink);}
+.cat:focus-visible{outline:none;box-shadow:0 0 0 2px var(--lamp);border-radius:2px;}
 .wrap figure.fig{width:min(26rem,86vw);}</style>
 
 <div id="bar"></div>
-<div class="topbar"><a href="../">Archivo</a><button id="toggle" type="button" aria-label="Cambiar tema">Tema</button></div>
+<div class="topbar"><a href="../">Archivo</a><a href="../ensayos/">Ensayos</a><button id="toggle" type="button" aria-label="Cambiar tema">Tema</button></div>
 <nav id="rail" aria-label="Partes">
   <ul>
       <li><a href="#introduccion" data-target="introduccion"><span class="num">—</span><span class="lbl">Vida y contexto</span></a></li>
@@ -278,6 +303,7 @@ li::marker{color:var(--lamp);}
   <p class="subtitle">Una lectura de El Capital de Marx, de la fábrica a la superficie</p>
   <p class="byline">Alejandro Vázquez · junio de 2026</p>
   <p class="stats"><span>14,100 palabras</span><span>~70 min de lectura</span><span>Vida · tres tomos · legado</span></p>
+  <p class="catline"><a class="cat c-eco" href="../ensayos/#eco/Econom%C3%ADa%20pol%C3%ADtica"><i></i><b>Economía</b>· Economía política</a></p>
   <div class="cartucho">
   <p class="lead">Un solo argumento</p>
   <div class="st-grid">
