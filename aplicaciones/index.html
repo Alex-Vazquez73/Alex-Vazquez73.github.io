@@ -233,7 +233,9 @@ h1{font-family:"Fraunces","Newsreader",Georgia,serif;font-weight:400;
    usan como mancha (punto, lomo, borde, relleno de botón) y la letra sigue
    en tinta. En claro van un punto más hondos para que no se laven. */
 :root{
-  --naranja:#FF6A00; --verde:#14C400; --gris:#7C8694; --lila:#A47BFF; --magenta:#E6009E;
+  /* 2026-11-09 (tarde): naranja, verde y lila daban 2.0-2.6 de contraste
+     contra el fondo claro; con estos tonos todos pasan de 3:1. */
+  --naranja:#E05200; --verde:#089600; --gris:#7C8694; --lila:#8B5CF6; --magenta:#E6009E;
   --sobre:#141A22;
 }
 @media (prefers-color-scheme:dark){
@@ -312,6 +314,53 @@ h1{font-family:"Fraunces","Newsreader",Georgia,serif;font-weight:400;
   .puertas{grid-template-columns:1fr;}
   .estante li{padding-left:.7rem;}
 }
+
+/* ══ AÑADIDO 2026-11-09 (tarde) — mejoras de la revisión ════════════════ */
+/* El botón Tema ya no flota: en el teléfono tapaba los filtros al bajar. */
+#toggle{position:absolute;}
+
+/* las puertas enseñan lo más reciente; ya no son un solo enlace */
+.puerta{gap:0;padding:0;}
+.puerta:hover,.puerta:focus-within{transform:none;border-color:var(--ink-soft);}
+.puerta .cabeza{display:flex;flex-direction:column;gap:.55rem;text-decoration:none;color:inherit;
+  padding:1.5rem 1.5rem 1rem;border-radius:4px 4px 0 0;}
+.puerta .cabeza:focus-visible{outline:none;box-shadow:inset 0 0 0 2px var(--lamp);}
+.puerta .recientes{list-style:none;margin:0;padding:.2rem 1.5rem .3rem;border-top:1px solid var(--rule);}
+.puerta .recientes li{border-bottom:1px solid var(--rule);}
+.puerta .recientes li:last-child{border-bottom:none;}
+.puerta .recientes a{display:flex;align-items:baseline;gap:.6rem;padding:.7rem 0;min-height:2.75rem;
+  text-decoration:none;color:inherit;font-family:"Fraunces",Georgia,serif;font-size:1.02rem;line-height:1.25;}
+.puerta .recientes a:hover span{text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:.2em;}
+.puerta .recientes a:focus-visible{outline:none;box-shadow:0 0 0 2px var(--lamp);border-radius:2px;}
+.puerta .recientes i{display:inline-block;width:.6rem;height:.6rem;border-radius:50%;background:var(--c);
+  flex:none;transform:translateY(-.05rem);}
+.puerta .todas{display:flex;justify-content:space-between;align-items:center;gap:.6rem;margin-top:auto;
+  padding:.95rem 1.5rem 1.1rem;border-top:1px solid var(--rule);text-decoration:none;color:var(--ink);
+  font-family:"IBM Plex Mono",monospace;font-size:.66rem;letter-spacing:.15em;text-transform:uppercase;
+  border-radius:0 0 4px 4px;}
+.puerta .todas:hover{background:var(--shade);}
+.puerta .todas:focus-visible{outline:none;box-shadow:inset 0 0 0 2px var(--lamp);}
+
+/* miniatura de cada aplicación */
+.app{grid-template-columns:9.5rem minmax(0,1fr) auto;gap:.2rem 1.2rem;padding:.9rem 1.4rem .9rem .9rem;}
+.app .mini{grid-row:1/span 2;width:9.5rem;height:auto;aspect-ratio:4/3;object-fit:cover;display:block;
+  border-radius:8px;background:var(--rule);}
+.app .cat{grid-column:2/-1;align-self:end;}
+.app .texto{grid-column:2;align-self:start;}
+.app .leer{grid-column:3;grid-row:2;}
+
+/* paso directo entre las dos pantallas */
+.pantalla .eyebrow{display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;padding-right:4.5rem;}
+@media (max-width:640px){
+  .app{grid-template-columns:minmax(0,1fr) auto;padding:.9rem;}
+  .app .mini{grid-column:1/-1;grid-row:auto;width:100%;height:auto;aspect-ratio:16/9;margin:0 0 .6rem;}
+  .app .cat{grid-column:1/-1;}
+  .app .texto{grid-column:1;}
+  .app .leer{grid-column:2;grid-row:auto;}
+  .puerta .cabeza{padding:1.3rem 1.2rem .9rem;}
+  .puerta .recientes{padding:.2rem 1.2rem .3rem;}
+  .puerta .todas{padding:.95rem 1.2rem 1.1rem;}
+}
 </style>
 
 <button id="toggle" type="button" aria-label="Cambiar tema">Tema</button>
@@ -319,7 +368,7 @@ h1{font-family:"Fraunces","Newsreader",Georgia,serif;font-weight:400;
 <main class="wrap pantalla">
   <header class="hero">
     <div class="lamp" aria-hidden="true"></div>
-    <p class="eyebrow"><a class="volver" href="../">&larr; Archivo</a></p>
+    <p class="eyebrow"><a class="volver" href="../">&larr; Archivo</a><a class="volver" href="../ensayos/">Ensayos &rarr;</a></p>
     <h1>Aplicaciones</h1>
     <p class="lede">Se usan, no se leen. Todo ocurre en tu navegador.</p>
     <p class="totales"><span><b>6</b> aplicaciones</span></p>
@@ -332,33 +381,39 @@ h1{font-family:"Fraunces","Newsreader",Georgia,serif;font-weight:400;
   <p class="cuenta" id="cuenta" role="status"></p>
   <ul class="apps">
     <li class="c-mis" data-cat="mis" data-sub="Astrología"><a class="app" href="../carta-natal/">
+      <img class="mini" src="../miniaturas/carta-natal.jpg" alt="" width="640" height="480" loading="lazy" decoding="async">
       <span class="cat c-mis"><i></i><b>Misticismo</b>· Astrología</span>
-      <span><span class="ti">La energía del Universo — Carta Natal</span><span class="sub">Tu carta natal, calculada en tu propio navegador</span><span class="resumen">Calcula tu carta natal con datos astronómicos precisos y la dibuja: planetas, casas y aspectos. No te dice qué significa; eso queda de tu lado. Todo ocurre en tu navegador y tus datos no salen de tu dispositivo.</span></span>
+      <span class="texto"><span class="ti">La energía del Universo — Carta Natal</span><span class="sub">Tu carta natal, calculada en tu propio navegador</span><span class="resumen">Calcula tu carta natal con datos astronómicos precisos y la dibuja: planetas, casas y aspectos. No te dice qué significa; eso queda de tu lado. Todo ocurre en tu navegador y tus datos no salen de tu dispositivo.</span></span>
       <span class="leer"><span>Abrir</span><span>&rarr;</span></span>
     </a></li>
     <li class="c-mat" data-cat="mat" data-sub="Juegos"><a class="app" href="../sudoku-maestro/">
+      <img class="mini" src="../miniaturas/sudoku-maestro.jpg" alt="" width="640" height="480" loading="lazy" decoding="async">
       <span class="cat c-mat"><i></i><b>Matemáticas</b>· Juegos</span>
-      <span><span class="ti">Sudoku Maestro</span><span class="sub">Sudokus sin fin, cada uno con una sola solución</span><span class="resumen">Inventa un tablero nuevo cada vez y comprueba que tenga una sola solución, como debe ser. Tres niveles, notas, puntaje y una cita sobre los números en cada partida. Todo ocurre en tu navegador.</span></span>
+      <span class="texto"><span class="ti">Sudoku Maestro</span><span class="sub">Sudokus sin fin, cada uno con una sola solución</span><span class="resumen">Inventa un tablero nuevo cada vez y comprueba que tenga una sola solución, como debe ser. Tres niveles, notas, puntaje y una cita sobre los números en cada partida. Todo ocurre en tu navegador.</span></span>
       <span class="leer"><span>Abrir</span><span>&rarr;</span></span>
     </a></li>
     <li class="c-mis" data-cat="mis" data-sub="Sonido"><a class="app" href="../frecuencias-binaurales/">
+      <img class="mini" src="../miniaturas/frecuencias-binaurales.jpg" alt="" width="640" height="480" loading="lazy" decoding="async">
       <span class="cat c-mis"><i></i><b>Misticismo</b>· Sonido</span>
-      <span><span class="ti">Frecuencias binaurales</span><span class="sub">Dos tonos, uno por oído, y el pulso que el cerebro pone entre ambos</span><span class="resumen">Genera en tu navegador tonos binaurales para dormir, meditar, calmarte o enfocarte, con temporizador, respiración guiada y sonido ambiente. Necesita audífonos. Es bienestar sonoro, no tratamiento. Todo ocurre en tu navegador.</span></span>
+      <span class="texto"><span class="ti">Frecuencias binaurales</span><span class="sub">Dos tonos, uno por oído, y el pulso que el cerebro pone entre ambos</span><span class="resumen">Genera en tu navegador tonos binaurales para dormir, meditar, calmarte o enfocarte, con temporizador, respiración guiada y sonido ambiente. Necesita audífonos. Es bienestar sonoro, no tratamiento. Todo ocurre en tu navegador.</span></span>
       <span class="leer"><span>Abrir</span><span>&rarr;</span></span>
     </a></li>
     <li class="c-sci" data-cat="sci" data-sub="Astros"><a class="app" href="../la-inmensidad/">
+      <img class="mini" src="../miniaturas/la-inmensidad.jpg" alt="" width="640" height="480" loading="lazy" decoding="async">
       <span class="cat c-sci"><i></i><b>Ciencia</b>· Astros</span>
-      <span><span class="ti">La Inmensidad del Universo</span><span class="sub">Un atlas del vértigo cósmico</span><span class="resumen">Compara el tamaño de los astros, de una estrella de neutrones al universo observable, o viaja de la Tierra al borde de lo visible, incluso a la velocidad de la luz en tiempo real. Con fotografías reales de NASA, ESA y ESO; lo que nadie ha fotografiado está reconstruido y marcado. Todo ocurre en tu navegador.</span></span>
+      <span class="texto"><span class="ti">La Inmensidad del Universo</span><span class="sub">Un atlas del vértigo cósmico</span><span class="resumen">Compara el tamaño de los astros, de una estrella de neutrones al universo observable, o viaja de la Tierra al borde de lo visible, incluso a la velocidad de la luz en tiempo real. Con fotografías reales de NASA, ESA y ESO; lo que nadie ha fotografiado está reconstruido y marcado. Todo ocurre en tu navegador.</span></span>
       <span class="leer"><span>Abrir</span><span>&rarr;</span></span>
     </a></li>
     <li class="c-mat" data-cat="mat" data-sub="Números"><a class="app" href="../el-numero-mas-irracional/">
+      <img class="mini" src="../miniaturas/el-numero-mas-irracional.jpg" alt="" width="640" height="480" loading="lazy" decoding="async">
       <span class="cat c-mat"><i></i><b>Matemáticas</b>· Números</span>
-      <span><span class="ti">El número más irracional</span><span class="sub">Fibonacci y la proporción áurea, sin mitos</span><span class="resumen">Un recorrido visual por la sucesión de Fibonacci y φ: de dónde sale, la espiral, el girasol, los mitos que no resisten una regla y los retrocesos que usan los traders, con un tramo real del Dow Jones. Cada sección es visual primero; la demostración está a un botón. Todo ocurre en tu navegador.</span></span>
+      <span class="texto"><span class="ti">El número más irracional</span><span class="sub">Fibonacci y la proporción áurea, sin mitos</span><span class="resumen">Un recorrido visual por la sucesión de Fibonacci y φ: de dónde sale, la espiral, el girasol, los mitos que no resisten una regla y los retrocesos que usan los traders, con un tramo real del Dow Jones. Cada sección es visual primero; la demostración está a un botón. Todo ocurre en tu navegador.</span></span>
       <span class="leer"><span>Abrir</span><span>&rarr;</span></span>
     </a></li>
     <li class="c-mat" data-cat="mat" data-sub="Geometría"><a class="app" href="../fractales/">
+      <img class="mini" src="../miniaturas/fractales.jpg" alt="" width="640" height="480" loading="lazy" decoding="async">
       <span class="cat c-mat"><i></i><b>Matemáticas</b>· Geometría</span>
-      <span><span class="ti">El infinito que cabe en una regla</span><span class="sub">Un recorrido por los fractales</span><span class="resumen">Puntos lanzados al azar que dibujan un triángulo perfecto, una costa que no termina de medirse, un viaje de un billón de aumentos por el conjunto de Mandelbrot, helechos hechos con cuatro reglas, el caos de Lorenz y la forma quebrada del Dow Jones. Cada sección es visual primero; las fórmulas están a un botón. Al final, un laboratorio con doce fractales.</span></span>
+      <span class="texto"><span class="ti">El infinito que cabe en una regla</span><span class="sub">Un recorrido por los fractales</span><span class="resumen">Puntos lanzados al azar que dibujan un triángulo perfecto, una costa que no termina de medirse, un viaje de un billón de aumentos por el conjunto de Mandelbrot, helechos hechos con cuatro reglas, el caos de Lorenz y la forma quebrada del Dow Jones. Cada sección es visual primero; las fórmulas están a un botón. Al final, un laboratorio con doce fractales.</span></span>
       <span class="leer"><span>Abrir</span><span>&rarr;</span></span>
     </a></li>
   </ul>

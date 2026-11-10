@@ -233,7 +233,9 @@ h1{font-family:"Fraunces","Newsreader",Georgia,serif;font-weight:400;
    usan como mancha (punto, lomo, borde, relleno de botón) y la letra sigue
    en tinta. En claro van un punto más hondos para que no se laven. */
 :root{
-  --naranja:#FF6A00; --verde:#14C400; --gris:#7C8694; --lila:#A47BFF; --magenta:#E6009E;
+  /* 2026-11-09 (tarde): naranja, verde y lila daban 2.0-2.6 de contraste
+     contra el fondo claro; con estos tonos todos pasan de 3:1. */
+  --naranja:#E05200; --verde:#089600; --gris:#7C8694; --lila:#8B5CF6; --magenta:#E6009E;
   --sobre:#141A22;
 }
 @media (prefers-color-scheme:dark){
@@ -312,6 +314,53 @@ h1{font-family:"Fraunces","Newsreader",Georgia,serif;font-weight:400;
   .puertas{grid-template-columns:1fr;}
   .estante li{padding-left:.7rem;}
 }
+
+/* ══ AÑADIDO 2026-11-09 (tarde) — mejoras de la revisión ════════════════ */
+/* El botón Tema ya no flota: en el teléfono tapaba los filtros al bajar. */
+#toggle{position:absolute;}
+
+/* las puertas enseñan lo más reciente; ya no son un solo enlace */
+.puerta{gap:0;padding:0;}
+.puerta:hover,.puerta:focus-within{transform:none;border-color:var(--ink-soft);}
+.puerta .cabeza{display:flex;flex-direction:column;gap:.55rem;text-decoration:none;color:inherit;
+  padding:1.5rem 1.5rem 1rem;border-radius:4px 4px 0 0;}
+.puerta .cabeza:focus-visible{outline:none;box-shadow:inset 0 0 0 2px var(--lamp);}
+.puerta .recientes{list-style:none;margin:0;padding:.2rem 1.5rem .3rem;border-top:1px solid var(--rule);}
+.puerta .recientes li{border-bottom:1px solid var(--rule);}
+.puerta .recientes li:last-child{border-bottom:none;}
+.puerta .recientes a{display:flex;align-items:baseline;gap:.6rem;padding:.7rem 0;min-height:2.75rem;
+  text-decoration:none;color:inherit;font-family:"Fraunces",Georgia,serif;font-size:1.02rem;line-height:1.25;}
+.puerta .recientes a:hover span{text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:.2em;}
+.puerta .recientes a:focus-visible{outline:none;box-shadow:0 0 0 2px var(--lamp);border-radius:2px;}
+.puerta .recientes i{display:inline-block;width:.6rem;height:.6rem;border-radius:50%;background:var(--c);
+  flex:none;transform:translateY(-.05rem);}
+.puerta .todas{display:flex;justify-content:space-between;align-items:center;gap:.6rem;margin-top:auto;
+  padding:.95rem 1.5rem 1.1rem;border-top:1px solid var(--rule);text-decoration:none;color:var(--ink);
+  font-family:"IBM Plex Mono",monospace;font-size:.66rem;letter-spacing:.15em;text-transform:uppercase;
+  border-radius:0 0 4px 4px;}
+.puerta .todas:hover{background:var(--shade);}
+.puerta .todas:focus-visible{outline:none;box-shadow:inset 0 0 0 2px var(--lamp);}
+
+/* miniatura de cada aplicación */
+.app{grid-template-columns:9.5rem minmax(0,1fr) auto;gap:.2rem 1.2rem;padding:.9rem 1.4rem .9rem .9rem;}
+.app .mini{grid-row:1/span 2;width:9.5rem;height:auto;aspect-ratio:4/3;object-fit:cover;display:block;
+  border-radius:8px;background:var(--rule);}
+.app .cat{grid-column:2/-1;align-self:end;}
+.app .texto{grid-column:2;align-self:start;}
+.app .leer{grid-column:3;grid-row:2;}
+
+/* paso directo entre las dos pantallas */
+.pantalla .eyebrow{display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;padding-right:4.5rem;}
+@media (max-width:640px){
+  .app{grid-template-columns:minmax(0,1fr) auto;padding:.9rem;}
+  .app .mini{grid-column:1/-1;grid-row:auto;width:100%;height:auto;aspect-ratio:16/9;margin:0 0 .6rem;}
+  .app .cat{grid-column:1/-1;}
+  .app .texto{grid-column:1;}
+  .app .leer{grid-column:2;grid-row:auto;}
+  .puerta .cabeza{padding:1.3rem 1.2rem .9rem;}
+  .puerta .recientes{padding:.2rem 1.2rem .3rem;}
+  .puerta .todas{padding:.95rem 1.2rem 1.1rem;}
+}
 </style>
 
 <button id="toggle" type="button" aria-label="Cambiar tema">Tema</button>
@@ -319,7 +368,7 @@ h1{font-family:"Fraunces","Newsreader",Georgia,serif;font-weight:400;
 <main class="wrap pantalla">
   <header class="hero">
     <div class="lamp" aria-hidden="true"></div>
-    <p class="eyebrow"><a class="volver" href="../">&larr; Archivo</a></p>
+    <p class="eyebrow"><a class="volver" href="../">&larr; Archivo</a><a class="volver" href="../aplicaciones/">Aplicaciones &rarr;</a></p>
     <h1>Ensayos</h1>
     <p class="lede">Se leen. El largo de cada lomo es su número de palabras; el color, su categoría.</p>
     <p class="totales"><span><b>7</b> ensayos</span><span><b>91,126</b> palabras</span><span><b>~7 h 38 min</b> de lectura</span></p>
