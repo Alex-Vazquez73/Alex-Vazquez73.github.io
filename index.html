@@ -134,7 +134,6 @@ h1{font-family:"Fraunces","Newsreader",Georgia,serif;font-weight:400;
   color:var(--ink-soft);white-space:nowrap;font-variant-numeric:tabular-nums;}
 /* 2026-10-06: el resumen va visible bajo cada título (antes, plegado). */
 .estante .resumen{grid-column:1/-1;margin:0 0 .8rem;font-size:1rem;line-height:1.6;}
-.a-eco{--c:var(--lamp);} .a-fil{--c:var(--ink-soft);} .a-sci{--c:var(--tool);}
 
 /* AÑADIDO 2026-10-06 — aplicaciones: se usan, no se leen */
 .apps{list-style:none;margin:0 0 3.6rem;padding:0;display:flex;flex-direction:column;gap:.8rem;}
@@ -228,6 +227,91 @@ h1{font-family:"Fraunces","Newsreader",Georgia,serif;font-weight:400;
   .estante .resumen{font-size:1.06rem;}
   .nota p{font-size:1.06rem;}
 }
+
+/* ══ AÑADIDO 2026-11-09 — categorías en color, puertas y pantallas ═══════ */
+/* Los fosforescentes no sirven como color de LETRA sobre fondo claro: se
+   usan como mancha (punto, lomo, borde, relleno de botón) y la letra sigue
+   en tinta. En claro van un punto más hondos para que no se laven. */
+:root{
+  --naranja:#FF6A00; --verde:#14C400; --gris:#7C8694; --lila:#A47BFF; --magenta:#E6009E;
+  --sobre:#141A22;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --naranja:#FF7A1A; --verde:#39FF14; --gris:#9AA3AF; --lila:#C4A1FF; --magenta:#FF2BD6;
+  }
+}
+:root[data-theme="dark"]{
+  --naranja:#FF7A1A; --verde:#39FF14; --gris:#9AA3AF; --lila:#C4A1FF; --magenta:#FF2BD6;
+}
+.c-eco{--c:var(--naranja);} .c-sci{--c:var(--verde);} .c-fil{--c:var(--gris);}
+.c-mat{--c:var(--lila);} .c-mis{--c:var(--magenta);}
+
+/* la etiqueta «Categoría · Subcategoría» de cada pieza */
+.cat{display:inline-flex;align-items:center;gap:.45rem;
+  font-family:"IBM Plex Mono",monospace;font-size:.62rem;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--ink-soft);}
+.cat i{display:inline-block;width:.6rem;height:.6rem;border-radius:50%;background:var(--c);flex:none;}
+.cat b{color:var(--ink);font-weight:500;}
+
+/* portada: las dos puertas */
+.puertas{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:0 0 3.6rem;}
+.puerta{display:flex;flex-direction:column;gap:.55rem;text-decoration:none;color:inherit;
+  background:var(--surface);border:1px solid var(--rule);border-radius:4px;
+  padding:1.5rem 1.5rem 1.3rem;transition:border-color .18s,transform .18s;}
+.puerta:hover,.puerta:focus-visible{border-color:var(--ink-soft);outline:none;transform:translateY(-2px);}
+.puerta:focus-visible{box-shadow:0 0 0 2px var(--lamp);}
+.puerta .franja{display:flex;height:.4rem;border-radius:1px;overflow:hidden;margin:0 0 .5rem;}
+.puerta .franja i{flex:var(--n) 1 0;background:var(--c);}
+.puerta .nombre{font-family:"Fraunces",Georgia,serif;font-weight:400;
+  font-size:clamp(1.7rem,5vw,2.2rem);line-height:1.05;letter-spacing:-.015em;}
+.puerta .que{font-family:"Fraunces",Georgia,serif;font-style:italic;font-weight:300;
+  font-size:1rem;color:var(--ink-soft);line-height:1.35;}
+.puerta .datos{font-family:"IBM Plex Mono",monospace;font-size:.64rem;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--ink-soft);font-variant-numeric:tabular-nums;}
+.puerta .datos b{color:var(--ink);font-weight:500;}
+.puerta .cats{display:flex;flex-wrap:wrap;gap:.3rem .9rem;margin:.2rem 0 .5rem;}
+.puerta .leer{color:var(--ink);margin-top:auto;}
+.puerta:hover .leer{gap:.75rem;}
+
+/* pantallas de Ensayos y Aplicaciones */
+.volver{font-family:"IBM Plex Mono",monospace;font-size:.68rem;letter-spacing:.19em;
+  text-transform:uppercase;color:var(--ink-soft);text-decoration:none;}
+.volver:hover{color:var(--ink);}
+.pantalla .hero{padding-bottom:2.4rem;}
+.filtros{display:flex;flex-wrap:wrap;gap:.5rem;margin:0 0 .7rem;}
+.filtros.subs{padding-left:.2rem;}
+.filtros.subs[hidden]{display:none;}
+.chip{display:inline-flex;align-items:center;gap:.45rem;cursor:pointer;
+  font-family:"IBM Plex Mono",monospace;font-size:.64rem;letter-spacing:.11em;text-transform:uppercase;
+  background:transparent;color:var(--ink-soft);border:1px solid var(--rule);border-radius:99px;
+  padding:.5rem .9rem;min-height:2.3rem;transition:background .15s,color .15s,border-color .15s;}
+.chip i{display:inline-block;width:.6rem;height:.6rem;border-radius:50%;background:var(--c,var(--ink-soft));}
+.chip em{font-style:normal;opacity:.7;font-variant-numeric:tabular-nums;}
+.chip:hover{border-color:var(--c,var(--ink-soft));color:var(--ink);}
+.chip:focus-visible{outline:none;box-shadow:0 0 0 2px var(--lamp);}
+.chip[aria-pressed="true"]{background:var(--c,var(--ink));border-color:var(--c,var(--ink));color:var(--sobre);}
+.chip:not([class*="c-"])[aria-pressed="true"]{color:var(--ground);}
+.chip[aria-pressed="true"] i{background:var(--sobre);}
+.chip.sub{font-size:.6rem;padding:.35rem .75rem;min-height:2rem;border-style:dashed;}
+.chip.sub[aria-pressed="true"]{border-style:solid;}
+.cuenta{font-family:"IBM Plex Mono",monospace;font-size:.62rem;letter-spacing:.11em;
+  text-transform:uppercase;color:var(--ink-soft);margin:1rem 0 .4rem;
+  padding-top:1rem;border-top:1px solid var(--rule);}
+[data-cat][hidden]{display:none!important;}
+
+/* el estante y las apps toman el color de su categoría */
+.estante .cat,.app .cat{grid-column:1/-1;margin:0 0 .35rem;}
+.estante li{border-left:3px solid var(--c);padding-left:.9rem;margin:0 0 .2rem;}
+.app{border-color:var(--c);background:color-mix(in srgb,var(--c) 7%,transparent);
+  grid-template-columns:minmax(0,1fr) auto;}
+.app:focus-visible{box-shadow:0 0 0 2px var(--c);}
+.app .leer{color:var(--ink);}
+.destacada .cat{margin:0 0 .75rem;}
+@media (max-width:640px){
+  .puertas{grid-template-columns:1fr;}
+  .estante li{padding-left:.7rem;}
+}
 </style>
 
 <button id="toggle" type="button" aria-label="Cambiar tema">Tema</button>
@@ -243,7 +327,8 @@ h1{font-family:"Fraunces","Newsreader",Georgia,serif;font-weight:400;
 
   <p class="section-label"><span>Lo último publicado</span><span class="count">Noviembre 2026</span></p>
   <a class="destacada" href="fractales/">
-    <p class="meta"><span class="kind">Aplicación · Matemáticas</span><span>Noviembre 2026</span></p>
+    <span class="cat c-mat"><i></i><b>Matemáticas</b>· Geometría</span>
+    <p class="meta"><span class="kind">Aplicación</span><span>Noviembre 2026</span></p>
     <h2>El infinito que cabe en una regla</h2>
     <p class="sub">Un recorrido por los fractales</p>
     <p class="blurb">Puntos lanzados al azar que dibujan un triángulo perfecto, una costa que no termina de medirse, un viaje de un billón de aumentos por el conjunto de Mandelbrot, helechos hechos con cuatro reglas, el caos de Lorenz y la forma quebrada del Dow Jones. Cada sección es visual primero; las fórmulas están a un botón. Al final, un laboratorio con doce fractales.</p>
@@ -251,102 +336,25 @@ h1{font-family:"Fraunces","Newsreader",Georgia,serif;font-weight:400;
     <p class="leer"><span>Abrir</span><span>&rarr;</span></p>
   </a>
 
-  <p class="section-label"><span>Ensayos</span><span class="count">el largo es el número de palabras</span></p>
-  <p class="leyenda" aria-hidden="true"><span class="a-eco">Economía</span><span class="a-fil">Filosofía</span><span class="a-sci">Ciencia</span></p>
-  <ul class="estante">
-    <li class="a-fil">
-      <a href="banquete-del-absurdo/">
-        <h3>El Banquete del Absurdo</h3>
-        <span class="min">~1 h 35 min</span>
-        <p class="sub">Simposio sobre por qué hay algo y no más bien nada</p>
-        <p class="resumen">Doce filósofos, una cena y una pregunta: ¿por qué hay algo y no más bien nada? Cada uno discute con su contrario, se burla, se confiesa y dice qué hace con la angustia. Un libreto en tres actos, con una silla vacía que es la tuya.</p>
-        <span class="lomo" aria-hidden="true"><i style="--w:71.7"></i><em>18,500 pal.</em></span>
-      </a>
-    </li>
-    <li class="a-sci">
-      <a href="longevidad-gestacion/">
-        <h3>¿Vive más quien tarda más en nacer?</h3>
-        <span class="min">~40 min</span>
-        <p class="sub">Gestación y longevidad en 877 mamíferos: un análisis estadístico</p>
-        <p class="resumen">Los mamíferos que gestan más tiempo viven más, y la relación es fuerte. Pero al tomar en cuenta el tamaño, cuántas crías tiene y el parentesco entre especies, el peso de la gestación se reduce a una fracción. No es que gestar más alargue la vida: las dos cosas van despacio por la misma razón.</p>
-        <span class="lomo" aria-hidden="true"><i style="--w:31.4"></i><em>8,100 pal. · 7 fig.</em></span>
-      </a>
-    </li>
-    <li class="a-eco">
-      <a href="karl-marx/">
-        <h3>Lo que se esconde detrás de la ganancia</h3>
-        <span class="min">~1 h 10 min</span>
-        <p class="sub">Una lectura de El Capital de Marx, de la fábrica a la superficie</p>
-        <p class="resumen">Una guía para leer El Capital de principio a fin, sin ser experto: de dónde sale la ganancia, por qué el sistema tiene crisis y qué ideas de Marx siguen vigentes. También, las críticas que sí le aciertan.</p>
-        <span class="lomo" aria-hidden="true"><i style="--w:54.7"></i><em>14,100 pal. · 8 fig.</em></span>
-      </a>
-    </li>
-    <li class="a-sci">
-      <a href="inteligencia-animal/">
-        <h3>La inteligencia animal: la escalera era una coartada</h3>
-        <span class="min">~30 min</span>
-        <p class="sub">Con un parásito de villano y una abeja de testigo</p>
-        <p class="resumen">Solemos ordenar a los animales en una escalera, con nosotros hasta arriba. Esa escalera no se sostiene: hay cuervos más listos que chimpancés y mohos que resuelven laberintos sin una sola neurona. Y una pista incómoda: le negamos inteligencia a un animal justo antes de comérnoslo.</p>
-        <span class="lomo" aria-hidden="true"><i style="--w:23.6"></i><em>6,100 pal.</em></span>
-      </a>
-    </li>
-    <li class="a-fil">
-      <a href="incomodidad-despertar/">
-        <h3>La incomodidad, ¿precio del despertar?</h3>
-        <span class="min">~16 min</span>
-        <p class="sub">Una noche en Wirikuta, el Buda y el sinsentido que no se mueve</p>
-        <p class="resumen">Tras una noche de frío y lluvia en una ceremonia en el desierto, una pregunta sencilla: ¿hace falta pasarla mal para despertar? La respuesta separa el sufrimiento inútil del esfuerzo que sí transforma, con ayuda del budismo.</p>
-        <span class="lomo" aria-hidden="true"><i style="--w:12.4"></i><em>3,200 pal. · 2 fig.</em></span>
-      </a>
-    </li>
-    <li class="a-fil">
-      <a href="sisifo-despierto/">
-        <h3>Imaginar a Sísifo despierto</h3>
-        <span class="min">~1 h 17 min</span>
-        <p class="sub">El sinsentido, el absurdo y la angustia</p>
-        <p class="resumen">Angustia, sinsentido y absurdo parecen lo mismo, pero no lo son: una es lo que sientes, otro lo que ves y el último lo que haces con eso. De Kierkegaard a Camus, y por qué hoy estas preguntas ya no duelen aunque sigan sin respuesta.</p>
-        <span class="lomo" aria-hidden="true"><i style="--w:59.4"></i><em>15,326 pal.</em></span>
-      </a>
-    </li>
-    <li class="a-eco">
-      <a href="el-capitalismo/">
-        <h3>El capitalismo a juicio</h3>
-        <span class="min">~2 h 10 min</span>
-        <p class="sub">Prosperidad, desigualdad y los límites de la acumulación</p>
-        <p class="resumen">¿El capitalismo nos hizo más ricos o más desiguales? Un juicio con defensa y acusación, datos de fuentes originales y México de 1982 a 2025 como caso principal. Empecé con una opinión y los datos me la cambiaron.</p>
-        <span class="lomo" aria-hidden="true"><i style="--w:100.0"></i><em>25,800 pal. · 11 fig.</em></span>
-      </a>
-    </li>
-  </ul>
-
-  <p class="section-label"><span>Aplicaciones</span><span class="count">se usan, no se leen</span></p>
-  <ul class="apps">
-    <li><a class="app" href="carta-natal/">
-      <span class="sello"><span>◎</span>Aplicación</span>
-      <span><span class="ti">La energía del Universo — Carta Natal</span><span class="sub">Tu carta natal, calculada en tu propio navegador</span><span class="resumen">Calcula tu carta natal con datos astronómicos precisos y la dibuja: planetas, casas y aspectos. No te dice qué significa; eso queda de tu lado. Todo ocurre en tu navegador y tus datos no salen de tu dispositivo.</span></span>
-      <span class="leer"><span>Abrir</span><span>&rarr;</span></span>
-    </a></li>
-    <li><a class="app" href="sudoku-maestro/">
-      <span class="sello"><span>◎</span>Aplicación</span>
-      <span><span class="ti">Sudoku Maestro</span><span class="sub">Sudokus sin fin, cada uno con una sola solución</span><span class="resumen">Inventa un tablero nuevo cada vez y comprueba que tenga una sola solución, como debe ser. Tres niveles, notas, puntaje y una cita sobre los números en cada partida. Todo ocurre en tu navegador.</span></span>
-      <span class="leer"><span>Abrir</span><span>&rarr;</span></span>
-    </a></li>
-    <li><a class="app" href="frecuencias-binaurales/">
-      <span class="sello"><span>◎</span>Aplicación</span>
-      <span><span class="ti">Frecuencias binaurales</span><span class="sub">Dos tonos, uno por oído, y el pulso que el cerebro pone entre ambos</span><span class="resumen">Genera en tu navegador tonos binaurales para dormir, meditar, calmarte o enfocarte, con temporizador, respiración guiada y sonido ambiente. Necesita audífonos. Es bienestar sonoro, no tratamiento. Todo ocurre en tu navegador.</span></span>
-      <span class="leer"><span>Abrir</span><span>&rarr;</span></span>
-    </a></li>
-    <li><a class="app" href="la-inmensidad/">
-      <span class="sello"><span>◎</span>Aplicación</span>
-      <span><span class="ti">La Inmensidad del Universo</span><span class="sub">Un atlas del vértigo cósmico</span><span class="resumen">Compara el tamaño de los astros, de una estrella de neutrones al universo observable, o viaja de la Tierra al borde de lo visible, incluso a la velocidad de la luz en tiempo real. Con fotografías reales de NASA, ESA y ESO; lo que nadie ha fotografiado está reconstruido y marcado. Todo ocurre en tu navegador.</span></span>
-      <span class="leer"><span>Abrir</span><span>&rarr;</span></span>
-    </a></li>
-    <li><a class="app" href="el-numero-mas-irracional/">
-      <span class="sello"><span>◎</span>Aplicación</span>
-      <span><span class="ti">El número más irracional</span><span class="sub">Fibonacci y la proporción áurea, sin mitos</span><span class="resumen">Un recorrido visual por la sucesión de Fibonacci y φ: de dónde sale, la espiral, el girasol, los mitos que no resisten una regla y los retrocesos que usan los traders, con un tramo real del Dow Jones. Cada sección es visual primero; la demostración está a un botón. Todo ocurre en tu navegador.</span></span>
-      <span class="leer"><span>Abrir</span><span>&rarr;</span></span>
-    </a></li>
-  </ul>
+  <p class="section-label"><span>El archivo</span><span class="count">elige por dónde entrar</span></p>
+  <nav class="puertas" aria-label="Secciones del archivo">
+    <a class="puerta" href="ensayos/">
+      <span class="franja" aria-hidden="true"><i class="c-eco" style="--n:2"></i><i class="c-sci" style="--n:2"></i><i class="c-fil" style="--n:3"></i></span>
+      <span class="nombre">Ensayos</span>
+      <span class="que">Se leen.</span>
+      <span class="datos"><b>7</b> piezas · <b>~7 h 38 min</b> de lectura</span>
+      <span class="cats"><span class="cat c-eco"><i></i>Economía</span><span class="cat c-sci"><i></i>Ciencia</span><span class="cat c-fil"><i></i>Filosofía</span></span>
+      <span class="leer"><span>Entrar</span><span>&rarr;</span></span>
+    </a>
+    <a class="puerta" href="aplicaciones/">
+      <span class="franja" aria-hidden="true"><i class="c-sci" style="--n:1"></i><i class="c-mat" style="--n:3"></i><i class="c-mis" style="--n:2"></i></span>
+      <span class="nombre">Aplicaciones</span>
+      <span class="que">Se usan, no se leen.</span>
+      <span class="datos"><b>6</b> piezas · todo ocurre en tu navegador</span>
+      <span class="cats"><span class="cat c-sci"><i></i>Ciencia</span><span class="cat c-mat"><i></i>Matemáticas</span><span class="cat c-mis"><i></i>Misticismo</span></span>
+      <span class="leer"><span>Entrar</span><span>&rarr;</span></span>
+    </a>
+  </nav>
 
   <section class="sus" aria-labelledby="sus-h">
     <h2 id="sus-h">Avísame cuando haya algo nuevo</h2>

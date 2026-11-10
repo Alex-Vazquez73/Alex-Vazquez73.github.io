@@ -130,7 +130,6 @@ h1{font-family:"Fraunces","Newsreader",Georgia,serif;font-weight:400;
   color:var(--ink-soft);white-space:nowrap;font-variant-numeric:tabular-nums;}
 /* 2026-10-06: el resumen va visible bajo cada título (antes, plegado). */
 .estante .resumen{grid-column:1/-1;margin:0 0 .8rem;font-size:1rem;line-height:1.6;}
-.a-eco{--c:var(--lamp);} .a-fil{--c:var(--ink-soft);} .a-sci{--c:var(--tool);}
 
 /* AÑADIDO 2026-10-06 — aplicaciones: se usan, no se leen */
 .apps{list-style:none;margin:0 0 3.6rem;padding:0;display:flex;flex-direction:column;gap:.8rem;}
@@ -223,6 +222,91 @@ h1{font-family:"Fraunces","Newsreader",Georgia,serif;font-weight:400;
   .estante .sub{font-size:1.06rem;}
   .estante .resumen{font-size:1.06rem;}
   .nota p{font-size:1.06rem;}
+}
+
+/* ══ AÑADIDO 2026-11-09 — categorías en color, puertas y pantallas ═══════ */
+/* Los fosforescentes no sirven como color de LETRA sobre fondo claro: se
+   usan como mancha (punto, lomo, borde, relleno de botón) y la letra sigue
+   en tinta. En claro van un punto más hondos para que no se laven. */
+:root{
+  --naranja:#FF6A00; --verde:#14C400; --gris:#7C8694; --lila:#A47BFF; --magenta:#E6009E;
+  --sobre:#141A22;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --naranja:#FF7A1A; --verde:#39FF14; --gris:#9AA3AF; --lila:#C4A1FF; --magenta:#FF2BD6;
+  }
+}
+:root[data-theme="dark"]{
+  --naranja:#FF7A1A; --verde:#39FF14; --gris:#9AA3AF; --lila:#C4A1FF; --magenta:#FF2BD6;
+}
+.c-eco{--c:var(--naranja);} .c-sci{--c:var(--verde);} .c-fil{--c:var(--gris);}
+.c-mat{--c:var(--lila);} .c-mis{--c:var(--magenta);}
+
+/* la etiqueta «Categoría · Subcategoría» de cada pieza */
+.cat{display:inline-flex;align-items:center;gap:.45rem;
+  font-family:"IBM Plex Mono",monospace;font-size:.62rem;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--ink-soft);}
+.cat i{display:inline-block;width:.6rem;height:.6rem;border-radius:50%;background:var(--c);flex:none;}
+.cat b{color:var(--ink);font-weight:500;}
+
+/* portada: las dos puertas */
+.puertas{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:0 0 3.6rem;}
+.puerta{display:flex;flex-direction:column;gap:.55rem;text-decoration:none;color:inherit;
+  background:var(--surface);border:1px solid var(--rule);border-radius:4px;
+  padding:1.5rem 1.5rem 1.3rem;transition:border-color .18s,transform .18s;}
+.puerta:hover,.puerta:focus-visible{border-color:var(--ink-soft);outline:none;transform:translateY(-2px);}
+.puerta:focus-visible{box-shadow:0 0 0 2px var(--lamp);}
+.puerta .franja{display:flex;height:.4rem;border-radius:1px;overflow:hidden;margin:0 0 .5rem;}
+.puerta .franja i{flex:var(--n) 1 0;background:var(--c);}
+.puerta .nombre{font-family:"Fraunces",Georgia,serif;font-weight:400;
+  font-size:clamp(1.7rem,5vw,2.2rem);line-height:1.05;letter-spacing:-.015em;}
+.puerta .que{font-family:"Fraunces",Georgia,serif;font-style:italic;font-weight:300;
+  font-size:1rem;color:var(--ink-soft);line-height:1.35;}
+.puerta .datos{font-family:"IBM Plex Mono",monospace;font-size:.64rem;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--ink-soft);font-variant-numeric:tabular-nums;}
+.puerta .datos b{color:var(--ink);font-weight:500;}
+.puerta .cats{display:flex;flex-wrap:wrap;gap:.3rem .9rem;margin:.2rem 0 .5rem;}
+.puerta .leer{color:var(--ink);margin-top:auto;}
+.puerta:hover .leer{gap:.75rem;}
+
+/* pantallas de Ensayos y Aplicaciones */
+.volver{font-family:"IBM Plex Mono",monospace;font-size:.68rem;letter-spacing:.19em;
+  text-transform:uppercase;color:var(--ink-soft);text-decoration:none;}
+.volver:hover{color:var(--ink);}
+.pantalla .hero{padding-bottom:2.4rem;}
+.filtros{display:flex;flex-wrap:wrap;gap:.5rem;margin:0 0 .7rem;}
+.filtros.subs{padding-left:.2rem;}
+.filtros.subs[hidden]{display:none;}
+.chip{display:inline-flex;align-items:center;gap:.45rem;cursor:pointer;
+  font-family:"IBM Plex Mono",monospace;font-size:.64rem;letter-spacing:.11em;text-transform:uppercase;
+  background:transparent;color:var(--ink-soft);border:1px solid var(--rule);border-radius:99px;
+  padding:.5rem .9rem;min-height:2.3rem;transition:background .15s,color .15s,border-color .15s;}
+.chip i{display:inline-block;width:.6rem;height:.6rem;border-radius:50%;background:var(--c,var(--ink-soft));}
+.chip em{font-style:normal;opacity:.7;font-variant-numeric:tabular-nums;}
+.chip:hover{border-color:var(--c,var(--ink-soft));color:var(--ink);}
+.chip:focus-visible{outline:none;box-shadow:0 0 0 2px var(--lamp);}
+.chip[aria-pressed="true"]{background:var(--c,var(--ink));border-color:var(--c,var(--ink));color:var(--sobre);}
+.chip:not([class*="c-"])[aria-pressed="true"]{color:var(--ground);}
+.chip[aria-pressed="true"] i{background:var(--sobre);}
+.chip.sub{font-size:.6rem;padding:.35rem .75rem;min-height:2rem;border-style:dashed;}
+.chip.sub[aria-pressed="true"]{border-style:solid;}
+.cuenta{font-family:"IBM Plex Mono",monospace;font-size:.62rem;letter-spacing:.11em;
+  text-transform:uppercase;color:var(--ink-soft);margin:1rem 0 .4rem;
+  padding-top:1rem;border-top:1px solid var(--rule);}
+[data-cat][hidden]{display:none!important;}
+
+/* el estante y las apps toman el color de su categoría */
+.estante .cat,.app .cat{grid-column:1/-1;margin:0 0 .35rem;}
+.estante li{border-left:3px solid var(--c);padding-left:.9rem;margin:0 0 .2rem;}
+.app{border-color:var(--c);background:color-mix(in srgb,var(--c) 7%,transparent);
+  grid-template-columns:minmax(0,1fr) auto;}
+.app:focus-visible{box-shadow:0 0 0 2px var(--c);}
+.app .leer{color:var(--ink);}
+.destacada .cat{margin:0 0 .75rem;}
+@media (max-width:640px){
+  .puertas{grid-template-columns:1fr;}
+  .estante li{padding-left:.7rem;}
 }
 
 .priv h2{font-family:"Fraunces",Georgia,serif;font-weight:400;font-size:1.3rem;margin:2.2rem 0 .4rem;}
